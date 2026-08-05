@@ -1,0 +1,66 @@
+{
+  "openresult": "1.0",
+  "title": "A classification half the field cannot enter",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "run1",
+      "label": "Run 1",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "total",
+      "label": "Combined",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    },
+    {
+      "id": "c",
+      "name": "C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "run1": 68.42,
+        "total": 136.97
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "run1": 68.55,
+        "total": 137.96
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "run1": 71.2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "combined",
+      "label": "Combined",
+      "sortBy": ["run1", "total"]
+    }
+  ]
+}

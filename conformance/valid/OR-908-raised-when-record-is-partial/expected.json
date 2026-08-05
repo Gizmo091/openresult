@@ -1,0 +1,20 @@
+{
+  "valid": true,
+  "warnings": ["OR-908"],
+  "rankings": {
+    "combined": [
+      {
+        "participant": "a",
+        "rank": 1
+      },
+      {
+        "participant": "b",
+        "rank": 2
+      },
+      {
+        "participant": "c",
+        "rank": null
+      }
+    ]
+  }
+}

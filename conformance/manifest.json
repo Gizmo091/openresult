@@ -221,6 +221,22 @@
       "path": "invalid/compat-unknown-enums"
     },
     {
+      "id": "OR-908-not-raised-when-measure-absent-entirely",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "A result carrying none of a ranking's measures has no place in it, and is not reported.",
+      "path": "valid/OR-908-not-raised-when-measure-absent-entirely"
+    },
+    {
+      "id": "OR-908-raised-when-record-is-partial",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "A result carrying some sorting measures but not all is a competitor whose record is incomplete.",
+      "path": "valid/OR-908-raised-when-record-is-partial"
+    },
+    {
       "id": "OR-908-unranked-for-missing-measure",
       "kind": "valid",
       "level": "ranking",
@@ -387,6 +403,14 @@
       "rule": "spec §7.2.5",
       "description": "A bye scores without a contest and ranks normally, unlike every other non-finished status.",
       "path": "valid/status-bye-ranks"
+    },
+    {
+      "id": "status-not-classified",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §7.2.6",
+      "description": "notClassified records a competitor who took part but does not appear in the classification.",
+      "path": "valid/status-not-classified"
     }
   ]
 }

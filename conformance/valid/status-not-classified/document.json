@@ -1,0 +1,58 @@
+{
+  "openresult": "1.0",
+  "title": "Missed the cut",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "run1",
+      "label": "Run 1",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    },
+    {
+      "id": "c",
+      "name": "C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "run1": 68.42
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "run1": 68.55
+      }
+    },
+    {
+      "participant": "c",
+      "status": "notClassified",
+      "values": {
+        "run1": 71.2
+      },
+      "notes": "Outside the top 30 after the first run; did not start the second."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["run1"]
+    }
+  ]
+}

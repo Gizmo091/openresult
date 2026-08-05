@@ -1,0 +1,71 @@
+{
+  "openresult": "1.0",
+  "title": "A prize nobody without a catch can win",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "weight",
+      "label": "Total catch",
+      "kind": "mass",
+      "unit": "kg",
+      "precision": 3,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "biggest",
+      "label": "Heaviest fish",
+      "kind": "mass",
+      "unit": "kg",
+      "precision": 3,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    },
+    {
+      "id": "c",
+      "name": "C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "weight": 4.25,
+        "biggest": 1.87
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "weight": 2.1,
+        "biggest": 0.94
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "weight": 0
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "match",
+      "label": "Match",
+      "sortBy": ["weight"]
+    },
+    {
+      "id": "biggest-fish",
+      "label": "Heaviest fish",
+      "sortBy": ["biggest"]
+    }
+  ]
+}

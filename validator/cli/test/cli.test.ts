@@ -122,10 +122,11 @@ describe('machine output', () => {
     expect(payload['formatVersion']).toBe('1.0');
     expect((payload['errors'] as { code: string }[])[0]?.code).toBe('OR-201');
 
-    // Two warnings ride along: the declared measure goes unused (OR-901), and
-    // the ranking drops the dangling result for want of it (OR-908). Errors and
-    // warnings are counted separately, which is the point.
-    expect(payload['summary']).toEqual({ errors: 1, warnings: 2 });
+    // One warning rides along: the declared measure goes unused (OR-901).
+    // OR-908 does not fire — the dangling result carries none of the sorting
+    // measures, so it has no place in that ranking rather than an incomplete
+    // record. Errors and warnings are counted separately, which is the point.
+    expect(payload['summary']).toEqual({ errors: 1, warnings: 1 });
     const warningCodes = (payload['warnings'] as { code: string }[]).map((w) => w.code);
     expect(warningCodes).toContain('OR-901');
   });
