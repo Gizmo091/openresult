@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "title": "Zero versus absent",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "points": 10
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "points": 0
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["points"]
+    }
+  ]
+}

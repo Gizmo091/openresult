@@ -1,0 +1,13 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-204",
+      "path": "/events/0/parent"
+    },
+    {
+      "code": "OR-204",
+      "path": "/events/1/parent"
+    }
+  ]
+}

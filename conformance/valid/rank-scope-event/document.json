@@ -1,0 +1,86 @@
+{
+  "openresult": "1.0",
+  "title": "Scope excludes descendant events",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    },
+    {
+      "id": "d",
+      "name": "Competitor D"
+    }
+  ],
+  "events": [
+    {
+      "id": "overall",
+      "name": "Overall",
+      "type": "overall"
+    },
+    {
+      "id": "heat1",
+      "name": "Heat 1",
+      "type": "heat",
+      "parent": "overall"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "event": "heat1",
+      "values": {
+        "time": 5
+      }
+    },
+    {
+      "participant": "b",
+      "event": "overall",
+      "values": {
+        "time": 30
+      }
+    },
+    {
+      "participant": "c",
+      "event": "overall",
+      "values": {
+        "time": 20
+      }
+    },
+    {
+      "participant": "d",
+      "event": "heat1",
+      "values": {
+        "time": 1
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Overall",
+      "scope": {
+        "event": "overall"
+      },
+      "sortBy": ["time"]
+    }
+  ]
+}

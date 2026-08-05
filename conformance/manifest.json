@@ -1,0 +1,302 @@
+{
+  "suiteVersion": "1.0",
+  "formatVersion": "1.0",
+  "cases": [
+    {
+      "id": "OR-101-required-member-missing",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.1.1",
+      "description": "A required member is missing.",
+      "path": "invalid/OR-101-required-member-missing"
+    },
+    {
+      "id": "OR-102-wrong-type",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.2.1",
+      "description": "A measured value has the wrong type.",
+      "path": "invalid/OR-102-wrong-type"
+    },
+    {
+      "id": "OR-103-value-outside-domain",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.2",
+      "description": "An enumeration value is outside its domain.",
+      "path": "invalid/OR-103-value-outside-domain"
+    },
+    {
+      "id": "OR-104-identifier-charset",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.1",
+      "description": "An identifier uses characters outside the permitted set.",
+      "path": "invalid/OR-104-identifier-charset"
+    },
+    {
+      "id": "OR-105-unknown-member",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §10.2.4",
+      "description": "An unknown member that is not x- prefixed is rejected.",
+      "path": "invalid/OR-105-unknown-member"
+    },
+    {
+      "id": "OR-106-timestamp-without-offset",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.6.1",
+      "description": "A timestamp lacks its UTC offset.",
+      "path": "invalid/OR-106-timestamp-without-offset"
+    },
+    {
+      "id": "OR-107-unit-missing",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.3",
+      "description": "A measure of a kind that needs a unit has none.",
+      "path": "invalid/OR-107-unit-missing"
+    },
+    {
+      "id": "OR-108-null-value",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.3.2",
+      "description": "null is used where the measure should be omitted.",
+      "path": "invalid/OR-108-null-value"
+    },
+    {
+      "id": "OR-201-undeclared-reference",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.1",
+      "description": "A result references an undeclared participant.",
+      "path": "invalid/OR-201-undeclared-reference"
+    },
+    {
+      "id": "OR-202-duplicate-identifier",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.2",
+      "description": "Two entries in one collection share an id.",
+      "path": "invalid/OR-202-duplicate-identifier"
+    },
+    {
+      "id": "OR-203-duplicate-participant-event",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.3",
+      "description": "A participant has two results for the same event.",
+      "path": "invalid/OR-203-duplicate-participant-event"
+    },
+    {
+      "id": "OR-204-cycle-in-parent-graph",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.2.2",
+      "description": "The event parent graph contains a cycle.",
+      "path": "invalid/OR-204-cycle-in-parent-graph"
+    },
+    {
+      "id": "OR-205-undeclared-measure-in-values",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.3.1",
+      "description": "A values key references an undeclared measure.",
+      "path": "invalid/OR-205-undeclared-measure-in-values"
+    },
+    {
+      "id": "OR-206-undeclared-attribute",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.2",
+      "description": "An attributes key references an undeclared attribute.",
+      "path": "invalid/OR-206-undeclared-attribute"
+    },
+    {
+      "id": "OR-301-sort-on-directionless-measure",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §8.2.2",
+      "description": "A ranking sorts on a measure declaring betterWhen: none.",
+      "path": "invalid/OR-301-sort-on-directionless-measure"
+    },
+    {
+      "id": "OR-302-residual-tie-under-strict",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §8.3.1",
+      "description": "A tie survives under ties: strict.",
+      "path": "invalid/OR-302-residual-tie-under-strict"
+    },
+    {
+      "id": "OR-303-rank-on-non-rankable-status",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.2.3",
+      "description": "A non-rankable result carries a rank.",
+      "path": "invalid/OR-303-rank-on-non-rankable-status"
+    },
+    {
+      "id": "OR-304-empty-sortby",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §8.2.1",
+      "description": "A ranking declares no measure to sort on.",
+      "path": "invalid/OR-304-empty-sortby"
+    },
+    {
+      "id": "OR-401-not-openresult",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.2.1",
+      "description": "The openresult member is absent.",
+      "path": "invalid/OR-401-not-openresult"
+    },
+    {
+      "id": "OR-402-unsupported-major",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §11.4.1",
+      "description": "The major format version is unknown.",
+      "path": "invalid/OR-402-unsupported-major"
+    },
+    {
+      "id": "compat-unknown-enums",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §11.3.1",
+      "description": "A document carrying enumeration values from a later version is not conforming to 1.0, yet must still be readable: unknown values fold onto their documented fallback.",
+      "path": "invalid/compat-unknown-enums"
+    },
+    {
+      "id": "compat-extensions",
+      "kind": "valid",
+      "level": "rewriting",
+      "rule": "spec §10.2.2",
+      "description": "x- extensions are ignored and affect no ranking.",
+      "path": "valid/compat-extensions"
+    },
+    {
+      "id": "compat-higher-minor",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §11.4.2",
+      "description": "A higher minor version is read normally.",
+      "path": "valid/compat-higher-minor"
+    },
+    {
+      "id": "empty-results",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.1.3",
+      "description": "An announced event with no results is valid.",
+      "path": "valid/empty-results"
+    },
+    {
+      "id": "presentation-ignored",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §3.1.1",
+      "description": "Presentation hints never affect the derived ranking.",
+      "path": "valid/presentation-ignored"
+    },
+    {
+      "id": "rank-direction-higher",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "A higher-is-better measure orders descending.",
+      "path": "valid/rank-direction-higher"
+    },
+    {
+      "id": "rank-direction-lower",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "A lower-is-better measure orders ascending.",
+      "path": "valid/rank-direction-lower"
+    },
+    {
+      "id": "rank-excluded-statuses",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "Non-rankable statuses are excluded from ranking but kept in the output.",
+      "path": "valid/rank-excluded-statuses"
+    },
+    {
+      "id": "rank-implicit",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.6.1",
+      "description": "With no ranking declared, the first directional measure is used.",
+      "path": "valid/rank-implicit"
+    },
+    {
+      "id": "rank-missing-measure",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "A result missing a sorting measure is unranked, not sorted as zero.",
+      "path": "valid/rank-missing-measure"
+    },
+    {
+      "id": "rank-scope-category",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.2",
+      "description": "A category-scoped ranking sees only that category.",
+      "path": "valid/rank-scope-category"
+    },
+    {
+      "id": "rank-scope-event",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.1",
+      "description": "A scoped ranking sees that event only, never its descendants.",
+      "path": "valid/rank-scope-event"
+    },
+    {
+      "id": "rank-stability",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "Results equal on every criterion keep their declaration order.",
+      "path": "valid/rank-stability"
+    },
+    {
+      "id": "rank-tiebreak",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "A tie is broken by the next measure in sortBy.",
+      "path": "valid/rank-tiebreak"
+    },
+    {
+      "id": "rank-ties-dense",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.1",
+      "description": "Dense tie numbering skips no rank: 1, 2, 2, 3.",
+      "path": "valid/rank-ties-dense"
+    },
+    {
+      "id": "rank-ties-standard",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.1",
+      "description": "Standard tie numbering consumes the following rank: 1, 2, 2, 4.",
+      "path": "valid/rank-ties-standard"
+    },
+    {
+      "id": "rank-zero-is-a-value",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §7.3.2",
+      "description": "Zero ranks; an absent measure does not.",
+      "path": "valid/rank-zero-is-a-value"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "openresult": "1.0",
+  "title": "Non-rankable statuses",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    },
+    {
+      "id": "d",
+      "name": "Competitor D"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 30
+      }
+    },
+    {
+      "participant": "b",
+      "status": "dnf",
+      "values": {
+        "time": 5
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "time": 20
+      }
+    },
+    {
+      "participant": "d",
+      "status": "dns"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"]
+    }
+  ]
+}

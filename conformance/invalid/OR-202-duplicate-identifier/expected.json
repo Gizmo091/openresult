@@ -1,0 +1,13 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-202",
+      "path": "/participants/1/id"
+    },
+    {
+      "code": "OR-203",
+      "path": "/results/1"
+    }
+  ]
+}

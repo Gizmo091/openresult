@@ -1,0 +1,59 @@
+{
+  "openresult": "1.0",
+  "title": "No ranking declared",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "bib",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "bib": 1,
+        "time": 30
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "bib": 2,
+        "time": 10
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "bib": 3,
+        "time": 20
+      }
+    }
+  ]
+}

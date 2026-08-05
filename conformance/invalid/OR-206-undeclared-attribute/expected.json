@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-206",
+      "path": "/participants/0/attributes/club"
+    }
+  ]
+}

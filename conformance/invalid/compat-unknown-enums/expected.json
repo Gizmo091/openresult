@@ -1,0 +1,29 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-103",
+      "path": "/participants/0/type"
+    },
+    {
+      "code": "OR-103",
+      "path": "/results/0/status"
+    },
+    {
+      "code": "OR-103",
+      "path": "/rankings/0/ties"
+    }
+  ],
+  "rankings": {
+    "main": [
+      {
+        "participant": "b",
+        "rank": 1
+      },
+      {
+        "participant": "a",
+        "rank": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-108",
+      "path": "/results/0/values/time"
+    }
+  ]
+}

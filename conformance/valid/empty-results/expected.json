@@ -1,0 +1,7 @@
+{
+  "valid": true,
+  "warnings": ["OR-901", "OR-906"],
+  "rankings": {
+    "main": []
+  }
+}

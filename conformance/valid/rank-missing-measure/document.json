@@ -1,0 +1,65 @@
+{
+  "openresult": "1.0",
+  "title": "Missing sorting measure",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "bib",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 30,
+        "bib": 1
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "bib": 2
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "time": 20,
+        "bib": 3
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"]
+    }
+  ]
+}

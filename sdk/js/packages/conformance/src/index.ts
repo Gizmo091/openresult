@@ -49,10 +49,20 @@ export interface ExpectedPlacement {
   rank: number | null;
 }
 
-/** Expected outcome for an invalid case. Only codes and paths are compared. */
+/**
+ * Expected outcome for an invalid case. Only codes and paths are compared.
+ *
+ * `rankings` may be present alongside the errors, and the combination is not a
+ * contradiction: validity and readability are different questions. A document
+ * carrying an enumeration value from a later version is not conforming to this
+ * one — a producer must not emit it — yet a consumer is still required to read
+ * it, folding the unknown value onto its documented fallback (spec §11.3.1).
+ * Stating both in one case is what pins that distinction down.
+ */
 export interface ExpectedInvalid {
   valid: false;
   errors: { code: string; path: string }[];
+  rankings?: Record<string, ExpectedPlacement[]>;
 }
 
 export type Expected = ExpectedValid | ExpectedInvalid;
@@ -60,3 +70,6 @@ export type Expected = ExpectedValid | ExpectedInvalid;
 export function isValidCase(expected: Expected): expected is ExpectedValid {
   return expected.valid;
 }
+
+export { runSuite } from './runner.js';
+export type { CaseOutcome, SuiteOutcome, RunOptions } from './runner.js';

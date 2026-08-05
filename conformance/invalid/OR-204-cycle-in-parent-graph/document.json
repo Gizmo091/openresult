@@ -1,0 +1,52 @@
+{
+  "openresult": "1.0",
+  "title": "Case",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "event": "x",
+      "values": {
+        "time": 20
+      }
+    },
+    {
+      "participant": "b",
+      "event": "y",
+      "values": {
+        "time": 10
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "x",
+      "name": "X",
+      "parent": "y"
+    },
+    {
+      "id": "y",
+      "name": "Y",
+      "parent": "x"
+    }
+  ]
+}

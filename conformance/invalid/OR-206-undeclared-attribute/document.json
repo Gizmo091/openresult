@@ -1,0 +1,41 @@
+{
+  "openresult": "1.0",
+  "title": "Case",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A",
+      "attributes": {
+        "club": "X"
+      }
+    },
+    {
+      "id": "b",
+      "name": "B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 20
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 10
+      }
+    }
+  ]
+}

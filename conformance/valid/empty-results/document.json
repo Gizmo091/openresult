@@ -1,0 +1,34 @@
+{
+  "openresult": "1.0",
+  "title": "Announced, no results yet",
+  "lang": "en",
+  "status": "draft",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"]
+    }
+  ]
+}

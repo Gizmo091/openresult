@@ -1,0 +1,55 @@
+{
+  "openresult": "1.0",
+  "title": "Stable sort",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "c",
+      "values": {
+        "points": 10
+      }
+    },
+    {
+      "participant": "a",
+      "values": {
+        "points": 10
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "points": 10
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["points"]
+    }
+  ]
+}

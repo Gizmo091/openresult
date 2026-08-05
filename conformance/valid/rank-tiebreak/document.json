@@ -1,0 +1,55 @@
+{
+  "openresult": "1.0",
+  "title": "Tie broken by the next measure",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "points": 24,
+        "time": 30
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "points": 24,
+        "time": 10
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["points", "time"]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "valid": true,
+  "rankings": {
+    "main": [
+      {
+        "participant": "a",
+        "rank": 1
+      },
+      {
+        "participant": "b",
+        "rank": 2
+      },
+      {
+        "participant": "c",
+        "rank": 2
+      },
+      {
+        "participant": "d",
+        "rank": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "openresult": "1.0",
+  "title": "Extensions everywhere",
+  "lang": "en",
+  "x-vendor": {
+    "name": "ChronoX"
+  },
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower",
+      "x-sensor": "photocell"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A",
+      "x-licence": "123"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 30
+      },
+      "x-splits": [15, 15]
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 10
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"],
+      "x-published": true
+    }
+  ]
+}

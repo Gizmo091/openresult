@@ -1,0 +1,40 @@
+{
+  "openresult": "1.0",
+  "title": "Case",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 20
+      },
+      "status": "dnf",
+      "rank": 2
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 10
+      }
+    }
+  ]
+}

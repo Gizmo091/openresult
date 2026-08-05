@@ -1,0 +1,51 @@
+{
+  "openresult": "1.0",
+  "title": "Presentation hints present",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 30
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 10
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "cards",
+    "measureOrder": ["time"],
+    "highlight": ["a"]
+  }
+}

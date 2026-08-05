@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "title": "Case",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "bib",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "bib": 1
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "bib": 2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["bib"]
+    }
+  ]
+}

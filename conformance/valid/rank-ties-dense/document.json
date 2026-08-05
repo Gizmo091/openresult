@@ -1,0 +1,66 @@
+{
+  "openresult": "1.0",
+  "title": "Dense tie numbering",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    },
+    {
+      "id": "d",
+      "name": "Competitor D"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "points": 30
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "points": 24
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "points": 24
+      }
+    },
+    {
+      "participant": "d",
+      "values": {
+        "points": 19
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["points"],
+      "ties": "dense"
+    }
+  ]
+}
