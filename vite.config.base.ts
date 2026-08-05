@@ -10,6 +10,8 @@ import type { UserConfig } from 'vite';
 export function libraryConfig(options: {
   entry: string;
   name: string;
+  /** Output basename, without extension. Defaults to `index`. */
+  fileName?: string;
   /**
    * Declared dependencies to keep out of the bundle. A published package must
    * not inline what it depends on: the consumer would end up with two copies
@@ -24,7 +26,7 @@ export function libraryConfig(options: {
         entry: options.entry,
         name: options.name,
         formats: ['es'],
-        fileName: 'index',
+        fileName: options.fileName ?? 'index',
       },
       rollupOptions: {
         external: options.external ?? [],
