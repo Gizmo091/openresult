@@ -1,10 +1,13 @@
-import { syntaxTree } from '@codemirror/language';
+import { ensureSyntaxTree, syntaxTree } from '@codemirror/language';
 import type { EditorState } from '@codemirror/state';
 
 export interface Range {
   from: number;
   to: number;
 }
+
+/** Long enough for any document a person pastes; short enough not to hang a tab. */
+const PARSE_BUDGET_MS = 5_000;
 
 /**
  * Resolve an RFC 6901 JSON Pointer to a range in the editor.
@@ -16,7 +19,15 @@ export interface Range {
  */
 export function locate(state: EditorState, pointer: string): Range | null {
   const segments = parsePointer(pointer);
-  const tree = syntaxTree(state);
+
+  // `syntaxTree` returns the tree parsed *so far*, which for anything longer
+  // than the editor's initial parse budget stops partway through the document —
+  // and a partial tree resolves a pointer to whatever node happens to be the
+  // last one reached. The diagnostic then highlights an arbitrary token with no
+  // sign that anything went wrong. `ensureSyntaxTree` finishes the parse; it
+  // returns null only if it runs out of time, in which case the partial tree is
+  // still better than refusing to point at all.
+  const tree = ensureSyntaxTree(state, state.doc.length, PARSE_BUDGET_MS) ?? syntaxTree(state);
 
   let node = tree.topNode.firstChild;
   if (node === null) return null;

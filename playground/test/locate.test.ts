@@ -76,4 +76,20 @@ describe('locating a JSON Pointer', () => {
   it('survives a document that does not parse', () => {
     expect(() => textAt('/title', '{ "title": ')).not.toThrow();
   });
+
+  it('resolves a pointer past the editor’s initial parse budget', () => {
+    // The editor parses only part of a long document up front, and the rest
+    // lazily. Asking the tree for a pointer near the end used to resolve
+    // against whatever had been parsed so far — highlighting an arbitrary
+    // token, or the opening brace, with nothing to signal it had gone wrong.
+    // It surfaced as a test that failed roughly one run in three, always under
+    // load: the same race, on a much smaller document.
+    const filler = Array.from(
+      { length: 20_000 },
+      (_, index) => `    { "id": "p${index}", "name": "Competitor ${index}" }`,
+    ).join(',\n');
+    const long = `{\n  "participants": [\n${filler}\n  ],\n  "title": "Last of all"\n}`;
+
+    expect(textAt('/title', long)).toBe('"Last of all"');
+  });
 });
