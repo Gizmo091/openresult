@@ -1,0 +1,38 @@
+{
+  "openresult": "1.0",
+  "title": "An overall standing with nothing attached to it",
+  "lang": "en",
+  "description": "The heats carry every result and the overall event carries none, so the standing scoped to it selects nothing and renders empty. A scoped ranking never sees descendant events, so the cumulative figures have to exist as results on the parent (spec §8.1.4).",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" }
+  ],
+  "events": [
+    { "id": "overall", "name": "Overall", "type": "overall" },
+    { "id": "heat1", "name": "Heat 1", "type": "heat", "parent": "overall" },
+    { "id": "heat2", "name": "Heat 2", "type": "heat", "parent": "overall" }
+  ],
+  "results": [
+    { "participant": "a", "event": "heat1", "values": { "points": 25 } },
+    { "participant": "b", "event": "heat1", "values": { "points": 22 } },
+    { "participant": "a", "event": "heat2", "values": { "points": 20 } },
+    { "participant": "b", "event": "heat2", "values": { "points": 25 } }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall standings",
+      "scope": { "event": "overall" },
+      "sortBy": ["points"]
+    }
+  ]
+}

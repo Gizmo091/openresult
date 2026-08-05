@@ -221,6 +221,14 @@
       "path": "invalid/compat-unknown-enums"
     },
     {
+      "id": "OR-906-parent-event-without-results",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.4",
+      "description": "A standing scoped to a parent event whose results were never published selects nothing and warns.",
+      "path": "valid/OR-906-parent-event-without-results"
+    },
+    {
       "id": "OR-908-not-raised-when-measure-absent-entirely",
       "kind": "valid",
       "level": "ranking",
@@ -413,11 +421,19 @@
       "path": "valid/status-bye-ranks"
     },
     {
+      "id": "status-finished-when-not-selected",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §7.2.7",
+      "description": "A competitor who completes a heat and is not selected for the next round is finished, and classified in that heat.",
+      "path": "valid/status-finished-when-not-selected"
+    },
+    {
       "id": "status-not-classified",
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §7.2.6",
-      "description": "notClassified records a competitor who took part but does not appear in the classification.",
+      "description": "notClassified sits on the result that has no classification — the combined event — not on the leg the competitor completed.",
       "path": "valid/status-not-classified"
     },
     {

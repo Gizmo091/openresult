@@ -1,15 +1,14 @@
 {
   "valid": true,
   "rankings": {
-    "leg1": [
+    "heat": [
       { "participant": "a", "rank": 1 },
       { "participant": "b", "rank": 2 },
       { "participant": "c", "rank": 3 }
     ],
-    "combined": [
-      { "participant": "a", "rank": 1 },
-      { "participant": "b", "rank": 2 },
-      { "participant": "c", "rank": null }
+    "final": [
+      { "participant": "b", "rank": 1 },
+      { "participant": "a", "rank": 2 }
     ]
   }
 }

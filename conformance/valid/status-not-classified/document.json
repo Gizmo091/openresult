@@ -2,6 +2,7 @@
   "openresult": "1.0",
   "title": "Missed the cut",
   "lang": "en",
+  "description": "The status describes the result it sits on. C runs the first leg cleanly and is classified third on it; what C lacks is a combined time, so it is the combined result that is notClassified (spec §7.2.6, §7.2.7).",
   "measures": [
     {
       "id": "run1",
@@ -10,49 +11,58 @@
       "unit": "s",
       "precision": 2,
       "betterWhen": "lower"
+    },
+    {
+      "id": "combined",
+      "label": "Combined",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
     }
   ],
   "participants": [
-    {
-      "id": "a",
-      "name": "A"
-    },
-    {
-      "id": "b",
-      "name": "B"
-    },
-    {
-      "id": "c",
-      "name": "C"
-    }
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "events": [
+    { "id": "leg1", "name": "First leg", "type": "round" },
+    { "id": "combined", "name": "Combined", "type": "overall" }
   ],
   "results": [
+    { "participant": "a", "event": "leg1", "values": { "run1": 68.42 } },
+    { "participant": "b", "event": "leg1", "values": { "run1": 68.55 } },
+    { "participant": "c", "event": "leg1", "values": { "run1": 71.2 } },
     {
       "participant": "a",
-      "values": {
-        "run1": 68.42
-      }
+      "event": "combined",
+      "values": { "combined": 137.1 }
     },
     {
       "participant": "b",
-      "values": {
-        "run1": 68.55
-      }
+      "event": "combined",
+      "values": { "combined": 137.44 }
     },
     {
       "participant": "c",
+      "event": "combined",
       "status": "notClassified",
-      "values": {
-        "run1": 71.2
-      },
-      "notes": "Outside the top 30 after the first run; did not start the second."
+      "notes": "Outside the top 30 after the first leg; started no second leg, so there is no combined time."
     }
   ],
   "rankings": [
     {
-      "id": "main",
-      "label": "Main",
+      "id": "leg1",
+      "label": "First leg",
+      "scope": { "event": "leg1" },
       "sortBy": ["run1"]
+    },
+    {
+      "id": "combined",
+      "label": "Combined",
+      "scope": { "event": "combined" },
+      "sortBy": ["combined"]
     }
   ]
 }

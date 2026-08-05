@@ -1,0 +1,46 @@
+{
+  "openresult": "1.0",
+  "title": "Finishing a heat without being selected",
+  "lang": "en",
+  "description": "Two swimmers advance, one does not. All three finished their heat and all three are classified in it: non-selection is the absence of a result in the round that follows, not a status on the round they completed (spec §7.2.7).",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "events": [
+    { "id": "heat", "name": "Heat 1", "type": "heat" },
+    { "id": "final", "name": "Final", "type": "final" }
+  ],
+  "results": [
+    { "participant": "a", "event": "heat", "values": { "time": 55.1 } },
+    { "participant": "b", "event": "heat", "values": { "time": 55.94 } },
+    { "participant": "c", "event": "heat", "values": { "time": 57.3 } },
+    { "participant": "b", "event": "final", "values": { "time": 55.02 } },
+    { "participant": "a", "event": "final", "values": { "time": 55.31 } }
+  ],
+  "rankings": [
+    {
+      "id": "heat",
+      "label": "Heat 1",
+      "scope": { "event": "heat" },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "final",
+      "label": "Final",
+      "scope": { "event": "final" },
+      "sortBy": ["time"]
+    }
+  ]
+}
