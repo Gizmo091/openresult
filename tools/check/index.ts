@@ -1,4 +1,5 @@
 import { coreDeps } from './core-deps.ts';
+import { defaultExclusionsAgree } from './default-exclusions-agree.ts';
 import { crossImplementation } from './cross-implementation.ts';
 import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
@@ -30,6 +31,7 @@ const CHECKS: Check[] = [
   specSchemaSync,
   specRequiredSync,
   typesMatchSchema,
+  defaultExclusionsAgree,
   presentationOptional,
   crossImplementation,
 ];
