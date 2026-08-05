@@ -1,0 +1,57 @@
+[Unit]
+Description=openresult.dev
+Documentation=https://openresult.dev/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=openresult
+Group=openresult
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=8080
+Environment=OPENRESULT_ROOT=/srv/openresult/current/public
+ExecStart=/usr/bin/node /srv/openresult/current/server/index.mjs
+Restart=always
+RestartSec=2
+
+# The process renders documents strangers send it. It needs to read one
+# directory and answer one socket, and nothing else it can be talked into.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+RestrictSUIDSGID=true
+RestrictRealtime=true
+RestrictNamespaces=true
+LockPersonality=true
+# MemoryDenyWriteExecute is deliberately absent: V8 compiles JavaScript to
+# machine code at runtime and needs pages that are writable and then
+# executable. Setting it makes node die on its first tiering-up, which it does
+# within a second of the first request.
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+# Outbound only: it fetches documents over the network and listens on loopback,
+# where nginx reaches it.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=
+UMask=0077
+
+# A results renderer that starts eating the machine should be stopped by the
+# machine, not by whoever notices.
+MemoryMax=512M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target
