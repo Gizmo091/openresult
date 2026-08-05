@@ -41,9 +41,9 @@ the convention into a `description` that §6.1.6 says is never parsed.
 those events are selected, and descendants remain excluded. §8.1.5 says to prefer this over
 republishing whenever nothing is computed.
 
-**§8.1.4 now distinguishes ordering from aggregating.** A figure that is *computed* from several
+**§8.1.4 now distinguishes ordering from aggregating.** A figure that is _computed_ from several
 events — a points total, a sum of legs — has to be published as a result, because no consumer may
-be asked to compute it (§1.2). A classification that merely *orders* figures already recorded
+be asked to compute it (§1.2). A classification that merely _orders_ figures already recorded
 lists their events and leaves them where they are.
 
 **Per-member results go on a child event**, documented in §6.3. No new member was needed: a team
