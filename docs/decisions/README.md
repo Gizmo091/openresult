@@ -10,17 +10,20 @@ one `Superseded by`.
 
 ## Format decisions
 
-| ADR                                                   | Title                                                | Status   |
-| ----------------------------------------------------- | ---------------------------------------------------- | -------- |
-| [0001](./0001-domain-entities-over-generic-table.md)  | Domain entities rather than a generic table          | Accepted |
-| [0002](./0002-presentation-is-non-normative.md)       | The presentation layer is non-normative              | Accepted |
-| [0003](./0003-rank-is-optional-ranking-is-derived.md) | Rank is optional; ranking is derived by the consumer | Accepted |
-| [0009](./0009-numeric-durations.md)                   | Durations are plain numbers, not ISO 8601            | Accepted |
-| [0010](./0010-rfc3339-dates.md)                       | Dates use RFC 3339 with a mandatory offset           | Accepted |
-| [0011](./0011-x-prefix-extensions.md)                 | Extensions use the `x-` prefix                       | Accepted |
-| [0012](./0012-version-declaration.md)                 | One field declares the format version                | Accepted |
-| [0013](./0013-sort-direction-from-measure.md)         | Sort direction comes from the measure                | Accepted |
-| [0016](./0016-naming-and-identifiers.md)              | camelCase names, opaque identifiers                  | Accepted |
+| ADR                                                   | Title                                                               | Status   |
+| ----------------------------------------------------- | ------------------------------------------------------------------- | -------- |
+| [0001](./0001-domain-entities-over-generic-table.md)  | Domain entities rather than a generic table                         | Accepted |
+| [0002](./0002-presentation-is-non-normative.md)       | The presentation layer is non-normative                             | Accepted |
+| [0003](./0003-rank-is-optional-ranking-is-derived.md) | Rank is optional; ranking is derived by the consumer                | Accepted |
+| [0009](./0009-numeric-durations.md)                   | Durations are plain numbers, not ISO 8601                           | Accepted |
+| [0010](./0010-rfc3339-dates.md)                       | Dates use RFC 3339 with a mandatory offset                          | Accepted |
+| [0011](./0011-x-prefix-extensions.md)                 | Extensions use the `x-` prefix                                      | Accepted |
+| [0012](./0012-version-declaration.md)                 | One field declares the format version                               | Accepted |
+| [0013](./0013-sort-direction-from-measure.md)         | Sort direction comes from the measure                               | Accepted |
+| [0016](./0016-naming-and-identifiers.md)              | camelCase names, opaque identifiers                                 | Accepted |
+| [0017](./0017-bye-is-a-status.md)                     | `bye` is a status, and it ranks                                     | Accepted |
+| [0018](./0018-not-classified-is-a-status.md)          | `notClassified` is a status; `OR-908` only warns on partial records | Accepted |
+| [0019](./0019-ties-resolved-outside-the-document.md)  | `ties: "resolved"`; `description` on every named entity             | Accepted |
 
 ## Project decisions
 
