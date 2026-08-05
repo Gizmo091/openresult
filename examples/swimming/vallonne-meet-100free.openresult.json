@@ -1,0 +1,548 @@
+{
+  "openresult": "1.0",
+  "id": "vallonne-meet-2026-w100free",
+  "title": "Vallonne International Meet 2026 — 100 m freestyle, women",
+  "description": "Three qualifying heats, a swim-off for the last place in the final, and the final itself. The qualifying classification lists its three heats in scope.event rather than republishing their times (spec §8.1.5), so every swim appears exactly once. The swim-off is settled outside the document — no measure holds its outcome — so the classification declares ties: \"resolved\" and the published positions break the tie (§8.3.4).",
+  "lang": "en",
+  "status": "official",
+  "generatedAt": "2026-07-11T20:41:00+02:00",
+  "occurredAt": {
+    "start": "2026-07-11T10:02:00+02:00",
+    "end": "2026-07-11T19:58:00+02:00"
+  },
+  "source": {
+    "name": "Vallonne Swimming Federation",
+    "system": "MeetManager 8.2",
+    "url": "https://example.org/meets/vallonne-2026",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "split50",
+      "label": "50 m split",
+      "description": "Cumulative from the start, not the length swum.",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "none"
+    },
+    {
+      "id": "reaction",
+      "label": "Reaction",
+      "description": "Time from the starting signal to the feet leaving the block.",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "lane",
+      "label": "Lane",
+      "description": "Allocated by the organisers, so an attribute and not a measure (spec §5.3.5).",
+      "type": "number"
+    },
+    {
+      "id": "club",
+      "label": "Club",
+      "type": "text"
+    },
+    {
+      "id": "country",
+      "label": "Country",
+      "type": "country"
+    },
+    {
+      "id": "meetRecord",
+      "label": "Meet record",
+      "type": "boolean"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ruiz",
+      "name": "Ana Ruiz",
+      "attributes": {
+        "club": "Club Nautique Vallonne",
+        "country": "FR"
+      }
+    },
+    {
+      "id": "nowak",
+      "name": "Bea Nowak",
+      "attributes": {
+        "club": "Warsaw Dolphins",
+        "country": "PL"
+      }
+    },
+    {
+      "id": "adeyemi",
+      "name": "Cleo Adeyemi",
+      "attributes": {
+        "club": "Lagos Aquatics",
+        "country": "NG"
+      }
+    },
+    {
+      "id": "lindqvist",
+      "name": "Dora Lindqvist",
+      "attributes": {
+        "club": "Malmö SS",
+        "country": "SE"
+      }
+    },
+    {
+      "id": "bergstrom",
+      "name": "Eva Bergström",
+      "attributes": {
+        "club": "Malmö SS",
+        "country": "SE"
+      }
+    },
+    {
+      "id": "oneill",
+      "name": "Fay O'Neill",
+      "attributes": {
+        "club": "Cork Swim Club",
+        "country": "IE"
+      }
+    },
+    {
+      "id": "segers",
+      "name": "Britt Segers",
+      "attributes": {
+        "club": "Swimming Club Anvers",
+        "country": "BE"
+      }
+    },
+    {
+      "id": "moreau",
+      "name": "Gaëlle Moreau",
+      "attributes": {
+        "club": "Club Nautique Vallonne",
+        "country": "FR"
+      }
+    },
+    {
+      "id": "kovacs",
+      "name": "Hanna Kovács",
+      "attributes": {
+        "club": "Budapest USC",
+        "country": "HU"
+      }
+    },
+    {
+      "id": "dasilva",
+      "name": "Ines da Silva",
+      "attributes": {
+        "club": "Porto Natação",
+        "country": "PT"
+      }
+    },
+    {
+      "id": "tanaka",
+      "name": "Jun Tanaka",
+      "attributes": {
+        "club": "Osaka Swim",
+        "country": "JP"
+      }
+    },
+    {
+      "id": "weber",
+      "name": "Klara Weber",
+      "attributes": {
+        "club": "Berliner SC",
+        "country": "DE"
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "heat1",
+      "name": "Heat 1",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": {
+        "start": "2026-07-11T10:02:00+02:00"
+      }
+    },
+    {
+      "id": "heat2",
+      "name": "Heat 2",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": {
+        "start": "2026-07-11T10:14:00+02:00"
+      }
+    },
+    {
+      "id": "heat3",
+      "name": "Heat 3",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": {
+        "start": "2026-07-11T10:26:00+02:00"
+      }
+    },
+    {
+      "id": "qualifying",
+      "name": "Qualifying",
+      "description": "Groups the three heats for navigation. It holds no results of its own: the qualifying classification lists the heats instead (spec §8.1.5).",
+      "type": "round"
+    },
+    {
+      "id": "swimoff",
+      "name": "Swim-off for eighth place",
+      "description": "Two swimmers touched in the same hundredth for the last place in the final, and swam it again.",
+      "type": "other",
+      "occurredAt": {
+        "start": "2026-07-11T11:40:00+02:00"
+      }
+    },
+    {
+      "id": "final",
+      "name": "Final",
+      "type": "final",
+      "occurredAt": {
+        "start": "2026-07-11T19:44:00+02:00"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "ruiz",
+      "event": "heat1",
+      "attributes": {
+        "lane": 4
+      },
+      "values": {
+        "split50": 26.78,
+        "time": 55.44,
+        "reaction": 0.68
+      }
+    },
+    {
+      "participant": "moreau",
+      "event": "heat1",
+      "attributes": {
+        "lane": 5
+      },
+      "values": {
+        "split50": 26.94,
+        "time": 55.72,
+        "reaction": 0.71
+      }
+    },
+    {
+      "participant": "kovacs",
+      "event": "heat1",
+      "attributes": {
+        "lane": 3
+      },
+      "values": {
+        "split50": 27.06,
+        "time": 55.9,
+        "reaction": 0.66
+      }
+    },
+    {
+      "participant": "weber",
+      "event": "heat1",
+      "status": "dsq",
+      "attributes": {
+        "lane": 6
+      },
+      "values": {
+        "reaction": 0.59
+      },
+      "notes": "Disqualified: false start."
+    },
+    {
+      "participant": "adeyemi",
+      "event": "heat2",
+      "attributes": {
+        "lane": 4
+      },
+      "values": {
+        "split50": 26.42,
+        "time": 55.1,
+        "reaction": 0.64
+      }
+    },
+    {
+      "participant": "lindqvist",
+      "event": "heat2",
+      "attributes": {
+        "lane": 5
+      },
+      "values": {
+        "split50": 27.01,
+        "time": 55.81,
+        "reaction": 0.72
+      }
+    },
+    {
+      "participant": "segers",
+      "event": "heat2",
+      "attributes": {
+        "lane": 3
+      },
+      "values": {
+        "split50": 27.05,
+        "time": 56.02,
+        "reaction": 0.69
+      },
+      "ranks": {
+        "qualifying": 9
+      }
+    },
+    {
+      "participant": "dasilva",
+      "event": "heat2",
+      "attributes": {
+        "lane": 6
+      },
+      "values": {
+        "split50": 27.8,
+        "time": 57.31,
+        "reaction": 0.75
+      }
+    },
+    {
+      "participant": "bergstrom",
+      "event": "heat3",
+      "attributes": {
+        "lane": 4
+      },
+      "values": {
+        "split50": 26.61,
+        "time": 55.28,
+        "reaction": 0.63
+      }
+    },
+    {
+      "participant": "nowak",
+      "event": "heat3",
+      "attributes": {
+        "lane": 5
+      },
+      "values": {
+        "split50": 27.11,
+        "time": 56.02,
+        "reaction": 0.67
+      },
+      "ranks": {
+        "qualifying": 8
+      }
+    },
+    {
+      "participant": "oneill",
+      "event": "heat3",
+      "attributes": {
+        "lane": 3
+      },
+      "values": {
+        "split50": 27.09,
+        "time": 55.95,
+        "reaction": 0.74
+      }
+    },
+    {
+      "participant": "tanaka",
+      "event": "heat3",
+      "status": "dns",
+      "attributes": {
+        "lane": 6
+      },
+      "notes": "Did not start."
+    },
+    {
+      "participant": "nowak",
+      "event": "swimoff",
+      "attributes": {
+        "lane": 4
+      },
+      "values": {
+        "split50": 27.2,
+        "time": 56.18,
+        "reaction": 0.66
+      }
+    },
+    {
+      "participant": "segers",
+      "event": "swimoff",
+      "attributes": {
+        "lane": 5
+      },
+      "values": {
+        "split50": 27.28,
+        "time": 56.31,
+        "reaction": 0.7
+      }
+    },
+    {
+      "participant": "adeyemi",
+      "event": "final",
+      "attributes": {
+        "lane": 4,
+        "meetRecord": true
+      },
+      "values": {
+        "split50": 26.3,
+        "time": 54.62,
+        "reaction": 0.62
+      },
+      "notes": "Meet record; previous 54.88."
+    },
+    {
+      "participant": "bergstrom",
+      "event": "final",
+      "attributes": {
+        "lane": 5
+      },
+      "values": {
+        "split50": 26.61,
+        "time": 55.02,
+        "reaction": 0.65
+      }
+    },
+    {
+      "participant": "ruiz",
+      "event": "final",
+      "attributes": {
+        "lane": 3
+      },
+      "values": {
+        "split50": 26.84,
+        "time": 55.31,
+        "reaction": 0.67
+      }
+    },
+    {
+      "participant": "moreau",
+      "event": "final",
+      "attributes": {
+        "lane": 6
+      },
+      "values": {
+        "split50": 27.02,
+        "time": 55.68,
+        "reaction": 0.7
+      }
+    },
+    {
+      "participant": "lindqvist",
+      "event": "final",
+      "attributes": {
+        "lane": 2
+      },
+      "values": {
+        "split50": 27.14,
+        "time": 55.9,
+        "reaction": 0.71
+      }
+    },
+    {
+      "participant": "kovacs",
+      "event": "final",
+      "attributes": {
+        "lane": 7
+      },
+      "values": {
+        "split50": 27.22,
+        "time": 56.11,
+        "reaction": 0.68
+      }
+    },
+    {
+      "participant": "oneill",
+      "event": "final",
+      "attributes": {
+        "lane": 1
+      },
+      "values": {
+        "split50": 27.31,
+        "time": 56.3,
+        "reaction": 0.73
+      }
+    },
+    {
+      "participant": "nowak",
+      "event": "final",
+      "status": "dnf",
+      "attributes": {
+        "lane": 8
+      },
+      "values": {
+        "reaction": 0.64
+      },
+      "notes": "Stopped at 50 m with a shoulder problem."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "qualifying",
+      "label": "Qualifying classification",
+      "description": "The eight fastest go to the final. Britt Segers and Bea Nowak both swam 56.02; the swim-off put Nowak eighth, and those published positions are what break the tie here.",
+      "scope": {
+        "event": ["heat1", "heat2", "heat3"]
+      },
+      "sortBy": ["time"],
+      "ties": "resolved"
+    },
+    {
+      "id": "heat1",
+      "label": "Heat 1",
+      "scope": {
+        "event": "heat1"
+      },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "heat2",
+      "label": "Heat 2",
+      "scope": {
+        "event": "heat2"
+      },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "heat3",
+      "label": "Heat 3",
+      "scope": {
+        "event": "heat3"
+      },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "swimoff",
+      "label": "Swim-off",
+      "scope": {
+        "event": "swimoff"
+      },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "final",
+      "label": "Final",
+      "scope": {
+        "event": "final"
+      },
+      "sortBy": ["time"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["time", "split50", "reaction"],
+    "attributeOrder": ["lane", "club", "country"]
+  }
+}
