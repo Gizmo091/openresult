@@ -686,6 +686,9 @@ enumeration values as the fallback defined for that domain: `other` for `type`, 
 **§11.4.1** A consumer encountering an unknown MAJOR version **MUST NOT** attempt to interpret
 the document, and **MUST** report the situation distinctly from an invalid document.
 
+**§11.4.2** A consumer encountering a known MAJOR version with a higher MINOR version **MUST**
+process the document normally, ignoring what it does not recognise.
+
 ### 11.5 Conformance levels
 
 **§11.5.1 — Producer.** Emits UTF-8 JSON; populates the required members; declares every measure
@@ -731,35 +734,35 @@ plain language, and at least one concrete correction.
 
 ### 12.2 Diagnostic codes
 
-| Code     | Severity | Rule                                                                     |
-| -------- | -------- | ------------------------------------------------------------------------ |
-| `OR-101` | error    | Required member missing (§4.1.1)                                         |
-| `OR-102` | error    | Member has the wrong type (§5.2.1, §7.3.3)                               |
-| `OR-103` | error    | Value outside its permitted domain (§5.1.2, §7.2.1)                      |
-| `OR-104` | error    | Identifier does not match the permitted character set (§5.4.1)           |
-| `OR-105` | error    | Unknown member, not prefixed `x-` (§10.2.4)                              |
-| `OR-106` | error    | Timestamp is not RFC 3339 with an offset (§4.6.1)                        |
-| `OR-107` | error    | `unit` missing for a kind that requires one (§5.1.3)                     |
-| `OR-108` | error    | `null` used for an unavailable measure (§7.3.2)                          |
-| `OR-201` | error    | Reference to an undeclared entity (§6.1.2, §7.1.1, §7.1.2, §8.1.1)       |
-| `OR-202` | error    | Duplicate identifier within a collection (§5.4.2)                        |
-| `OR-203` | error    | Duplicate (`participant`, `event`) pair (§7.1.3)                         |
-| `OR-204` | error    | Cycle in a `parent` graph (§6.2.2, §9.1.2)                               |
-| `OR-205` | error    | `values` key does not reference a declared measure (§7.3.1)              |
-| `OR-206` | error    | `attributes` key does not reference a declared attribute (§5.3.2)        |
-| `OR-301` | error    | `sortBy` contains a measure whose `betterWhen` is `none` (§8.2.2)        |
-| `OR-302` | error    | Residual tie under `ties: "strict"` (§8.3.1)                             |
-| `OR-303` | error    | A non-rankable result carries a `rank` (§7.2.3)                          |
-| `OR-304` | error    | `sortBy` is empty (§8.2.1)                                               |
-| `OR-401` | error    | `openresult` absent or malformed (§4.2.1)                                |
-| `OR-402` | error    | Unsupported MAJOR version (§11.4.1)                                      |
-| `OR-403` | error    | `version` is not strictly increasing for the same `id` (§4.4.2)          |
-| `OR-901` | warning  | A declared measure is used by no result                                  |
-| `OR-902` | warning  | A supplied `rank` diverges from the derived rank (§3.3.2)                |
-| `OR-903` | warning  | `lang` absent although the document carries text (§4.5.1)                |
-| `OR-904` | warning  | A result references a participant absent from its event's field (§6.2.4) |
-| `OR-905` | warning  | A declared attribute is used by no entity                                |
-| `OR-906` | warning  | A declared ranking selects no result                                     |
+| Code     | Severity | Rule                                                                                                                                                                             |
+| -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OR-101` | error    | Required member missing (§4.1.1)                                                                                                                                                 |
+| `OR-102` | error    | Member has the wrong type (§5.2.1, §7.3.3)                                                                                                                                       |
+| `OR-103` | error    | Value outside its permitted domain (§5.1.2, §7.2.1)                                                                                                                              |
+| `OR-104` | error    | Identifier does not match the permitted character set (§5.4.1)                                                                                                                   |
+| `OR-105` | error    | Unknown member, not prefixed `x-` (§10.2.4)                                                                                                                                      |
+| `OR-106` | error    | Timestamp is not RFC 3339 with an offset (§4.6.1)                                                                                                                                |
+| `OR-107` | error    | `unit` missing for a kind that requires one (§5.1.3)                                                                                                                             |
+| `OR-108` | error    | `null` used for an unavailable measure (§7.3.2)                                                                                                                                  |
+| `OR-201` | error    | Reference to an undeclared entity (§6.1.2, §7.1.1, §7.1.2, §8.1.1)                                                                                                               |
+| `OR-202` | error    | Duplicate identifier within a collection (§5.4.2)                                                                                                                                |
+| `OR-203` | error    | Duplicate (`participant`, `event`) pair (§7.1.3)                                                                                                                                 |
+| `OR-204` | error    | Cycle in a `parent` graph (§6.2.2, §9.1.2)                                                                                                                                       |
+| `OR-205` | error    | `values` key does not reference a declared measure (§7.3.1)                                                                                                                      |
+| `OR-206` | error    | `attributes` key does not reference a declared attribute (§5.3.2)                                                                                                                |
+| `OR-301` | error    | `sortBy` contains a measure whose `betterWhen` is `none` (§8.2.2)                                                                                                                |
+| `OR-302` | error    | Residual tie under `ties: "strict"` (§8.3.1)                                                                                                                                     |
+| `OR-303` | error    | A non-rankable result carries a `rank` (§7.2.3)                                                                                                                                  |
+| `OR-304` | error    | `sortBy` is empty (§8.2.1)                                                                                                                                                       |
+| `OR-401` | error    | `openresult` absent or malformed (§4.2.1)                                                                                                                                        |
+| `OR-402` | error    | Unsupported MAJOR version (§11.4.1)                                                                                                                                              |
+| `OR-403` | —        | **Retired.** Reserved for a rule comparing `version` across two documents sharing an `id`. A validator sees one document, so the rule cannot be checked. The code is not reused. |
+| `OR-901` | warning  | A declared measure is used by no result                                                                                                                                          |
+| `OR-902` | warning  | A supplied `rank` diverges from the derived rank (§3.3.2)                                                                                                                        |
+| `OR-903` | warning  | `lang` absent although the document carries text (§4.5.1)                                                                                                                        |
+| `OR-904` | warning  | A result references a participant absent from its event's field (§6.2.4)                                                                                                         |
+| `OR-905` | warning  | A declared attribute is used by no entity                                                                                                                                        |
+| `OR-906` | warning  | A declared ranking selects no result                                                                                                                                             |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 

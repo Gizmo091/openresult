@@ -57,7 +57,10 @@ export const CATALOGUE = {
   'OR-304': { severity: 'error', rule: 'spec §8.2.1' },
   'OR-401': { severity: 'error', rule: 'spec §4.2.1' },
   'OR-402': { severity: 'error', rule: 'spec §11.4.1' },
-  'OR-403': { severity: 'error', rule: 'spec §4.4.2' },
+  // OR-403 was reserved for "version must strictly increase for the same id".
+  // Writing the conformance suite showed it cannot exist: the rule compares two
+  // documents, and a validator sees one. The code stays retired rather than
+  // reused — a published code is permanent (spec §12.2.1).
   'OR-901': { severity: 'warning', rule: 'spec §12.2' },
   'OR-902': { severity: 'warning', rule: 'spec §3.3.2' },
   'OR-903': { severity: 'warning', rule: 'spec §4.5.1' },

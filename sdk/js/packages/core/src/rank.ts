@@ -73,10 +73,18 @@ function implicitRanking(document: ResultDocument): Ranking | undefined {
 
 function resolveRanking(document: ResultDocument, rankingId?: string): Ranking | undefined {
   const declared = document.rankings ?? [];
+  const implicit = declared.length > 0 ? undefined : implicitRanking(document);
+
   if (rankingId !== undefined) {
-    return declared.find((candidate) => candidate.id === rankingId);
+    // The implicit ranking is addressable by id too: `listRankings` offers it,
+    // so asking for it back must work. Without this, a caller that names the
+    // ranking it was just handed gets nothing ranked.
+    const found = declared.find((candidate) => candidate.id === rankingId);
+    if (found !== undefined) return found;
+    return implicit?.id === rankingId ? implicit : undefined;
   }
-  return declared[0] ?? implicitRanking(document);
+
+  return declared[0] ?? implicit;
 }
 
 /** Step 1 — selection (spec §8.5.1). */
