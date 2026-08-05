@@ -50,49 +50,73 @@
       "kind": "count",
       "unit": "lap",
       "betterWhen": "higher"
-    },
-    {
-      "id": "kartNumber",
-      "label": "Kart",
-      "kind": "count",
-      "unit": "n",
-      "betterWhen": "none"
     }
   ],
   "attributes": [
-    { "id": "team", "label": "Team", "type": "text" },
-    { "id": "engine", "label": "Engine", "type": "text" }
+    {
+      "id": "kartNumber",
+      "label": "Kart",
+      "type": "number"
+    },
+    {
+      "id": "team",
+      "label": "Team",
+      "type": "text"
+    },
+    {
+      "id": "engine",
+      "label": "Engine",
+      "type": "text"
+    }
   ],
   "participants": [
     {
       "id": "d1",
       "name": "Iris Vandenberg",
-      "attributes": { "team": "Ormes Racing", "engine": "Rotax Max" }
+      "attributes": {
+        "team": "Ormes Racing",
+        "engine": "Rotax Max"
+      }
     },
     {
       "id": "d2",
       "name": "Cedric Mbeki",
-      "attributes": { "team": "Apex Karting", "engine": "IAME X30" }
+      "attributes": {
+        "team": "Apex Karting",
+        "engine": "IAME X30"
+      }
     },
     {
       "id": "d3",
       "name": "Salvatore Greco",
-      "attributes": { "team": "Ormes Racing", "engine": "IAME X30" }
+      "attributes": {
+        "team": "Ormes Racing",
+        "engine": "IAME X30"
+      }
     },
     {
       "id": "d4",
       "name": "Anouk Petersen",
-      "attributes": { "team": "Northwind", "engine": "Rotax Max" }
+      "attributes": {
+        "team": "Northwind",
+        "engine": "Rotax Max"
+      }
     },
     {
       "id": "d5",
       "name": "Rafael Duarte",
-      "attributes": { "team": "Apex Karting", "engine": "Rotax Max" }
+      "attributes": {
+        "team": "Apex Karting",
+        "engine": "Rotax Max"
+      }
     },
     {
       "id": "d6",
       "name": "Mei-Lin Zhao",
-      "attributes": { "team": "Northwind", "engine": "IAME X30" }
+      "attributes": {
+        "team": "Northwind",
+        "engine": "IAME X30"
+      }
     }
   ],
   "events": [
@@ -100,117 +124,167 @@
       "id": "qualifying",
       "name": "Timed qualifying",
       "type": "session",
-      "occurredAt": { "start": "2026-04-19T10:00:00+02:00" }
+      "occurredAt": {
+        "start": "2026-04-19T10:00:00+02:00"
+      }
     },
     {
       "id": "final",
       "name": "Final",
       "type": "final",
-      "occurredAt": { "start": "2026-04-19T15:00:00+02:00" }
+      "occurredAt": {
+        "start": "2026-04-19T15:00:00+02:00"
+      }
     }
   ],
   "results": [
     {
       "participant": "d1",
       "event": "qualifying",
-      "values": { "bestLap": 48.117, "kartNumber": 4 }
+      "attributes": {
+        "kartNumber": 4
+      },
+      "values": {
+        "bestLap": 48.117
+      }
     },
     {
       "participant": "d2",
       "event": "qualifying",
-      "values": { "bestLap": 47.884, "kartNumber": 11 }
+      "attributes": {
+        "kartNumber": 11
+      },
+      "values": {
+        "bestLap": 47.884
+      }
     },
     {
       "participant": "d3",
       "event": "qualifying",
-      "values": { "bestLap": 48.302, "kartNumber": 7 }
+      "attributes": {
+        "kartNumber": 7
+      },
+      "values": {
+        "bestLap": 48.302
+      }
     },
     {
       "participant": "d4",
       "event": "qualifying",
-      "values": { "bestLap": 48.095, "kartNumber": 23 }
+      "attributes": {
+        "kartNumber": 23
+      },
+      "values": {
+        "bestLap": 48.095
+      }
     },
     {
       "participant": "d5",
       "event": "qualifying",
-      "values": { "bestLap": 48.771, "kartNumber": 15 }
+      "attributes": {
+        "kartNumber": 15
+      },
+      "values": {
+        "bestLap": 48.771
+      }
     },
     {
       "participant": "d6",
       "event": "qualifying",
       "status": "dns",
-      "values": { "kartNumber": 9 },
+      "attributes": {
+        "kartNumber": 9
+      },
       "notes": "Engine change during the session window."
     },
-
     {
       "participant": "d1",
       "event": "final",
+      "attributes": {
+        "kartNumber": 4
+      },
       "values": {
         "finalTime": 971.442,
         "bestLap": 48.033,
-        "laps": 20,
-        "kartNumber": 4
+        "laps": 20
       }
     },
     {
       "participant": "d2",
       "event": "final",
+      "attributes": {
+        "kartNumber": 11
+      },
       "values": {
         "finalTime": 973.118,
         "penalty": 5.0,
         "bestLap": 47.902,
-        "laps": 20,
-        "kartNumber": 11
+        "laps": 20
       },
       "notes": "Five-second penalty for a jump start. Crossed the line first on the road."
     },
     {
       "participant": "d3",
       "event": "final",
+      "attributes": {
+        "kartNumber": 7
+      },
       "values": {
         "finalTime": 974.556,
         "bestLap": 48.211,
-        "laps": 20,
-        "kartNumber": 7
+        "laps": 20
       }
     },
     {
       "participant": "d4",
       "event": "final",
+      "attributes": {
+        "kartNumber": 23
+      },
       "values": {
         "finalTime": 978.903,
         "bestLap": 48.144,
-        "laps": 20,
-        "kartNumber": 23
+        "laps": 20
       }
     },
     {
       "participant": "d5",
       "event": "final",
       "status": "dnf",
-      "values": { "bestLap": 48.688, "laps": 14, "kartNumber": 15 },
+      "attributes": {
+        "kartNumber": 15
+      },
+      "values": {
+        "bestLap": 48.688,
+        "laps": 14
+      },
       "notes": "Contact at the hairpin on lap 15."
     },
     {
       "participant": "d6",
       "event": "final",
       "status": "dns",
-      "values": { "kartNumber": 9 }
+      "attributes": {
+        "kartNumber": 9
+      }
     }
   ],
   "rankings": [
     {
       "id": "final-classification",
       "label": "Final classification",
-      "scope": { "event": "final" },
+      "scope": {
+        "event": "final"
+      },
       "sortBy": ["finalTime"],
       "ties": "strict"
     },
     {
       "id": "grid",
       "label": "Starting grid",
-      "scope": { "event": "qualifying" },
+      "scope": {
+        "event": "qualifying"
+      },
       "sortBy": ["bestLap"],
       "ties": "strict"
     }

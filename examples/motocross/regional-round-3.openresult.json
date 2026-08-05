@@ -55,16 +55,14 @@
       "unit": "pt",
       "betterWhen": "higher",
       "description": "Tie-break for the overall standings: riders level on points are separated by their result in the last race."
-    },
-    {
-      "id": "number",
-      "label": "Number",
-      "kind": "count",
-      "unit": "n",
-      "betterWhen": "none"
     }
   ],
   "attributes": [
+    {
+      "id": "number",
+      "label": "Number",
+      "type": "number"
+    },
     {
       "id": "team",
       "label": "Team",
@@ -196,250 +194,298 @@
     {
       "participant": "r1",
       "event": "race1",
+      "attributes": {
+        "number": 7
+      },
       "values": {
         "points": 25,
         "raceTime": 1834.442,
         "laps": 18,
-        "bestLap": 100.812,
-        "number": 7
+        "bestLap": 100.812
       }
     },
     {
       "participant": "r3",
       "event": "race1",
+      "attributes": {
+        "number": 19
+      },
       "values": {
         "points": 22,
         "raceTime": 1841.907,
         "laps": 18,
-        "bestLap": 101.244,
-        "number": 19
+        "bestLap": 101.244
       }
     },
     {
       "participant": "r5",
       "event": "race1",
+      "attributes": {
+        "number": 41
+      },
       "values": {
         "points": 20,
         "raceTime": 1852.318,
         "laps": 18,
-        "bestLap": 101.903,
-        "number": 41
+        "bestLap": 101.903
       }
     },
     {
       "participant": "r7",
       "event": "race1",
       "status": "dnf",
+      "attributes": {
+        "number": 84
+      },
       "values": {
         "points": 0,
         "laps": 11,
-        "bestLap": 102.551,
-        "number": 84
+        "bestLap": 102.551
       },
       "notes": "Mechanical failure on lap 12."
     },
     {
       "participant": "r2",
       "event": "race1",
+      "attributes": {
+        "number": 3
+      },
       "values": {
         "points": 25,
         "raceTime": 1798.115,
         "laps": 18,
-        "bestLap": 98.407,
-        "number": 3
+        "bestLap": 98.407
       }
     },
     {
       "participant": "r4",
       "event": "race1",
+      "attributes": {
+        "number": 22
+      },
       "values": {
         "points": 22,
         "raceTime": 1803.662,
         "laps": 18,
-        "bestLap": 98.918,
-        "number": 22
+        "bestLap": 98.918
       }
     },
     {
       "participant": "r6",
       "event": "race1",
+      "attributes": {
+        "number": 55
+      },
       "values": {
         "points": 20,
         "raceTime": 1815.229,
         "laps": 18,
-        "bestLap": 99.376,
-        "number": 55
+        "bestLap": 99.376
       }
     },
     {
       "participant": "r8",
       "event": "race1",
+      "attributes": {
+        "number": 12
+      },
       "values": {
         "points": 18,
         "raceTime": 1827.884,
         "laps": 18,
-        "bestLap": 99.812,
-        "number": 12
+        "bestLap": 99.812
       }
     },
     {
       "participant": "r1",
       "event": "race2",
+      "attributes": {
+        "number": 7
+      },
       "values": {
         "points": 22,
         "raceTime": 1839.771,
         "laps": 18,
-        "bestLap": 101.033,
-        "number": 7
+        "bestLap": 101.033
       }
     },
     {
       "participant": "r3",
       "event": "race2",
+      "attributes": {
+        "number": 19
+      },
       "values": {
         "points": 25,
         "raceTime": 1836.554,
         "laps": 18,
-        "bestLap": 100.947,
-        "number": 19
+        "bestLap": 100.947
       }
     },
     {
       "participant": "r5",
       "event": "race2",
       "status": "dsq",
+      "attributes": {
+        "number": 41
+      },
       "values": {
         "points": 0,
         "raceTime": 1848.201,
-        "laps": 18,
-        "number": 41
+        "laps": 18
       },
       "notes": "Disqualified by the stewards: jump under a waved yellow flag."
     },
     {
       "participant": "r7",
       "event": "race2",
+      "attributes": {
+        "number": 84
+      },
       "values": {
         "points": 20,
         "raceTime": 1850.663,
         "laps": 18,
-        "bestLap": 102.118,
-        "number": 84
+        "bestLap": 102.118
       }
     },
     {
       "participant": "r2",
       "event": "race2",
+      "attributes": {
+        "number": 3
+      },
       "values": {
         "points": 22,
         "raceTime": 1801.442,
         "laps": 18,
-        "bestLap": 98.633,
-        "number": 3
+        "bestLap": 98.633
       }
     },
     {
       "participant": "r4",
       "event": "race2",
+      "attributes": {
+        "number": 22
+      },
       "values": {
         "points": 25,
         "raceTime": 1796.908,
         "laps": 18,
-        "bestLap": 98.221,
-        "number": 22
+        "bestLap": 98.221
       }
     },
     {
       "participant": "r6",
       "event": "race2",
+      "attributes": {
+        "number": 55
+      },
       "values": {
         "points": 18,
         "raceTime": 1822.117,
         "laps": 18,
-        "bestLap": 99.744,
-        "number": 55
+        "bestLap": 99.744
       }
     },
     {
       "participant": "r8",
       "event": "race2",
+      "attributes": {
+        "number": 12
+      },
       "values": {
         "points": 20,
         "raceTime": 1811.395,
         "laps": 18,
-        "bestLap": 99.508,
-        "number": 12
+        "bestLap": 99.508
       }
     },
     {
       "participant": "r1",
       "event": "overall",
+      "attributes": {
+        "number": 7
+      },
       "values": {
         "points": 47,
-        "number": 7,
         "lastRacePoints": 22
       }
     },
     {
       "participant": "r3",
       "event": "overall",
+      "attributes": {
+        "number": 19
+      },
       "values": {
         "points": 47,
-        "number": 19,
         "lastRacePoints": 25
       }
     },
     {
       "participant": "r5",
       "event": "overall",
+      "attributes": {
+        "number": 41
+      },
       "values": {
         "points": 20,
-        "number": 41,
         "lastRacePoints": 0
       }
     },
     {
       "participant": "r7",
       "event": "overall",
+      "attributes": {
+        "number": 84
+      },
       "values": {
         "points": 20,
-        "number": 84,
         "lastRacePoints": 20
       }
     },
     {
       "participant": "r2",
       "event": "overall",
+      "attributes": {
+        "number": 3
+      },
       "values": {
         "points": 47,
-        "number": 3,
         "lastRacePoints": 22
       }
     },
     {
       "participant": "r4",
       "event": "overall",
+      "attributes": {
+        "number": 22
+      },
       "values": {
         "points": 47,
-        "number": 22,
         "lastRacePoints": 25
       }
     },
     {
       "participant": "r6",
       "event": "overall",
+      "attributes": {
+        "number": 55
+      },
       "values": {
         "points": 38,
-        "number": 55,
         "lastRacePoints": 18
       }
     },
     {
       "participant": "r8",
       "event": "overall",
+      "attributes": {
+        "number": 12
+      },
       "values": {
         "points": 38,
-        "number": 12,
         "lastRacePoints": 20
       }
     }

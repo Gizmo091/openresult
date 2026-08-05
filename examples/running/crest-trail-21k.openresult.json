@@ -33,18 +33,24 @@
       "unit": "s/km",
       "precision": 0,
       "betterWhen": "lower"
-    },
-    {
-      "id": "bib",
-      "label": "Bib",
-      "kind": "count",
-      "unit": "n",
-      "betterWhen": "none"
     }
   ],
   "attributes": [
-    { "id": "club", "label": "Club", "type": "text" },
-    { "id": "nationality", "label": "Nationality", "type": "country" }
+    {
+      "id": "bib",
+      "label": "Bib",
+      "type": "number"
+    },
+    {
+      "id": "club",
+      "label": "Club",
+      "type": "text"
+    },
+    {
+      "id": "nationality",
+      "label": "Nationality",
+      "type": "country"
+    }
   ],
   "categories": [
     {
@@ -72,97 +78,179 @@
     {
       "id": "p1",
       "name": "Tomás Ferreira",
-      "attributes": { "club": "Vallée AC", "nationality": "PT" }
+      "attributes": {
+        "club": "Vallée AC",
+        "nationality": "PT"
+      }
     },
     {
       "id": "p2",
       "name": "Andrés Ocampo",
-      "attributes": { "club": "Sud Trail", "nationality": "CO" }
+      "attributes": {
+        "club": "Sud Trail",
+        "nationality": "CO"
+      }
     },
     {
       "id": "p3",
       "name": "Nour Benali",
-      "attributes": { "club": "Vallée AC", "nationality": "DZ" }
+      "attributes": {
+        "club": "Vallée AC",
+        "nationality": "DZ"
+      }
     },
     {
       "id": "p4",
       "name": "Jonas Lindqvist",
-      "attributes": { "club": "Nord Runners", "nationality": "SE" }
+      "attributes": {
+        "club": "Nord Runners",
+        "nationality": "SE"
+      }
     },
     {
       "id": "p5",
       "name": "Margit Halvorsen",
-      "attributes": { "club": "Sud Trail", "nationality": "NO" }
+      "attributes": {
+        "club": "Sud Trail",
+        "nationality": "NO"
+      }
     },
     {
       "id": "p6",
       "name": "Kwame Asante",
-      "attributes": { "club": "Crest Runners", "nationality": "GH" }
+      "attributes": {
+        "club": "Crest Runners",
+        "nationality": "GH"
+      }
     },
     {
       "id": "p7",
       "name": "Léa Marchand",
-      "attributes": { "club": "Crest Runners", "nationality": "FR" }
+      "attributes": {
+        "club": "Crest Runners",
+        "nationality": "FR"
+      }
     },
     {
       "id": "p8",
       "name": "Hiroshi Nakamura",
-      "attributes": { "club": "Nord Runners", "nationality": "JP" }
+      "attributes": {
+        "club": "Nord Runners",
+        "nationality": "JP"
+      }
     },
     {
       "id": "p9",
       "name": "Sofia Kowalski",
-      "attributes": { "club": "Vallée AC", "nationality": "PL" }
+      "attributes": {
+        "club": "Vallée AC",
+        "nationality": "PL"
+      }
     },
     {
       "id": "p10",
       "name": "Diego Marchetti",
-      "attributes": { "club": "Sud Trail", "nationality": "IT" }
+      "attributes": {
+        "club": "Sud Trail",
+        "nationality": "IT"
+      }
     }
   ],
   "results": [
     {
       "participant": "p1",
-      "values": { "time": 5412.4, "pace": 253, "bib": 12 }
+      "attributes": {
+        "bib": 12
+      },
+      "values": {
+        "time": 5412.4,
+        "pace": 253
+      }
     },
     {
       "participant": "p2",
-      "values": { "time": 5688.9, "pace": 266, "bib": 47 }
+      "attributes": {
+        "bib": 47
+      },
+      "values": {
+        "time": 5688.9,
+        "pace": 266
+      }
     },
     {
       "participant": "p3",
-      "values": { "time": 5298.7, "pace": 248, "bib": 3 }
+      "attributes": {
+        "bib": 3
+      },
+      "values": {
+        "time": 5298.7,
+        "pace": 248
+      }
     },
     {
       "participant": "p4",
-      "values": { "time": 5501.2, "pace": 257, "bib": 21 }
+      "attributes": {
+        "bib": 21
+      },
+      "values": {
+        "time": 5501.2,
+        "pace": 257
+      }
     },
     {
       "participant": "p5",
-      "values": { "time": 6142.0, "pace": 287, "bib": 88 }
+      "attributes": {
+        "bib": 88
+      },
+      "values": {
+        "time": 6142.0,
+        "pace": 287
+      }
     },
     {
       "participant": "p6",
       "status": "dnf",
-      "values": { "bib": 55 },
+      "attributes": {
+        "bib": 55
+      },
       "notes": "Withdrew at the 14 km aid station."
     },
     {
       "participant": "p7",
-      "values": { "time": 5477.6, "pace": 256, "bib": 9 }
+      "attributes": {
+        "bib": 9
+      },
+      "values": {
+        "time": 5477.6,
+        "pace": 256
+      }
     },
     {
       "participant": "p8",
-      "values": { "time": 5688.9, "pace": 266, "bib": 34 }
+      "attributes": {
+        "bib": 34
+      },
+      "values": {
+        "time": 5688.9,
+        "pace": 266
+      }
     },
     {
       "participant": "p9",
-      "values": { "time": 5934.3, "pace": 277, "bib": 17 }
+      "attributes": {
+        "bib": 17
+      },
+      "values": {
+        "time": 5934.3,
+        "pace": 277
+      }
     },
     {
       "participant": "p10",
       "status": "dns",
-      "values": { "bib": 62 }
+      "attributes": {
+        "bib": 62
+      }
     }
   ],
   "rankings": [
@@ -175,13 +263,17 @@
     {
       "id": "senior-women",
       "label": "Senior women",
-      "scope": { "category": "senior-w" },
+      "scope": {
+        "category": "senior-w"
+      },
       "sortBy": ["time"]
     },
     {
       "id": "senior-men",
       "label": "Senior men",
-      "scope": { "category": "senior-m" },
+      "scope": {
+        "category": "senior-m"
+      },
       "sortBy": ["time"]
     }
   ],

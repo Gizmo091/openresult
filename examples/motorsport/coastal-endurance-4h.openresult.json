@@ -55,124 +55,168 @@
       "unit": "s",
       "precision": 0,
       "betterWhen": "lower"
-    },
-    {
-      "id": "carNumber",
-      "label": "Car",
-      "kind": "count",
-      "unit": "n",
-      "betterWhen": "none"
     }
   ],
   "attributes": [
-    { "id": "class", "label": "Class", "type": "text" },
-    { "id": "car", "label": "Car", "type": "text" }
+    {
+      "id": "carNumber",
+      "label": "Car",
+      "type": "number"
+    },
+    {
+      "id": "class",
+      "label": "Class",
+      "type": "text"
+    },
+    {
+      "id": "car",
+      "label": "Car",
+      "type": "text"
+    }
   ],
   "categories": [
-    { "id": "gt3", "label": "GT3", "participants": ["c1", "c2", "c4"] },
-    { "id": "gt4", "label": "GT4", "participants": ["c3", "c5", "c6"] }
+    {
+      "id": "gt3",
+      "label": "GT3",
+      "participants": ["c1", "c2", "c4"]
+    },
+    {
+      "id": "gt4",
+      "label": "GT4",
+      "participants": ["c3", "c5", "c6"]
+    }
   ],
   "participants": [
     {
       "id": "c1",
       "name": "Meridian Motorsport #7",
       "type": "team",
-      "attributes": { "class": "GT3", "car": "Aurelia GT3 Evo" }
+      "attributes": {
+        "class": "GT3",
+        "car": "Aurelia GT3 Evo"
+      }
     },
     {
       "id": "c2",
       "name": "Harbour Racing #22",
       "type": "team",
-      "attributes": { "class": "GT3", "car": "Vantage R" }
+      "attributes": {
+        "class": "GT3",
+        "car": "Vantage R"
+      }
     },
     {
       "id": "c3",
       "name": "Dunes Competition #45",
       "type": "team",
-      "attributes": { "class": "GT4", "car": "Corsa GT4" }
+      "attributes": {
+        "class": "GT4",
+        "car": "Corsa GT4"
+      }
     },
     {
       "id": "c4",
       "name": "Northgate Team #3",
       "type": "team",
-      "attributes": { "class": "GT3", "car": "Falcon 720 GT3" }
+      "attributes": {
+        "class": "GT3",
+        "car": "Falcon 720 GT3"
+      }
     },
     {
       "id": "c5",
       "name": "Cliffside Racing #61",
       "type": "team",
-      "attributes": { "class": "GT4", "car": "Corsa GT4" }
+      "attributes": {
+        "class": "GT4",
+        "car": "Corsa GT4"
+      }
     },
     {
       "id": "c6",
       "name": "Estuary Sport #18",
       "type": "team",
-      "attributes": { "class": "GT4", "car": "Kestrel GT4" }
+      "attributes": {
+        "class": "GT4",
+        "car": "Kestrel GT4"
+      }
     }
   ],
   "results": [
     {
       "participant": "c1",
+      "attributes": {
+        "carNumber": 7
+      },
       "values": {
         "laps": 142,
         "totalTime": 14403.882,
         "bestLap": 99.114,
-        "pitStops": 4,
-        "carNumber": 7
+        "pitStops": 4
       }
     },
     {
       "participant": "c2",
+      "attributes": {
+        "carNumber": 22
+      },
       "values": {
         "laps": 142,
         "totalTime": 14418.207,
         "bestLap": 99.382,
-        "pitStops": 4,
-        "carNumber": 22
+        "pitStops": 4
       }
     },
     {
       "participant": "c4",
+      "attributes": {
+        "carNumber": 3
+      },
       "values": {
         "laps": 141,
         "totalTime": 14411.663,
         "bestLap": 99.508,
         "pitStops": 5,
-        "penalty": 30,
-        "carNumber": 3
+        "penalty": 30
       },
       "notes": "Thirty-second penalty for exceeding the pit-lane speed limit."
     },
     {
       "participant": "c3",
+      "attributes": {
+        "carNumber": 45
+      },
       "values": {
         "laps": 136,
         "totalTime": 14407.441,
         "bestLap": 103.772,
-        "pitStops": 4,
-        "carNumber": 45
+        "pitStops": 4
       }
     },
     {
       "participant": "c5",
       "status": "outOfTime",
+      "attributes": {
+        "carNumber": 61
+      },
       "values": {
         "laps": 118,
         "totalTime": 14402.115,
         "bestLap": 104.219,
-        "pitStops": 6,
-        "carNumber": 61
+        "pitStops": 6
       },
       "notes": "Completed fewer than the 75 % of the leader's distance required to be classified."
     },
     {
       "participant": "c6",
       "status": "dnf",
+      "attributes": {
+        "carNumber": 18
+      },
       "values": {
         "laps": 87,
         "bestLap": 103.955,
-        "pitStops": 3,
-        "carNumber": 18
+        "pitStops": 3
       },
       "notes": "Gearbox failure at 2 h 41."
     }
@@ -187,13 +231,17 @@
     {
       "id": "gt3-class",
       "label": "GT3 class",
-      "scope": { "category": "gt3" },
+      "scope": {
+        "category": "gt3"
+      },
       "sortBy": ["laps", "totalTime"]
     },
     {
       "id": "gt4-class",
       "label": "GT4 class",
-      "scope": { "category": "gt4" },
+      "scope": {
+        "category": "gt4"
+      },
       "sortBy": ["laps", "totalTime"]
     },
     {
