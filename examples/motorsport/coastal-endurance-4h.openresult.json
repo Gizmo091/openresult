@@ -1,0 +1,211 @@
+{
+  "openresult": "1.0",
+  "id": "coastal-endurance-2026-4h",
+  "version": 1,
+  "status": "official",
+  "title": "Coastal Endurance — 4 Hours",
+  "description": "Endurance race classified on laps completed, then on elapsed time. One car finished outside the time limit, a status distinct from retiring.",
+  "lang": "en",
+  "generatedAt": "2026-07-11T19:35:00+02:00",
+  "occurredAt": {
+    "start": "2026-07-11T14:00:00+02:00",
+    "end": "2026-07-11T18:00:00+02:00"
+  },
+  "source": {
+    "name": "Coastal Racing Association",
+    "system": "EnduroTiming 7",
+    "url": "https://example.org/coastal-endurance/2026",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "laps",
+      "label": "Laps completed",
+      "kind": "count",
+      "unit": "lap",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "totalTime",
+      "label": "Total time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "bestLap",
+      "label": "Best lap",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "pitStops",
+      "label": "Pit stops",
+      "kind": "count",
+      "unit": "stop",
+      "betterWhen": "none"
+    },
+    {
+      "id": "penalty",
+      "label": "Time penalty",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 0,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "carNumber",
+      "label": "Car",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    { "id": "class", "label": "Class", "type": "text" },
+    { "id": "car", "label": "Car", "type": "text" }
+  ],
+  "categories": [
+    { "id": "gt3", "label": "GT3", "participants": ["c1", "c2", "c4"] },
+    { "id": "gt4", "label": "GT4", "participants": ["c3", "c5", "c6"] }
+  ],
+  "participants": [
+    {
+      "id": "c1",
+      "name": "Meridian Motorsport #7",
+      "type": "team",
+      "attributes": { "class": "GT3", "car": "Aurelia GT3 Evo" }
+    },
+    {
+      "id": "c2",
+      "name": "Harbour Racing #22",
+      "type": "team",
+      "attributes": { "class": "GT3", "car": "Vantage R" }
+    },
+    {
+      "id": "c3",
+      "name": "Dunes Competition #45",
+      "type": "team",
+      "attributes": { "class": "GT4", "car": "Corsa GT4" }
+    },
+    {
+      "id": "c4",
+      "name": "Northgate Team #3",
+      "type": "team",
+      "attributes": { "class": "GT3", "car": "Falcon 720 GT3" }
+    },
+    {
+      "id": "c5",
+      "name": "Cliffside Racing #61",
+      "type": "team",
+      "attributes": { "class": "GT4", "car": "Corsa GT4" }
+    },
+    {
+      "id": "c6",
+      "name": "Estuary Sport #18",
+      "type": "team",
+      "attributes": { "class": "GT4", "car": "Kestrel GT4" }
+    }
+  ],
+  "results": [
+    {
+      "participant": "c1",
+      "values": {
+        "laps": 142,
+        "totalTime": 14403.882,
+        "bestLap": 99.114,
+        "pitStops": 4,
+        "carNumber": 7
+      }
+    },
+    {
+      "participant": "c2",
+      "values": {
+        "laps": 142,
+        "totalTime": 14418.207,
+        "bestLap": 99.382,
+        "pitStops": 4,
+        "carNumber": 22
+      }
+    },
+    {
+      "participant": "c4",
+      "values": {
+        "laps": 141,
+        "totalTime": 14411.663,
+        "bestLap": 99.508,
+        "pitStops": 5,
+        "penalty": 30,
+        "carNumber": 3
+      },
+      "notes": "Thirty-second penalty for exceeding the pit-lane speed limit."
+    },
+    {
+      "participant": "c3",
+      "values": {
+        "laps": 136,
+        "totalTime": 14407.441,
+        "bestLap": 103.772,
+        "pitStops": 4,
+        "carNumber": 45
+      }
+    },
+    {
+      "participant": "c5",
+      "status": "outOfTime",
+      "values": {
+        "laps": 118,
+        "totalTime": 14402.115,
+        "bestLap": 104.219,
+        "pitStops": 6,
+        "carNumber": 61
+      },
+      "notes": "Completed fewer than the 75 % of the leader's distance required to be classified."
+    },
+    {
+      "participant": "c6",
+      "status": "dnf",
+      "values": {
+        "laps": 87,
+        "bestLap": 103.955,
+        "pitStops": 3,
+        "carNumber": 18
+      },
+      "notes": "Gearbox failure at 2 h 41."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall classification",
+      "sortBy": ["laps", "totalTime"],
+      "ties": "standard"
+    },
+    {
+      "id": "gt3-class",
+      "label": "GT3 class",
+      "scope": { "category": "gt3" },
+      "sortBy": ["laps", "totalTime"]
+    },
+    {
+      "id": "gt4-class",
+      "label": "GT4 class",
+      "scope": { "category": "gt4" },
+      "sortBy": ["laps", "totalTime"]
+    },
+    {
+      "id": "fastest-lap",
+      "label": "Fastest lap",
+      "sortBy": ["bestLap"],
+      "ties": "strict",
+      "excludeStatuses": ["dns"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["laps", "totalTime", "bestLap", "penalty", "pitStops"]
+  }
+}

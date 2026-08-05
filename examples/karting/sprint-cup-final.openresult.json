@@ -1,0 +1,222 @@
+{
+  "openresult": "1.0",
+  "id": "karting-sprint-cup-2026-r5",
+  "version": 1,
+  "status": "provisional",
+  "title": "Sprint Cup — Round 5",
+  "description": "Timed qualifying followed by the final. Time penalties are applied to the recorded time by the producer; the format carries the resulting figure, not the rule that produced it.",
+  "lang": "en",
+  "generatedAt": "2026-04-19T16:12:00+02:00",
+  "occurredAt": {
+    "start": "2026-04-19T09:00:00+02:00",
+    "end": "2026-04-19T16:00:00+02:00"
+  },
+  "source": {
+    "name": "Circuit des Ormes",
+    "system": "KartTime Pro 2.8",
+    "url": "https://example.org/sprint-cup/2026/r5",
+    "license": "CC-BY-4.0",
+    "contact": "results@example.org"
+  },
+  "measures": [
+    {
+      "id": "bestLap",
+      "label": "Best lap",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "finalTime",
+      "label": "Final time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower",
+      "description": "Total race time including any time penalty."
+    },
+    {
+      "id": "penalty",
+      "label": "Penalty",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "laps",
+      "label": "Laps",
+      "kind": "count",
+      "unit": "lap",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "kartNumber",
+      "label": "Kart",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    { "id": "team", "label": "Team", "type": "text" },
+    { "id": "engine", "label": "Engine", "type": "text" }
+  ],
+  "participants": [
+    {
+      "id": "d1",
+      "name": "Iris Vandenberg",
+      "attributes": { "team": "Ormes Racing", "engine": "Rotax Max" }
+    },
+    {
+      "id": "d2",
+      "name": "Cedric Mbeki",
+      "attributes": { "team": "Apex Karting", "engine": "IAME X30" }
+    },
+    {
+      "id": "d3",
+      "name": "Salvatore Greco",
+      "attributes": { "team": "Ormes Racing", "engine": "IAME X30" }
+    },
+    {
+      "id": "d4",
+      "name": "Anouk Petersen",
+      "attributes": { "team": "Northwind", "engine": "Rotax Max" }
+    },
+    {
+      "id": "d5",
+      "name": "Rafael Duarte",
+      "attributes": { "team": "Apex Karting", "engine": "Rotax Max" }
+    },
+    {
+      "id": "d6",
+      "name": "Mei-Lin Zhao",
+      "attributes": { "team": "Northwind", "engine": "IAME X30" }
+    }
+  ],
+  "events": [
+    {
+      "id": "qualifying",
+      "name": "Timed qualifying",
+      "type": "session",
+      "occurredAt": { "start": "2026-04-19T10:00:00+02:00" }
+    },
+    {
+      "id": "final",
+      "name": "Final",
+      "type": "final",
+      "occurredAt": { "start": "2026-04-19T15:00:00+02:00" }
+    }
+  ],
+  "results": [
+    {
+      "participant": "d1",
+      "event": "qualifying",
+      "values": { "bestLap": 48.117, "kartNumber": 4 }
+    },
+    {
+      "participant": "d2",
+      "event": "qualifying",
+      "values": { "bestLap": 47.884, "kartNumber": 11 }
+    },
+    {
+      "participant": "d3",
+      "event": "qualifying",
+      "values": { "bestLap": 48.302, "kartNumber": 7 }
+    },
+    {
+      "participant": "d4",
+      "event": "qualifying",
+      "values": { "bestLap": 48.095, "kartNumber": 23 }
+    },
+    {
+      "participant": "d5",
+      "event": "qualifying",
+      "values": { "bestLap": 48.771, "kartNumber": 15 }
+    },
+    {
+      "participant": "d6",
+      "event": "qualifying",
+      "status": "dns",
+      "values": { "kartNumber": 9 },
+      "notes": "Engine change during the session window."
+    },
+
+    {
+      "participant": "d1",
+      "event": "final",
+      "values": {
+        "finalTime": 971.442,
+        "bestLap": 48.033,
+        "laps": 20,
+        "kartNumber": 4
+      }
+    },
+    {
+      "participant": "d2",
+      "event": "final",
+      "values": {
+        "finalTime": 973.118,
+        "penalty": 5.0,
+        "bestLap": 47.902,
+        "laps": 20,
+        "kartNumber": 11
+      },
+      "notes": "Five-second penalty for a jump start. Crossed the line first on the road."
+    },
+    {
+      "participant": "d3",
+      "event": "final",
+      "values": {
+        "finalTime": 974.556,
+        "bestLap": 48.211,
+        "laps": 20,
+        "kartNumber": 7
+      }
+    },
+    {
+      "participant": "d4",
+      "event": "final",
+      "values": {
+        "finalTime": 978.903,
+        "bestLap": 48.144,
+        "laps": 20,
+        "kartNumber": 23
+      }
+    },
+    {
+      "participant": "d5",
+      "event": "final",
+      "status": "dnf",
+      "values": { "bestLap": 48.688, "laps": 14, "kartNumber": 15 },
+      "notes": "Contact at the hairpin on lap 15."
+    },
+    {
+      "participant": "d6",
+      "event": "final",
+      "status": "dns",
+      "values": { "kartNumber": 9 }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "final-classification",
+      "label": "Final classification",
+      "scope": { "event": "final" },
+      "sortBy": ["finalTime"],
+      "ties": "strict"
+    },
+    {
+      "id": "grid",
+      "label": "Starting grid",
+      "scope": { "event": "qualifying" },
+      "sortBy": ["bestLap"],
+      "ties": "strict"
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["finalTime", "penalty", "bestLap", "laps"]
+  }
+}

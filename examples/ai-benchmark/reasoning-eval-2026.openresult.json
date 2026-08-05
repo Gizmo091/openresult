@@ -1,0 +1,225 @@
+{
+  "openresult": "1.0",
+  "id": "open-reasoning-eval-2026-05",
+  "version": 1,
+  "status": "official",
+  "title": "Open Reasoning Eval — May 2026",
+  "description": "Four task suites scored as accuracy, plus an aggregate. Participants are software models; one entry did not complete the long-context suite, which is recorded as an absent measure rather than a zero.",
+  "lang": "en",
+  "generatedAt": "2026-05-04T09:15:00Z",
+  "source": {
+    "name": "Open Reasoning Eval",
+    "system": "ore-harness 1.9.2",
+    "url": "https://example.org/ore/2026-05",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "aggregate",
+      "label": "Aggregate score",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "math",
+      "label": "Mathematics",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "code",
+      "label": "Code generation",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "longContext",
+      "label": "Long context",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "latency",
+      "label": "Median latency",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "costPerRun",
+      "label": "Cost per run",
+      "kind": "money",
+      "unit": "USD",
+      "precision": 4,
+      "betterWhen": "lower"
+    }
+  ],
+  "attributes": [
+    { "id": "developer", "label": "Developer", "type": "text" },
+    { "id": "openWeights", "label": "Open weights", "type": "boolean" },
+    { "id": "modelCard", "label": "Model card", "type": "url" }
+  ],
+  "participants": [
+    {
+      "id": "m1",
+      "name": "Cirrus-3 Large",
+      "type": "model",
+      "attributes": {
+        "developer": "Cirrus Labs",
+        "openWeights": false,
+        "modelCard": "https://example.org/models/cirrus-3-large"
+      }
+    },
+    {
+      "id": "m2",
+      "name": "Meridian-2 70B",
+      "type": "model",
+      "attributes": {
+        "developer": "Meridian Research",
+        "openWeights": true,
+        "modelCard": "https://example.org/models/meridian-2-70b"
+      }
+    },
+    {
+      "id": "m3",
+      "name": "Solstice XL",
+      "type": "model",
+      "attributes": {
+        "developer": "Solstice AI",
+        "openWeights": false,
+        "modelCard": "https://example.org/models/solstice-xl"
+      }
+    },
+    {
+      "id": "m4",
+      "name": "Tessellate 32B",
+      "type": "model",
+      "attributes": {
+        "developer": "Tessellate Collective",
+        "openWeights": true,
+        "modelCard": "https://example.org/models/tessellate-32b"
+      }
+    },
+    {
+      "id": "m5",
+      "name": "Cirrus-3 Small",
+      "type": "model",
+      "attributes": {
+        "developer": "Cirrus Labs",
+        "openWeights": false,
+        "modelCard": "https://example.org/models/cirrus-3-small"
+      }
+    }
+  ],
+  "categories": [
+    { "id": "open", "label": "Open weights", "participants": ["m2", "m4"] },
+    {
+      "id": "closed",
+      "label": "Closed weights",
+      "participants": ["m1", "m3", "m5"]
+    }
+  ],
+  "results": [
+    {
+      "participant": "m1",
+      "values": {
+        "aggregate": 87.4,
+        "math": 91.2,
+        "code": 88.7,
+        "longContext": 82.3,
+        "latency": 4.18,
+        "costPerRun": 0.0421
+      }
+    },
+    {
+      "participant": "m2",
+      "values": {
+        "aggregate": 79.1,
+        "math": 82.6,
+        "code": 78.4,
+        "longContext": 76.3,
+        "latency": 2.94,
+        "costPerRun": 0.0088
+      }
+    },
+    {
+      "participant": "m3",
+      "values": {
+        "aggregate": 84.9,
+        "math": 88.1,
+        "code": 86.2,
+        "longContext": 80.4,
+        "latency": 5.62,
+        "costPerRun": 0.0367
+      }
+    },
+    {
+      "participant": "m4",
+      "values": {
+        "aggregate": 71.8,
+        "math": 74.9,
+        "code": 73.1,
+        "latency": 1.77,
+        "costPerRun": 0.0031
+      },
+      "notes": "Long-context suite not run: the model's context window is below the suite's minimum. The measure is absent, which is not the same as scoring zero."
+    },
+    {
+      "participant": "m5",
+      "values": {
+        "aggregate": 76.3,
+        "math": 79.8,
+        "code": 75.1,
+        "longContext": 74.0,
+        "latency": 1.42,
+        "costPerRun": 0.0074
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["aggregate"],
+      "ties": "standard"
+    },
+    {
+      "id": "open-weights",
+      "label": "Open-weights models",
+      "scope": { "category": "open" },
+      "sortBy": ["aggregate"]
+    },
+    {
+      "id": "long-context",
+      "label": "Long context",
+      "sortBy": ["longContext"],
+      "ties": "standard"
+    },
+    {
+      "id": "cost",
+      "label": "By cost",
+      "sortBy": ["costPerRun"],
+      "ties": "standard"
+    }
+  ],
+  "presentation": {
+    "defaultView": "compare",
+    "measureOrder": [
+      "aggregate",
+      "math",
+      "code",
+      "longContext",
+      "latency",
+      "costPerRun"
+    ]
+  }
+}

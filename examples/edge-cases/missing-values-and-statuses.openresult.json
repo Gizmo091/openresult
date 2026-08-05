@@ -1,0 +1,56 @@
+{
+  "openresult": "1.0",
+  "title": "Edge case — absent measures and non-rankable statuses",
+  "description": "Competitor B scored zero, which is a value. Competitor C has no score at all, which is not. Competitors D through G carry each of the non-rankable statuses: they appear in the output without a rank, never omitted.",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "score",
+      "label": "Score",
+      "kind": "score",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "attempts",
+      "label": "Attempts",
+      "kind": "count",
+      "unit": "try",
+      "betterWhen": "none"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A" },
+    { "id": "b", "name": "Competitor B — scored zero" },
+    { "id": "c", "name": "Competitor C — no score recorded" },
+    { "id": "d", "name": "Competitor D — did not finish" },
+    { "id": "e", "name": "Competitor E — did not start" },
+    { "id": "f", "name": "Competitor F — disqualified" },
+    { "id": "g", "name": "Competitor G — still competing" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "score": 42, "attempts": 3 } },
+    { "participant": "b", "values": { "score": 0, "attempts": 3 } },
+    {
+      "participant": "c",
+      "values": { "attempts": 1 },
+      "notes": "Score not recorded. The measure is absent — it is not a zero."
+    },
+    { "participant": "d", "status": "dnf", "values": { "attempts": 2 } },
+    { "participant": "e", "status": "dns" },
+    {
+      "participant": "f",
+      "status": "dsq",
+      "values": { "score": 51, "attempts": 3 }
+    },
+    { "participant": "g", "status": "inProgress", "values": { "attempts": 1 } }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main standings",
+      "sortBy": ["score"],
+      "ties": "standard"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "openresult": "1.0",
+  "id": "announced-event-2026",
+  "version": 1,
+  "status": "draft",
+  "title": "Edge case — announced event, no results yet",
+  "description": "An empty results array is valid. The entry list, the measures and the ranking rule are all published in advance; only the results are missing. A consumer must render this without error.",
+  "lang": "en",
+  "generatedAt": "2026-08-01T09:00:00+02:00",
+  "occurredAt": { "start": "2026-09-12T10:00:00+02:00" },
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A" },
+    { "id": "b", "name": "Competitor B" }
+  ],
+  "results": [],
+  "rankings": [{ "id": "main", "label": "Standings", "sortBy": ["time"] }]
+}

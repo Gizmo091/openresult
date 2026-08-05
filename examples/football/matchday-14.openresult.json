@@ -1,0 +1,255 @@
+{
+  "openresult": "1.0",
+  "id": "riverside-league-2026-md14",
+  "version": 1,
+  "status": "official",
+  "title": "Riverside League — Matchday 14",
+  "description": "Four fixtures and the resulting table. Each match is one event holding two results, one per team — a head-to-head is not a special case in this model.",
+  "lang": "en",
+  "generatedAt": "2026-03-08T19:45:00+01:00",
+  "occurredAt": {
+    "start": "2026-03-08T14:00:00+01:00",
+    "end": "2026-03-08T18:50:00+01:00"
+  },
+  "source": {
+    "name": "Riverside Amateur League",
+    "url": "https://example.org/riverside-league/2026",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "goals",
+      "label": "Goals",
+      "kind": "count",
+      "unit": "goal",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "goalDifference",
+      "label": "Goal difference",
+      "kind": "count",
+      "unit": "goal",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "goalsFor",
+      "label": "Goals for",
+      "kind": "count",
+      "unit": "goal",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "played",
+      "label": "Played",
+      "kind": "count",
+      "unit": "match",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [{ "id": "town", "label": "Town", "type": "text" }],
+  "participants": [
+    {
+      "id": "t1",
+      "name": "AS Rivière",
+      "type": "team",
+      "attributes": { "town": "Rivière" }
+    },
+    {
+      "id": "t2",
+      "name": "FC Colline",
+      "type": "team",
+      "attributes": { "town": "Colline" }
+    },
+    {
+      "id": "t3",
+      "name": "Étoile Sportive",
+      "type": "team",
+      "attributes": { "town": "Vallon" }
+    },
+    {
+      "id": "t4",
+      "name": "Union Marais",
+      "type": "team",
+      "attributes": { "town": "Marais" }
+    },
+    {
+      "id": "t5",
+      "name": "Olympique Pont",
+      "type": "team",
+      "attributes": { "town": "Pont" }
+    },
+    {
+      "id": "t6",
+      "name": "CS Forêt",
+      "type": "team",
+      "attributes": { "town": "Forêt" }
+    },
+    {
+      "id": "t7",
+      "name": "Racing Plaine",
+      "type": "team",
+      "attributes": { "town": "Plaine" }
+    },
+    {
+      "id": "t8",
+      "name": "SC Falaise",
+      "type": "team",
+      "attributes": { "town": "Falaise" }
+    }
+  ],
+  "events": [
+    {
+      "id": "standings",
+      "name": "League table after matchday 14",
+      "type": "overall"
+    },
+    {
+      "id": "m1",
+      "name": "AS Rivière – FC Colline",
+      "type": "match",
+      "parent": "standings",
+      "participants": ["t1", "t2"],
+      "occurredAt": { "start": "2026-03-08T14:00:00+01:00" }
+    },
+    {
+      "id": "m2",
+      "name": "Étoile Sportive – Union Marais",
+      "type": "match",
+      "parent": "standings",
+      "participants": ["t3", "t4"],
+      "occurredAt": { "start": "2026-03-08T15:00:00+01:00" }
+    },
+    {
+      "id": "m3",
+      "name": "Olympique Pont – CS Forêt",
+      "type": "match",
+      "parent": "standings",
+      "participants": ["t5", "t6"],
+      "occurredAt": { "start": "2026-03-08T16:30:00+01:00" }
+    },
+    {
+      "id": "m4",
+      "name": "Racing Plaine – SC Falaise",
+      "type": "match",
+      "parent": "standings",
+      "participants": ["t7", "t8"],
+      "occurredAt": { "start": "2026-03-08T17:00:00+01:00" }
+    }
+  ],
+  "results": [
+    { "participant": "t1", "event": "m1", "values": { "goals": 2 } },
+    { "participant": "t2", "event": "m1", "values": { "goals": 1 } },
+    { "participant": "t3", "event": "m2", "values": { "goals": 0 } },
+    { "participant": "t4", "event": "m2", "values": { "goals": 0 } },
+    { "participant": "t5", "event": "m3", "values": { "goals": 3 } },
+    { "participant": "t6", "event": "m3", "values": { "goals": 1 } },
+    {
+      "participant": "t7",
+      "event": "m4",
+      "values": { "goals": 1 },
+      "notes": "Played the last 20 minutes with ten men."
+    },
+    { "participant": "t8", "event": "m4", "values": { "goals": 4 } },
+
+    {
+      "participant": "t5",
+      "event": "standings",
+      "values": {
+        "points": 31,
+        "goalDifference": 18,
+        "goalsFor": 34,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t1",
+      "event": "standings",
+      "values": {
+        "points": 28,
+        "goalDifference": 12,
+        "goalsFor": 29,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t8",
+      "event": "standings",
+      "values": {
+        "points": 26,
+        "goalDifference": 12,
+        "goalsFor": 31,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t3",
+      "event": "standings",
+      "values": {
+        "points": 22,
+        "goalDifference": 4,
+        "goalsFor": 21,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t2",
+      "event": "standings",
+      "values": {
+        "points": 19,
+        "goalDifference": -2,
+        "goalsFor": 18,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t4",
+      "event": "standings",
+      "values": {
+        "points": 15,
+        "goalDifference": -7,
+        "goalsFor": 14,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t6",
+      "event": "standings",
+      "values": {
+        "points": 11,
+        "goalDifference": -15,
+        "goalsFor": 12,
+        "played": 14
+      }
+    },
+    {
+      "participant": "t7",
+      "event": "standings",
+      "values": {
+        "points": 8,
+        "goalDifference": -22,
+        "goalsFor": 9,
+        "played": 14
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "table",
+      "label": "League table",
+      "scope": { "event": "standings" },
+      "sortBy": ["points", "goalDifference", "goalsFor"],
+      "ties": "standard"
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["played", "points", "goalDifference", "goalsFor"]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "openresult": "1.0",
+  "title": "Edge case — extensions and unknown enumeration values",
+  "description": "Carries x- extensions at document, entity and result level, plus enumeration values a 1.0 consumer does not know. All of it must be ignored without error, preserved on rewrite, and must not affect the derived ranking.",
+  "lang": "en",
+  "x-timing-vendor": {
+    "name": "ChronoX",
+    "firmware": "5.4.1"
+  },
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower",
+      "x-sensor": "photocell"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A", "x-licence": "FR-2026-0148" },
+    { "id": "b", "name": "Competitor B", "x-licence": "FR-2026-0217" },
+    { "id": "c", "name": "Competitor C" }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": { "time": 184.55 },
+      "x-splits": [61.2, 62.8, 60.55]
+    },
+    { "participant": "b", "values": { "time": 179.02 } },
+    {
+      "participant": "c",
+      "values": { "time": 191.4 },
+      "x-review": { "protest": false }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main standings",
+      "sortBy": ["time"],
+      "ties": "standard",
+      "x-published": true
+    }
+  ],
+  "presentation": {
+    "defaultView": "constellation",
+    "x-theme": "dark"
+  }
+}

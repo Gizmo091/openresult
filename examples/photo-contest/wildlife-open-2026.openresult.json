@@ -1,0 +1,169 @@
+{
+  "openresult": "1.0",
+  "id": "wildlife-open-2026",
+  "version": 1,
+  "status": "official",
+  "title": "Wildlife Open 2026",
+  "description": "Public vote combined with a jury score. Two entries finish level and share second place; the images are attached as assets, which never affect interpretation.",
+  "lang": "en",
+  "generatedAt": "2026-09-30T20:00:00+02:00",
+  "occurredAt": {
+    "start": "2026-09-01T00:00:00+02:00",
+    "end": "2026-09-28T23:59:00+02:00"
+  },
+  "source": {
+    "name": "Wildlife Open",
+    "url": "https://example.org/wildlife-open/2026",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "finalScore",
+      "label": "Final score",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher",
+      "description": "Jury score out of 60 plus a public-vote score out of 40, both awarded by the organisers."
+    },
+    {
+      "id": "juryScore",
+      "label": "Jury score",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "publicVotes",
+      "label": "Public votes",
+      "kind": "count",
+      "unit": "vote",
+      "betterWhen": "higher"
+    }
+  ],
+  "attributes": [
+    { "id": "title", "label": "Photograph", "type": "text" },
+    { "id": "country", "label": "Country", "type": "country" },
+    { "id": "technique", "label": "Technique", "type": "text" }
+  ],
+  "categories": [
+    {
+      "id": "mammals",
+      "label": "Mammals",
+      "participants": ["ph1", "ph3", "ph5"]
+    },
+    { "id": "birds", "label": "Birds", "participants": ["ph2", "ph4"] }
+  ],
+  "participants": [
+    {
+      "id": "ph1",
+      "name": "Amara Osei",
+      "attributes": {
+        "title": "Dust at first light",
+        "country": "GH",
+        "technique": "Telephoto, natural light"
+      },
+      "assets": [
+        {
+          "type": "image",
+          "href": "https://example.org/wildlife-open/2026/dust-at-first-light.jpg",
+          "label": "Dust at first light"
+        }
+      ]
+    },
+    {
+      "id": "ph2",
+      "name": "Henrik Sørensen",
+      "attributes": {
+        "title": "Return of the terns",
+        "country": "DK",
+        "technique": "High-speed sequence"
+      },
+      "assets": [
+        {
+          "type": "image",
+          "href": "https://example.org/wildlife-open/2026/return-of-the-terns.jpg",
+          "label": "Return of the terns"
+        }
+      ]
+    },
+    {
+      "id": "ph3",
+      "name": "Priya Raghunathan",
+      "attributes": {
+        "title": "Monsoon crossing",
+        "country": "IN",
+        "technique": "Long exposure"
+      }
+    },
+    {
+      "id": "ph4",
+      "name": "Camille Beaulieu",
+      "attributes": {
+        "title": "Hollow tree",
+        "country": "CA",
+        "technique": "Remote trigger"
+      }
+    },
+    {
+      "id": "ph5",
+      "name": "Mateo Quispe",
+      "attributes": {
+        "title": "Above the treeline",
+        "country": "PE",
+        "technique": "Drone"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "ph1",
+      "values": { "finalScore": 92.4, "juryScore": 55.0, "publicVotes": 3812 }
+    },
+    {
+      "participant": "ph2",
+      "values": { "finalScore": 88.1, "juryScore": 52.0, "publicVotes": 3104 }
+    },
+    {
+      "participant": "ph3",
+      "values": { "finalScore": 88.1, "juryScore": 51.5, "publicVotes": 3260 }
+    },
+    {
+      "participant": "ph4",
+      "values": { "finalScore": 81.7, "juryScore": 49.0, "publicVotes": 2418 }
+    },
+    {
+      "participant": "ph5",
+      "status": "dsq",
+      "values": { "publicVotes": 2901 },
+      "notes": "Entry withdrawn from judging: flight permit could not be evidenced for the protected area."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["finalScore"],
+      "ties": "standard"
+    },
+    {
+      "id": "public-choice",
+      "label": "Public choice",
+      "sortBy": ["publicVotes"],
+      "ties": "standard",
+      "excludeStatuses": ["dns"]
+    },
+    {
+      "id": "mammals-category",
+      "label": "Mammals",
+      "scope": { "category": "mammals" },
+      "sortBy": ["finalScore"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "cards",
+    "measureOrder": ["finalScore", "juryScore", "publicVotes"],
+    "attributeOrder": ["title", "country", "technique"]
+  }
+}

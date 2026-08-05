@@ -1,0 +1,33 @@
+{
+  "openresult": "1.0",
+  "id": "lifecycle-demo-2026",
+  "version": 1,
+  "status": "provisional",
+  "title": "Edge case — provisional results",
+  "description": "Published while a protest is open. Superseded by lifecycle-amended.openresult.json, which carries the same id and a higher version. Between two documents sharing an id, the higher version wins.",
+  "lang": "en",
+  "generatedAt": "2026-03-14T17:20:00+01:00",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A" },
+    { "id": "b", "name": "Competitor B" },
+    { "id": "c", "name": "Competitor C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 302.44 } },
+    { "participant": "b", "values": { "time": 298.17 } },
+    { "participant": "c", "values": { "time": 305.9 } }
+  ],
+  "rankings": [
+    { "id": "main", "label": "Provisional standings", "sortBy": ["time"] }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "openresult": "1.0",
+  "id": "lifecycle-demo-2026",
+  "version": 2,
+  "status": "amended",
+  "title": "Edge case — amended results",
+  "description": "Supersedes lifecycle-provisional.openresult.json: same id, higher version. Competitor B was disqualified after the protest was upheld, which changes the standings without rewriting history — both documents remain valid.",
+  "lang": "en",
+  "generatedAt": "2026-03-15T11:05:00+01:00",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A" },
+    { "id": "b", "name": "Competitor B" },
+    { "id": "c", "name": "Competitor C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 302.44 } },
+    {
+      "participant": "b",
+      "status": "dsq",
+      "values": { "time": 298.17 },
+      "notes": "Protest upheld: course shortcut between checkpoints 4 and 5."
+    },
+    { "participant": "c", "values": { "time": 305.9 } }
+  ],
+  "rankings": [{ "id": "main", "label": "Final standings", "sortBy": ["time"] }]
+}

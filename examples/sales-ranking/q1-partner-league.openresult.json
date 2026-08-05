@@ -1,0 +1,214 @@
+{
+  "openresult": "1.0",
+  "id": "partner-league-2026-q1",
+  "version": 1,
+  "status": "official",
+  "title": "Partner League — Q1 2026",
+  "description": "Quarterly partner performance. Participants are organisations, the deciding measure is monetary, and the tie-break is the retention rate.",
+  "lang": "en",
+  "generatedAt": "2026-04-05T08:00:00+02:00",
+  "occurredAt": {
+    "start": "2026-01-01T00:00:00+01:00",
+    "end": "2026-03-31T23:59:59+02:00"
+  },
+  "source": {
+    "name": "Northwind Distribution",
+    "system": "PartnerHub 12",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "revenue",
+      "label": "Net revenue",
+      "kind": "money",
+      "unit": "EUR",
+      "precision": 0,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "growth",
+      "label": "Year-on-year growth",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "retention",
+      "label": "Customer retention",
+      "kind": "percentage",
+      "unit": "%",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "deals",
+      "label": "Closed deals",
+      "kind": "count",
+      "unit": "deal",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "avgDealSize",
+      "label": "Average deal size",
+      "kind": "money",
+      "unit": "EUR",
+      "precision": 0,
+      "betterWhen": "higher"
+    }
+  ],
+  "attributes": [
+    { "id": "region", "label": "Region", "type": "text" },
+    { "id": "tier", "label": "Partner tier", "type": "text" },
+    { "id": "since", "label": "Partner since", "type": "date" }
+  ],
+  "participants": [
+    {
+      "id": "pt1",
+      "name": "Alpine Systems",
+      "type": "organization",
+      "attributes": { "region": "DACH", "tier": "Gold", "since": "2019-06-01" }
+    },
+    {
+      "id": "pt2",
+      "name": "Costa Digital",
+      "type": "organization",
+      "attributes": {
+        "region": "Iberia",
+        "tier": "Gold",
+        "since": "2021-02-15"
+      }
+    },
+    {
+      "id": "pt3",
+      "name": "Baltic IT Group",
+      "type": "organization",
+      "attributes": {
+        "region": "Nordics",
+        "tier": "Silver",
+        "since": "2022-09-01"
+      }
+    },
+    {
+      "id": "pt4",
+      "name": "Loire Solutions",
+      "type": "organization",
+      "attributes": {
+        "region": "France",
+        "tier": "Gold",
+        "since": "2018-03-12"
+      }
+    },
+    {
+      "id": "pt5",
+      "name": "Thames Analytics",
+      "type": "organization",
+      "attributes": {
+        "region": "UK & Ireland",
+        "tier": "Silver",
+        "since": "2023-11-06"
+      }
+    },
+    {
+      "id": "pt6",
+      "name": "Adriatic Cloud",
+      "type": "organization",
+      "attributes": {
+        "region": "Southern Europe",
+        "tier": "Bronze",
+        "since": "2025-01-20"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "gold",
+      "label": "Gold tier",
+      "participants": ["pt1", "pt2", "pt4"]
+    },
+    { "id": "silver", "label": "Silver tier", "participants": ["pt3", "pt5"] },
+    { "id": "bronze", "label": "Bronze tier", "participants": ["pt6"] }
+  ],
+  "results": [
+    {
+      "participant": "pt1",
+      "values": {
+        "revenue": 1284000,
+        "growth": 12.4,
+        "retention": 94.2,
+        "deals": 38,
+        "avgDealSize": 33789
+      }
+    },
+    {
+      "participant": "pt2",
+      "values": {
+        "revenue": 1284000,
+        "growth": 31.7,
+        "retention": 89.6,
+        "deals": 52,
+        "avgDealSize": 24692
+      }
+    },
+    {
+      "participant": "pt4",
+      "values": {
+        "revenue": 1642500,
+        "growth": 4.1,
+        "retention": 96.8,
+        "deals": 29,
+        "avgDealSize": 56638
+      }
+    },
+    {
+      "participant": "pt3",
+      "values": {
+        "revenue": 617200,
+        "growth": 22.9,
+        "retention": 91.3,
+        "deals": 24,
+        "avgDealSize": 25717
+      }
+    },
+    {
+      "participant": "pt5",
+      "values": {
+        "revenue": 498900,
+        "growth": 48.2,
+        "retention": 87.1,
+        "deals": 31,
+        "avgDealSize": 16094
+      }
+    },
+    {
+      "participant": "pt6",
+      "status": "inProgress",
+      "values": { "revenue": 84300, "deals": 6, "avgDealSize": 14050 },
+      "notes": "Onboarded mid-quarter; growth and retention are not meaningful over a partial period."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "revenue-league",
+      "label": "By revenue",
+      "sortBy": ["revenue", "retention"],
+      "ties": "standard"
+    },
+    {
+      "id": "growth-league",
+      "label": "By growth",
+      "sortBy": ["growth"],
+      "ties": "standard"
+    },
+    {
+      "id": "gold-tier",
+      "label": "Gold tier",
+      "scope": { "category": "gold" },
+      "sortBy": ["revenue", "retention"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["revenue", "growth", "retention", "deals", "avgDealSize"]
+  }
+}

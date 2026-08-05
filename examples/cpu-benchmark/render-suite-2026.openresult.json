@@ -1,0 +1,217 @@
+{
+  "openresult": "1.0",
+  "id": "render-suite-2026-q2",
+  "version": 1,
+  "status": "official",
+  "title": "Render Suite 2026 Q2 — desktop processors",
+  "description": "Multi-threaded render benchmark. Participants are machines rather than people, which the format handles without a special case.",
+  "lang": "en",
+  "generatedAt": "2026-04-02T11:30:00+02:00",
+  "source": {
+    "name": "Open Benchmark Collective",
+    "system": "obc-runner 2.3.0",
+    "url": "https://example.org/obc/render-suite/2026q2",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "renderTime",
+      "label": "Render time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "throughput",
+      "label": "Throughput",
+      "kind": "rate",
+      "unit": "samples/s",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "power",
+      "label": "Package power",
+      "kind": "rate",
+      "unit": "W",
+      "precision": 0,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "efficiency",
+      "label": "Efficiency",
+      "kind": "rate",
+      "unit": "samples/s/W",
+      "precision": 2,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "cores",
+      "label": "Cores",
+      "kind": "count",
+      "unit": "core",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    { "id": "vendor", "label": "Vendor", "type": "text" },
+    { "id": "process", "label": "Process node", "type": "text" },
+    { "id": "released", "label": "Release date", "type": "date" }
+  ],
+  "participants": [
+    {
+      "id": "cpu-a",
+      "name": "Aurora 9950X",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Aurora",
+        "process": "3 nm",
+        "released": "2025-09-15"
+      }
+    },
+    {
+      "id": "cpu-b",
+      "name": "Vertex Core i9-15900K",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Vertex",
+        "process": "3 nm",
+        "released": "2025-10-20"
+      }
+    },
+    {
+      "id": "cpu-c",
+      "name": "Aurora 9800X",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Aurora",
+        "process": "3 nm",
+        "released": "2025-09-15"
+      }
+    },
+    {
+      "id": "cpu-d",
+      "name": "Vertex Core i7-15700K",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Vertex",
+        "process": "3 nm",
+        "released": "2025-10-20"
+      }
+    },
+    {
+      "id": "cpu-e",
+      "name": "Meridian M4 Max",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Meridian",
+        "process": "3 nm",
+        "released": "2025-11-08"
+      }
+    },
+    {
+      "id": "cpu-f",
+      "name": "Aurora 7950X",
+      "type": "machine",
+      "attributes": {
+        "vendor": "Aurora",
+        "process": "5 nm",
+        "released": "2023-09-27"
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "run-2026q2",
+      "name": "Q2 2026 run",
+      "type": "session",
+      "occurredAt": {
+        "start": "2026-03-28T00:00:00+01:00",
+        "end": "2026-04-01T00:00:00+02:00"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "cpu-a",
+      "event": "run-2026q2",
+      "values": {
+        "renderTime": 61.44,
+        "throughput": 1628.3,
+        "power": 189,
+        "efficiency": 8.62,
+        "cores": 16
+      }
+    },
+    {
+      "participant": "cpu-b",
+      "event": "run-2026q2",
+      "values": {
+        "renderTime": 59.87,
+        "throughput": 1671.0,
+        "power": 241,
+        "efficiency": 6.93,
+        "cores": 24
+      }
+    },
+    {
+      "participant": "cpu-c",
+      "event": "run-2026q2",
+      "values": {
+        "renderTime": 78.92,
+        "throughput": 1267.4,
+        "power": 142,
+        "efficiency": 8.92,
+        "cores": 8
+      }
+    },
+    {
+      "participant": "cpu-d",
+      "event": "run-2026q2",
+      "values": {
+        "renderTime": 71.35,
+        "throughput": 1401.9,
+        "power": 198,
+        "efficiency": 7.08,
+        "cores": 20
+      }
+    },
+    {
+      "participant": "cpu-e",
+      "event": "run-2026q2",
+      "values": {
+        "renderTime": 66.18,
+        "throughput": 1511.2,
+        "power": 84,
+        "efficiency": 17.99,
+        "cores": 16
+      }
+    },
+    {
+      "participant": "cpu-f",
+      "event": "run-2026q2",
+      "status": "dnf",
+      "values": { "cores": 16 },
+      "notes": "Run aborted: thermal throttling made the result non-comparable."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "speed",
+      "label": "By speed",
+      "sortBy": ["renderTime"],
+      "ties": "standard"
+    },
+    {
+      "id": "efficiency-ranking",
+      "label": "By efficiency",
+      "sortBy": ["efficiency"],
+      "ties": "standard"
+    }
+  ],
+  "presentation": {
+    "defaultView": "table",
+    "measureOrder": ["renderTime", "throughput", "power", "efficiency", "cores"]
+  }
+}

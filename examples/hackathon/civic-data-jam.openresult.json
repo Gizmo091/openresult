@@ -1,0 +1,234 @@
+{
+  "openresult": "1.0",
+  "id": "civic-data-jam-2026",
+  "version": 1,
+  "status": "official",
+  "title": "Civic Data Jam 2026",
+  "description": "Jury scoring across four criteria plus a weighted total. The weighting rule is described for the reader but not encoded: the format carries the resulting figures, never a formula to evaluate.",
+  "lang": "en",
+  "generatedAt": "2026-02-22T18:30:00+01:00",
+  "occurredAt": {
+    "start": "2026-02-20T18:00:00+01:00",
+    "end": "2026-02-22T17:00:00+01:00"
+  },
+  "source": {
+    "name": "Civic Data Jam",
+    "url": "https://example.org/civic-data-jam/2026",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "total",
+      "label": "Weighted total",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 2,
+      "betterWhen": "higher",
+      "description": "Impact 40 %, technical execution 30 %, originality 20 %, presentation 10 %. Computed by the jury; consumers do not recompute it."
+    },
+    {
+      "id": "impact",
+      "label": "Impact",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "execution",
+      "label": "Technical execution",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "originality",
+      "label": "Originality",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "presentation",
+      "label": "Presentation",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 1,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "teamSize",
+      "label": "Team size",
+      "kind": "count",
+      "unit": "person",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    { "id": "track", "label": "Track", "type": "text" },
+    { "id": "repository", "label": "Repository", "type": "url" }
+  ],
+  "categories": [
+    {
+      "id": "mobility",
+      "label": "Mobility track",
+      "participants": ["h1", "h3", "h5"]
+    },
+    {
+      "id": "environment",
+      "label": "Environment track",
+      "participants": ["h2", "h4", "h6"]
+    }
+  ],
+  "participants": [
+    {
+      "id": "h1",
+      "name": "Team Wayfinder",
+      "type": "team",
+      "attributes": {
+        "track": "Mobility",
+        "repository": "https://example.org/git/wayfinder"
+      }
+    },
+    {
+      "id": "h2",
+      "name": "Team Canopy",
+      "type": "team",
+      "attributes": {
+        "track": "Environment",
+        "repository": "https://example.org/git/canopy"
+      }
+    },
+    {
+      "id": "h3",
+      "name": "Team Lastmile",
+      "type": "team",
+      "attributes": {
+        "track": "Mobility",
+        "repository": "https://example.org/git/lastmile"
+      }
+    },
+    {
+      "id": "h4",
+      "name": "Team Riverkeep",
+      "type": "team",
+      "attributes": {
+        "track": "Environment",
+        "repository": "https://example.org/git/riverkeep"
+      }
+    },
+    {
+      "id": "h5",
+      "name": "Team Signal",
+      "type": "team",
+      "attributes": {
+        "track": "Mobility",
+        "repository": "https://example.org/git/signal"
+      }
+    },
+    {
+      "id": "h6",
+      "name": "Team Groundwater",
+      "type": "team",
+      "attributes": {
+        "track": "Environment",
+        "repository": "https://example.org/git/groundwater"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "h1",
+      "values": {
+        "total": 86.4,
+        "impact": 9.0,
+        "execution": 8.5,
+        "originality": 8.0,
+        "presentation": 8.5,
+        "teamSize": 4
+      }
+    },
+    {
+      "participant": "h2",
+      "values": {
+        "total": 88.9,
+        "impact": 9.5,
+        "execution": 8.5,
+        "originality": 8.5,
+        "presentation": 8.0,
+        "teamSize": 3
+      }
+    },
+    {
+      "participant": "h3",
+      "values": {
+        "total": 74.2,
+        "impact": 7.5,
+        "execution": 7.5,
+        "originality": 7.0,
+        "presentation": 7.5,
+        "teamSize": 5
+      }
+    },
+    {
+      "participant": "h4",
+      "values": {
+        "total": 81.0,
+        "impact": 8.0,
+        "execution": 8.5,
+        "originality": 8.0,
+        "presentation": 7.5,
+        "teamSize": 4
+      }
+    },
+    {
+      "participant": "h5",
+      "values": {
+        "total": 74.2,
+        "impact": 7.0,
+        "execution": 8.0,
+        "originality": 7.5,
+        "presentation": 7.0,
+        "teamSize": 2
+      }
+    },
+    {
+      "participant": "h6",
+      "status": "dsq",
+      "values": { "teamSize": 6 },
+      "notes": "Disqualified: the submission relied on code written before the event window."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["total", "impact"],
+      "ties": "standard"
+    },
+    {
+      "id": "mobility-track",
+      "label": "Mobility track",
+      "scope": { "category": "mobility" },
+      "sortBy": ["total", "impact"]
+    },
+    {
+      "id": "environment-track",
+      "label": "Environment track",
+      "scope": { "category": "environment" },
+      "sortBy": ["total", "impact"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "compare",
+    "measureOrder": [
+      "total",
+      "impact",
+      "execution",
+      "originality",
+      "presentation"
+    ]
+  }
+}

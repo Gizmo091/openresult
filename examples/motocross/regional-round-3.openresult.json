@@ -1,0 +1,491 @@
+{
+  "openresult": "1.0",
+  "id": "mx-regional-2026-r3",
+  "version": 2,
+  "status": "amended",
+  "title": "Regional Motocross Championship — Round 3",
+  "description": "Two races per class, points awarded per race, overall standings from the points total. Race 2 result amended after the stewards' decision on rider 41.",
+  "lang": "en",
+  "generatedAt": "2026-05-17T18:04:00+02:00",
+  "occurredAt": {
+    "start": "2026-05-17T09:30:00+02:00",
+    "end": "2026-05-17T17:15:00+02:00"
+  },
+  "source": {
+    "name": "Valley Motor Club",
+    "system": "MXTiming 5.4",
+    "url": "https://example.org/mx-valley/2026/round-3",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "raceTime",
+      "label": "Race time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "laps",
+      "label": "Laps",
+      "kind": "count",
+      "unit": "lap",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "bestLap",
+      "label": "Best lap",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 3,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "lastRacePoints",
+      "label": "Points in the final race",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher",
+      "description": "Tie-break for the overall standings: riders level on points are separated by their result in the last race."
+    },
+    {
+      "id": "number",
+      "label": "Number",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "team",
+      "label": "Team",
+      "type": "text"
+    },
+    {
+      "id": "bike",
+      "label": "Machine",
+      "type": "text"
+    },
+    {
+      "id": "nationality",
+      "label": "Nationality",
+      "type": "country"
+    }
+  ],
+  "categories": [
+    {
+      "id": "mx2",
+      "label": "MX2",
+      "participants": ["r1", "r3", "r5", "r7"]
+    },
+    {
+      "id": "mx1",
+      "label": "MX1",
+      "participants": ["r2", "r4", "r6", "r8"]
+    }
+  ],
+  "participants": [
+    {
+      "id": "r1",
+      "name": "Mathis Delcourt",
+      "attributes": {
+        "team": "Valley Racing",
+        "bike": "KTM 250 SX-F",
+        "nationality": "FR"
+      }
+    },
+    {
+      "id": "r2",
+      "name": "Pieter van Dijk",
+      "attributes": {
+        "team": "Northern MX",
+        "bike": "Yamaha YZ450F",
+        "nationality": "NL"
+      }
+    },
+    {
+      "id": "r3",
+      "name": "Enzo Ferrari-Rossi",
+      "attributes": {
+        "team": "Squadra Terra",
+        "bike": "Honda CRF250R",
+        "nationality": "IT"
+      }
+    },
+    {
+      "id": "r4",
+      "name": "Lars Bergström",
+      "attributes": {
+        "team": "Northern MX",
+        "bike": "Husqvarna FC450",
+        "nationality": "SE"
+      }
+    },
+    {
+      "id": "r5",
+      "name": "Diego Salazar",
+      "attributes": {
+        "team": "Sierra Team",
+        "bike": "GasGas MC250F",
+        "nationality": "ES"
+      }
+    },
+    {
+      "id": "r6",
+      "name": "Ryan O'Connell",
+      "attributes": {
+        "team": "Valley Racing",
+        "bike": "Kawasaki KX450",
+        "nationality": "IE"
+      }
+    },
+    {
+      "id": "r7",
+      "name": "Youssef Amrani",
+      "attributes": {
+        "team": "Sierra Team",
+        "bike": "KTM 250 SX-F",
+        "nationality": "MA"
+      }
+    },
+    {
+      "id": "r8",
+      "name": "Marek Nowak",
+      "attributes": {
+        "team": "Squadra Terra",
+        "bike": "Yamaha YZ450F",
+        "nationality": "PL"
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "overall",
+      "name": "Round 3 overall",
+      "type": "overall"
+    },
+    {
+      "id": "race1",
+      "name": "Race 1",
+      "type": "heat",
+      "parent": "overall",
+      "occurredAt": {
+        "start": "2026-05-17T11:00:00+02:00"
+      }
+    },
+    {
+      "id": "race2",
+      "name": "Race 2",
+      "type": "heat",
+      "parent": "overall",
+      "occurredAt": {
+        "start": "2026-05-17T15:30:00+02:00"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "r1",
+      "event": "race1",
+      "values": {
+        "points": 25,
+        "raceTime": 1834.442,
+        "laps": 18,
+        "bestLap": 100.812,
+        "number": 7
+      }
+    },
+    {
+      "participant": "r3",
+      "event": "race1",
+      "values": {
+        "points": 22,
+        "raceTime": 1841.907,
+        "laps": 18,
+        "bestLap": 101.244,
+        "number": 19
+      }
+    },
+    {
+      "participant": "r5",
+      "event": "race1",
+      "values": {
+        "points": 20,
+        "raceTime": 1852.318,
+        "laps": 18,
+        "bestLap": 101.903,
+        "number": 41
+      }
+    },
+    {
+      "participant": "r7",
+      "event": "race1",
+      "status": "dnf",
+      "values": {
+        "points": 0,
+        "laps": 11,
+        "bestLap": 102.551,
+        "number": 84
+      },
+      "notes": "Mechanical failure on lap 12."
+    },
+    {
+      "participant": "r2",
+      "event": "race1",
+      "values": {
+        "points": 25,
+        "raceTime": 1798.115,
+        "laps": 18,
+        "bestLap": 98.407,
+        "number": 3
+      }
+    },
+    {
+      "participant": "r4",
+      "event": "race1",
+      "values": {
+        "points": 22,
+        "raceTime": 1803.662,
+        "laps": 18,
+        "bestLap": 98.918,
+        "number": 22
+      }
+    },
+    {
+      "participant": "r6",
+      "event": "race1",
+      "values": {
+        "points": 20,
+        "raceTime": 1815.229,
+        "laps": 18,
+        "bestLap": 99.376,
+        "number": 55
+      }
+    },
+    {
+      "participant": "r8",
+      "event": "race1",
+      "values": {
+        "points": 18,
+        "raceTime": 1827.884,
+        "laps": 18,
+        "bestLap": 99.812,
+        "number": 12
+      }
+    },
+    {
+      "participant": "r1",
+      "event": "race2",
+      "values": {
+        "points": 22,
+        "raceTime": 1839.771,
+        "laps": 18,
+        "bestLap": 101.033,
+        "number": 7
+      }
+    },
+    {
+      "participant": "r3",
+      "event": "race2",
+      "values": {
+        "points": 25,
+        "raceTime": 1836.554,
+        "laps": 18,
+        "bestLap": 100.947,
+        "number": 19
+      }
+    },
+    {
+      "participant": "r5",
+      "event": "race2",
+      "status": "dsq",
+      "values": {
+        "points": 0,
+        "raceTime": 1848.201,
+        "laps": 18,
+        "number": 41
+      },
+      "notes": "Disqualified by the stewards: jump under a waved yellow flag."
+    },
+    {
+      "participant": "r7",
+      "event": "race2",
+      "values": {
+        "points": 20,
+        "raceTime": 1850.663,
+        "laps": 18,
+        "bestLap": 102.118,
+        "number": 84
+      }
+    },
+    {
+      "participant": "r2",
+      "event": "race2",
+      "values": {
+        "points": 22,
+        "raceTime": 1801.442,
+        "laps": 18,
+        "bestLap": 98.633,
+        "number": 3
+      }
+    },
+    {
+      "participant": "r4",
+      "event": "race2",
+      "values": {
+        "points": 25,
+        "raceTime": 1796.908,
+        "laps": 18,
+        "bestLap": 98.221,
+        "number": 22
+      }
+    },
+    {
+      "participant": "r6",
+      "event": "race2",
+      "values": {
+        "points": 18,
+        "raceTime": 1822.117,
+        "laps": 18,
+        "bestLap": 99.744,
+        "number": 55
+      }
+    },
+    {
+      "participant": "r8",
+      "event": "race2",
+      "values": {
+        "points": 20,
+        "raceTime": 1811.395,
+        "laps": 18,
+        "bestLap": 99.508,
+        "number": 12
+      }
+    },
+    {
+      "participant": "r1",
+      "event": "overall",
+      "values": {
+        "points": 47,
+        "number": 7,
+        "lastRacePoints": 22
+      }
+    },
+    {
+      "participant": "r3",
+      "event": "overall",
+      "values": {
+        "points": 47,
+        "number": 19,
+        "lastRacePoints": 25
+      }
+    },
+    {
+      "participant": "r5",
+      "event": "overall",
+      "values": {
+        "points": 20,
+        "number": 41,
+        "lastRacePoints": 0
+      }
+    },
+    {
+      "participant": "r7",
+      "event": "overall",
+      "values": {
+        "points": 20,
+        "number": 84,
+        "lastRacePoints": 20
+      }
+    },
+    {
+      "participant": "r2",
+      "event": "overall",
+      "values": {
+        "points": 47,
+        "number": 3,
+        "lastRacePoints": 22
+      }
+    },
+    {
+      "participant": "r4",
+      "event": "overall",
+      "values": {
+        "points": 47,
+        "number": 22,
+        "lastRacePoints": 25
+      }
+    },
+    {
+      "participant": "r6",
+      "event": "overall",
+      "values": {
+        "points": 38,
+        "number": 55,
+        "lastRacePoints": 18
+      }
+    },
+    {
+      "participant": "r8",
+      "event": "overall",
+      "values": {
+        "points": 38,
+        "number": 12,
+        "lastRacePoints": 20
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall-mx2",
+      "label": "MX2 overall",
+      "scope": {
+        "event": "overall",
+        "category": "mx2"
+      },
+      "sortBy": ["points", "lastRacePoints"],
+      "ties": "standard"
+    },
+    {
+      "id": "overall-mx1",
+      "label": "MX1 overall",
+      "scope": {
+        "event": "overall",
+        "category": "mx1"
+      },
+      "sortBy": ["points", "lastRacePoints"],
+      "ties": "standard"
+    },
+    {
+      "id": "race1-mx2",
+      "label": "Race 1 — MX2",
+      "scope": {
+        "event": "race1",
+        "category": "mx2"
+      },
+      "sortBy": ["raceTime"]
+    },
+    {
+      "id": "race2-mx2",
+      "label": "Race 2 — MX2",
+      "scope": {
+        "event": "race2",
+        "category": "mx2"
+      },
+      "sortBy": ["raceTime"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["points", "raceTime", "bestLap", "laps"]
+  }
+}

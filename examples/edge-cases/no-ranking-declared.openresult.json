@@ -1,0 +1,33 @@
+{
+  "openresult": "1.0",
+  "title": "Edge case — no ranking declared",
+  "description": "The document declares no rankings and carries no rank. A consumer must still order it, using the implicit ranking: the first measure whose betterWhen is not none, standard tie handling, non-rankable statuses excluded.",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "bib",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "none"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Competitor A" },
+    { "id": "b", "name": "Competitor B" },
+    { "id": "c", "name": "Competitor C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "bib": 12, "time": 184.55 } },
+    { "participant": "b", "values": { "bib": 3, "time": 179.02 } },
+    { "participant": "c", "values": { "bib": 27, "time": 191.4 } }
+  ]
+}
