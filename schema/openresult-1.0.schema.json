@@ -165,6 +165,7 @@
           "enum": [
             "duration",
             "distance",
+            "mass",
             "points",
             "score",
             "percentage",

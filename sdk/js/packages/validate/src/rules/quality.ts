@@ -51,6 +51,21 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
     }
   });
 
+  (document.categories ?? []).forEach((category, index) => {
+    const members = category.participants ?? [];
+    const selects = document.results.some((result) => members.includes(result.participant));
+    if (!selects) {
+      found.push(
+        diagnostic(
+          'OR-907',
+          pointer('categories', index),
+          `Category "${category.label}" selects no result: none of its participants has one.`,
+          `Populate it, remove it, or check that its participant ids are right.`,
+        ),
+      );
+    }
+  });
+
   const carriesText =
     document.description !== undefined ||
     document.results.some((result) => result.notes !== undefined);

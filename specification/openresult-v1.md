@@ -268,8 +268,12 @@ A measure defines an observed quantity and how it orders. It is the central carr
 
 **§5.1.1** `id` **MUST** be unique among measures ([§5.4](#54-identifiers)).
 
-**§5.1.2** `kind` **MUST** be one of `duration`, `distance`, `points`, `score`, `percentage`,
-`count`, `money`, `rate`, `text`, `boolean`.
+**§5.1.2** `kind` **MUST** be one of `duration`, `distance`, `mass`, `points`, `score`,
+`percentage`, `count`, `money`, `rate`, `text`, `boolean`.
+
+`mass` covers a weight lifted, a bodyweight class, a catch, a payload — any physical mass. It
+exists because a barbell load is not "awarded by a rule", and forcing it into `points` made a
+consumer render "505 kg points".
 
 Two of these are easily confused. **`points`** are awarded by a rule and accumulate — championship
 points, match points, a chess score. **`score`** is a judgement on a scale — a jury mark, a
@@ -325,14 +329,14 @@ attribute `id`.
 **§5.3.3** An attribute value **MUST** match its declared `type`, on the same terms as a measured
 value matches its `kind` ([§5.2.1](#52-values-and-units)):
 
-| `type`    | JSON type | Format                                                                   |
-| --------- | --------- | ------------------------------------------------------------------------ |
-| `text`    | string    | none                                                                     |
-| `number`  | number    | none — a number, never a numeric string                                  |
-| `boolean` | boolean   | none                                                                     |
-| `date`    | string    | RFC 3339 full-date or date-time ([§4.6](#46-dates-times-and-time-zones)) |
-| `url`     | string    | absolute URI                                                             |
-| `country` | string    | ISO 3166-1 **alpha-2**, uppercase — `FR`, `GH`, `JP`                     |
+| `type`    | JSON type | Format                                                        |
+| --------- | --------- | ------------------------------------------------------------- |
+| `text`    | string    | none                                                          |
+| `number`  | number    | none — a number, never a numeric string                       |
+| `boolean` | boolean   | none                                                          |
+| `date`    | string    | RFC 3339 full-date or date-time ([§4.6](#46-dates-and-times)) |
+| `url`     | string    | absolute URI                                                  |
+| `country` | string    | ISO 3166-1 **alpha-2**, uppercase — `FR`, `GH`, `JP`          |
 
 **§5.3.4** A value contradicting its declared type is reported as `OR-102`.
 
@@ -386,8 +390,9 @@ present, is an abbreviated form a consumer **MAY** prefer where space is tight; 
 carry information absent from `name`.
 
 **§6.1.5** `label` names an entity for display wherever it appears — on a measure, an attribute,
-a ranking or a category — and `description` **MAY** expand on it in prose. Neither is ever
-parsed.
+a ranking or a category — and `description` **MAY** expand on it in prose. Both are **OPTIONAL**
+members of measures, attributes, rankings, categories, events and participants alike, and neither
+is ever parsed.
 
 ### 6.2 `events`
 
@@ -469,11 +474,6 @@ the document declares `events`.
 
 **§7.2.2** An unknown `status` **MUST** be treated as `finished`.
 
-**§7.2.5** `bye` marks a competitor who scored without a contest — an odd field in a Swiss
-pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the score counts.
-Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
-carries it.
-
 **§7.2.3** Exclusion is a property of a **ranking**, not of a status. The column above gives the
 default exclusion set of [§8.4.2](#84-excludestatuses); a ranking that declares its own
 `excludeStatuses` replaces that set entirely ([§8.4.1](#84-excludestatuses)). The same result may
@@ -482,6 +482,11 @@ that still sets the fastest lap is the ordinary case, not an anomaly.
 
 **§7.2.4** A result excluded from a ranking **MUST** remain available for display. A consumer
 **SHOULD** show it without a rank rather than omit it.
+
+**§7.2.5** `bye` marks a competitor who scored without a contest — an odd field in a Swiss
+pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the score counts.
+Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
+carries it.
 
 ### 7.3 `values`
 
@@ -492,6 +497,11 @@ and `0` means zero.
 
 **§7.3.3** The type of each value **MUST** match its measure's `kind`, per
 [§5.2.1](#52-values-and-units).
+
+### 7.4 `notes`
+
+**§7.4.1** `notes` is free text addressed to a human reader. A consumer **MUST NOT** parse it to
+derive machine behaviour.
 
 ### 7.5 `ranks`
 
@@ -512,11 +522,6 @@ _Non-normative: a single scalar rank cannot serve a document that declares sever
 GT4 car finishing fourth overall and first in class has two positions, and both are facts the
 producer may want to publish. Keying by ranking also gives a validator something unambiguous to
 compare against, which a bare number never did._
-
-### 7.4 `notes`
-
-**§7.4.1** `notes` is free text addressed to a human reader. A consumer **MUST NOT** parse it to
-derive machine behaviour.
 
 ---
 
@@ -606,8 +611,11 @@ this ranking. It **replaces** the default set in full; it is not added to it. A 
 **§8.4.2** When absent, the default set applies: `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`,
 `withdrawn`.
 
-_Non-normative: replacement rather than union is what makes a "fastest lap" or "best single
-attempt" ranking expressible at all — those rank competitors the overall standings exclude. The
+_Non-normative: replacement rather than union is what makes a "fastest lap" ranking
+expressible at all — one that ranks competitors the overall standings exclude. It does not, on its
+own, express "best attempt across rounds": a ranking sees one event ([§8.1.1](#81-scope)), so a
+producer comparing attempts held in separate events publishes the best as a result on their parent
+event. The
 cost is that an author writing `excludeStatuses: ["dsq"]` gets only that exclusion, so the common
 case is to omit the member entirely and take the default._
 
@@ -624,6 +632,13 @@ list as follows.
 - its `values` contains every measure listed in `sortBy`.
 
 All others are **unranked**.
+
+_A ranking that drops results this way is valid and often wrong._ A classification sorting on
+`["round1Faults", "jumpOffFaults"]` leaves every competitor who did not reach the jump-off
+unranked — a twelve-horse Grand Prix rendering as five. The producer's remedy is to publish
+measures every selected result carries, copying earlier values forward where a later round did
+not happen. A validator reports the condition as `OR-908`, because the document cannot say whether
+the omission was deliberate.
 
 **§8.5.3 — Sort.** Order the rankable results by successive comparison over `sortBy`. For each
 measure, `betterWhen: "lower"` orders ascending and `betterWhen: "higher"` orders descending. The
@@ -661,7 +676,7 @@ declaration order.
 **§9.1.1** A category **MUST** carry `id` and `label`. `participants` and `parent` are
 **OPTIONAL**. `participants`, when present, **MUST** reference declared participants; a
 participant **MAY** belong to several categories. A category with no `participants` selects no
-result, which a validator reports as `OR-906`.
+result, which a validator reports as `OR-907`.
 
 **§9.1.2** `parent`, when present, **MUST** reference another declared category, and the graph
 **MUST** be acyclic.
@@ -750,7 +765,14 @@ the document and on any entity.
 **§10.2.3** A consumer that rewrites a document **MUST** preserve extensions unchanged.
 
 **§10.2.4** Any member that is neither defined by this specification nor prefixed `x-` is a
-validation **error**.
+validation **error**, _for the version the document declares_. A validator checks a document
+against its declared version; a consumer reading a higher MINOR version ignores what it does not
+recognise ([§11.4.2](#114-version-negotiation)). The two rules govern different acts — validating
+and reading — and a tool doing both applies each to its own.
+
+_Non-normative: without this, a 1.0 validator handed a 1.1 document holding a member added in 1.1
+would face two mandatory and opposite instructions. Rejecting the unknown member is right when
+checking a 1.0 document and wrong when reading a 1.1 one; the declared version tells them apart._
 
 _Non-normative: rejecting unprefixed unknown members is what turns a misspelled `participants`
 into an error rather than silently discarded data._
@@ -864,6 +886,7 @@ plain language, and at least one concrete correction.
 | `OR-302` | error    | Residual tie under `ties: "strict"` (§8.3.1)                                                                                                                                     |
 | `OR-303` | error    | `ranks` names a ranking that excludes this result (§7.5.3)                                                                                                                       |
 | `OR-304` | error    | `sortBy` is empty (§8.2.1)                                                                                                                                                       |
+| `OR-305` | error    | `sortBy` contains a `text` or `boolean` measure (§8.2.2)                                                                                                                         |
 | `OR-401` | error    | `openresult` absent or malformed (§4.2.1)                                                                                                                                        |
 | `OR-402` | error    | Unsupported MAJOR version (§11.4.1)                                                                                                                                              |
 | `OR-403` | —        | **Retired.** Reserved for a rule comparing `version` across two documents sharing an `id`. A validator sees one document, so the rule cannot be checked. The code is not reused. |
@@ -873,6 +896,8 @@ plain language, and at least one concrete correction.
 | `OR-904` | warning  | A result references a participant absent from its event's field (§6.2.4)                                                                                                         |
 | `OR-905` | warning  | A declared attribute is used by no entity                                                                                                                                        |
 | `OR-906` | warning  | A declared ranking selects no result                                                                                                                                             |
+| `OR-907` | warning  | A declared category selects no result (§9.1.1)                                                                                                                                   |
+| `OR-908` | warning  | A ranking leaves selected results unranked for want of a sorting measure (§8.5.2)                                                                                                |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 
@@ -966,9 +991,9 @@ each case, the rule it exercises.
 | Document structure            | §4.1.1 – §4.6.3   |
 | Measures and attributes       | §5.1.1 – §5.4.3   |
 | Participants and events       | §6.1.1 – §6.2.4   |
-| Results                       | §7.1.1 – §7.4.1   |
+| Results                       | §7.1.1 – §7.5.4   |
 | Rankings and derivation       | §8.1.1 – §8.6.2   |
-| Categories, source, resources | §9.1.1 – §9.3.3   |
+| Categories, source, resources | §9.1.1 – §9.3.5   |
 | Presentation and extensions   | §10.1.1 – §10.2.4 |
 | Versioning and compatibility  | §11.1.1 – §11.6.3 |
 | Validation                    | §12.1.1 – §12.3.1 |

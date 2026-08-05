@@ -1,4 +1,5 @@
 import {
+  DEFAULT_EXCLUDED_STATUSES,
   measure,
   normalizeBetterWhen,
   normalizeStatus,
@@ -50,7 +51,7 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
         // disagree — the divergence spec §8.5.6 forbids.
         found.push(
           diagnostic(
-            'OR-301',
+            'OR-305',
             pointer('rankings', index, 'sortBy', measureIndex),
             `Ranking "${ranking.label}" sorts on "${definition.label}", a ${definition.kind} ` +
               `measure. Only numeric kinds may decide an order: text has no ordering two ` +
@@ -62,6 +63,35 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
     });
 
     const entries = rank(document, ranking.id);
+
+    // A ranking that selects results and then drops them for a missing measure
+    // is valid and usually wrong: a twelve-horse class rendering as five, with
+    // nothing to tell the reader the other seven exist (spec §8.5.2).
+    const droppedForMeasure = entries.filter(
+      (entry) =>
+        entry.rank === null &&
+        !(ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES).includes(
+          normalizeStatus(entry.result.status),
+        ),
+    );
+    if (droppedForMeasure.length > 0) {
+      const names = droppedForMeasure
+        .slice(0, 3)
+        .map((entry) => entry.participant.name)
+        .join(', ');
+      const more = droppedForMeasure.length > 3 ? `, and ${droppedForMeasure.length - 3} more` : '';
+      found.push(
+        diagnostic(
+          'OR-908',
+          pointer('rankings', index),
+          `Ranking "${ranking.label}" leaves ${droppedForMeasure.length} result(s) unranked ` +
+            `because they lack a measure it sorts on — ${names}${more}. They are not excluded by ` +
+            `status, so this is probably not intended.`,
+          `Publish a value every selected result carries, copying earlier rounds forward where a ` +
+            `later one did not happen — or narrow the ranking's scope.`,
+        ),
+      );
+    }
 
     if (entries.length === 0) {
       found.push(

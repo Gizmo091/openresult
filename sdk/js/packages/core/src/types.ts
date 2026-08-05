@@ -11,6 +11,7 @@
 export type MeasureKind =
   | 'duration'
   | 'distance'
+  | 'mass'
   | 'points'
   | 'score'
   | 'percentage'

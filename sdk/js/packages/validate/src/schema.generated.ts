@@ -183,6 +183,7 @@ export const OPENRESULT_1_0_SCHEMA = {
           "enum": [
             "duration",
             "distance",
+            "mass",
             "points",
             "score",
             "percentage",
