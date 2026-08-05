@@ -11,6 +11,7 @@ import type { ViewModel } from '../core/view-model.js';
  */
 const STATUS_LABELS: Record<string, string> = {
   finished: 'finished',
+  bye: 'bye',
   inProgress: 'in progress',
   dnf: 'did not finish',
   dns: 'did not start',

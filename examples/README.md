@@ -1,6 +1,6 @@
 # Examples
 
-Nineteen documents. Eleven cover deliberately unlike domains — if one format serves a motocross
+Twenty documents. Eleven cover deliberately unlike domains — if one format serves a motocross
 meeting, a CPU benchmark and a photo contest, the model is doing its job. Eight isolate an edge
 case each.
 
@@ -26,15 +26,16 @@ would reveal a gap in the format. That is checked automatically too.
 
 ## Edge cases
 
-| Example                                                                                                                                               | What it isolates                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`ties-standard`](./edge-cases/ties-standard.openresult.json)                                                                                         | Shared rank consumes the next: 1, 2, 2, 4.                                                                                                   |
-| [`ties-dense`](./edge-cases/ties-dense.openresult.json)                                                                                               | Identical data, `ties: "dense"`: 1, 2, 2, 3. Same results, different ranks — which is why the rule belongs in the document.                  |
-| [`no-ranking-declared`](./edge-cases/no-ranking-declared.openresult.json)                                                                             | No `rankings` and no `rank`. A consumer must still order it, using the implicit ranking.                                                     |
-| [`missing-values-and-statuses`](./edge-cases/missing-values-and-statuses.openresult.json)                                                             | Zero versus absent. All non-rankable statuses at once, each appearing without a rank rather than being dropped.                              |
-| [`extensions-and-unknown-values`](./edge-cases/extensions-and-unknown-values.openresult.json)                                                         | `x-` extensions at every level, plus enumeration values a 1.0 consumer does not know. All ignored without error, none affecting the ranking. |
-| [`lifecycle-provisional`](./edge-cases/lifecycle-provisional.openresult.json) → [`lifecycle-amended`](./edge-cases/lifecycle-amended.openresult.json) | Same `id`, `version` 1 then 2. The second supersedes the first after a protest is upheld. Both stay valid.                                   |
-| [`announced-no-results`](./edge-cases/announced-no-results.openresult.json)                                                                           | An empty `results` array. Entry list and rules published ahead of the event.                                                                 |
+| Example                                                                                                                                               | What it isolates                                                                                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`ties-standard`](./edge-cases/ties-standard.openresult.json)                                                                                         | Shared rank consumes the next: 1, 2, 2, 4.                                                                                                                        |
+| [`ties-dense`](./edge-cases/ties-dense.openresult.json)                                                                                               | Identical data, `ties: "dense"`: 1, 2, 2, 3. Same results, different ranks — which is why the rule belongs in the document.                                       |
+| [`no-ranking-declared`](./edge-cases/no-ranking-declared.openresult.json)                                                                             | No `rankings` and no `rank`. A consumer must still order it, using the implicit ranking.                                                                          |
+| [`missing-values-and-statuses`](./edge-cases/missing-values-and-statuses.openresult.json)                                                             | Zero versus absent. All non-rankable statuses at once, each appearing without a rank rather than being dropped.                                                   |
+| [`extensions-and-unknown-values`](./edge-cases/extensions-and-unknown-values.openresult.json)                                                         | `x-` extensions at every level, plus enumeration values a 1.0 consumer does not know. All ignored without error, none affecting the ranking.                      |
+| [`lifecycle-provisional`](./edge-cases/lifecycle-provisional.openresult.json) → [`lifecycle-amended`](./edge-cases/lifecycle-amended.openresult.json) | Same `id`, `version` 1 then 2. The second supersedes the first after a protest is upheld. Both stay valid.                                                        |
+| [`bye-in-an-odd-field`](./edge-cases/bye-in-an-odd-field.openresult.json)                                                                             | A competitor who scored without a contest. `bye` is the only non-finished status that ranks — contrast the withdrawal, which holds points and is excluded anyway. |
+| [`announced-no-results`](./edge-cases/announced-no-results.openresult.json)                                                                           | An empty `results` array. Entry list and rules published ahead of the event.                                                                                      |
 
 ## Conventions
 
