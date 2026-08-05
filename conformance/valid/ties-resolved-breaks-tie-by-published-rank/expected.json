@@ -1,0 +1,21 @@
+{
+  "valid": true,
+  "rankings": {
+    "semis-resolved": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "c", "rank": 2 },
+      { "participant": "b", "rank": 3 },
+      { "participant": "d", "rank": 4 },
+      { "participant": "e", "rank": 5 },
+      { "participant": "f", "rank": 5 }
+    ],
+    "semis-standard": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "b", "rank": 2 },
+      { "participant": "c", "rank": 2 },
+      { "participant": "d", "rank": 4 },
+      { "participant": "e", "rank": 5 },
+      { "participant": "f", "rank": 5 }
+    ]
+  }
+}

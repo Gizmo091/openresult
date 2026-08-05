@@ -1,0 +1,58 @@
+{
+  "openresult": "1.0",
+  "title": "A swim-off settles the last qualifying place",
+  "lang": "en",
+  "description": "Two swimmers touch in the same hundredth for the last place in the final. The tie is broken by swimming it again — an outcome no measure in this document holds. The ranking declares ties: resolved, so the published positions settle it (spec §8.3.4).",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "Ana Ruiz" },
+    { "id": "b", "name": "Bea Nowak" },
+    { "id": "c", "name": "Cleo Adeyemi" },
+    { "id": "d", "name": "Dora Lindqvist" },
+    { "id": "e", "name": "Eva Bergström" },
+    { "id": "f", "name": "Fay O'Neill" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 55.1 } },
+    {
+      "participant": "b",
+      "values": { "time": 56.02 },
+      "ranks": { "semis-resolved": 3 },
+      "notes": "Lost the swim-off, 56.31 to 56.18."
+    },
+    {
+      "participant": "c",
+      "values": { "time": 56.02 },
+      "ranks": { "semis-resolved": 2 },
+      "notes": "Won the swim-off and took the last place in the final."
+    },
+    { "participant": "d", "values": { "time": 57.31 } },
+    { "participant": "e", "values": { "time": 58.0 } },
+    { "participant": "f", "values": { "time": 58.0 } }
+  ],
+  "rankings": [
+    {
+      "id": "semis-resolved",
+      "label": "Semi-finals, swim-off applied",
+      "description": "Published positions settle a residual tie; the pair at 58.00 carries none, so that tie stands and is numbered as under standard.",
+      "sortBy": ["time"],
+      "ties": "resolved"
+    },
+    {
+      "id": "semis-standard",
+      "label": "Semi-finals, times alone",
+      "description": "The same results without the swim-off: the pair at 56.02 shares second place.",
+      "sortBy": ["time"],
+      "ties": "standard"
+    }
+  ]
+}

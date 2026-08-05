@@ -419,6 +419,14 @@
       "rule": "spec §7.2.6",
       "description": "notClassified records a competitor who took part but does not appear in the classification.",
       "path": "valid/status-not-classified"
+    },
+    {
+      "id": "ties-resolved-breaks-tie-by-published-rank",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.4",
+      "description": "Under ties: resolved, published positions settle a residual tie; an unsettled pair is numbered as under standard.",
+      "path": "valid/ties-resolved-breaks-tie-by-published-rank"
     }
   ]
 }
