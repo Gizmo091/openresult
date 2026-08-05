@@ -309,6 +309,20 @@ unit conversion.
 **§5.2.4** Producers **SHOULD** draw units from the recommended vocabulary: `s`, `ms`, `min`,
 `h`, `m`, `km`, `mi`, `pt`, `%`, `ops/s`, `W`, `kg`, and ISO 4217 codes for `money`.
 
+**§5.2.5** A consumer displaying a `duration` in a time unit — `s`, `ms`, `min`, `h` — **SHOULD**
+render it in hours, minutes and seconds, dropping leading zero components and keeping the declared
+`precision` on the seconds: `1:28:18.7`, `28:18.70`, `18.712`. Ordering is unaffected; comparison
+always uses the stored number ([§5.1.5](#51-measures)).
+
+_Non-normative: this is display, so it is a **SHOULD** — but it belongs here rather than in the
+presentation layer, which a consumer may discard entirely (§3.1.1). Everything needed is already
+declared: the kind says it is a duration, the unit says which one, the precision says how many
+decimals survive. No producer has to add anything, and no consumer needs domain knowledge, which
+is the promise §1.1 makes. Leaving it unwritten cost a reader an hour: they searched §5.1.5 and
+all of §10.1 for a rendering hint, found none, concluded the format could not express `2:12.88`,
+and wrote the convention into a `description` that §6.1.6 says is never parsed. The reference
+implementation had done this from the start; only the specification was silent._
+
 ### 5.3 `attributes`
 
 An attribute defines a descriptive property: a club, a nationality, a manufacturer, a model
@@ -442,17 +456,41 @@ event.
 **§6.2.4** `participants`, when present, restricts the field for that event. It is informative:
 a result referencing a participant absent from this list is valid, and validators **SHOULD** warn.
 
-### 6.3 Two structures worth stating explicitly
+### 6.3 Four structures worth stating explicitly
 
 _Non-normative._
 
 **Heats feeding an overall standing.** Declare heat events with `parent` set to an `overall`
-event. Each heat's results attach to that heat. The overall standing is a ranking scoped to the
-`overall` event, and the cumulative figures are published as results attached to that event, as
-[§8.1.4](#81-scope) requires — a scoped ranking sees one event and never its descendants.
+event. Each heat's results attach to that heat. Where the standing is a **computed** figure — a
+points total, a sum of legs — publish it as results attached to the `overall` event and scope the
+ranking there, as [§8.1.4](#81-scope) requires: a scoped ranking sees the events it names and
+never their descendants.
 
 Omitting those parent-event results is the commonest way to publish a standing that renders
 empty: the ranking selects nothing, and a validator reports `OR-906`.
+
+**A classification across several rounds of the same kind.** Where nothing is computed — a
+qualifying classification ordering the same times that were swum in three heats — list the heats
+in `scope.event` and leave the results where they were recorded
+([§8.1.5](#81-scope)). Republishing them would put the same figure in the document twice, with
+nothing to say the two copies are one swim.
+
+The same shape answers the second question a multi-day meeting asks: an award spanning selected
+events, or a session standing, is a ranking that lists the events it covers. `parent` gives an
+event one place in one hierarchy; `scope.event` lets a ranking draw any set it likes across that
+hierarchy, without the events having to agree on a single organising axis.
+
+**Per-member figures inside a team result.** A relay leg, a rower's split, a player's line in a
+team match: the member's performance is a result like any other. Declare a child event for the
+legs, attach one result per member to it, and keep the team's own result on the parent event.
+Each leg result carries its member as `participant`, its own measures — a time, a takeover, a
+line — and attributes for what distinguishes it, such as its order or its stroke.
+
+Nothing new is needed for this. The team is already a participant composed of participants
+([§6.1.2](#61-participants)), and §8.1.1 keeps the leg results out of any ranking scoped to the
+parent event, so the team standing is unaffected by their presence. What this avoids is the
+alternative: one measure per position — `takeover2`, `takeover3`, `takeover4` — which is a single
+measure indexed by a number, and grows a new declaration every time a team gets longer.
 
 **Head-to-head matches.** Declare a `match` event and **two** results, one per participant, each
 carrying its own score. A match is not a special case in this model: it is an event with two
@@ -597,14 +635,20 @@ A ranking declares **how to order**, never the order itself.
 
 ### 8.1 `scope`
 
-**§8.1.1** `scope.event`, when present, **MUST** reference a declared event; only results
-attached to **that event** are considered. Descendant events are **not** included.
+**§8.1.1** `scope.event`, when present, **MUST** be a declared event identifier or an array of
+them; only results attached to **those events** are considered. Descendant events are **not**
+included: a listed event brings its own results and no others.
 
 _Non-normative: the `parent` relation groups events for navigation and display; it does not
 aggregate results. A standing scoped to an overall event must not absorb the results of its
 heats — those are separate results, on a different scale, and mixing them would produce a
-meaningless order. Aggregating across events is the producer's job, and its outcome is expressed
-as results attached to the parent event._
+meaningless order._
+
+_Non-normative: listing events is how a standing spanning several of them is expressed without
+copying anything. A qualifying classification over three heats scopes to the three heats: the
+times stay where they were swum, each heat keeps its own start time and its own order, and no
+figure is published twice. Enumeration is deliberate — a consumer selects by reading a list, never
+by evaluating a rule (§1.2)._
 
 **§8.1.2** `scope.category`, when present, **MUST** reference a declared category; only results
 whose participant belongs to it are considered.
@@ -612,15 +656,24 @@ whose participant belongs to it are considered.
 **§8.1.3** `scope` absent means all results in the document. `scope` accepts `event` and
 `category`; when both are present, a result **MUST** satisfy each of them.
 
-**§8.1.4** It follows that a standing aggregating several events **MUST** be published as results
-attached to the event the ranking is scoped to. Computing the aggregate — a points table, a sum of
-legs, a best-of — is the producer's work; this format carries its outcome, never the rule that
-produced it. A document that declares the parent event and omits those results declares a ranking
-that selects nothing, reported as `OR-906`.
+**§8.1.4** A standing whose figures are **computed** from several events — a points total, a sum
+of legs, a best-of — **MUST** be published as results attached to the event the ranking is scoped
+to. Computing the aggregate is the producer's work; this format carries its outcome, never the
+rule that produced it. A document that declares the parent event and omits those results declares
+a ranking that selects nothing, reported as `OR-906`.
 
-_Non-normative: this is the structural consequence of §8.1.1, and it was stated only in §6.3,
-which is marked non-normative and therefore imposes nothing (§2.1). It is the answer to the
-question every domain with rounds asks first, so it belongs among the rules._
+**§8.1.5** Where nothing is computed and the results are directly comparable, the events **SHOULD**
+be listed in `scope.event` instead, and the results left where they were recorded. Publishing a
+second copy of a figure that already exists creates two values that can drift apart, and no rule
+in this format ties them together.
+
+_Non-normative: the distinction is whether a new number exists. Three heats of a qualifying round
+hold the times that the qualifying classification orders — the same times, nothing added, so the
+classification lists the three heats. A championship standing after eight rounds holds a points
+total that appears nowhere else; it has to be published, because no consumer can be asked to
+compute it (§1.2). Getting this backwards was expensive: an outside reader following the earlier
+text republished 73 of their 183 results, and nothing in the document said the two copies were the
+same swim._
 
 ### 8.2 `sortBy`
 

@@ -100,11 +100,18 @@ function selectResults(document: ResultDocument, ranking: Ranking): Result[] {
             [],
         );
 
+  // One event or several, never their descendants (spec §8.1.1). Listing events
+  // is how a standing spanning them avoids copying results; descendants stay
+  // out, because an overall standing must not absorb the heats feeding it —
+  // different scale, and mixing them would order nothing meaningful.
+  const events =
+    scope.event === undefined
+      ? undefined
+      : new Set(Array.isArray(scope.event) ? scope.event : [scope.event]);
+
   return document.results.filter((result) => {
-    // Exactly that event, never its descendants (spec §8.1.1): an overall
-    // standing must not absorb the heats feeding it — different scale, and
-    // mixing them would order nothing meaningful.
-    if (scope.event !== undefined && result.event !== scope.event) return false;
+    if (events !== undefined && (result.event === undefined || !events.has(result.event)))
+      return false;
     if (members !== undefined && !members.has(result.participant)) return false;
     return true;
   });

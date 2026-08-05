@@ -138,7 +138,12 @@ export interface Result extends Extensible {
 }
 
 export interface RankingScope extends Extensible {
-  event?: string;
+  /**
+   * One event, or several. Several is how a standing spanning them is expressed
+   * without copying results — a qualifying classification over three heats
+   * names the three heats (spec §8.1.1).
+   */
+  event?: string | string[];
   category?: string;
 }
 

@@ -505,7 +505,14 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "object",
           "properties": {
             "event": {
-              "$ref": "#/$defs/identifier"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/identifier"
+                },
+                {
+                  "$ref": "#/$defs/identifierList"
+                }
+              ]
             },
             "category": {
               "$ref": "#/$defs/identifier"
