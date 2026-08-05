@@ -144,6 +144,107 @@ describe('tie handling', () => {
   });
 });
 
+/**
+ * `ties: "resolved"` — spec §8.3.4.
+ *
+ * The published positions settle a tie the measures cannot: a swim-off, a jury
+ * ruling, a drawn lot. It is the only place a supplied rank takes part in
+ * derivation, so its edges matter more than most.
+ */
+describe('ties resolved by published positions', () => {
+  const resolved = (results: ResultDocument['results']) =>
+    document({ results, rankings: [{ id: 'r', label: 'R', sortBy: ['time'], ties: 'resolved' }] });
+
+  it('orders a tied group by the positions the producer published', () => {
+    const doc = resolved([
+      { participant: 'a', values: { time: 10 } },
+      { participant: 'b', values: { time: 20 }, ranks: { r: 3 } },
+      { participant: 'c', values: { time: 20 }, ranks: { r: 2 } },
+      { participant: 'd', values: { time: 30 } },
+    ]);
+
+    // c ahead of b, against declaration order: the positions decided, not the
+    // stable sort.
+    expect(order(rank(doc))).toEqual([
+      ['a', 1],
+      ['c', 2],
+      ['b', 3],
+      ['d', 4],
+    ]);
+  });
+
+  it('clears tiedWith for a group it settles', () => {
+    const doc = resolved([
+      { participant: 'a', values: { time: 20 }, ranks: { r: 2 } },
+      { participant: 'b', values: { time: 20 }, ranks: { r: 1 } },
+    ]);
+
+    expect(rank(doc).map((entry) => entry.tiedWith)).toEqual([[], []]);
+  });
+
+  it('leaves the tie standing when one of the group carries no position', () => {
+    // All of the group or none of it. Settling only the pairs that carry two
+    // positions would not be transitive, and the order would then depend on the
+    // sorting algorithm — the divergence §8.5.6 forbids.
+    const doc = resolved([
+      { participant: 'a', values: { time: 20 }, ranks: { r: 2 } },
+      { participant: 'b', values: { time: 20 } },
+      { participant: 'c', values: { time: 20 }, ranks: { r: 1 } },
+    ]);
+
+    expect(order(rank(doc))).toEqual([
+      ['a', 1],
+      ['b', 1],
+      ['c', 1],
+    ]);
+  });
+
+  it('leaves the tie standing when two published positions are equal', () => {
+    const doc = resolved([
+      { participant: 'a', values: { time: 20 }, ranks: { r: 2 } },
+      { participant: 'b', values: { time: 20 }, ranks: { r: 2 } },
+    ]);
+
+    expect(order(rank(doc))).toEqual([
+      ['a', 1],
+      ['b', 1],
+    ]);
+  });
+
+  it('reads only the positions published for this ranking', () => {
+    const doc = document({
+      results: [
+        { participant: 'a', values: { time: 20 }, ranks: { other: 2 } },
+        { participant: 'b', values: { time: 20 }, ranks: { other: 1 } },
+      ],
+      rankings: [
+        { id: 'r', label: 'R', sortBy: ['time'], ties: 'resolved' },
+        { id: 'other', label: 'Other', sortBy: ['time'] },
+      ],
+    });
+
+    // The positions belong to "other"; "r" has none and stays tied.
+    expect(order(rank(doc, 'r'))).toEqual([
+      ['a', 1],
+      ['b', 1],
+    ]);
+  });
+
+  it('numbers what follows a settled group as standard does', () => {
+    const doc = resolved([
+      { participant: 'a', values: { time: 20 }, ranks: { r: 2 } },
+      { participant: 'b', values: { time: 20 }, ranks: { r: 1 } },
+      { participant: 'c', values: { time: 30 } },
+    ]);
+
+    expect(order(rank(doc))).toEqual([
+      ['b', 1],
+      ['a', 2],
+      ['c', 3],
+    ]);
+  });
+});
+
 describe('stability and determinism', () => {
   it('keeps declaration order between results comparing equal', () => {
     const doc = document({

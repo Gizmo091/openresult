@@ -154,6 +154,22 @@ function compareResults(document: ResultDocument, ranking: Ranking, a: Result, b
 }
 
 /**
+ * Order a tied group by the positions the producer published (spec §8.3.4).
+ *
+ * All of the group or none of it. A rule that separated one pair and left
+ * another tied would not be transitive, and the standings would then depend on
+ * the sorting algorithm — which is the divergence §8.5.6 forbids. Returns
+ * undefined when the group cannot be settled, and the tie stands.
+ */
+function settleByPublishedRanks(group: Result[], rankingId: string): Result[] | undefined {
+  const positions = group.map((result) => result.ranks?.[rankingId]);
+  if (positions.some((position) => position === undefined)) return undefined;
+  if (new Set(positions).size !== positions.length) return undefined;
+
+  return [...group].sort((a, b) => (a.ranks?.[rankingId] ?? 0) - (b.ranks?.[rankingId] ?? 0));
+}
+
+/**
  * Derive the ranking.
  *
  * Pure: the same document and ranking id always yield the same array. Unranked
@@ -193,10 +209,10 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
 
   // Step 3 — sort (spec §8.5.3). Array.prototype.sort is stable, which is what
   // preserves declaration order among results comparing equal.
+  const ties = normalizeTies(ranking.ties);
   const sorted = [...rankable].sort((a, b) => compareResults(document, ranking, a, b));
 
   // Step 4 — assign (spec §8.5.4).
-  const ties = normalizeTies(ranking.ties);
   const entries: RankedEntry[] = [];
   let groupStart = 0;
   let groupNumber = 0;
@@ -214,6 +230,23 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
     }
 
     const group = sorted.slice(groupStart, groupEnd);
+
+    const settled =
+      ties === 'resolved' && group.length > 1
+        ? settleByPublishedRanks(group, ranking.id)
+        : undefined;
+
+    if (settled !== undefined) {
+      // The group is no longer tied: it takes consecutive positions, and no
+      // member is `tiedWith` any other (spec §8.3.4).
+      settled.forEach((result, offset) => {
+        entries.push(toEntry(result, groupStart + offset + 1, []));
+      });
+      groupNumber += settled.length - 1;
+      groupStart = groupEnd;
+      continue;
+    }
+
     // `standard` lets a shared rank consume the ones behind it (1, 2, 2, 4);
     // `dense` numbers distinct positions (1, 2, 2, 3). See spec §8.3.1.
     const assigned = ties === 'dense' ? groupNumber : groupStart + 1;

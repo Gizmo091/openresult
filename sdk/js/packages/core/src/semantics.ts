@@ -34,7 +34,7 @@ const KNOWN_STATUSES = new Set<string>([
 ] satisfies string[]);
 
 const KNOWN_BETTER_WHEN = new Set<string>(['lower', 'higher', 'none']);
-const KNOWN_TIES = new Set<string>(['standard', 'dense', 'strict']);
+const KNOWN_TIES = new Set<string>(['standard', 'dense', 'strict', 'resolved']);
 
 /**
  * Unknown enumeration values fold onto the documented fallback rather than
