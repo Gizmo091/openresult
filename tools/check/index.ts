@@ -1,4 +1,5 @@
 import { coreDeps } from './core-deps.ts';
+import { allocatedNumbersAreAttributes } from './allocated-numbers-are-attributes.ts';
 import { defaultExclusionsAgree } from './default-exclusions-agree.ts';
 import { descriptionEverywhere } from './description-everywhere.ts';
 import { crossImplementation } from './cross-implementation.ts';
@@ -33,6 +34,7 @@ const CHECKS: Check[] = [
   specRequiredSync,
   typesMatchSchema,
   defaultExclusionsAgree,
+  allocatedNumbersAreAttributes,
   descriptionEverywhere,
   presentationOptional,
   crossImplementation,
