@@ -343,6 +343,19 @@ value matches its `kind` ([§5.2.1](#52-values-and-units)):
 
 **§5.3.4** A value contradicting its declared type is reported as `OR-102`.
 
+**§5.3.5** An identifier the organisation allocates — a bib, a start number, a car number, a lane
+— **MUST** be declared as an attribute, never as a measure. The test is one question: was this
+figure read off an instrument or a judgement, or handed out beforehand? A measure exists to be
+compared, and an allocated number compares to nothing.
+
+_Non-normative: four of this document's own reference examples got this wrong, declaring bib and
+car numbers as measures of `kind: "count"` with `betterWhen: "none"`. An outside reader found
+them, reasoned from §5.3 that a lane is allocated rather than observed, chose an attribute — and
+then noticed the corpus said otherwise. For someone learning the format the examples carry as
+much weight as the text, so the two pointing different ways is the same defect as the text
+contradicting itself. A count needs a unit that names what is counted; `"n"` names nothing, and
+was the tell in every one of the four._
+
 _Non-normative: alpha-2 is fixed here rather than left open because a consumer rendering a flag
 or grouping by nation cannot do either against a field that is alpha-2 in one document, alpha-3
 in the next and a display name in the third. Domains that use another code — FIDE and the IOC use
@@ -435,10 +448,8 @@ _Non-normative._
 
 **Heats feeding an overall standing.** Declare heat events with `parent` set to an `overall`
 event. Each heat's results attach to that heat. The overall standing is a ranking scoped to the
-`overall` event — which means the cumulative figures **must exist as results attached to that
-event**, because a scoped ranking sees one event and never its descendants
-([§8.1.1](#81-scope)). Computing the aggregate is the producer's work; the format carries its
-outcome, not the rule that produced it.
+`overall` event, and the cumulative figures are published as results attached to that event, as
+[§8.1.4](#81-scope) requires — a scoped ranking sees one event and never its descendants.
 
 Omitting those parent-event results is the commonest way to publish a standing that renders
 empty: the ranking selects nothing, and a validator reports `OR-906`.
@@ -507,11 +518,23 @@ pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the
 Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
 carries it.
 
-**§7.2.6** `notClassified` marks a competitor who took part and whose performance is recorded,
-but who does not appear in the classification — eliminated in a heat, outside a qualification cut,
-below a minimum distance. It is excluded by default, and unlike `dnf` it asserts nothing about
-whether they finished: a skier who completes the first run cleanly and misses the cut for the
-second is `notClassified`, not `dnf`.
+**§7.2.6** `notClassified` marks a competitor who took part, whose performance is recorded, and
+who does not appear in the classification **of the event this result is attached to** — short of a
+minimum distance, short of a qualifying standard, ranked outside a published field. It is excluded
+by default, and unlike `dnf` it asserts nothing about whether they finished.
+
+**§7.2.7** A status describes the result it sits on, never a later round. A competitor who
+completes a heat and is not selected for the next one is `finished` in that heat: they are
+classified there, at whatever position their performance earned. Their non-selection is the
+absence of a result in the round that follows, not a status on the round they completed. A skier
+who runs the first leg cleanly and starts no second leg is `finished` on the first leg and
+`notClassified` on the combined event, which has no combined time to record.
+
+_Non-normative: the earlier wording of §7.2.6 glossed the status as "eliminated in a heat", which
+reads as an instruction to mark the eliminated swimmers of a qualifying heat `notClassified` —
+and since §8.4.2 excludes that status by default, doing so erases them from the heat's own
+standings, which is where they belong. It contradicted §7.2.3, which holds that exclusion is a
+property of a ranking and not of a status. An outside reader hit it and followed §7.2.3._
 
 ### 7.3 `values`
 
@@ -588,6 +611,16 @@ whose participant belongs to it are considered.
 
 **§8.1.3** `scope` absent means all results in the document. `scope` accepts `event` and
 `category`; when both are present, a result **MUST** satisfy each of them.
+
+**§8.1.4** It follows that a standing aggregating several events **MUST** be published as results
+attached to the event the ranking is scoped to. Computing the aggregate — a points table, a sum of
+legs, a best-of — is the producer's work; this format carries its outcome, never the rule that
+produced it. A document that declares the parent event and omits those results declares a ranking
+that selects nothing, reported as `OR-906`.
+
+_Non-normative: this is the structural consequence of §8.1.1, and it was stated only in §6.3,
+which is marked non-normative and therefore imposes nothing (§2.1). It is the answer to the
+question every domain with rounds asks first, so it belongs among the rules._
 
 ### 8.2 `sortBy`
 
