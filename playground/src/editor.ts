@@ -70,25 +70,24 @@ export class DocumentEditor {
   }
 
   #toCodeMirror(): CmDiagnostic[] {
-    return this.#diagnostics
-      .map((entry) => {
-        const range = locate(this.view.state, entry.path);
-        if (range === null) return null;
+    return this.#diagnostics.flatMap((entry) => {
+      const range = locate(this.view.state, entry.path);
+      if (range === null) return [];
 
-        const message =
-          entry.suggestion === undefined
-            ? `${entry.code}: ${entry.message}`
-            : `${entry.code}: ${entry.message}\n→ ${entry.suggestion}`;
+      const message =
+        entry.suggestion === undefined
+          ? `${entry.code}: ${entry.message}`
+          : `${entry.code}: ${entry.message}\n→ ${entry.suggestion}`;
 
-        return {
-          from: range.from,
-          to: Math.max(range.to, range.from + 1),
-          severity: entry.severity === 'error' ? ('error' as const) : ('warning' as const),
-          message,
-          source: entry.rule,
-        };
-      })
-      .filter((entry): entry is CmDiagnostic => entry !== null);
+      const diagnostic: CmDiagnostic = {
+        from: range.from,
+        to: Math.max(range.to, range.from + 1),
+        severity: entry.severity === 'error' ? 'error' : 'warning',
+        message,
+        source: entry.rule,
+      };
+      return [diagnostic];
+    });
   }
 
   focus(): void {

@@ -35,17 +35,22 @@ export async function decodeFragment(fragment: string): Promise<string | null> {
   }
 }
 
-/** A one-chunk stream. Avoids Blob, which not every runtime exposes fully. */
-function streamOf(bytes: Uint8Array): ReadableStream<Uint8Array> {
-  return new ReadableStream<Uint8Array>({
+/**
+ * A one-chunk stream. Avoids Blob, which not every runtime exposes fully.
+ *
+ * The cast bridges a variance mismatch between lib.dom's CompressionStream and
+ * a plain Uint8Array; the bytes are identical at runtime.
+ */
+function streamOf(bytes: Uint8Array): ReadableStream<Uint8Array<ArrayBuffer>> {
+  return new ReadableStream({
     start(controller) {
-      controller.enqueue(bytes);
+      controller.enqueue(bytes as Uint8Array<ArrayBuffer>);
       controller.close();
     },
   });
 }
 
-async function collect(stream: ReadableStream<Uint8Array>): Promise<Uint8Array> {
+async function collect(stream: ReadableStream<Uint8Array<ArrayBuffer>>): Promise<Uint8Array> {
   const chunks: Uint8Array[] = [];
   const reader = stream.getReader();
 

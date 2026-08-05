@@ -19,16 +19,16 @@ export class OpenResultViewer extends LitElement {
   static override styles = viewerStyles;
 
   /** Remote document to load. Ignored when `document` is set directly. */
-  @property({ type: String }) src?: string;
+  @property({ type: String }) src?: string | undefined;
 
   /** Force a view. Falls back to automatic selection when it does not apply. */
-  @property({ type: String }) view?: string;
+  @property({ type: String }) view?: string | undefined;
 
   /** Which declared ranking to apply. Defaults to the first. */
-  @property({ type: String }) ranking?: string;
+  @property({ type: String }) ranking?: string | undefined;
 
   /** BCP 47 tag for number formatting. Defaults to the document's `lang`. */
-  @property({ type: String }) locale?: string;
+  @property({ type: String }) locale?: string | undefined;
 
   @property({ type: String, reflect: true }) theme: 'light' | 'dark' | 'auto' = 'auto';
 

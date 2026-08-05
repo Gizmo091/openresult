@@ -44,7 +44,7 @@ export async function runRank(args: string[], flags: RankFlags): Promise<number>
       process.stdout.write(`${JSON.stringify(toJson(entries), null, 2)}\n`);
       break;
     case 'csv':
-      process.stdout.write(renderCsv(document, entries, columns));
+      process.stdout.write(renderCsv(entries, columns));
       break;
     default:
       process.stdout.write(renderTable(document, entries, columns, available, chosen));
@@ -119,7 +119,7 @@ function renderTable(
   return `${lines.join('\n')}\n`;
 }
 
-function renderCsv(document: ResultDocument, entries: RankedEntry[], columns: string[]): string {
+function renderCsv(entries: RankedEntry[], columns: string[]): string {
   const escape = (value: string) =>
     /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 

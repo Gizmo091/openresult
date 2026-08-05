@@ -8,6 +8,7 @@ import type {
   ConformanceManifest,
   Expected,
   ExpectedInvalid,
+  ExpectedPlacement,
   ExpectedValid,
 } from './index.js';
 
@@ -165,7 +166,7 @@ function checkValid(source: string, expected: ExpectedValid): string[] {
 function compareRanking(
   document: ResultDocument,
   rankingId: string,
-  wanted: ExpectedValid['rankings'] extends Record<string, infer T> ? T : never,
+  wanted: ExpectedPlacement[],
   label: string,
 ): string[] {
   const derived = rank(document, rankingId).map((entry) => ({
