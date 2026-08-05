@@ -2,6 +2,7 @@ import { coreDeps } from './core-deps.ts';
 import { allocatedNumbersAreAttributes } from './allocated-numbers-are-attributes.ts';
 import { compiledValidator } from './compiled-validator.ts';
 import { sourcesAreTracked } from './sources-are-tracked.ts';
+import { unitVocabulary } from './unit-vocabulary.ts';
 import { defaultExclusionsAgree } from './default-exclusions-agree.ts';
 import { descriptionEverywhere } from './description-everywhere.ts';
 import { crossImplementation } from './cross-implementation.ts';
@@ -39,6 +40,7 @@ const CHECKS: Check[] = [
   allocatedNumbersAreAttributes,
   compiledValidator,
   sourcesAreTracked,
+  unitVocabulary,
   descriptionEverywhere,
   presentationOptional,
   crossImplementation,

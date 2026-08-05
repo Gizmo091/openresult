@@ -306,8 +306,18 @@ representations such as `PT21M24.532S` or `21:24.532` **MUST NOT** be used.
 **§5.2.3** `unit` is never interpreted by a consumer, only displayed. This format performs no
 unit conversion.
 
-**§5.2.4** Producers **SHOULD** draw units from the recommended vocabulary: `s`, `ms`, `min`,
-`h`, `m`, `km`, `mi`, `pt`, `%`, `ops/s`, `W`, `kg`, and ISO 4217 codes for `money`.
+**§5.2.4** A unit **SHOULD** be drawn from the vocabulary its kind implies:
+
+| Kind              | Unit                                                                                                                    |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `duration`        | `s`, `ms`, `min`, `h`                                                                                                   |
+| `distance`        | `m`, `km`, `mi`                                                                                                         |
+| `mass`            | `kg`, `g`, `lb`                                                                                                         |
+| `points`, `score` | `pt`                                                                                                                    |
+| `percentage`      | `%`                                                                                                                     |
+| `money`           | an [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) code                                                    |
+| `count`           | the singular name of what is counted: `lap`, `goal`, `vote`, `core`                                                     |
+| `rate`            | numerator and denominator joined by `/` — `ops/s`, `s/km` — or the conventional name of the ratio, such as `W` or `bpm` |
 
 **§5.2.5** A consumer displaying a `duration` in a time unit — `s`, `ms`, `min`, `h` — **SHOULD**
 render it in hours, minutes and seconds, dropping leading zero components and keeping the declared
@@ -322,6 +332,16 @@ is the promise §1.1 makes. Leaving it unwritten cost a reader an hour: they sea
 all of §10.1 for a rendering hint, found none, concluded the format could not express `2:12.88`,
 and wrote the convention into a `description` that §6.1.6 says is never parsed. The reference
 implementation had done this from the start; only the specification was silent._
+
+**§5.2.6** A `count` unit **MUST** name what is counted. A dimensionless placeholder — `n`, `#`,
+`no` — names nothing, and a figure that counts nothing is an allocated identifier, which belongs
+in `attributes` ([§5.3.5](#53-attributes)).
+
+_Non-normative: the earlier form of §5.2.4 listed one flat vocabulary of twelve units, and
+fifteen of the twenty-one units in this document's own examples fell outside it — every one of
+them legitimately. A count and a rate cannot draw on a closed list: `goal`, `lap` and `samples/s`
+are exactly as right as `kg`, and no vocabulary can enumerate what people count. Fixing the rule
+was the correct repair, not fixing the corpus._
 
 ### 5.3 `attributes`
 
