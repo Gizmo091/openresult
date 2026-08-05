@@ -1,0 +1,56 @@
+{
+  "openresult": "1.0",
+  "title": "A residual tie under strict still produces an order",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 100
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 100
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "time": 200
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["time"],
+      "ties": "strict"
+    }
+  ]
+}

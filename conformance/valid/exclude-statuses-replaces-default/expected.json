@@ -1,0 +1,33 @@
+{
+  "valid": true,
+  "rankings": {
+    "overall": [
+      {
+        "participant": "a",
+        "rank": 1
+      },
+      {
+        "participant": "b",
+        "rank": null
+      },
+      {
+        "participant": "c",
+        "rank": null
+      }
+    ],
+    "fastest": [
+      {
+        "participant": "b",
+        "rank": 1
+      },
+      {
+        "participant": "a",
+        "rank": 2
+      },
+      {
+        "participant": "c",
+        "rank": null
+      }
+    ]
+  }
+}

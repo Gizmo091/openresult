@@ -1,0 +1,58 @@
+{
+  "openresult": "1.0",
+  "title": "Attribute values must match their declared type",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "elo",
+      "label": "Rating",
+      "type": "number"
+    },
+    {
+      "id": "country",
+      "label": "Country",
+      "type": "country"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A",
+      "attributes": {
+        "elo": "2478",
+        "country": "FRA"
+      }
+    },
+    {
+      "id": "b",
+      "name": "B",
+      "attributes": {
+        "elo": 2401,
+        "country": "NO"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 100
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 200
+      }
+    }
+  ]
+}

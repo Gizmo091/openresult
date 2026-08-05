@@ -1,0 +1,68 @@
+{
+  "openresult": "1.0",
+  "title": "A bye scores and ranks",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Player A"
+    },
+    {
+      "id": "b",
+      "name": "Player B"
+    },
+    {
+      "id": "c",
+      "name": "Player C"
+    },
+    {
+      "id": "d",
+      "name": "Player D"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "points": 3.0
+      }
+    },
+    {
+      "participant": "b",
+      "status": "bye",
+      "values": {
+        "points": 2.0
+      },
+      "notes": "Unopposed — odd field in round 3."
+    },
+    {
+      "participant": "c",
+      "values": {
+        "points": 1.0
+      }
+    },
+    {
+      "participant": "d",
+      "status": "withdrawn",
+      "values": {
+        "points": 2.5
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "standings",
+      "label": "Standings",
+      "sortBy": ["points"]
+    }
+  ]
+}

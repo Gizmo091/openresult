@@ -1,0 +1,13 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-102",
+      "path": "/participants/0/attributes/elo"
+    },
+    {
+      "code": "OR-102",
+      "path": "/participants/0/attributes/country"
+    }
+  ]
+}

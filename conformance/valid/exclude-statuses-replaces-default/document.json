@@ -1,0 +1,68 @@
+{
+  "openresult": "1.0",
+  "title": "excludeStatuses replaces, never augments",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    },
+    {
+      "id": "bestLap",
+      "label": "Best lap",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 300,
+        "bestLap": 61
+      }
+    },
+    {
+      "participant": "b",
+      "status": "dnf",
+      "values": {
+        "bestLap": 59
+      }
+    },
+    {
+      "participant": "c",
+      "status": "dns"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["time"]
+    },
+    {
+      "id": "fastest",
+      "label": "Fastest lap",
+      "sortBy": ["bestLap"],
+      "excludeStatuses": ["dns"]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "openresult": "1.0",
+  "title": "Position published in a ranking that excludes the result",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 100
+      }
+    },
+    {
+      "participant": "b",
+      "status": "dnf",
+      "ranks": {
+        "overall": 2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["time"]
+    }
+  ]
+}

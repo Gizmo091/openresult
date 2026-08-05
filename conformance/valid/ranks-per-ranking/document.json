@@ -1,0 +1,94 @@
+{
+  "openresult": "1.0",
+  "title": "A result holds a position in several rankings",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    },
+    {
+      "id": "d",
+      "name": "Competitor D"
+    }
+  ],
+  "categories": [
+    {
+      "id": "junior",
+      "label": "Junior",
+      "participants": ["c", "d"]
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 100
+      },
+      "ranks": {
+        "overall": 1
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 200
+      },
+      "ranks": {
+        "overall": 2
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "time": 300
+      },
+      "ranks": {
+        "overall": 3,
+        "junior": 1
+      }
+    },
+    {
+      "participant": "d",
+      "values": {
+        "time": 400
+      },
+      "ranks": {
+        "overall": 4,
+        "junior": 2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["time"]
+    },
+    {
+      "id": "junior",
+      "label": "Junior",
+      "scope": {
+        "category": "junior"
+      },
+      "sortBy": ["time"]
+    }
+  ]
+}

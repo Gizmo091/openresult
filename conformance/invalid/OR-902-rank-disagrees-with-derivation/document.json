@@ -1,0 +1,48 @@
+{
+  "openresult": "1.0",
+  "title": "Published position contradicts the measures",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "time": 200
+      },
+      "ranks": {
+        "overall": 1
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "time": 100
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["time"]
+    }
+  ]
+}

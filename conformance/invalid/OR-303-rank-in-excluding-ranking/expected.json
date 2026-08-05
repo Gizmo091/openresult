@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-303",
+      "path": "/results/1/ranks/overall"
+    }
+  ]
+}
