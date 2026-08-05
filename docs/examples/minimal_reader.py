@@ -22,7 +22,7 @@ DEFAULT_EXCLUDED = {"notClassified", "inProgress", "dnf", "dns", "dsq", "outOfTi
 # `bye` ranks like `finished`: a score without a contest still counts (§7.2.5).
 KNOWN_STATUSES = DEFAULT_EXCLUDED | {"finished", "bye"}
 KNOWN_DIRECTIONS = {"lower", "higher", "none"}
-KNOWN_TIES = {"standard", "dense", "strict"}
+KNOWN_TIES = {"standard", "dense", "strict", "resolved"}
 
 
 class UnsupportedVersion(Exception):
@@ -133,6 +133,22 @@ def sort_key(document, ranking):
     return key
 
 
+def settle_by_published_ranks(group, ranking_id):
+    """Order a tied group by the positions the producer published (§8.3.4).
+
+    All of the group or none of it: a rule that separated one pair and left
+    another tied would not be transitive, and the standings would then depend on
+    the sorting algorithm — the divergence §8.5.6 forbids."""
+    if len(group) < 2:
+        return None
+    positions = [result.get("ranks", {}).get(ranking_id) for result in group]
+    if any(position is None for position in positions):
+        return None
+    if len(set(positions)) != len(positions):
+        return None
+    return sorted(group, key=lambda result: result["ranks"][ranking_id])
+
+
 def rank(document, ranking_id=None):
     """Derive the standings (§8.5). Returns (result, rank) pairs; rank is None
     for the unranked, which are kept rather than dropped (§7.2.4)."""
@@ -165,8 +181,17 @@ def rank(document, ranking_id=None):
         end = index + 1
         while end < len(ordered) and key(ordered[end]) == key(ordered[index]):
             end += 1
+
+        group = ordered[index:end]
+        settled = settle_by_published_ranks(group, ranking["id"]) if ties == "resolved" else None
+        if settled is not None:
+            placed.extend((result, index + offset + 1) for offset, result in enumerate(settled))
+            group_number += len(settled) - 1
+            index = end
+            continue
+
         assigned = group_number if ties == "dense" else index + 1
-        placed.extend((result, assigned) for result in ordered[index:end])
+        placed.extend((result, assigned) for result in group)
         index = end
 
     # Step 5 — the unranked follow, in declaration order (§8.5.5).

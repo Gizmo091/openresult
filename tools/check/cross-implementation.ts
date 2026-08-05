@@ -20,6 +20,14 @@ const READER = join(repoRoot, 'docs/examples/minimal_reader.py');
  *
  * This is the only check that proves the format is portable rather than merely
  * documented.
+ *
+ * It reads the conformance corpus as well as the examples, and that is not a
+ * detail. The examples are realistic documents, so they exercise what producers
+ * commonly write; the conformance cases exercise the rules nobody writes by
+ * accident. `ties: "resolved"` was added to the specification, to the reference
+ * implementation, and to no example — the minimal reader ignored it, and the
+ * examples-only sweep reported forty agreeing rankings while the two
+ * implementations ordered a swim-off differently.
  */
 export const crossImplementation: Check = {
   name: 'cross-implementation',
@@ -33,7 +41,17 @@ export const crossImplementation: Check = {
     const problems: string[] = [];
     let compared = 0;
 
+    const files: string[] = [];
     for await (const file of glob('examples/**/*.openresult.json', { cwd: repoRoot })) {
+      files.push(file);
+    }
+    // Only the valid cases: an invalid document has no agreed ordering to
+    // compare, which is the point of it being invalid.
+    for await (const file of glob('conformance/valid/**/document.json', { cwd: repoRoot })) {
+      files.push(file);
+    }
+
+    for (const file of files.sort()) {
       const absolute = join(repoRoot, file);
       const document = parse(await readFile(absolute, 'utf8'));
 
