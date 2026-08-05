@@ -142,7 +142,10 @@ compute a correct ranking from the declared semantics alone, per [§8.5](#85-der
 
 **§3.3.2** When a producer supplies a rank, it is informative and **MUST** name the ranking it
 belongs to ([§7.5](#75-ranks)). A consumer **MAY** compare it against the rank it derives for that
-ranking; a validator **MUST** report a divergence as a warning, not an error.
+ranking; a validator **MUST** report a divergence as a warning, not an error. Under
+`ties: "resolved"` the supplied positions take part in the derivation itself
+([§8.3.4](#83-ties)), so a position that only settles a tie no longer diverges — one that
+contradicts the measures still does.
 
 _Non-normative: a producer may legitimately apply a tie-break rule that lives outside the
 document — a jury decision, a regulation. The supplied rank records that outcome without making
@@ -368,6 +371,7 @@ shape or content.
 {
   "id": "p12",                      // REQUIRED
   "name": "Léa Marchand",           // REQUIRED
+  "description": "…",               // OPTIONAL
   "shortName": "L. Marchand",       // OPTIONAL
   "type": "person",                 // OPTIONAL, default "person"
   "members": ["p31", "p32"],        // OPTIONAL
@@ -393,8 +397,9 @@ carry information absent from `name`.
 rankings and categories — the four that a consumer must be able to name on screen. Participants
 and events carry `name` instead, for the same purpose.
 
-**§6.1.6** `description` **MAY** expand on a label in prose, and is **OPTIONAL** on every entity
-that carries one. Neither member is ever parsed.
+**§6.1.6** `description` **MAY** expand on a name or a label in prose, and is **OPTIONAL** on
+every entity that carries one: measures, attribute definitions, participants, events, rankings,
+categories, `source`, links, assets, and the document itself. Neither member is ever parsed.
 
 ### 6.2 `events`
 
@@ -402,6 +407,7 @@ that carries one. Neither member is ever parsed.
 {
   "id": "heat1",                    // REQUIRED
   "name": "Heat 1",                 // REQUIRED
+  "description": "…",               // OPTIONAL
   "type": "heat",                   // OPTIONAL, default "other"
   "parent": "overall",              // OPTIONAL
   "occurredAt": { … },              // OPTIONAL
@@ -529,7 +535,9 @@ identifiers and whose values are positive integers.
 
 **§7.5.2** A supplied rank is **informative**: it records the position the producer published. It
 is never required, and a consumer **MUST** be able to derive the same ordering without it
-([§3.3.1](#33-ranks-are-derived)).
+([§3.3.1](#33-ranks-are-derived)). The single exception is `ties: "resolved"`, where the ranking
+declares that its residual ties are settled by these positions ([§8.3.4](#83-ties)); a document
+using it still orders deterministically, but dropping `ranks` would change the order.
 
 **§7.5.3** A key **MUST NOT** name a ranking that excludes this result
 ([§8.5.2](#85-derivation-algorithm)). Publishing a position in a ranking the result does not
@@ -552,6 +560,7 @@ A ranking declares **how to order**, never the order itself.
 {
   "id": "general", // REQUIRED
   "label": "Overall standings", // REQUIRED
+  "description": "…", // OPTIONAL
   "scope": {
     // OPTIONAL
     "event": "overall",
@@ -604,11 +613,12 @@ truth. A case genuinely needing the opposite direction declares a second measure
 
 **§8.3.1** `ties` **MUST** be one of:
 
-| Value      | Produces   | Notes                                                       |
-| ---------- | ---------- | ----------------------------------------------------------- |
-| `standard` | 1, 2, 2, 4 | Default. Prevailing competition convention.                 |
-| `dense`    | 1, 2, 2, 3 | No rank is skipped.                                         |
-| `strict`   | —          | No tie permitted; a residual tie is a validation **error**. |
+| Value      | Produces   | Notes                                                            |
+| ---------- | ---------- | ---------------------------------------------------------------- |
+| `standard` | 1, 2, 2, 4 | Default. Prevailing competition convention.                      |
+| `dense`    | 1, 2, 2, 3 | No rank is skipped.                                              |
+| `strict`   | —          | No tie permitted; a residual tie is a validation **error**.      |
+| `resolved` | 1, 2, 3    | Ties are broken by the published positions ([§8.3.4](#83-ties)). |
 
 **§8.3.2** An unknown `ties` value **MUST** be treated as `standard`.
 
@@ -620,6 +630,22 @@ validator's job (`OR-302`), not the reader's.
 _Non-normative: without this, a document that turns out to contain a tie would have no defined
 rendering at all, and two consumers could reasonably refuse or fall back differently — the exact
 divergence §8.5.6 forbids._
+
+**§8.3.4** Under `resolved`, a group of results comparing equal on every sorting measure **MUST**
+be ordered by the positions the producer published for this ranking in `ranks`
+([§7.5](#75-ranks)) — but only when every result in the group carries one and no two of them are
+equal. The group then takes consecutive positions in that order. Otherwise the group stays tied
+and is numbered as under `standard`. This is the one place a supplied rank takes part in
+derivation, and the producer asks for it by declaring `resolved`.
+
+_Non-normative: all of the group or none of it, because a partial rule fails to order at all. If a
+published position separated one pair and not another, the comparison would not be transitive and
+the standings would depend on the sorting algorithm — the divergence §8.5.6 forbids. As for why
+the rule exists: some tie-breaks are settled outside the document and measured by nothing in it —
+a swim-off, a jury ruling, a drawn lot. The outcome is a fact no measure holds. Without
+`resolved`, a producer had two options and both were bad: publish the position and carry a
+divergence warning for ever ([§3.3.2](#33-ranks-are-derived)), or invent a measure whose only
+purpose is to encode an answer already known._
 
 ### 8.4 `excludeStatuses`
 
@@ -706,8 +732,8 @@ declaration order.
 { "id": "mx2", "label": "MX2", "participants": ["p12", "p7"], "parent": "senior" }
 ```
 
-**§9.1.1** A category **MUST** carry `id` and `label`. `participants` and `parent` are
-**OPTIONAL**. `participants`, when present, **MUST** reference declared participants; a
+**§9.1.1** A category **MUST** carry `id` and `label`. `description`, `participants` and `parent`
+are **OPTIONAL**. `participants`, when present, **MUST** reference declared participants; a
 participant **MAY** belong to several categories. A category with no `participants` selects no
 result, which a validator reports as `OR-907`.
 
@@ -722,6 +748,7 @@ result, which a validator reports as `OR-907`.
 ```jsonc
 {
   "name": "Valley Motor Club", // REQUIRED when source is present
+  "description": "…", // OPTIONAL
   "system": "ChronoX 4.2", // OPTIONAL
   "url": "https://…", // OPTIONAL
   "license": "CC-BY-4.0", // OPTIONAL

@@ -178,6 +178,9 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string"
+        },
         "kind": {
           "type": "string",
           "enum": [
@@ -209,9 +212,6 @@ export const OPENRESULT_1_0_SCHEMA = {
             "higher",
             "none"
           ]
-        },
-        "description": {
-          "type": "string"
         }
       },
       "allOf": [
@@ -258,6 +258,9 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string"
+        },
         "type": {
           "type": "string",
           "enum": [
@@ -268,9 +271,6 @@ export const OPENRESULT_1_0_SCHEMA = {
             "country",
             "boolean"
           ]
-        },
-        "description": {
-          "type": "string"
         }
       },
       "patternProperties": {
@@ -302,6 +302,9 @@ export const OPENRESULT_1_0_SCHEMA = {
         "name": {
           "type": "string",
           "minLength": 1
+        },
+        "description": {
+          "type": "string"
         },
         "shortName": {
           "type": "string"
@@ -356,6 +359,9 @@ export const OPENRESULT_1_0_SCHEMA = {
         "name": {
           "type": "string",
           "minLength": 1
+        },
+        "description": {
+          "type": "string"
         },
         "type": {
           "type": "string",
@@ -492,6 +498,9 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string"
+        },
         "scope": {
           "type": "object",
           "properties": {
@@ -520,7 +529,8 @@ export const OPENRESULT_1_0_SCHEMA = {
           "enum": [
             "standard",
             "dense",
-            "strict"
+            "strict",
+            "resolved"
           ],
           "default": "standard"
         },
@@ -550,6 +560,9 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "string",
           "minLength": 1
         },
+        "description": {
+          "type": "string"
+        },
         "participants": {
           "$ref": "#/$defs/identifierList"
         },
@@ -571,6 +584,9 @@ export const OPENRESULT_1_0_SCHEMA = {
         "name": {
           "type": "string",
           "minLength": 1
+        },
+        "description": {
+          "type": "string"
         },
         "system": {
           "type": "string"
@@ -606,6 +622,9 @@ export const OPENRESULT_1_0_SCHEMA = {
         },
         "label": {
           "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       },
       "patternProperties": {
@@ -634,6 +653,9 @@ export const OPENRESULT_1_0_SCHEMA = {
           "format": "uri"
         },
         "label": {
+          "type": "string"
+        },
+        "description": {
           "type": "string"
         }
       },

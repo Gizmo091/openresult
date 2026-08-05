@@ -43,7 +43,7 @@ export type ResultStatus =
   | 'outOfTime'
   | 'withdrawn';
 
-export type TieHandling = 'standard' | 'dense' | 'strict';
+export type TieHandling = 'standard' | 'dense' | 'strict' | 'resolved';
 
 export type DocumentStatus = 'draft' | 'provisional' | 'official' | 'amended';
 
@@ -65,35 +65,38 @@ export interface TimeRange extends Extensible {
 export interface Measure extends Extensible {
   id: string;
   label: string;
+  description?: string;
   kind: MeasureKind;
   unit?: string;
   precision?: number;
   betterWhen: BetterWhen;
-  description?: string;
 }
 
 export interface AttributeDefinition extends Extensible {
   id: string;
   label: string;
-  type: AttributeType;
   description?: string;
+  type: AttributeType;
 }
 
 export interface Link extends Extensible {
   rel?: string;
   href: string;
   label?: string;
+  description?: string;
 }
 
 export interface Asset extends Extensible {
   type?: 'image' | 'video' | 'audio' | 'document' | 'other';
   href: string;
   label?: string;
+  description?: string;
 }
 
 export interface Participant extends Extensible {
   id: string;
   name: string;
+  description?: string;
   shortName?: string;
   type?: ParticipantType;
   members?: string[];
@@ -105,6 +108,7 @@ export interface Participant extends Extensible {
 export interface ResultEvent extends Extensible {
   id: string;
   name: string;
+  description?: string;
   type?: EventType;
   parent?: string;
   occurredAt?: TimeRange;
@@ -141,6 +145,7 @@ export interface RankingScope extends Extensible {
 export interface Ranking extends Extensible {
   id: string;
   label: string;
+  description?: string;
   scope?: RankingScope;
   /** Measure ids by decreasing priority. Direction comes from the measure (spec §8.2.3). */
   sortBy: string[];
@@ -151,12 +156,14 @@ export interface Ranking extends Extensible {
 export interface Category extends Extensible {
   id: string;
   label: string;
+  description?: string;
   participants?: string[];
   parent?: string;
 }
 
 export interface Source extends Extensible {
   name: string;
+  description?: string;
   system?: string;
   url?: string;
   license?: string;
