@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Viewer — OpenResult</title>
+    <meta
+      name="description"
+      content="Render any OpenResult document: paste it, upload it, give a URL, or POST it straight from your own service."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/site.css" />
+    <link rel="stylesheet" href="/src/view.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--
+      A posted document is injected here by the server as an inert JSON island.
+      It is never interpolated into markup or script: the page reads it with
+      textContent and parses it, so a document containing </script> or a quote
+      is data and stays data.
+    -->
+    <script type="application/json" id="posted-document"></script>
+    <script type="module" src="/src/view.ts"></script>
+  </body>
+</html>

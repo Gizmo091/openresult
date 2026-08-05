@@ -9,3 +9,10 @@ specs/
 
 # Generated: formatting it here would make it diverge from its generator.
 **/*.generated.ts
+**/*.generated.js
+
+# Assembled deployment, and what is copied into the site at build time.
+site/release/
+site/public/examples/
+site/public/schema/
+site/src/generated/

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenResult — an open format for results</title>
+    <meta
+      name="description"
+      content="OpenResult is a JSON format for competition and evaluation results. A document carries the results and their meaning, so any consumer can rank and render them without knowing the sport."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/site.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div>
+        <a class="wordmark" href="/">Open<span>Result</span></a>
+        <nav>
+          <a href="/spec/">Specification</a>
+          <a href="/examples/">Examples</a>
+          <a href="/view/">Viewer</a>
+          <a href="/validate/">Validator</a>
+          <a href="/playground/">Playground</a>
+          <a href="/docs/">Docs</a>
+        </nav>
+        <span class="spacer"></span>
+        <nav><a href="https://github.com/Gizmo091/openresult">GitHub</a></nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <p class="eyebrow">Draft 1.0</p>
+      <h1>Results, described once, readable by anything.</h1>
+      <p class="lede">
+        A results document should answer four questions: who competed, what was measured, how those
+        measurements compare, and what happened to those who did not finish. Generic formats answer
+        only the second. OpenResult answers all four — which is what lets a consumer display a
+        correct ranking without knowing the sport.
+      </p>
+
+      <div class="row" style="margin-bottom: 3rem">
+        <a class="button primary" href="/spec/">Read the specification</a>
+        <a class="button" href="/view/">Open the viewer</a>
+        <a class="button" href="/examples/">Browse 20 examples</a>
+      </div>
+
+      <section class="grid">
+        <div class="card">
+          <h3 style="margin-top: 0">The document carries the meaning</h3>
+          <p class="small">
+            A spreadsheet carries values. Here every quantity declares what it is, in what unit, at
+            what precision, and which direction wins. That is what makes automatic ranking possible
+            at all.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0">Ranks are derived, not asserted</h3>
+          <p class="small">
+            A ranking says <em>how to order</em>, never the order itself. Two conforming consumers
+            reach the same standings from the same file, ties included — which is checked here
+            against a second implementation on every commit.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0">Nothing to evaluate</h3>
+          <p class="small">
+            No expression language, no formula a reader must execute. Ordering is a deterministic
+            sort over declared values, so a JSON encoder is enough to produce a document in any
+            language.
+          </p>
+        </div>
+      </section>
+
+      <h2>A whole document</h2>
+      <p>
+        This is complete and valid. Three swimmers, one measure, one ranking — and no ranks
+        anywhere, because a consumer computes them.
+      </p>
+      <pre><code>{
+  "openresult": "1.0",
+  "title": "Club meet — 100 m freestyle",
+  "lang": "en",
+  "measures": [
+    { "id": "time", "label": "Time", "kind": "duration",
+      "unit": "s", "precision": 2, "betterWhen": "lower" }
+  ],
+  "participants": [
+    { "id": "a", "name": "Ana Ruiz" },
+    { "id": "b", "name": "Bea Nowak" },
+    { "id": "c", "name": "Cleo Adeyemi" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 56.44 } },
+    { "participant": "b", "values": { "time": 55.10 } },
+    { "participant": "c", "status": "dnf" }
+  ],
+  "rankings": [
+    { "id": "main", "label": "Final", "sortBy": ["time"] }
+  ]
+}</code></pre>
+      <p class="small muted">
+        Bea wins on 55.10. Cleo is not ranked — she did not finish — but she is still shown, because
+        omitting her would misrepresent the field. The times render as
+        <code>55.10</code>, not <code>55.1 s</code>, because the measure declares its precision.
+      </p>
+
+      <h2>Post a document to the viewer</h2>
+      <p>
+        The viewer takes a document however you have one: pasted, uploaded, fetched from a URL, or
+        posted straight from your own service.
+      </p>
+      <pre><code># The document itself
+curl -X POST https://openresult.dev/view \
+     -H 'Content-Type: application/json' \
+     --data-binary @results.json
+
+# Or just tell it where to look
+curl -X POST https://openresult.dev/view \
+     -d 'url=https://example.org/results.json'</code></pre>
+      <p class="small muted">
+        Either returns a rendered page. There is also
+        <code>GET /view?url=…</code> when a link is easier than a form.
+      </p>
+
+      <h2>What it is deliberately not</h2>
+      <p>
+        It does not model how a competition is run — no fixtures, no scheduling, no scoring rules,
+        no live timing protocol. It describes an <em>outcome</em>, so that the outcome outlives the
+        software that produced it.
+      </p>
+
+      <h2>Where to go next</h2>
+      <div class="grid">
+        <div class="card">
+          <h3 style="margin-top: 0"><a href="/spec/">The specification</a></h3>
+          <p class="small">
+            RFC-style, every rule numbered and citable. §2 through §8 is enough to build a producer
+            or a consumer.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0"><a href="/examples/">The examples</a></h3>
+          <p class="small">
+            Twenty documents across twenty unlike domains — motocross, chess, a CPU benchmark, a
+            photo contest — each rendered by the same viewer with no configuration.
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0"><a href="/playground/">The playground</a></h3>
+          <p class="small">
+            Type a document and watch it validate and render as you go, with diagnostics pointing at
+            the token that caused them.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div>
+        <span>Specification and docs: CC BY 4.0. Code: Apache 2.0.</span>
+        <a href="https://github.com/Gizmo091/openresult">Source</a>
+        <a href="/schema/openresult-1.0.schema.json">JSON Schema</a>
+      </div>
+    </footer>
+  </body>
+</html>

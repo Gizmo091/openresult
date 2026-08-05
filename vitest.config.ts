@@ -14,7 +14,12 @@ export default defineConfig({
       {
         test: {
           name: 'node',
-          include: ['sdk/js/packages/**/*.test.ts', 'validator/**/*.test.ts', 'tools/**/*.test.ts'],
+          include: [
+            'sdk/js/packages/**/*.test.ts',
+            'validator/**/*.test.ts',
+            'tools/**/*.test.ts',
+            'site/test/**/*.test.ts',
+          ],
           environment: 'node',
         },
       },

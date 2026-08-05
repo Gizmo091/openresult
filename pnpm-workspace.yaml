@@ -4,3 +4,4 @@ packages:
   - 'validator/web'
   - 'viewer'
   - 'playground'
+  - 'site'

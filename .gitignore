@@ -27,3 +27,10 @@ pnpm-debug.log*
 
 # Python bytecode from the minimal reader
 __pycache__/
+
+# The assembled site deployment, built by site/deploy/build-release.sh
+site/release/
+# Copied into the site at build time from examples/ and schema/
+site/public/examples/
+site/public/schema/
+site/src/generated/

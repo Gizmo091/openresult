@@ -1,0 +1,402 @@
+/**
+ * One stylesheet for the whole site.
+ *
+ * The subject is results tables: dense, numeric, read at a glance. So the page
+ * gets out of the way — a single accent, generous line height, and type that
+ * holds up in a long specification. No framework: a site explaining a
+ * dependency-free format should not ship 90 kB of CSS to say so.
+ */
+
+:root {
+  --ink: #1c1b19;
+  --ink-soft: #55524d;
+  --ink-faint: #8a867f;
+  --paper: #fbfbfa;
+  --card: #ffffff;
+  --rule: #e6e3dd;
+  --accent: #0b6b5f;
+  --accent-soft: #e6f2f0;
+  --warn: #8a5a00;
+  --error: #a32b1c;
+  --code-bg: #f4f3f0;
+  --radius: 10px;
+  --measure: 44rem;
+  --wide: 72rem;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e9e6e1;
+    --ink-soft: #b3aea6;
+    --ink-faint: #837e76;
+    --paper: #161513;
+    --card: #1e1d1a;
+    --rule: #322f2b;
+    --accent: #57bfae;
+    --accent-soft: #16302c;
+    --warn: #d3a44a;
+    --error: #e07a6b;
+    --code-bg: #232220;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    16px/1.65 system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-synthesis: none;
+}
+
+code,
+pre,
+kbd {
+  font-family:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.875em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---- shell ---------------------------------------------------------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.masthead > div {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 0.7rem 1.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.wordmark {
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 1.02rem;
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.masthead nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.masthead nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.masthead nav a:hover,
+.masthead nav a[aria-current='page'] {
+  color: var(--accent);
+}
+
+.masthead .spacer {
+  margin-left: auto;
+}
+
+main {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 5rem;
+}
+
+main.prose {
+  max-width: var(--measure);
+}
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+}
+
+footer.site > div {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ---- type ----------------------------------------------------------- */
+
+h1 {
+  font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.6rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+  margin: 2.75rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.lede {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  margin: 0 0 2rem;
+  max-width: var(--measure);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 650;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+/* ---- blocks --------------------------------------------------------- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+pre code {
+  font-size: 0.82rem;
+}
+
+:not(pre) > code {
+  background: var(--code-bg);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+th {
+  font-weight: 620;
+  color: var(--ink-soft);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+blockquote {
+  margin: 1.25rem 0;
+  padding: 0.1rem 0 0.1rem 1rem;
+  border-left: 3px solid var(--accent-soft);
+  color: var(--ink-soft);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+/* ---- controls ------------------------------------------------------- */
+
+.button,
+button,
+select,
+input[type='text'],
+input[type='url'],
+textarea {
+  font: inherit;
+  color: inherit;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 0.5rem 0.8rem;
+}
+
+textarea {
+  font-family:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  width: 100%;
+  min-height: 16rem;
+  resize: vertical;
+}
+
+.button,
+button {
+  cursor: pointer;
+  font-weight: 550;
+}
+
+.button:hover,
+button:hover {
+  border-color: var(--accent);
+}
+
+.button.primary,
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.row {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+label.field {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+label.field > span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.3rem;
+}
+
+label.field input {
+  width: 100%;
+}
+
+/* ---- status --------------------------------------------------------- */
+
+.notice {
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  margin: 1rem 0;
+}
+
+.notice.error {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.notice.ok {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--ink-faint);
+}
+
+.small {
+  font-size: 0.86rem;
+}
+
+/* ---- skip link ------------------------------------------------------ */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 0.5rem;
+  z-index: 20;
+  background: var(--card);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

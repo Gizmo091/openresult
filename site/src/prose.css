@@ -1,0 +1,133 @@
+/**
+ * Long-form pages: the specification, the vision, the decision records.
+ *
+ * A specification is read in two ways — start to finish once, then by jumping to
+ * a rule someone cited at you. The sidebar serves the second, the measure serves
+ * the first, and the anchor beside each heading exists so a rule can be linked
+ * to at all.
+ */
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 5rem;
+}
+
+@media (min-width: 62rem) {
+  .doc-layout {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+
+  .doc-nav {
+    position: sticky;
+    top: 4rem;
+    align-self: start;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    font-size: 0.85rem;
+    padding-right: 0.5rem;
+  }
+}
+
+.doc-nav ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.doc-nav li {
+  margin: 0.1rem 0;
+}
+
+.doc-nav li.depth-3 {
+  padding-left: 0.9rem;
+}
+
+.doc-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  display: block;
+  padding: 0.15rem 0.3rem;
+  border-radius: 5px;
+  line-height: 1.35;
+}
+
+.doc-nav a:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.doc-nav a.current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.doc-body {
+  min-width: 0;
+}
+
+.doc-body h1 {
+  margin-top: 0;
+}
+
+.doc-body h2 {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.doc-body h2,
+.doc-body h3,
+.doc-body h4 {
+  scroll-margin-top: 4.5rem;
+}
+
+.doc-body p,
+.doc-body li {
+  max-width: var(--measure);
+}
+
+.doc-body li {
+  margin: 0.25rem 0;
+}
+
+/* The anchor is quiet until the heading is hovered: a specification with a
+   hash beside every one of 68 headings reads like a wiki. */
+.doc-body .anchor {
+  float: left;
+  margin-left: -1.1rem;
+  width: 1.1rem;
+  color: var(--ink-faint);
+  opacity: 0;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.doc-body h2:hover .anchor,
+.doc-body h3:hover .anchor,
+.doc-body h4:hover .anchor,
+.doc-body .anchor:focus {
+  opacity: 1;
+}
+
+/* Rule numbers — **§8.1.1** at the start of a paragraph — are the citable unit,
+   so they get to look like one. */
+.doc-body strong {
+  font-weight: 640;
+}
+
+.doc-body em {
+  color: var(--ink-soft);
+}
+
+.doc-body table {
+  margin: 1rem 0;
+}
+
+.doc-body :target {
+  background: var(--accent-soft);
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.4rem var(--accent-soft);
+}
