@@ -295,6 +295,11 @@ digits to show **after the decimal point** — not significant figures. It affec
 **§5.1.6** A consumer encountering an unknown `kind` **MUST** treat it as `text`; an unknown
 `betterWhen` **MUST** be treated as `none`.
 
+**§5.1.7** A declared measure that no result carries a value for is reported as `OR-901`, a
+warning. It is legal — a measure may be declared for a round that has not been swum yet — but the
+commonest cause is a misspelling between the declaration and the results, which would otherwise
+show up as a column that is always empty.
+
 ### 5.2 Values and units
 
 **§5.2.1** Every measured quantity **MUST** be a JSON number, expressed in the unit its measure
@@ -397,6 +402,9 @@ alpha-3 — declare a second attribute of type `text` alongside._
 
 _Non-normative: declaring attributes rather than leaving them free-form is what lets a consumer
 display them correctly without knowing what they are._
+
+**§5.3.6** A declared attribute that no entity carries a value for is reported as `OR-905`, on
+the same terms and for the same reason as [§5.1.7](#51-measures).
 
 ### 5.4 Identifiers
 

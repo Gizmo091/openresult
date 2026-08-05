@@ -62,12 +62,12 @@ export const CATALOGUE = {
   // Writing the conformance suite showed it cannot exist: the rule compares two
   // documents, and a validator sees one. The code stays retired rather than
   // reused — a published code is permanent (spec §12.2.1).
-  'OR-901': { severity: 'warning', rule: 'spec §12.2' },
+  'OR-901': { severity: 'warning', rule: 'spec §5.1.7' },
   'OR-902': { severity: 'warning', rule: 'spec §3.3.2' },
   'OR-903': { severity: 'warning', rule: 'spec §4.5.1' },
   'OR-904': { severity: 'warning', rule: 'spec §6.2.4' },
-  'OR-905': { severity: 'warning', rule: 'spec §12.2' },
-  'OR-906': { severity: 'warning', rule: 'spec §12.2' },
+  'OR-905': { severity: 'warning', rule: 'spec §5.3.6' },
+  'OR-906': { severity: 'warning', rule: 'spec §8.1.4' },
   'OR-907': { severity: 'warning', rule: 'spec §9.1.1' },
   'OR-908': { severity: 'warning', rule: 'spec §8.5.2' },
 } as const satisfies Record<string, CatalogueEntry>;
