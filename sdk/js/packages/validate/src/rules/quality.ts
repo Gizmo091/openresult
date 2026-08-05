@@ -25,6 +25,65 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
     for (const key of Object.keys(event.attributes ?? {})) usedAttributeIds.add(key);
   }
 
+  // A declared scale has to be a scale (spec §5.1.8).
+  (document.measures ?? []).forEach((measure, index) => {
+    if (measure.min !== undefined && measure.max !== undefined && measure.min > measure.max) {
+      found.push(
+        diagnostic(
+          'OR-109',
+          pointer('measures', index, 'min'),
+          `"${measure.label}" declares a minimum of ${measure.min} and a maximum of ` +
+            `${measure.max}, so no value can satisfy both.`,
+          `Swap them, or drop whichever bound was not meant.`,
+        ),
+      );
+    }
+  });
+
+  // Values outside the scale their measure declares. A warning, not an error:
+  // the document still orders, and refusing to render standings because one
+  // figure is out of range would hide the result to report the typo.
+  const scales = new Map(
+    (document.measures ?? [])
+      .filter((measure) => measure.min !== undefined || measure.max !== undefined)
+      // A scale that contradicts itself is already reported as OR-109; adding a
+      // warning per value would bury the error under its own consequences.
+      .filter(
+        (measure) =>
+          !(measure.min !== undefined && measure.max !== undefined && measure.min > measure.max),
+      )
+      .map((measure) => [measure.id, measure]),
+  );
+
+  if (scales.size > 0) {
+    document.results.forEach((result, index) => {
+      for (const [id, value] of Object.entries(result.values ?? {})) {
+        const measure = scales.get(id);
+        if (measure === undefined || typeof value !== 'number') continue;
+
+        const below = measure.min !== undefined && value < measure.min;
+        const above = measure.max !== undefined && value > measure.max;
+        if (!below && !above) continue;
+
+        const bounds =
+          measure.min !== undefined && measure.max !== undefined
+            ? `${measure.min} to ${measure.max}`
+            : measure.min !== undefined
+              ? `${measure.min} or more`
+              : `${measure.max} or less`;
+
+        found.push(
+          diagnostic(
+            'OR-909',
+            pointer('results', index, 'values', id),
+            `${value} falls outside the scale "${measure.label}" declares (${bounds}).`,
+            `Correct the value, or widen the scale if the bounds were wrong.`,
+          ),
+        );
+      }
+    });
+  }
+
   (document.measures ?? []).forEach((measure, index) => {
     if (!usedMeasureIds.has(measure.id)) {
       found.push(

@@ -69,6 +69,9 @@ export interface Measure extends Extensible {
   kind: MeasureKind;
   unit?: string;
   precision?: number;
+  /** Bounds of the scale, never of the ranking (spec §5.1.8). */
+  min?: number;
+  max?: number;
   betterWhen: BetterWhen;
 }
 
@@ -77,6 +80,8 @@ export interface AttributeDefinition extends Extensible {
   label: string;
   description?: string;
   type: AttributeType;
+  /** Numbers only, from the same vocabulary as a measure's (spec §5.3.7). */
+  unit?: string;
 }
 
 export interface Link extends Extensible {
@@ -144,7 +149,13 @@ export interface RankingScope extends Extensible {
    * names the three heats (spec §8.1.1).
    */
   event?: string | string[];
-  category?: string;
+  /**
+   * One category, or several. Several is a union: a result qualifies by
+   * belonging to any of them, which is how an axis made of ranges — "under
+   * €15" spanning two price bands — is expressed without a category that
+   * re-lists its members (spec §8.1.2).
+   */
+  category?: string | string[];
 }
 
 export interface Ranking extends Extensible {

@@ -205,6 +205,12 @@ export const OPENRESULT_1_0_SCHEMA = {
           "type": "integer",
           "minimum": 0
         },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
         "betterWhen": {
           "type": "string",
           "enum": [
@@ -271,12 +277,33 @@ export const OPENRESULT_1_0_SCHEMA = {
             "country",
             "boolean"
           ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "patternProperties": {
         "^x-": true
       },
-      "unevaluatedProperties": false
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "description": "unit is only meaningful on a number attribute (spec §5.3.7).",
+          "if": {
+            "required": [
+              "unit"
+            ]
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "number"
+              }
+            }
+          }
+        }
+      ]
     },
     "attributeValues": {
       "type": "object",
@@ -515,7 +542,14 @@ export const OPENRESULT_1_0_SCHEMA = {
               ]
             },
             "category": {
-              "$ref": "#/$defs/identifier"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/identifier"
+                },
+                {
+                  "$ref": "#/$defs/identifierList"
+                }
+              ]
             }
           },
           "patternProperties": {

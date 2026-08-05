@@ -73,6 +73,31 @@ function translate(error: ErrorObject): Diagnostic[] {
       ];
     }
 
+    // The one conditional in the schema: `unit` on an attribute forces the type
+    // to `number`. Ajv reports it as a failed `const`, which reads as "must be
+    // equal to constant" and helps nobody.
+    case 'const': {
+      if (path.endsWith('/type')) {
+        return [
+          make(
+            'OR-110',
+            path,
+            `Only a number attribute may declare a "unit": a unit describes a quantity, and ` +
+              `this attribute is ${describe(error.data)}.`,
+            `Drop the "unit", or change "type" to "number" if the values really are numbers.`,
+          ),
+        ];
+      }
+      return [
+        make(
+          'OR-103',
+          path,
+          `${describe(error.data)} is not the value required here.`,
+          `Use the value the schema fixes for this member.`,
+        ),
+      ];
+    }
+
     case 'enum': {
       const allowed = (error.params['allowedValues'] as unknown[]).map((v) => `"${String(v)}"`);
       return [

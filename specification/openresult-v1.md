@@ -264,6 +264,8 @@ A measure defines an observed quantity and how it orders. It is the central carr
   "kind": "duration", // REQUIRED
   "unit": "s", // REQUIRED, except for text and boolean
   "precision": 3, // OPTIONAL
+  "min": 0, // OPTIONAL
+  "max": 40, // OPTIONAL
   "betterWhen": "lower", // REQUIRED
   "description": "…", // OPTIONAL
 }
@@ -299,6 +301,22 @@ digits to show **after the decimal point** — not significant figures. It affec
 warning. It is legal — a measure may be declared for a round that has not been swum yet — but the
 commonest cause is a misspelling between the declaration and the results, which would otherwise
 show up as a column that is always empty.
+
+**§5.1.8** `min` and `max` **MAY** declare the bounds of the scale the measure is expressed on.
+Both are numbers, both are optional, and each may be given without the other. `min` **MUST NOT**
+exceed `max` (`OR-109`).
+
+They bound the **scale**, never the ranking. A value outside them is reported as `OR-909` and
+still takes part in derivation: refusing to order a document because one figure is out of range
+would hide the standings in order to report a typo.
+
+_Non-normative: a jury score means nothing without its scale. 27 is excellent out of 30 and poor
+out of 100, and a document declaring four criteria marked out of 10, 30, 40 and 20 cannot be
+rendered as `36/40`, cannot put those criteria on one axis, and cannot notice `47` where the
+maximum is 40. §5.2.5 argues that a duration needs no rendering hint because everything required
+is already declared — which is true there and was false here, for the one kind that needs it most.
+Without these members the maximum could only be written into `description`, which §6.1.6 says is
+never parsed. Judged sport, model evaluation and examinations have the same shape._
 
 ### 5.2 Values and units
 
@@ -358,6 +376,7 @@ version. Attributes are neither measured nor ranked.
   "id": "club", // REQUIRED
   "label": "Club", // REQUIRED
   "type": "text", // REQUIRED
+  "unit": "km", // OPTIONAL, numbers only
   "description": "…", // OPTIONAL
 }
 ```
@@ -405,6 +424,17 @@ display them correctly without knowing what they are._
 
 **§5.3.6** A declared attribute that no entity carries a value for is reported as `OR-905`, on
 the same terms and for the same reason as [§5.1.7](#51-measures).
+
+**§5.3.7** An attribute of type `number` **MAY** declare a `unit`, drawn from the same vocabulary
+as a measure's ([§5.2.4](#52-values-and-units)) and displayed the same way. It **MUST NOT** be
+declared on any other type, where it would describe nothing.
+
+_Non-normative: a stage distance, a summit altitude, a bottle price, an alcohol content and a time
+limit all describe an entity rather than a performance, so they are attributes — and until this
+existed, their unit could only be smuggled into the label, as `"Distance (km)"`. Two outside
+readers hit this independently, in cycling and in wine, and both wrote the unit into a display
+string no consumer can read. Measures had a whole section on unit vocabulary and attributes had
+nothing, which was an omission rather than a decision._
 
 ### 5.4 Identifiers
 
@@ -592,9 +622,22 @@ by default, and unlike `dnf` it asserts nothing about whether they finished.
 **§7.2.7** A status describes the result it sits on, never a later round. A competitor who
 completes a heat and is not selected for the next one is `finished` in that heat: they are
 classified there, at whatever position their performance earned. Their non-selection is the
-absence of a result in the round that follows, not a status on the round they completed. A skier
-who runs the first leg cleanly and starts no second leg is `finished` on the first leg and
-`notClassified` on the combined event, which has no combined time to record.
+absence of a result in the round that follows, not a status on the round they completed.
+
+**§7.2.8** On an event that aggregates others, the status **MUST** be the most specific one that
+is true **of the aggregate**. A rider who abandons a stage race did not finish it, so their result
+on the overall event is `dnf`. `notClassified` is what remains when nothing more specific applies:
+a competitor who did everything asked of them and still does not appear — short of a minimum
+distance, short of a qualifying standard, outside a published field. A skier eliminated by the cut
+after a clean first run is `finished` on that run and `notClassified` on the combined event; one
+who abandons mid-course is `dnf` on both.
+
+_Non-normative: every status named here is excluded by default (§8.4.2), so the derived standings
+are identical whichever is chosen — the difference is invisible to a ranking and plain on screen.
+A cycling reader found this and chose `dnf` against the wording of §7.2.7, correctly: two
+conforming producers were otherwise free to publish "abandoned" and "not classified" for the same
+fact, with no validator able to tell them apart. That is the divergence this format exists to
+prevent, and it does not stop being one because the numbers agree._
 
 _Non-normative: the earlier wording of §7.2.6 glossed the status as "eliminated in a heat", which
 reads as an instruction to mark the eliminated swimmers of a qualifying heat `notClassified` —
@@ -628,7 +671,8 @@ is never required, and a consumer **MUST** be able to derive the same ordering w
 declares that its residual ties are settled by these positions ([§8.3.4](#83-ties)); a document
 using it still orders deterministically, but dropping `ranks` would change the order.
 
-**§7.5.3** A key **MUST NOT** name a ranking that excludes this result
+**§7.5.3** A key **MUST NOT** name a ranking that does not rank this result — whether its `scope`
+never selected it ([§8.5.1](#85-derivation-algorithm)) or the partition left it unranked
 ([§8.5.2](#85-derivation-algorithm)). Publishing a position in a ranking the result does not
 belong to is a contradiction, and is reported as `OR-303`.
 
@@ -678,8 +722,19 @@ times stay where they were swum, each heat keeps its own start time and its own 
 figure is published twice. Enumeration is deliberate — a consumer selects by reading a list, never
 by evaluating a rule (§1.2)._
 
-**§8.1.2** `scope.category`, when present, **MUST** reference a declared category; only results
-whose participant belongs to it are considered.
+**§8.1.2** `scope.category`, when present, **MUST** be a declared category identifier or an array
+of them; only results whose participant belongs to **at least one** of them are considered.
+
+_Non-normative: this expresses an axis built from ranges — "under €15", spanning two declared
+price bands — without a third category that re-lists the wines the first two already contain. Such
+a category is the duplication §8.1.5 warns about, moved from values to rosters and just as able to
+drift._
+
+_It does **not** express crossing two axes. Categories combine as a union, so listing a colour and
+a price band selects everything in either. "The reds under €15" still needs a category of its own,
+and the format offers no way to derive one from two others. That is a real limit, chosen over the
+alternative: a scope that mixed unions and intersections would be a query language, and §1.2.2
+says a consumer has nothing to evaluate._
 
 **§8.1.3** `scope` absent means all results in the document. `scope` accepts `event` and
 `category`; when both are present, a result **MUST** satisfy each of them.
@@ -813,13 +868,22 @@ result carries. Copying an earlier round's value forward suits a format where ev
 the same course; it **MUST NOT** be used where a later round is a qualification cut, since it would
 rank a non-qualifier among the classified and publish a false result.
 
+That is not the duplication [§8.1.5](#81-scope) warns against, and the difference is worth
+stating. §8.1.5 is about republishing the same figure of the same performance in two places, where
+the copies can drift apart. Here the figure is deliberately carried into a different round, where
+it is a **different** fact — the value this competitor brings forward — and where the alternative
+is a standing that silently omits half its field.
+
 **§8.5.3 — Sort.** Order the rankable results by successive comparison over `sortBy`. For each
 measure, `betterWhen: "lower"` orders ascending and `betterWhen: "higher"` orders descending. The
 sort **MUST** be **stable**: results comparing equal on every criterion retain their declaration
 order in `results`.
 
 **§8.5.4 — Assign.** Assign ranks according to `ties`. Two results are tied when they compare
-equal on every measure in `sortBy`.
+equal on every measure in `sortBy`. Under `resolved`, a tied group is first ordered by the
+positions its results publish, per [§8.3.4](#83-ties) — the stability of §8.5.3 orders the
+_array_ and never the _rank_, so a mass finish where everyone shares a time needs `resolved` to
+place anybody.
 
 **§8.5.5 — Unranked.** Unranked results follow the ranked ones, in declaration order, with no
 rank.
@@ -1050,6 +1114,8 @@ plain language, and at least one concrete correction.
 | `OR-106` | error    | Timestamp is not RFC 3339 with an offset, where §4.6.2 does not allow a full-date (§4.6.1)                                                                                       |
 | `OR-107` | error    | `unit` missing for a kind that requires one (§5.1.3)                                                                                                                             |
 | `OR-108` | error    | `null` used for an unavailable measure (§7.3.2)                                                                                                                                  |
+| `OR-109` | error    | A measure declares `min` greater than `max` (§5.1.8)                                                                                                                             |
+| `OR-110` | error    | A `unit` is declared on an attribute that is not a number (§5.3.7)                                                                                                               |
 | `OR-201` | error    | Reference to an undeclared entity (§6.1.2, §7.1.1, §7.1.2, §8.1.1)                                                                                                               |
 | `OR-202` | error    | Duplicate identifier within a collection (§5.4.2)                                                                                                                                |
 | `OR-203` | error    | Duplicate (`participant`, `event`) pair (§7.1.3)                                                                                                                                 |
@@ -1072,6 +1138,7 @@ plain language, and at least one concrete correction.
 | `OR-906` | warning  | A declared ranking selects no result                                                                                                                                             |
 | `OR-907` | warning  | A declared category selects no result (§9.1.1)                                                                                                                                   |
 | `OR-908` | warning  | A ranking leaves selected results unranked for want of a sorting measure (§8.5.2)                                                                                                |
+| `OR-909` | warning  | A value falls outside the scale its measure declares (§5.1.8)                                                                                                                    |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 
