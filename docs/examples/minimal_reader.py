@@ -108,11 +108,16 @@ def in_scope(document, ranking, result):
             return False
 
     if "category" in scope:
-        members = next(
-            (c.get("participants", []) for c in document.get("categories", [])
-             if c["id"] == scope["category"]),
-            [],
-        )
+        # One category or several (§8.1.2). Several is a union: belonging to any
+        # of them is enough.
+        wanted = scope["category"]
+        wanted = wanted if isinstance(wanted, list) else [wanted]
+        members = {
+            participant
+            for category in document.get("categories", [])
+            if category["id"] in wanted
+            for participant in category.get("participants", [])
+        }
         if result["participant"] not in members:
             return False
 

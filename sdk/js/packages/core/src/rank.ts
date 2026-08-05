@@ -92,12 +92,21 @@ function selectResults(document: ResultDocument, ranking: Ranking): Result[] {
   const scope = ranking.scope;
   if (scope === undefined) return document.results;
 
-  const members =
+  // One category or several. Several is a union: belonging to any of them is
+  // enough, which is what lets an axis made of ranges be expressed without a
+  // category that re-lists its members (spec §8.1.2).
+  const wantedCategories =
     scope.category === undefined
       ? undefined
+      : new Set(Array.isArray(scope.category) ? scope.category : [scope.category]);
+
+  const members =
+    wantedCategories === undefined
+      ? undefined
       : new Set(
-          document.categories?.find((candidate) => candidate.id === scope.category)?.participants ??
-            [],
+          (document.categories ?? [])
+            .filter((candidate) => wantedCategories.has(candidate.id))
+            .flatMap((candidate) => candidate.participants ?? []),
         );
 
   // One event or several, never their descendants (spec §8.1.1). Listing events
