@@ -1,10 +1,10 @@
 import {
-  DEFAULT_EXCLUDED_STATUSES,
   measure,
   normalizeBetterWhen,
   normalizeStatus,
   normalizeTies,
   rank,
+  type Result,
   type ResultDocument,
 } from '@openresult/core';
 import { diagnostic, pointer, type Diagnostic } from '../diagnostics.js';
@@ -45,6 +45,19 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
             `Set betterWhen to "lower" or "higher" on the measure, or sort on a different one.`,
           ),
         );
+      } else if (definition.kind === 'text' || definition.kind === 'boolean') {
+        // "Ascending" over text has no single answer, so two consumers would
+        // disagree — the divergence spec §8.5.6 forbids.
+        found.push(
+          diagnostic(
+            'OR-301',
+            pointer('rankings', index, 'sortBy', measureIndex),
+            `Ranking "${ranking.label}" sorts on "${definition.label}", a ${definition.kind} ` +
+              `measure. Only numeric kinds may decide an order: text has no ordering two ` +
+              `consumers would agree on.`,
+            `Declare a numeric measure for the ordering and keep "${definition.id}" as an attribute.`,
+          ),
+        );
       }
     });
 
@@ -78,48 +91,67 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
     }
   });
 
-  // A supplied rank is information, not instruction (spec §3.3.2): a divergence
-  // is worth flagging, never fatal — a producer may apply a rule that lives
-  // outside the document.
-  const excluded = new Set(DEFAULT_EXCLUDED_STATUSES);
-  const primary = (document.rankings ?? [])[0];
+  // A supplied rank is information, not instruction (spec §3.3.2). Now that it
+  // names its ranking, both checks below have something unambiguous to compare
+  // against — a bare number never did.
+  const declared = new Map((document.rankings ?? []).map((entry) => [entry.id, entry]));
+  const derivedByRanking = new Map<string, Map<Result, number | null>>();
+
+  const derivedFor = (rankingId: string): Map<Result, number | null> => {
+    let cached = derivedByRanking.get(rankingId);
+    if (cached === undefined) {
+      cached = new Map(rank(document, rankingId).map((entry) => [entry.result, entry.rank]));
+      derivedByRanking.set(rankingId, cached);
+    }
+    return cached;
+  };
 
   document.results.forEach((result, index) => {
-    const status = normalizeStatus(result.status);
+    for (const [rankingId, supplied] of Object.entries(result.ranks ?? {})) {
+      const ranking = declared.get(rankingId);
 
-    if (result.rank !== undefined && excluded.has(status)) {
-      found.push(
-        diagnostic(
-          'OR-303',
-          pointer('results', index, 'rank'),
-          `This result carries rank ${result.rank} but its status is "${status}", which is not ` +
-            `rankable.`,
-          `Remove the "rank" member, or change the status if the participant was classified.`,
-        ),
-      );
-    }
-  });
+      if (ranking === undefined) {
+        found.push(
+          diagnostic(
+            'OR-201',
+            pointer('results', index, 'ranks', rankingId),
+            `This result publishes a position in "${rankingId}", which is not a declared ranking.`,
+            `Declare a ranking with id "${rankingId}", or remove this entry.`,
+          ),
+        );
+        continue;
+      }
 
-  if (primary !== undefined) {
-    const derived = new Map(
-      rank(document, primary.id).map((entry) => [entry.result, entry.rank] as const),
-    );
+      const derived = derivedFor(rankingId).get(result);
 
-    document.results.forEach((result, index) => {
-      const expected = derived.get(result);
-      if (result.rank !== undefined && expected !== undefined && expected !== result.rank) {
+      if (derived === undefined || derived === null) {
+        const status = normalizeStatus(result.status);
+        found.push(
+          diagnostic(
+            'OR-303',
+            pointer('results', index, 'ranks', rankingId),
+            `This result publishes position ${supplied} in "${ranking.label}", but that ranking ` +
+              `does not rank it — its status is "${status}", or it lacks a measure the ranking ` +
+              `sorts on.`,
+            `Remove this entry, or adjust the ranking's excludeStatuses if the result belongs in it.`,
+          ),
+        );
+        continue;
+      }
+
+      if (derived !== supplied) {
         found.push(
           diagnostic(
             'OR-902',
-            pointer('results', index, 'rank'),
-            `The document states rank ${result.rank}, but "${primary.label}" derives ` +
-              `${expected === null ? 'no rank' : expected} from the measures.`,
-            `Check the tie-break rule, or drop the "rank" member and let it be derived.`,
+            pointer('results', index, 'ranks', rankingId),
+            `The document states position ${supplied} in "${ranking.label}", but the measures ` +
+              `derive ${derived}.`,
+            `Check the tie-break rule, or drop the entry and let the position be derived.`,
           ),
         );
       }
-    });
-  }
+    }
+  });
 
   return found;
 }

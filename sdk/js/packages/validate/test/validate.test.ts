@@ -190,21 +190,72 @@ describe('ranking coherence', () => {
     expect(found?.suggestion).toContain('tie-break');
   });
 
-  it('rejects a rank on a non-rankable status', () => {
+  it('rejects a position published in a ranking that excludes the result', () => {
     const document = base();
+    document['rankings'] = [{ id: 'r', label: 'R', sortBy: ['time'] }];
     (document['results'] as Record<string, unknown>[])[0]!['status'] = 'dnf';
-    (document['results'] as Record<string, unknown>[])[0]!['rank'] = 2;
+    (document['results'] as Record<string, unknown>[])[0]!['ranks'] = { r: 2 };
     expect(codes(validate(document))).toContain('OR-303');
   });
 
-  it('warns when a supplied rank disagrees with the derived one', () => {
+  it('rejects a position published in an undeclared ranking', () => {
     const document = base();
-    (document['results'] as Record<string, unknown>[])[0]!['rank'] = 1;
+    document['rankings'] = [{ id: 'r', label: 'R', sortBy: ['time'] }];
+    (document['results'] as Record<string, unknown>[])[0]!['ranks'] = { ghost: 1 };
+    expect(codes(validate(document))).toContain('OR-201');
+  });
+
+  it('warns when a supplied position disagrees with the derived one', () => {
+    const document = base();
+    // 'a' runs 20s and 'b' runs 10s, so 'a' derives 2, not 1.
+    (document['results'] as Record<string, unknown>[])[0]!['ranks'] = { r: 1 };
     document['rankings'] = [{ id: 'r', label: 'R', sortBy: ['time'] }];
     const report = validate(document);
     expect(report.errors).toEqual([]);
     expect(report.warnings.map((entry) => entry.code)).toContain('OR-902');
     expect(report.valid).toBe(true);
+  });
+
+  it('accepts positions in several rankings at once', () => {
+    const document = base();
+    document['categories'] = [{ id: 'junior', label: 'Junior', participants: ['b'] }];
+    document['rankings'] = [
+      { id: 'overall', label: 'Overall', sortBy: ['time'] },
+      { id: 'junior', label: 'Junior', scope: { category: 'junior' }, sortBy: ['time'] },
+    ];
+    (document['results'] as Record<string, unknown>[])[1]!['ranks'] = { overall: 1, junior: 1 };
+    const report = validate(document);
+    expect(report.errors).toEqual([]);
+    expect(report.warnings.map((entry) => entry.code)).not.toContain('OR-902');
+  });
+
+  it('rejects sorting on a text measure', () => {
+    const report = validate({
+      ...base(),
+      measures: [{ id: 'grade', label: 'Grade', kind: 'text', betterWhen: 'higher' }],
+      results: [
+        { participant: 'a', values: { grade: '7a' } },
+        { participant: 'b', values: { grade: '8b' } },
+      ],
+      rankings: [{ id: 'r', label: 'R', sortBy: ['grade'] }],
+    });
+    expect(codes(report)).toContain('OR-301');
+  });
+
+  it('rejects an attribute value contradicting its declared type', () => {
+    const document = base();
+    document['attributes'] = [{ id: 'elo', label: 'Rating', type: 'number' }];
+    (document['participants'] as Record<string, unknown>[])[0]!['attributes'] = { elo: '2478' };
+    const found = validate(document).errors.find((entry) => entry.code === 'OR-102');
+    expect(found?.path).toBe('/participants/0/attributes/elo');
+    expect(found?.message).toContain('number');
+  });
+
+  it('rejects a country code that is not ISO 3166-1 alpha-2', () => {
+    const document = base();
+    document['attributes'] = [{ id: 'country', label: 'Country', type: 'country' }];
+    (document['participants'] as Record<string, unknown>[])[0]!['attributes'] = { country: 'FRA' };
+    expect(codes(validate(document))).toContain('OR-102');
   });
 });
 

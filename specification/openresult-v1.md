@@ -140,8 +140,9 @@ automatic ranking and rendering possible.
 **§3.3.1** A document **MAY** omit ranks entirely. A conforming consumer **MUST** be able to
 compute a correct ranking from the declared semantics alone, per [§8.5](#85-derivation-algorithm).
 
-**§3.3.2** When a producer supplies a `rank`, it is informative. A consumer **MAY** compare it
-against the rank it derives; a validator **MUST** report a divergence as a warning, not an error.
+**§3.3.2** When a producer supplies a rank, it is informative and **MUST** name the ranking it
+belongs to ([§7.5](#75-ranks)). A consumer **MAY** compare it against the rank it derives for that
+ranking; a validator **MUST** report a divergence as a warning, not an error.
 
 _Non-normative: a producer may legitimately apply a tie-break rule that lives outside the
 document — a jury decision, a regulation. The supplied rank records that outcome without making
@@ -197,8 +198,9 @@ require producers to republish.
 
 ### 4.3 `id`
 
-**§4.3.1** `id`, when present, **MUST** be a string identifying the subject of the document
-across publications. Two documents describing the same event **SHOULD** share the same `id`.
+**§4.3.1** `id`, when present, **MUST** be an identifier as defined in
+[§5.4.1](#54-identifiers), naming the subject of the document across publications. Two documents
+describing the same event **SHOULD** share the same `id`.
 
 ### 4.4 Content lifecycle: `status` and `version`
 
@@ -237,7 +239,9 @@ language tag describing the language of the human-readable text in the document.
 **§4.6.1** Every timestamp **MUST** be an [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)
 date-time **including a UTC offset**: `2026-05-17T16:42:00+02:00`.
 
-**§4.6.2** Where a time of day carries no meaning, a full-date (`2026-05-17`) **MAY** be used.
+**§4.6.2** A full-date (`2026-05-17`) **MAY** be used in `occurredAt.start`, `occurredAt.end`
+and in attribute values of type `date`. Everywhere else — `generatedAt` in particular — a
+date-time with an offset is **REQUIRED**.
 
 **§4.6.3** `generatedAt` records when the document was produced. `occurredAt` records the period
 the results cover, as an object with **OPTIONAL** `start` and `end` members.
@@ -267,13 +271,19 @@ A measure defines an observed quantity and how it orders. It is the central carr
 **§5.1.2** `kind` **MUST** be one of `duration`, `distance`, `points`, `score`, `percentage`,
 `count`, `money`, `rate`, `text`, `boolean`.
 
+Two of these are easily confused. **`points`** are awarded by a rule and accumulate — championship
+points, match points, a chess score. **`score`** is a judgement on a scale — a jury mark, a
+composite rating, a benchmark index. If competitors' values would sensibly be added together
+across events, it is `points`; if they would be averaged or compared, it is `score`.
+
 **§5.1.3** `unit` **MUST** be present when `kind` is anything other than `text` or `boolean`.
 
 **§5.1.4** `betterWhen` **MUST** be one of `lower`, `higher`, `none`. A measure declaring `none`
 is descriptive and **MUST NOT** appear in a ranking's `sortBy` ([§8.2](#82-sortby)).
 
 **§5.1.5** `precision`, when present, **MUST** be a non-negative integer giving the number of
-significant decimal places. It affects display only and **MUST NOT** affect ordering.
+digits to show **after the decimal point** — not significant figures. It affects display only and
+**MUST NOT** affect ordering.
 
 **§5.1.6** A consumer encountering an unknown `kind` **MUST** treat it as `text`; an unknown
 `betterWhen` **MUST** be treated as `none`.
@@ -312,13 +322,32 @@ unknown value **MUST** be treated as `text`.
 **§5.3.2** Every key used in any `attributes` object on an entity **MUST** reference a declared
 attribute `id`.
 
+**§5.3.3** An attribute value **MUST** match its declared `type`, on the same terms as a measured
+value matches its `kind` ([§5.2.1](#52-values-and-units)):
+
+| `type`    | JSON type | Format                                                                   |
+| --------- | --------- | ------------------------------------------------------------------------ |
+| `text`    | string    | none                                                                     |
+| `number`  | number    | none — a number, never a numeric string                                  |
+| `boolean` | boolean   | none                                                                     |
+| `date`    | string    | RFC 3339 full-date or date-time ([§4.6](#46-dates-times-and-time-zones)) |
+| `url`     | string    | absolute URI                                                             |
+| `country` | string    | ISO 3166-1 **alpha-2**, uppercase — `FR`, `GH`, `JP`                     |
+
+**§5.3.4** A value contradicting its declared type is reported as `OR-102`.
+
+_Non-normative: alpha-2 is fixed here rather than left open because a consumer rendering a flag
+or grouping by nation cannot do either against a field that is alpha-2 in one document, alpha-3
+in the next and a display name in the third. Domains that use another code — FIDE and the IOC use
+alpha-3 — declare a second attribute of type `text` alongside._
+
 _Non-normative: declaring attributes rather than leaving them free-form is what lets a consumer
 display them correctly without knowing what they are._
 
 ### 5.4 Identifiers
 
-**§5.4.1** Every producer-assigned identifier — measure, attribute, participant, event, category,
-ranking — **MUST** match `^[A-Za-z0-9_-]+$`.
+**§5.4.1** Every producer-assigned identifier — the document `id`, and those of measures,
+attributes, participants, events, categories and rankings — **MUST** match `^[A-Za-z0-9_-]+$`.
 
 **§5.4.2** Identifiers **MUST** be unique within their own collection.
 
@@ -408,7 +437,7 @@ results.
   "participant": "p12",             // REQUIRED
   "event": "heat1",                 // OPTIONAL
   "status": "finished",             // OPTIONAL, default "finished"
-  "rank": 3,                        // OPTIONAL
+  "ranks": { "overall": 4, "gt4": 1 },          // OPTIONAL
   "values": { "time": 1284.532 },   // OPTIONAL
   "attributes": { … },              // OPTIONAL
   "notes": "5 s penalty applied",   // OPTIONAL
@@ -427,22 +456,32 @@ the document declares `events`.
 
 **§7.2.1** `status` **MUST** be one of:
 
-| Value        | Meaning                | Rankable |
-| ------------ | ---------------------- | -------- |
-| `finished`   | Completed              | Yes      |
-| `inProgress` | Still competing        | No       |
-| `dnf`        | Did not finish         | No       |
-| `dns`        | Did not start          | No       |
-| `dsq`        | Disqualified           | No       |
-| `outOfTime`  | Outside the time limit | No       |
-| `withdrawn`  | Withdrew or forfeited  | No       |
+| Value        | Meaning                | Excluded by default |
+| ------------ | ---------------------- | ------------------- |
+| `finished`   | Completed              | No                  |
+| `bye`        | Scored without playing | No                  |
+| `inProgress` | Still competing        | Yes                 |
+| `dnf`        | Did not finish         | Yes                 |
+| `dns`        | Did not start          | Yes                 |
+| `dsq`        | Disqualified           | Yes                 |
+| `outOfTime`  | Outside the time limit | Yes                 |
+| `withdrawn`  | Withdrew or forfeited  | Yes                 |
 
 **§7.2.2** An unknown `status` **MUST** be treated as `finished`.
 
-**§7.2.3** A non-rankable result **MUST NOT** carry a `rank`.
+**§7.2.5** `bye` marks a competitor who scored without a contest — an odd field in a Swiss
+pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the score counts.
+Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
+carries it.
 
-**§7.2.4** A non-rankable result is excluded from ranking but **MUST** remain available for
-display. A consumer **SHOULD** show it without a rank rather than omit it.
+**§7.2.3** Exclusion is a property of a **ranking**, not of a status. The column above gives the
+default exclusion set of [§8.4.2](#84-excludestatuses); a ranking that declares its own
+`excludeStatuses` replaces that set entirely ([§8.4.1](#84-excludestatuses)). The same result may
+therefore be ranked by one ranking and unranked by another in the same document — a retired car
+that still sets the fastest lap is the ordinary case, not an anomaly.
+
+**§7.2.4** A result excluded from a ranking **MUST** remain available for display. A consumer
+**SHOULD** show it without a rank rather than omit it.
 
 ### 7.3 `values`
 
@@ -453,6 +492,26 @@ and `0` means zero.
 
 **§7.3.3** The type of each value **MUST** match its measure's `kind`, per
 [§5.2.1](#52-values-and-units).
+
+### 7.5 `ranks`
+
+**§7.5.1** `ranks`, when present, **MUST** be an object whose keys are declared ranking
+identifiers and whose values are positive integers.
+
+**§7.5.2** A supplied rank is **informative**: it records the position the producer published. It
+is never required, and a consumer **MUST** be able to derive the same ordering without it
+([§3.3.1](#33-ranks-are-derived)).
+
+**§7.5.3** A key **MUST NOT** name a ranking that excludes this result
+([§8.5.2](#85-derivation-algorithm)). Publishing a position in a ranking the result does not
+belong to is a contradiction, and is reported as `OR-303`.
+
+**§7.5.4** A key naming an undeclared ranking is a reference error (`OR-201`).
+
+_Non-normative: a single scalar rank cannot serve a document that declares several rankings — a
+GT4 car finishing fourth overall and first in class has two positions, and both are facts the
+producer may want to publish. Keying by ranking also gives a validator something unambiguous to
+compare against, which a bare number never did._
 
 ### 7.4 `notes`
 
@@ -502,7 +561,13 @@ whose participant belongs to it are considered.
 **§8.2.1** `sortBy` **MUST** be a non-empty array of declared measure identifiers, in decreasing
 order of priority.
 
-**§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`.
+**§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`, nor one whose
+`kind` is `text` or `boolean`. Only numeric kinds may decide an order.
+
+_Non-normative: "ascending" over text has no single answer — code points, locale collation and
+case folding all disagree, and the choice would vary with where the consumer runs. Rather than
+mandate one, the format declines to order text at all. A domain that ranks by grade declares a
+numeric measure and keeps the letter as an attribute._
 
 **§8.2.3** Sort direction **MUST NOT** be declared in the ranking. It comes exclusively from each
 measure's `betterWhen`.
@@ -523,13 +588,28 @@ truth. A case genuinely needing the opposite direction declares a second measure
 
 **§8.3.2** An unknown `ties` value **MUST** be treated as `standard`.
 
+**§8.3.3** `strict` declares an expectation, not a consumer behaviour. A consumer encountering a
+residual tie under `strict` **MUST** assign ranks as though `standard` had been declared, so that
+an order still exists and [§8.5.6](#85-derivation-algorithm) holds. Reporting the condition is the
+validator's job (`OR-302`), not the reader's.
+
+_Non-normative: without this, a document that turns out to contain a tie would have no defined
+rendering at all, and two consumers could reasonably refuse or fall back differently — the exact
+divergence §8.5.6 forbids._
+
 ### 8.4 `excludeStatuses`
 
 **§8.4.1** `excludeStatuses`, when present, **MUST** be an array of status values excluded from
-ranking.
+this ranking. It **replaces** the default set in full; it is not added to it. A ranking declaring
+`excludeStatuses: ["dns"]` therefore ranks retired and disqualified competitors.
 
-**§8.4.2** When absent, the default is every non-rankable status of
-[§7.2.1](#72-status): `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`, `withdrawn`.
+**§8.4.2** When absent, the default set applies: `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`,
+`withdrawn`.
+
+_Non-normative: replacement rather than union is what makes a "fastest lap" or "best single
+attempt" ranking expressible at all — those rank competitors the overall standings exclude. The
+cost is that an author writing `excludeStatuses: ["dsq"]` gets only that exclusion, so the common
+case is to omit the member entirely and take the default._
 
 ### 8.5 Derivation algorithm
 
@@ -578,8 +658,10 @@ declaration order.
 { "id": "mx2", "label": "MX2", "participants": ["p12", "p7"], "parent": "senior" }
 ```
 
-**§9.1.1** `participants` **MUST** reference declared participants. A participant **MAY** belong
-to several categories.
+**§9.1.1** A category **MUST** carry `id` and `label`. `participants` and `parent` are
+**OPTIONAL**. `participants`, when present, **MUST** reference declared participants; a
+participant **MAY** belong to several categories. A category with no `participants` selects no
+result, which a validator reports as `OR-906`.
 
 **§9.1.2** `parent`, when present, **MUST** reference another declared category, and the graph
 **MUST** be acyclic.
@@ -613,7 +695,9 @@ identifier, and states the terms under which the _data_ may be reused.
 "assets": [ { "type": "image", "href": "https://…", "label": "Podium" } ]
 ```
 
-**§9.3.1** Both **MAY** appear on the document and on any entity.
+**§9.3.1** Both **MAY** appear on the document and on any entity. A link **MUST** carry `href`;
+`rel` and `label` are **OPTIONAL**. An asset **MUST** carry `href`; `type` and `label` are
+**OPTIONAL**.
 
 **§9.3.2** `href` **MUST** be an absolute URI.
 
@@ -767,7 +851,7 @@ plain language, and at least one concrete correction.
 | `OR-103` | error    | Value outside its permitted domain (§5.1.2, §7.2.1)                                                                                                                              |
 | `OR-104` | error    | Identifier does not match the permitted character set (§5.4.1)                                                                                                                   |
 | `OR-105` | error    | Unknown member, not prefixed `x-` (§10.2.4)                                                                                                                                      |
-| `OR-106` | error    | Timestamp is not RFC 3339 with an offset (§4.6.1)                                                                                                                                |
+| `OR-106` | error    | Timestamp is not RFC 3339 with an offset, where §4.6.2 does not allow a full-date (§4.6.1)                                                                                       |
 | `OR-107` | error    | `unit` missing for a kind that requires one (§5.1.3)                                                                                                                             |
 | `OR-108` | error    | `null` used for an unavailable measure (§7.3.2)                                                                                                                                  |
 | `OR-201` | error    | Reference to an undeclared entity (§6.1.2, §7.1.1, §7.1.2, §8.1.1)                                                                                                               |
@@ -778,13 +862,13 @@ plain language, and at least one concrete correction.
 | `OR-206` | error    | `attributes` key does not reference a declared attribute (§5.3.2)                                                                                                                |
 | `OR-301` | error    | `sortBy` contains a measure whose `betterWhen` is `none` (§8.2.2)                                                                                                                |
 | `OR-302` | error    | Residual tie under `ties: "strict"` (§8.3.1)                                                                                                                                     |
-| `OR-303` | error    | A non-rankable result carries a `rank` (§7.2.3)                                                                                                                                  |
+| `OR-303` | error    | `ranks` names a ranking that excludes this result (§7.5.3)                                                                                                                       |
 | `OR-304` | error    | `sortBy` is empty (§8.2.1)                                                                                                                                                       |
 | `OR-401` | error    | `openresult` absent or malformed (§4.2.1)                                                                                                                                        |
 | `OR-402` | error    | Unsupported MAJOR version (§11.4.1)                                                                                                                                              |
 | `OR-403` | —        | **Retired.** Reserved for a rule comparing `version` across two documents sharing an `id`. A validator sees one document, so the rule cannot be checked. The code is not reused. |
 | `OR-901` | warning  | A declared measure is used by no result                                                                                                                                          |
-| `OR-902` | warning  | A supplied `rank` diverges from the derived rank (§3.3.2)                                                                                                                        |
+| `OR-902` | warning  | A supplied rank diverges from the one derived for that ranking (§3.3.2)                                                                                                          |
 | `OR-903` | warning  | `lang` absent although the document carries text (§4.5.1)                                                                                                                        |
 | `OR-904` | warning  | A result references a participant absent from its event's field (§6.2.4)                                                                                                         |
 | `OR-905` | warning  | A declared attribute is used by no entity                                                                                                                                        |

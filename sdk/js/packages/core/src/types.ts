@@ -109,8 +109,14 @@ export interface Result extends Extensible {
   participant: string;
   event?: string;
   status?: ResultStatus;
-  /** Optional and informative: the ranking is derived (spec §3.3). */
-  rank?: number;
+  /**
+   * Positions the producer published, keyed by ranking id. Informative — the
+   * ordering must be derivable without it (spec §7.5).
+   *
+   * Keyed rather than scalar because a result can hold a position in several
+   * rankings at once: fourth overall and first in class are both facts.
+   */
+  ranks?: Record<string, number>;
   values?: Record<string, MeasureValue>;
   attributes?: Record<string, AttributeValue>;
   notes?: string;

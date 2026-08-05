@@ -24,8 +24,11 @@ export const DEFAULT_EXCLUDED_STATUSES: readonly ResultStatus[] = [
   'withdrawn',
 ];
 
+// `bye` sits with `finished`: a competitor who scored without playing still
+// belongs in the standings (spec §7.2.5).
 const KNOWN_STATUSES = new Set<string>([
   'finished',
+  'bye',
   ...DEFAULT_EXCLUDED_STATUSES,
 ] satisfies string[]);
 

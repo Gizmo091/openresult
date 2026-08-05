@@ -20,8 +20,7 @@ export const OPENRESULT_1_0_SCHEMA = {
       "description": "Format version, MAJOR.MINOR (spec §4.2.1)."
     },
     "id": {
-      "type": "string",
-      "minLength": 1,
+      "$ref": "#/$defs/identifier",
       "description": "Identifies the subject across publications (spec §4.3.1)."
     },
     "version": {
@@ -280,7 +279,7 @@ export const OPENRESULT_1_0_SCHEMA = {
     },
     "attributeValues": {
       "type": "object",
-      "description": "Keys reference declared attribute ids (spec §5.3.2).",
+      "description": "Keys reference declared attribute ids; values must match the declared type (spec §5.3.3).",
       "additionalProperties": {
         "type": [
           "string",
@@ -405,6 +404,7 @@ export const OPENRESULT_1_0_SCHEMA = {
       "type": "string",
       "enum": [
         "finished",
+        "bye",
         "inProgress",
         "dnf",
         "dns",
@@ -429,9 +429,16 @@ export const OPENRESULT_1_0_SCHEMA = {
         "status": {
           "$ref": "#/$defs/status"
         },
-        "rank": {
-          "type": "integer",
-          "minimum": 1
+        "ranks": {
+          "type": "object",
+          "description": "Positions the producer published, keyed by ranking id. Informative: the ordering must be derivable without it (spec §7.5).",
+          "propertyNames": {
+            "$ref": "#/$defs/identifier"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1
+          }
         },
         "values": {
           "type": "object",
