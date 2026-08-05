@@ -428,8 +428,14 @@ a result referencing a participant absent from this list is valid, and validator
 _Non-normative._
 
 **Heats feeding an overall standing.** Declare heat events with `parent` set to an `overall`
-event. Results attach to the heats; the overall standing is a ranking whose `scope.event` is the
-parent.
+event. Each heat's results attach to that heat. The overall standing is a ranking scoped to the
+`overall` event — which means the cumulative figures **must exist as results attached to that
+event**, because a scoped ranking sees one event and never its descendants
+([§8.1.1](#81-scope)). Computing the aggregate is the producer's work; the format carries its
+outcome, not the rule that produced it.
+
+Omitting those parent-event results is the commonest way to publish a standing that renders
+empty: the ranking selects nothing, and a validator reports `OR-906`.
 
 **Head-to-head matches.** Declare a `match` event and **two** results, one per participant, each
 carrying its own score. A match is not a special case in this model: it is an event with two
@@ -621,8 +627,14 @@ divergence §8.5.6 forbids._
 this ranking. It **replaces** the default set in full; it is not added to it. A ranking declaring
 `excludeStatuses: ["dns"]` therefore ranks retired and disqualified competitors.
 
-**§8.4.2** When absent, the default set applies: `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`,
-`withdrawn`.
+**§8.4.2** When absent, the default set applies: every status marked _excluded by default_ in
+[§7.2.1](#72-status) — `notClassified`, `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`,
+`withdrawn`. Equivalently: every status except `finished` and `bye`.
+
+**§8.4.3** `excludeStatuses` **MAY** be an empty array, which excludes nothing and ranks every
+selected result whatever its status. This is the ordinary shape for a race order that must place
+retirements and disqualifications rather than omit them — in low-point sailing scoring, for
+instance, a boat that does not finish scores and is classified last.
 
 _Non-normative: replacement rather than union is what makes a "fastest lap" ranking
 expressible at all — one that ranks competitors the overall standings exclude. It does not, on its
