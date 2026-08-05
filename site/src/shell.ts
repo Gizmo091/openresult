@@ -15,6 +15,7 @@ interface Section {
 
 const SECTIONS: Section[] = [
   { href: '/spec/', label: 'Specification' },
+  { href: '/produce/', label: 'Produce' },
   { href: '/examples/', label: 'Examples' },
   { href: '/view/', label: 'Viewer' },
   { href: '/validate/', label: 'Validator' },

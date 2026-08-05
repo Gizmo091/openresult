@@ -17,6 +17,7 @@ export default defineConfig({
       input: {
         home: resolve(import.meta.dirname, 'index.html'),
         spec: resolve(import.meta.dirname, 'spec/index.html'),
+        produce: resolve(import.meta.dirname, 'produce/index.html'),
         examples: resolve(import.meta.dirname, 'examples/index.html'),
         view: resolve(import.meta.dirname, 'view/index.html'),
         validate: resolve(import.meta.dirname, 'validate/index.html'),
