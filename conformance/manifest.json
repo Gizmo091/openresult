@@ -365,6 +365,14 @@
       "path": "valid/rank-scope-event"
     },
     {
+      "id": "rank-scope-several-events",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.1",
+      "description": "A ranking scoped to a list of events sees all of them and none of their parent, so the same times serve a heat order and a qualifying classification without being copied.",
+      "path": "valid/rank-scope-several-events"
+    },
+    {
       "id": "rank-stability",
       "kind": "valid",
       "level": "ranking",
@@ -435,6 +443,14 @@
       "rule": "spec §7.2.6",
       "description": "notClassified sits on the result that has no classification — the combined event — not on the leg the competitor completed.",
       "path": "valid/status-not-classified"
+    },
+    {
+      "id": "team-legs-in-a-child-event",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.5",
+      "description": "Per-member results on a child event leave the team standing untouched, which is what makes a composite result expressible without a new member.",
+      "path": "valid/team-legs-in-a-child-event"
     },
     {
       "id": "ties-resolved-breaks-tie-by-published-rank",

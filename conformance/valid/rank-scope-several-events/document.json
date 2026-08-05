@@ -1,0 +1,76 @@
+{
+  "openresult": "1.0",
+  "title": "A qualifying classification across three heats",
+  "lang": "en",
+  "description": "The classification orders the same times that were swum, so it lists the three heats rather than republishing them (spec §8.1.1, §8.1.5). Each heat keeps its own start time and its own order, and no figure appears twice.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" },
+    { "id": "d", "name": "D" },
+    { "id": "e", "name": "E" },
+    { "id": "f", "name": "F" }
+  ],
+  "events": [
+    { "id": "qualifying", "name": "Qualifying", "type": "round" },
+    {
+      "id": "heat1",
+      "name": "Heat 1",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": { "start": "2026-07-11T10:02:00+02:00" }
+    },
+    {
+      "id": "heat2",
+      "name": "Heat 2",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": { "start": "2026-07-11T10:14:00+02:00" }
+    },
+    {
+      "id": "heat3",
+      "name": "Heat 3",
+      "type": "heat",
+      "parent": "qualifying",
+      "occurredAt": { "start": "2026-07-11T10:26:00+02:00" }
+    }
+  ],
+  "results": [
+    { "participant": "a", "event": "heat1", "values": { "time": 56.44 } },
+    { "participant": "b", "event": "heat1", "values": { "time": 57.9 } },
+    { "participant": "c", "event": "heat2", "values": { "time": 55.1 } },
+    { "participant": "d", "event": "heat2", "values": { "time": 58.02 } },
+    { "participant": "e", "event": "heat3", "values": { "time": 55.87 } },
+    { "participant": "f", "event": "heat3", "values": { "time": 59.31 } }
+  ],
+  "rankings": [
+    {
+      "id": "qualifying",
+      "label": "Qualifying classification",
+      "scope": { "event": ["heat1", "heat2", "heat3"] },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "heat2",
+      "label": "Heat 2",
+      "scope": { "event": "heat2" },
+      "sortBy": ["time"]
+    },
+    {
+      "id": "parent-only",
+      "label": "Scoped to the parent, which holds nothing",
+      "scope": { "event": "qualifying" },
+      "sortBy": ["time"]
+    }
+  ]
+}

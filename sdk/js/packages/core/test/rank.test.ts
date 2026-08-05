@@ -379,6 +379,58 @@ describe('scope', () => {
     ]);
   });
 
+  it('takes every event in a list, and still no descendant', () => {
+    const doc = document({
+      events: [
+        { id: 'qualifying', name: 'Qualifying', type: 'round' },
+        { id: 'heat1', name: 'Heat 1', type: 'heat', parent: 'qualifying' },
+        { id: 'heat2', name: 'Heat 2', type: 'heat', parent: 'qualifying' },
+        { id: 'final', name: 'Final', type: 'final' },
+      ],
+      results: [
+        { participant: 'a', event: 'heat1', values: { time: 30 } },
+        { participant: 'b', event: 'heat2', values: { time: 10 } },
+        { participant: 'c', event: 'heat1', values: { time: 20 } },
+        { participant: 'd', event: 'final', values: { time: 5 } },
+      ],
+      rankings: [{ id: 'r', label: 'R', sortBy: ['time'], scope: { event: ['heat1', 'heat2'] } }],
+    });
+
+    // The two heats order together without either being republished; the final
+    // is not listed, so its faster time stays out.
+    expect(order(rank(doc))).toEqual([
+      ['b', 1],
+      ['c', 2],
+      ['a', 3],
+    ]);
+  });
+
+  it('selects nothing when the list names only a parent whose results were never published', () => {
+    const doc = document({
+      events: [
+        { id: 'qualifying', name: 'Qualifying', type: 'round' },
+        { id: 'heat1', name: 'Heat 1', type: 'heat', parent: 'qualifying' },
+      ],
+      results: [{ participant: 'a', event: 'heat1', values: { time: 30 } }],
+      rankings: [{ id: 'r', label: 'R', sortBy: ['time'], scope: { event: ['qualifying'] } }],
+    });
+
+    expect(order(rank(doc))).toEqual([]);
+  });
+
+  it('drops a result with no event when the scope names events', () => {
+    const doc = document({
+      events: [{ id: 'heat1', name: 'Heat 1', type: 'heat' }],
+      results: [
+        { participant: 'a', event: 'heat1', values: { time: 30 } },
+        { participant: 'b', values: { time: 10 } },
+      ],
+      rankings: [{ id: 'r', label: 'R', sortBy: ['time'], scope: { event: ['heat1'] } }],
+    });
+
+    expect(order(rank(doc))).toEqual([['a', 1]]);
+  });
+
   it('restricts to a category', () => {
     const doc = document({
       categories: [{ id: 'cat', label: 'Cat', participants: ['a', 'c'] }],

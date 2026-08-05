@@ -1,0 +1,19 @@
+{
+  "valid": true,
+  "warnings": ["OR-906"],
+  "rankings": {
+    "qualifying": [
+      { "participant": "c", "rank": 1 },
+      { "participant": "e", "rank": 2 },
+      { "participant": "a", "rank": 3 },
+      { "participant": "b", "rank": 4 },
+      { "participant": "d", "rank": 5 },
+      { "participant": "f", "rank": 6 }
+    ],
+    "heat2": [
+      { "participant": "c", "rank": 1 },
+      { "participant": "d", "rank": 2 }
+    ],
+    "parent-only": []
+  }
+}

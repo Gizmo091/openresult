@@ -1,0 +1,15 @@
+{
+  "valid": true,
+  "rankings": {
+    "relay": [
+      { "participant": "t1", "rank": 1 },
+      { "participant": "t2", "rank": 2 }
+    ],
+    "legs": [
+      { "participant": "s4", "rank": 1 },
+      { "participant": "s3", "rank": 2 },
+      { "participant": "s1", "rank": 3 },
+      { "participant": "s2", "rank": 4 }
+    ]
+  }
+}
