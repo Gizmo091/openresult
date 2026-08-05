@@ -29,14 +29,15 @@ one `Superseded by`.
 
 ## Project decisions
 
-| ADR                                               | Title                                          | Status   |
-| ------------------------------------------------- | ---------------------------------------------- | -------- |
-| [0004](./0004-single-reference-implementation.md) | One reference implementation for v1            | Accepted |
-| [0005](./0005-typescript-reference-language.md)   | TypeScript as the reference language           | Accepted |
-| [0006](./0006-dependency-free-core.md)            | The core package carries no runtime dependency | Accepted |
-| [0007](./0007-json-schema-2020-12.md)             | JSON Schema draft 2020-12, validated with Ajv  | Accepted |
-| [0008](./0008-web-components-for-viewer.md)       | The viewer is a Web Component built with Lit   | Accepted |
-| [0014](./0014-declarative-conformance-suite.md)   | The conformance suite is declarative           | Accepted |
-| [0015](./0015-pnpm-workspaces.md)                 | pnpm workspaces and Vite                       | Accepted |
+| ADR                                               | Title                                                         | Status   |
+| ------------------------------------------------- | ------------------------------------------------------------- | -------- |
+| [0004](./0004-single-reference-implementation.md) | One reference implementation for v1                           | Accepted |
+| [0005](./0005-typescript-reference-language.md)   | TypeScript as the reference language                          | Accepted |
+| [0006](./0006-dependency-free-core.md)            | The core package carries no runtime dependency                | Accepted |
+| [0007](./0007-json-schema-2020-12.md)             | JSON Schema draft 2020-12, validated with Ajv                 | Accepted |
+| [0008](./0008-web-components-for-viewer.md)       | The viewer is a Web Component built with Lit                  | Accepted |
+| [0014](./0014-declarative-conformance-suite.md)   | The conformance suite is declarative                          | Accepted |
+| [0015](./0015-pnpm-workspaces.md)                 | pnpm workspaces and Vite                                      | Accepted |
+| [0022](./0022-the-site-is-a-node-process.md)      | openresult.dev is one Node process; the schema is precompiled | Accepted |
 
 Use [_template.md](./_template.md) for new records.

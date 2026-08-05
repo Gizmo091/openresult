@@ -11,6 +11,15 @@ into a PDF — without knowing anything about the producer.
 > guarantees in [specification §11](./specification/openresult-v1.md#11-versioning-and-compatibility)
 > apply.
 
+**[openresult.dev](https://openresult.dev)** — the specification, twenty worked examples, a
+validator, a playground, and a viewer you can post a document to:
+
+```sh
+curl -X POST https://openresult.dev/view \
+     -H 'Content-Type: application/json' \
+     --data-binary @results.json
+```
+
 ---
 
 ## The problem

@@ -19,6 +19,13 @@ repo="$(cd "$here/../.." && pwd)"
 
 say() { printf '\033[36m▸\033[0m %s\n' "$*"; }
 
+# Use whichever pnpm is available rather than insisting on a global install.
+if command -v pnpm >/dev/null 2>&1; then
+  pnpm() { command pnpm "$@"; }
+else
+  pnpm() { npx --yes pnpm@9 "$@"; }
+fi
+
 if [[ "${1:-}" == "--rollback" ]]; then
   say "Rolling back on $HOST"
   ssh "$HOST" 'set -e
@@ -68,8 +75,10 @@ ssh "$HOST" "set -e
   cd $REMOTE_ROOT/releases && ls -1 | sort | head -n -4 | xargs -r sudo rm -rf"
 
 say "Waiting for the service"
+# Quietly: a 502 or two while systemd restarts the process is expected, and
+# printing curl's complaint each time makes a normal deployment look broken.
 for _ in $(seq 1 30); do
-  if curl -fsS -o /dev/null https://openresult.dev/healthz; then break; fi
+  if curl -fsS -o /dev/null https://openresult.dev/healthz 2>/dev/null; then break; fi
   sleep 1
 done
 
