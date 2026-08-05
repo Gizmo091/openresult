@@ -1,6 +1,7 @@
 import { coreDeps } from './core-deps.ts';
 import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
+import { schemaModule } from './schema-module.ts';
 import type { Check, CheckResult } from './types.ts';
 
 /**
@@ -12,7 +13,7 @@ import type { Check, CheckResult } from './types.ts';
  * `rule-coverage` with the conformance suite, `spec-schema-sync` with the
  * specification.
  */
-const CHECKS: Check[] = [coreDeps, noDomainLogic, examples];
+const CHECKS: Check[] = [coreDeps, noDomainLogic, examples, schemaModule];
 
 function report(results: CheckResult[]): boolean {
   let failed = false;
