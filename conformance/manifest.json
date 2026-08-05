@@ -269,6 +269,14 @@
       "path": "valid/empty-results"
     },
     {
+      "id": "exclude-statuses-empty-ranks-everyone",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.4.3",
+      "description": "An empty excludeStatuses excludes nothing, and is the ordinary shape where a non-finish still scores.",
+      "path": "valid/exclude-statuses-empty-ranks-everyone"
+    },
+    {
       "id": "exclude-statuses-replaces-default",
       "kind": "valid",
       "level": "ranking",

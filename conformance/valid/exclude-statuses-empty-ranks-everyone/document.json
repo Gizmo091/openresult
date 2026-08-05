@@ -1,0 +1,76 @@
+{
+  "openresult": "1.0",
+  "title": "An empty exclusion list ranks the whole fleet",
+  "lang": "en",
+  "description": "Low-point sailing scoring: a boat that does not finish is scored entrants plus one and is still classified. The race order therefore excludes nobody.",
+  "measures": [
+    {
+      "id": "racePoints",
+      "label": "Race points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Boat A"
+    },
+    {
+      "id": "b",
+      "name": "Boat B"
+    },
+    {
+      "id": "c",
+      "name": "Boat C"
+    },
+    {
+      "id": "d",
+      "name": "Boat D"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "racePoints": 1
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "racePoints": 2
+      }
+    },
+    {
+      "participant": "c",
+      "status": "dnf",
+      "values": {
+        "racePoints": 5
+      },
+      "notes": "Retired; scored entrants plus one, and still classified."
+    },
+    {
+      "participant": "d",
+      "status": "dsq",
+      "values": {
+        "racePoints": 5
+      },
+      "notes": "Disqualified; scored the same, and still classified."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "race-order",
+      "label": "Race order",
+      "sortBy": ["racePoints"],
+      "excludeStatuses": []
+    },
+    {
+      "id": "finishers-only",
+      "label": "Finishers only",
+      "sortBy": ["racePoints"]
+    }
+  ]
+}
