@@ -1,0 +1,6 @@
+packages:
+  - 'sdk/js/packages/*'
+  - 'validator/cli'
+  - 'validator/web'
+  - 'viewer'
+  - 'playground'

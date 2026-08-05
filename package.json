@@ -1,0 +1,46 @@
+{
+  "name": "openresult",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An open standard for describing results as JSON.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gizmo091/openresult.git"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --build --force",
+    "check": "tsx tools/check/index.ts",
+    "check:examples": "tsx tools/check/index.ts examples",
+    "check:core-deps": "tsx tools/check/index.ts core-deps",
+    "check:no-domain-logic": "tsx tools/check/index.ts no-domain-logic",
+    "check:presentation-optional": "tsx tools/check/index.ts presentation-optional",
+    "check:rule-coverage": "tsx tools/check/index.ts rule-coverage",
+    "check:spec-schema-sync": "tsx tools/check/index.ts spec-schema-sync",
+    "conformance": "pnpm --filter @openresult/conformance run start"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.18.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
+  }
+}

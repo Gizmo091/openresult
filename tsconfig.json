@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./sdk/js/packages/core" },
+    { "path": "./sdk/js/packages/validate" },
+    { "path": "./sdk/js/packages/conformance" },
+    { "path": "./validator/cli" },
+    { "path": "./validator/web" },
+    { "path": "./viewer" },
+    { "path": "./playground" }
+  ]
+}

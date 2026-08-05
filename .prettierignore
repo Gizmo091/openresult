@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+coverage/
+pnpm-lock.yaml
+
+# Working design documents, kept out of the published repository.
+specs/

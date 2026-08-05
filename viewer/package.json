@@ -1,0 +1,36 @@
+{
+  "name": "@openresult/viewer",
+  "version": "0.1.0",
+  "description": "Embeddable web component that renders any OpenResult document, with no configuration.",
+  "keywords": [
+    "openresult",
+    "viewer",
+    "web-component",
+    "ranking"
+  ],
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly --outDir dist",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@openresult/core": "workspace:*",
+    "lit": "^3.2.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@openresult/cli",
+  "version": "0.1.0",
+  "description": "Command-line validator and ranker for OpenResult documents.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "openresult": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@openresult/core": "workspace:*",
+    "@openresult/validate": "workspace:*"
+  }
+}

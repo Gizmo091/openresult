@@ -1,0 +1,32 @@
+{
+  "name": "@openresult/core",
+  "version": "0.1.0",
+  "description": "Read, inspect and rank OpenResult documents. Dependency-free by contract.",
+  "keywords": [
+    "openresult",
+    "results",
+    "ranking",
+    "standard"
+  ],
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly --outDir dist"
+  }
+}
