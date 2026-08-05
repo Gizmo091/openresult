@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-305",
+      "path": "/rankings/0/sortBy/0"
+    }
+  ]
+}

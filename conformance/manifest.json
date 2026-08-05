@@ -136,7 +136,8 @@
       "level": "ranking",
       "rule": "spec §8.2.2",
       "description": "Text and boolean measures may not decide an order.",
-      "path": "invalid/OR-301-sort-on-text-measure"
+      "path": "invalid/OR-301-sort-on-text-measure",
+      "deprecated": "Superseded by OR-305-sort-on-text-measure: §8.2.2 carried two prohibitions under one code, and the text/boolean rule now has its own."
     },
     {
       "id": "OR-302-residual-tie-under-strict",
@@ -180,6 +181,14 @@
       "path": "invalid/OR-304-empty-sortby"
     },
     {
+      "id": "OR-305-sort-on-text-measure",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §8.2.2",
+      "description": "Text and boolean measures may not decide an order, and the rule has its own code.",
+      "path": "invalid/OR-305-sort-on-text-measure"
+    },
+    {
       "id": "OR-401-not-openresult",
       "kind": "invalid",
       "level": "reading",
@@ -212,6 +221,14 @@
       "path": "invalid/compat-unknown-enums"
     },
     {
+      "id": "OR-908-unranked-for-missing-measure",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "A ranking that selects results then drops them for a missing measure is valid and warned about.",
+      "path": "valid/OR-908-unranked-for-missing-measure"
+    },
+    {
       "id": "compat-extensions",
       "kind": "valid",
       "level": "rewriting",
@@ -242,6 +259,14 @@
       "rule": "spec §8.4.1",
       "description": "A declared excludeStatuses replaces the default set in full; it is never added to it.",
       "path": "valid/exclude-statuses-replaces-default"
+    },
+    {
+      "id": "kind-mass",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.1.2",
+      "description": "A physical mass is its own kind: a barbell load is not awarded by a rule.",
+      "path": "valid/kind-mass"
     },
     {
       "id": "presentation-ignored",

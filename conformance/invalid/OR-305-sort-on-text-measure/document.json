@@ -1,0 +1,44 @@
+{
+  "openresult": "1.0",
+  "title": "Sorting on a text measure",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "grade",
+      "label": "Grade",
+      "kind": "text",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "grade": "7a"
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "grade": "8b"
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["grade"]
+    }
+  ]
+}

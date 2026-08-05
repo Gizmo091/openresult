@@ -1,0 +1,54 @@
+{
+  "openresult": "1.0",
+  "title": "A mass ranks like any other quantity",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "total",
+      "label": "Total",
+      "kind": "mass",
+      "unit": "kg",
+      "precision": 1,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    },
+    {
+      "id": "c",
+      "name": "C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "total": 722.5
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "total": 890.0
+      }
+    },
+    {
+      "participant": "c",
+      "status": "dnf"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["total"]
+    }
+  ]
+}

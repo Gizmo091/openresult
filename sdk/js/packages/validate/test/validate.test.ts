@@ -229,7 +229,7 @@ describe('ranking coherence', () => {
     expect(report.warnings.map((entry) => entry.code)).not.toContain('OR-902');
   });
 
-  it('rejects sorting on a text measure', () => {
+  it('rejects sorting on a text measure, under its own code', () => {
     const report = validate({
       ...base(),
       measures: [{ id: 'grade', label: 'Grade', kind: 'text', betterWhen: 'higher' }],
@@ -239,7 +239,9 @@ describe('ranking coherence', () => {
       ],
       rankings: [{ id: 'r', label: 'R', sortBy: ['grade'] }],
     });
-    expect(codes(report)).toContain('OR-301');
+    // OR-305, not OR-301: §8.2.2 carries two prohibitions and each now has a
+    // code a validator author can find in the table.
+    expect(codes(report)).toContain('OR-305');
   });
 
   it('rejects an attribute value contradicting its declared type', () => {

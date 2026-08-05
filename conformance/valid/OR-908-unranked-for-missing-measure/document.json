@@ -1,0 +1,74 @@
+{
+  "openresult": "1.0",
+  "title": "A ranking that quietly drops half the field",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "r1",
+      "label": "Round 1 faults",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "lower"
+    },
+    {
+      "id": "jo",
+      "label": "Jump-off faults",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A"
+    },
+    {
+      "id": "b",
+      "name": "B"
+    },
+    {
+      "id": "c",
+      "name": "C"
+    },
+    {
+      "id": "d",
+      "name": "D"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "r1": 0,
+        "jo": 0
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "r1": 0,
+        "jo": 4
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "r1": 4
+      }
+    },
+    {
+      "participant": "d",
+      "values": {
+        "r1": 8
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "final",
+      "label": "Final",
+      "sortBy": ["r1", "jo"]
+    }
+  ]
+}
