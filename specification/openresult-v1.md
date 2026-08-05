@@ -475,7 +475,13 @@ A ranking declares **how to order**, never the order itself.
 ### 8.1 `scope`
 
 **§8.1.1** `scope.event`, when present, **MUST** reference a declared event; only results
-attached to that event or to one of its descendants are considered.
+attached to **that event** are considered. Descendant events are **not** included.
+
+*Non-normative: the `parent` relation groups events for navigation and display; it does not
+aggregate results. A standing scoped to an overall event must not absorb the results of its
+heats — those are separate results, on a different scale, and mixing them would produce a
+meaningless order. Aggregating across events is the producer's job, and its outcome is expressed
+as results attached to the parent event.*
 
 **§8.1.2** `scope.category`, when present, **MUST** reference a declared category; only results
 whose participant belongs to it are considered.
