@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenResult Viewer — demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 2rem 1.25rem 4rem;
+        font:
+          16px/1.55 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        background: #fbfbfa;
+        color: #1c1b19;
+      }
+      main {
+        max-width: 64rem;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.3rem;
+        margin: 0 0 0.25rem;
+      }
+      p.lede {
+        margin: 0 0 1.5rem;
+        color: #6b6864;
+        font-size: 0.9rem;
+      }
+      .picker {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      select,
+      label {
+        font: inherit;
+        font-size: 0.88rem;
+      }
+      select {
+        padding: 0.3rem 0.5rem;
+        border: 1px solid #e2e0dc;
+        border-radius: 6px;
+        background: #fff;
+      }
+      openresult-viewer {
+        border: 1px solid #e2e0dc;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #fff;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #17181a;
+          color: #e8e6e3;
+        }
+        select,
+        openresult-viewer {
+          background: #1e2023;
+          border-color: #34373b;
+          color: #e8e6e3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>OpenResult Viewer</h1>
+      <p class="lede">
+        Every document below is rendered by the same component, with no per-document configuration
+        and no knowledge of what the competition is.
+      </p>
+
+      <div class="picker">
+        <label for="example">Document</label>
+        <select id="example"></select>
+        <label><input type="checkbox" id="compact" /> Compact</label>
+        <label><input type="checkbox" id="strip" /> Drop the presentation layer</label>
+      </div>
+
+      <openresult-viewer id="viewer" theme="auto"></openresult-viewer>
+    </main>
+
+    <script type="module" src="./demo/main.ts"></script>
+  </body>
+</html>
