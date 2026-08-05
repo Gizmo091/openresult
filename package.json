@@ -30,7 +30,9 @@
     "check:spec-schema-sync": "tsx tools/check/index.ts spec-schema-sync",
     "conformance": "pnpm --filter @openresult/conformance run start",
     "generate:schema": "tsx tools/generate/index.ts",
-    "check:schema-module": "tsx tools/check/index.ts schema-module"
+    "check:schema-module": "tsx tools/check/index.ts schema-module",
+    "openresult": "tsx validator/cli/src/cli.ts",
+    "check:cross-implementation": "tsx tools/check/index.ts cross-implementation"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

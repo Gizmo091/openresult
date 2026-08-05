@@ -2,6 +2,7 @@ import { coreDeps } from './core-deps.ts';
 import { crossImplementation } from './cross-implementation.ts';
 import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
+import { presentationOptional } from './presentation-optional.ts';
 import { ruleCoverage } from './rule-coverage.ts';
 import { schemaModule } from './schema-module.ts';
 import { specSchemaSync } from './spec-schema-sync.ts';
@@ -23,6 +24,7 @@ const CHECKS: Check[] = [
   schemaModule,
   ruleCoverage,
   specSchemaSync,
+  presentationOptional,
   crossImplementation,
 ];
 
