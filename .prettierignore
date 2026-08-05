@@ -6,3 +6,6 @@ pnpm-lock.yaml
 
 # Working design documents, kept out of the published repository.
 specs/
+
+# Generated: formatting it here would make it diverge from its generator.
+**/*.generated.ts

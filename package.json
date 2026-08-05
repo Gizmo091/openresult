@@ -28,7 +28,9 @@
     "check:presentation-optional": "tsx tools/check/index.ts presentation-optional",
     "check:rule-coverage": "tsx tools/check/index.ts rule-coverage",
     "check:spec-schema-sync": "tsx tools/check/index.ts spec-schema-sync",
-    "conformance": "pnpm --filter @openresult/conformance run start"
+    "conformance": "pnpm --filter @openresult/conformance run start",
+    "generate:schema": "tsx tools/generate/index.ts",
+    "check:schema-module": "tsx tools/check/index.ts schema-module"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

@@ -20,7 +20,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly --outDir dist",
+    "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly --outDir dist",
     "start": "tsx src/cli.ts"
   },
   "dependencies": {

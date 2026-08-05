@@ -7,7 +7,16 @@ import type { UserConfig } from 'vite';
  * browser application. Both live here so the toolchain surface stays small — a
  * project meant to last years should not accumulate divergent build setups.
  */
-export function libraryConfig(options: { entry: string; name: string }): UserConfig {
+export function libraryConfig(options: {
+  entry: string;
+  name: string;
+  /**
+   * Declared dependencies to keep out of the bundle. A published package must
+   * not inline what it depends on: the consumer would end up with two copies
+   * and no way to patch either.
+   */
+  external?: (string | RegExp)[];
+}): UserConfig {
   return {
     build: {
       target: 'es2022',
@@ -16,6 +25,9 @@ export function libraryConfig(options: { entry: string; name: string }): UserCon
         name: options.name,
         formats: ['es'],
         fileName: 'index',
+      },
+      rollupOptions: {
+        external: options.external ?? [],
       },
       sourcemap: true,
       minify: false,

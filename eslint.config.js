@@ -22,29 +22,18 @@ export default tseslint.config(
     },
   },
   {
-    // The core package must stay dependency-free and side-effect-free.
-    // See docs/decisions — dependency-free core.
-    files: ['sdk/js/packages/core/**/*.ts'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: ['*'],
-              message:
-                'The core package must not import anything outside itself: it is dependency-free by contract.',
-            },
-            { group: ['./*', '../*'], message: '', allowTypeImports: true },
-          ],
-        },
-      ],
-    },
-  },
-  {
     files: ['**/*.test.ts', 'tools/**/*.ts'],
     rules: {
       'no-console': 'off',
+      // A test owns its fixtures. A wrong assertion fails the test, which is
+      // exactly what should happen — unlike in production code, where it would
+      // reach a user.
+      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
 );
+
+// Note: the core package's freedom from runtime dependencies is enforced by
+// `pnpm check core-deps`, which inspects the declared dependency graph. That is
+// a stronger guarantee than a lint rule — it cannot be silenced with a disable
+// comment.
