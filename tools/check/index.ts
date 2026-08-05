@@ -6,7 +6,9 @@ import { presentationOptional } from './presentation-optional.ts';
 import { ruleCoverage } from './rule-coverage.ts';
 import { schemaModule } from './schema-module.ts';
 import { specCoherence } from './spec-coherence.ts';
+import { specRequiredSync } from './spec-required-sync.ts';
 import { specSchemaSync } from './spec-schema-sync.ts';
+import { typesMatchSchema } from './types-match-schema.ts';
 import type { Check, CheckResult } from './types.ts';
 
 /**
@@ -26,6 +28,8 @@ const CHECKS: Check[] = [
   ruleCoverage,
   specCoherence,
   specSchemaSync,
+  specRequiredSync,
+  typesMatchSchema,
   presentationOptional,
   crossImplementation,
 ];
