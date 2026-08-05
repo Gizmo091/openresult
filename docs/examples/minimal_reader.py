@@ -1,0 +1,234 @@
+#!/usr/bin/env python3
+"""A complete OpenResult 1.0 reader, in one file with no dependencies.
+
+Written from the specification alone, in a language the reference implementation
+is not written in. If this needs information that is not in
+`specification/openresult-v1.md`, the specification has a gap.
+
+    python3 minimal_reader.py results.openresult.json [ranking-id]
+    python3 minimal_reader.py --json results.openresult.json [ranking-id]
+
+Implements the *ranking* conformance level (spec §11.5.3): reads a document,
+exposes its semantics, and derives standings exactly as §8.5 prescribes.
+"""
+
+import json
+import sys
+
+SUPPORTED_MAJOR = 1
+
+# Statuses excluded from ranking unless a ranking says otherwise (spec §8.4.2).
+DEFAULT_EXCLUDED = {"inProgress", "dnf", "dns", "dsq", "outOfTime", "withdrawn"}
+KNOWN_STATUSES = DEFAULT_EXCLUDED | {"finished"}
+KNOWN_DIRECTIONS = {"lower", "higher", "none"}
+KNOWN_TIES = {"standard", "dense", "strict"}
+
+
+class UnsupportedVersion(Exception):
+    """The document declares a major version this reader cannot interpret."""
+
+
+def read(path):
+    """Load a document, refusing a major version we cannot interpret (§11.4.1)."""
+    with open(path, encoding="utf-8") as handle:
+        document = json.load(handle)
+
+    declared = document.get("openresult")
+    if not isinstance(declared, str) or "." not in declared:
+        raise ValueError('Not an OpenResult document: "openresult" is missing or malformed.')
+
+    major = int(declared.split(".")[0])
+    if major != SUPPORTED_MAJOR:
+        raise UnsupportedVersion(
+            f"This document declares OpenResult {declared}; this reader supports "
+            f"{SUPPORTED_MAJOR}.x. A different major version may mean different things "
+            f"by the same members, so it is not guessed at."
+        )
+    return document
+
+
+# Unknown enumeration values fold onto their documented fallback (§11.3.1).
+# This is what makes adding a value in a later minor version non-breaking.
+def status_of(result):
+    status = result.get("status", "finished")
+    return status if status in KNOWN_STATUSES else "finished"
+
+
+def direction_of(measure):
+    direction = measure.get("betterWhen", "none")
+    return direction if direction in KNOWN_DIRECTIONS else "none"
+
+
+def ties_of(ranking):
+    ties = ranking.get("ties", "standard")
+    return ties if ties in KNOWN_TIES else "standard"
+
+
+def measures_by_id(document):
+    return {m["id"]: m for m in document.get("measures", [])}
+
+
+def implicit_ranking(document):
+    """With no ranking declared, use the first measure that has a direction (§8.6.1)."""
+    for measure in document.get("measures", []):
+        if direction_of(measure) != "none":
+            return {
+                "id": measure["id"],
+                "label": measure["label"],
+                "sortBy": [measure["id"]],
+                "ties": "standard",
+            }
+    return None
+
+
+def resolve_ranking(document, ranking_id=None):
+    declared = document.get("rankings", [])
+    if ranking_id is not None:
+        for ranking in declared:
+            if ranking["id"] == ranking_id:
+                return ranking
+        implicit = implicit_ranking(document) if not declared else None
+        return implicit if implicit and implicit["id"] == ranking_id else None
+    return declared[0] if declared else implicit_ranking(document)
+
+
+def in_scope(document, ranking, result):
+    """Step 1 — selection (§8.5.1). The scoped event only, never its descendants."""
+    scope = ranking.get("scope")
+    if scope is None:
+        return True
+
+    if "event" in scope and result.get("event") != scope["event"]:
+        return False
+
+    if "category" in scope:
+        members = next(
+            (c.get("participants", []) for c in document.get("categories", [])
+             if c["id"] == scope["category"]),
+            [],
+        )
+        if result["participant"] not in members:
+            return False
+
+    return True
+
+
+def sort_key(document, ranking):
+    """Build the comparison key. Direction comes from the measure, never the
+    ranking (§8.2.3): one source of truth means no contradiction to arbitrate."""
+    catalogue = measures_by_id(document)
+
+    def key(result):
+        parts = []
+        for measure_id in ranking["sortBy"]:
+            measure = catalogue.get(measure_id)
+            direction = direction_of(measure) if measure else "none"
+            if direction == "none":
+                continue
+            value = result.get("values", {}).get(measure_id)
+            parts.append(-value if direction == "higher" else value)
+        return parts
+
+    return key
+
+
+def rank(document, ranking_id=None):
+    """Derive the standings (§8.5). Returns (result, rank) pairs; rank is None
+    for the unranked, which are kept rather than dropped (§7.2.4)."""
+    ranking = resolve_ranking(document, ranking_id)
+    if ranking is None:
+        return [(result, None) for result in document.get("results", [])]
+
+    excluded = set(ranking.get("excludeStatuses", DEFAULT_EXCLUDED))
+    selected = [r for r in document.get("results", []) if in_scope(document, ranking, r)]
+
+    # Step 2 — partition (§8.5.2). A result missing a sorting measure cannot be
+    # placed, so it is unranked rather than treated as zero.
+    rankable, unranked = [], []
+    for result in selected:
+        has_values = all(
+            result.get("values", {}).get(m) is not None for m in ranking["sortBy"]
+        )
+        (rankable if status_of(result) not in excluded and has_values else unranked).append(result)
+
+    # Step 3 — sort (§8.5.3). Python's sort is stable, which is what preserves
+    # declaration order among results that compare equal.
+    ordered = sorted(rankable, key=sort_key(document, ranking))
+
+    # Step 4 — assign (§8.5.4).
+    key = sort_key(document, ranking)
+    ties, placed, group_number = ties_of(ranking), [], 0
+    index = 0
+    while index < len(ordered):
+        group_number += 1
+        end = index + 1
+        while end < len(ordered) and key(ordered[end]) == key(ordered[index]):
+            end += 1
+        assigned = group_number if ties == "dense" else index + 1
+        placed.extend((result, assigned) for result in ordered[index:end])
+        index = end
+
+    # Step 5 — the unranked follow, in declaration order (§8.5.5).
+    return placed + [(result, None) for result in unranked]
+
+
+def format_value(value, measure):
+    """Apply the declared precision and unit. Display only: sorting always uses
+    the raw value (§5.1.5)."""
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        return str(value)
+    precision = measure.get("precision")
+    text = f"{value:.{precision}f}" if precision is not None else str(value)
+    unit = measure.get("unit")
+    return f"{text} {unit}" if unit else text
+
+
+def main():
+    args = sys.argv[1:]
+    as_json = "--json" in args
+    if as_json:
+        args.remove("--json")
+    if not args:
+        print(__doc__)
+        return 2
+
+    try:
+        document = read(args[0])
+    except UnsupportedVersion as error:
+        print(error, file=sys.stderr)
+        return 3
+
+    ranking_id = args[1] if len(args) > 1 else None
+    catalogue = measures_by_id(document)
+    ranking = resolve_ranking(document, ranking_id)
+
+    # Machine-readable standings, so another implementation can be compared
+    # against this one case by case.
+    if as_json:
+        print(json.dumps([
+            {"participant": result["participant"], "rank": position}
+            for result, position in rank(document, ranking_id)
+        ]))
+        return 0
+
+    print(document["title"])
+    if ranking:
+        print(f"{ranking['label']} — by {', '.join(ranking['sortBy'])}, ties: {ties_of(ranking)}")
+    print()
+
+    names = {p["id"]: p["name"] for p in document["participants"]}
+    for result, position in rank(document, ranking_id):
+        figures = " ".join(
+            format_value(result["values"][m], catalogue[m])
+            for m in (ranking["sortBy"] if ranking else [])
+            if m in result.get("values", {}) and m in catalogue
+        )
+        marker = str(position) if position is not None else "—"
+        detail = figures if position is not None else status_of(result)
+        print(f"{marker:>3}  {names.get(result['participant'], result['participant']):<24} {detail}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

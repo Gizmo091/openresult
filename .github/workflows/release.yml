@@ -1,0 +1,48 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+# Publishing with provenance requires this token; nothing else here needs write
+# access to the repository.
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # A release that has not passed the invariants and the conformance suite
+      # is not a release. Publishing is irreversible on npm: a bad version can
+      # be deprecated but never withdrawn.
+      - name: Repository checks
+        run: pnpm check
+
+      - name: Test
+        run: pnpm test
+
+      - name: Conformance suite
+        run: pnpm conformance
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish
+        run: pnpm -r --filter "./sdk/js/packages/*" --filter "./validator/cli" publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
