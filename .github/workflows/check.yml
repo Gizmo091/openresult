@@ -24,6 +24,14 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Build first. Everything below needs the packages' emitted declarations:
+      # typecheck resolves @openresult/core through them, the repository checks
+      # measure the built bundle, and the conformance runner imports it. A local
+      # tree usually has a stale dist lying around, which is exactly why this
+      # ordering error survived eleven green local runs and eleven red CI runs.
+      - name: Build
+        run: pnpm build
+
       - name: Lint
         run: pnpm lint
 
@@ -45,6 +53,3 @@ jobs:
 
       - name: Conformance suite
         run: pnpm conformance
-
-      - name: Build
-        run: pnpm build
