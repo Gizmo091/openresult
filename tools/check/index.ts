@@ -4,6 +4,7 @@ import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
 import { ruleCoverage } from './rule-coverage.ts';
 import { schemaModule } from './schema-module.ts';
+import { specSchemaSync } from './spec-schema-sync.ts';
 import type { Check, CheckResult } from './types.ts';
 
 /**
@@ -21,6 +22,7 @@ const CHECKS: Check[] = [
   examples,
   schemaModule,
   ruleCoverage,
+  specSchemaSync,
   crossImplementation,
 ];
 

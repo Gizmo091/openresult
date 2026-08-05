@@ -352,6 +352,14 @@ same document. A team is a participant composed of participants.
 **§6.1.3** Participant identity is scoped to the document. This specification defines no identity
 across documents.
 
+**§6.1.4** `name` is the participant's full display name and is **REQUIRED**. `shortName`, when
+present, is an abbreviated form a consumer **MAY** prefer where space is tight; it **MUST NOT**
+carry information absent from `name`.
+
+**§6.1.5** `label` names an entity for display wherever it appears — on a measure, an attribute,
+a ranking or a category — and `description` **MAY** expand on it in prose. Neither is ever
+parsed.
+
 ### 6.2 `events`
 
 ```jsonc
@@ -486,7 +494,8 @@ as results attached to the parent event._
 **§8.1.2** `scope.category`, when present, **MUST** reference a declared category; only results
 whose participant belongs to it are considered.
 
-**§8.1.3** `scope` absent means all results in the document.
+**§8.1.3** `scope` absent means all results in the document. `scope` accepts `event` and
+`category`; when both are present, a result **MUST** satisfy each of them.
 
 ### 8.2 `sortBy`
 
@@ -590,7 +599,11 @@ to several categories.
 }
 ```
 
-**§9.2.1** `license`, when present, **SHOULD** be an [SPDX](https://spdx.org/licenses/)
+**§9.2.1** `name` identifies the organisation answerable for the results and is **REQUIRED**
+whenever `source` is present. `system` names the software that produced the document, `contact`
+gives an address for questions about the data, and `url` points at the canonical publication.
+
+**§9.2.2** `license`, when present, **SHOULD** be an [SPDX](https://spdx.org/licenses/)
 identifier, and states the terms under which the _data_ may be reused.
 
 ### 9.3 `links` and `assets`
@@ -606,6 +619,14 @@ identifier, and states the terms under which the _data_ may be reused.
 
 **§9.3.3** Their absence **MUST NOT** prevent interpretation. A consumer unable to fetch a
 resource **MUST** continue without it.
+
+**§9.3.4** `rel` describes what a link points at, as free text; `label` is its display text.
+A consumer **MUST NOT** make behaviour depend on `rel`, whose vocabulary this version does not
+constrain.
+
+**§9.3.5** An asset's `type` **MUST** be one of `image`, `video`, `audio`, `document` or `other`.
+An unknown value **MUST** be treated as `other`. The member is a hint about how the resource
+might be presented; a consumer is never required to fetch it.
 
 ---
 
@@ -629,6 +650,11 @@ change any derived ranking.
 
 **§10.1.3** `defaultView` is a suggestion. A consumer that does not implement the named view
 **MUST** select its own.
+
+**§10.1.4** `measureOrder` and `attributeOrder` suggest a display order; identifiers they omit
+**MUST** still be displayable, and identifiers they name but the document does not declare
+**MUST** be ignored. `highlight` names participants a consumer **MAY** emphasise. None of these
+**MUST** affect the derived ranking.
 
 ### 10.2 Extensions
 
