@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openresult.org/schema/openresult-1.0.schema.json",
+  "$id": "https://openresult.dev/schema/openresult-1.0.schema.json",
   "title": "OpenResult 1.0",
   "description": "An open standard for describing results as JSON. See specification/openresult-v1.md — the specification is normative, this schema is its machine-readable expression.",
   "type": "object",

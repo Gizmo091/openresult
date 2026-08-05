@@ -3,7 +3,7 @@
 **Version**: 1.0
 **Status**: Draft
 **Date**: 2026-08-05
-**Schema**: `https://openresult.org/schema/openresult-1.0.schema.json`
+**Schema**: `https://openresult.dev/schema/openresult-1.0.schema.json`
 
 ## Abstract
 

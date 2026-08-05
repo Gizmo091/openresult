@@ -22,7 +22,7 @@ passes the schema is not necessarily conforming.**
 Each format version has its own file and its own permanent `$id`:
 
 ```
-https://openresult.org/schema/openresult-1.0.schema.json
+https://openresult.dev/schema/openresult-1.0.schema.json
 ```
 
 A published schema is **never modified in place**. A MINOR version that adds optional members
