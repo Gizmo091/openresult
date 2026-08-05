@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsx build/render-markdown.ts && vite build",
+    "build": "tsx generate/render-markdown.ts && vite build",
     "preview": "vite preview",
     "serve": "node server/index.mjs"
   },
