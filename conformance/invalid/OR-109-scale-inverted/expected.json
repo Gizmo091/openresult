@@ -1,0 +1,4 @@
+{
+  "valid": false,
+  "errors": [{ "code": "OR-109", "path": "/measures/0/min" }]
+}

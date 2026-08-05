@@ -1,0 +1,18 @@
+{
+  "openresult": "1.0",
+  "title": "A scale no value can satisfy",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "nose",
+      "label": "Nose",
+      "kind": "score",
+      "unit": "pt",
+      "min": 30,
+      "max": 10,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [{ "id": "a", "name": "A" }],
+  "results": [{ "participant": "a", "values": { "nose": 20 } }]
+}

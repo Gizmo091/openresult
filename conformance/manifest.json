@@ -75,6 +75,14 @@
       "path": "invalid/OR-108-null-value"
     },
     {
+      "id": "OR-109-scale-inverted",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.8",
+      "description": "A measure whose minimum exceeds its maximum declares a scale no value can satisfy.",
+      "path": "invalid/OR-109-scale-inverted"
+    },
+    {
       "id": "OR-201-undeclared-reference",
       "kind": "invalid",
       "level": "reading",
@@ -365,6 +373,14 @@
       "path": "valid/rank-scope-event"
     },
     {
+      "id": "rank-scope-several-categories",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.2",
+      "description": "Several categories select their union, which builds an axis from ranges and cannot cross two axes.",
+      "path": "valid/rank-scope-several-categories"
+    },
+    {
       "id": "rank-scope-several-events",
       "kind": "valid",
       "level": "ranking",
@@ -419,6 +435,14 @@
       "rule": "spec §7.5.1",
       "description": "A result may publish a position in several rankings at once — fourth overall, first in class.",
       "path": "valid/ranks-per-ranking"
+    },
+    {
+      "id": "scale-bounds-and-attribute-units",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.1.8",
+      "description": "Criteria marked out of unlike maxima, and a numeric attribute carrying its unit instead of hiding it in a label.",
+      "path": "valid/scale-bounds-and-attribute-units"
     },
     {
       "id": "status-bye-ranks",

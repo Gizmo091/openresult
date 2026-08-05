@@ -1,0 +1,64 @@
+{
+  "openresult": "1.0",
+  "title": "Criteria with unlike maxima, and an attribute that carries its unit",
+  "lang": "en",
+  "description": "A jury score means nothing without its scale: 27 is excellent out of 30 and poor out of 100. The bottle price is a property of the wine rather than of a tasting, so it is an attribute — and it declares its currency instead of hiding it in a label (spec §5.1.8, §5.3.7).",
+  "measures": [
+    {
+      "id": "nose",
+      "label": "Nose",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 30,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "palate",
+      "label": "Palate",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 40,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "total",
+      "label": "Total",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 100,
+      "betterWhen": "higher"
+    }
+  ],
+  "attributes": [
+    { "id": "price", "label": "Price", "type": "number", "unit": "EUR" },
+    { "id": "vintage", "label": "Vintage", "type": "number" }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Domaine du Pré, Cuvée Ancienne",
+      "attributes": { "price": 24.5, "vintage": 2022 }
+    },
+    {
+      "id": "b",
+      "name": "Clos Vaubert, Les Hautes",
+      "attributes": { "price": 12, "vintage": 2023 }
+    },
+    {
+      "id": "c",
+      "name": "Mas Ferrand, Tradition",
+      "attributes": { "price": 18.9, "vintage": 2022 }
+    }
+  ],
+  "results": [
+    { "participant": "a", "values": { "nose": 27, "palate": 36, "total": 91 } },
+    { "participant": "b", "values": { "nose": 24, "palate": 33, "total": 84 } },
+    { "participant": "c", "values": { "nose": 26, "palate": 31, "total": 86 } }
+  ],
+  "rankings": [
+    { "id": "overall", "label": "Overall", "sortBy": ["total", "palate"] }
+  ]
+}

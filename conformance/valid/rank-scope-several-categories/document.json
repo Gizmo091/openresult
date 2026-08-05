@@ -1,0 +1,98 @@
+{
+  "openresult": "1.0",
+  "title": "An axis built from two ranges",
+  "lang": "en",
+  "description": "\"Under €15\" spans two declared price bands. Listing them in scope.category selects the union, so the axis needs no third category re-listing the wines the first two already contain (spec §8.1.2). Crossing two axes is a different thing and is not expressible: the second ranking here shows why — adding the colour widens the selection instead of narrowing it.",
+  "measures": [
+    {
+      "id": "total",
+      "label": "Total",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 100,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Wine A"
+    },
+    {
+      "id": "b",
+      "name": "Wine B"
+    },
+    {
+      "id": "c",
+      "name": "Wine C"
+    },
+    {
+      "id": "d",
+      "name": "Wine D"
+    }
+  ],
+  "categories": [
+    {
+      "id": "red",
+      "label": "Red",
+      "participants": ["a", "b", "c"]
+    },
+    {
+      "id": "under-10",
+      "label": "Under €10",
+      "participants": ["a", "d"]
+    },
+    {
+      "id": "10-to-15",
+      "label": "€10 to €15",
+      "participants": ["c"]
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "total": 88
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "total": 92
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "total": 90
+      }
+    },
+    {
+      "participant": "d",
+      "values": {
+        "total": 95
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "affordable",
+      "label": "Under €15",
+      "description": "A union: either price band qualifies.",
+      "scope": {
+        "category": ["under-10", "10-to-15"]
+      },
+      "sortBy": ["total"]
+    },
+    {
+      "id": "affordable-reds",
+      "label": "Under €15, or red",
+      "description": "A union, not an intersection: B is red and costs more than €15, and it is selected all the same. There is no way to write \"red AND under €15\" other than declaring that category outright.",
+      "scope": {
+        "category": ["under-10", "10-to-15", "red"]
+      },
+      "sortBy": ["total"]
+    }
+  ]
+}
