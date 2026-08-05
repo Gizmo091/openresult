@@ -64,16 +64,24 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
 
     const entries = rank(document, ranking.id);
 
-    // A ranking that selects results and then drops them for a missing measure
-    // is valid and usually wrong: a twelve-horse class rendering as five, with
-    // nothing to tell the reader the other seven exist (spec §8.5.2).
-    const droppedForMeasure = entries.filter(
-      (entry) =>
-        entry.rank === null &&
-        !(ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES).includes(
-          normalizeStatus(entry.result.status),
-        ),
-    );
+    // Warn only where the record is *partial* — some sorting measures present,
+    // not all. That is a competitor who took part and whose record is
+    // incomplete, which is usually a mistake.
+    //
+    // A result carrying none of them is a different thing: an angler who caught
+    // nothing has no heaviest fish, and a "heaviest fish" ranking is right to
+    // leave him out. Warning there would push producers to write `0` for a fish
+    // that does not exist, destroying the absent-versus-zero distinction the
+    // format rests on (spec §8.5.2).
+    const droppedForMeasure = entries.filter((entry) => {
+      if (entry.rank !== null) return false;
+
+      const excluded = ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES;
+      if (excluded.includes(normalizeStatus(entry.result.status))) return false;
+
+      const present = ranking.sortBy.filter((id) => entry.values[id] !== undefined).length;
+      return present > 0 && present < ranking.sortBy.length;
+    });
     if (droppedForMeasure.length > 0) {
       const names = droppedForMeasure
         .slice(0, 3)

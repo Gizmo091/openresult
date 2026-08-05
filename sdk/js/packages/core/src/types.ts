@@ -33,7 +33,15 @@ export type EventType =
 
 /** Participation status. Only `finished` is rankable (spec §7.2.1). */
 export type ResultStatus =
-  'finished' | 'inProgress' | 'dnf' | 'dns' | 'dsq' | 'outOfTime' | 'withdrawn';
+  | 'finished'
+  | 'bye'
+  | 'notClassified'
+  | 'inProgress'
+  | 'dnf'
+  | 'dns'
+  | 'dsq'
+  | 'outOfTime'
+  | 'withdrawn';
 
 export type TieHandling = 'standard' | 'dense' | 'strict';
 

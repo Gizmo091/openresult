@@ -16,6 +16,7 @@ import type {
  * (spec §8.4.2).
  */
 export const DEFAULT_EXCLUDED_STATUSES: readonly ResultStatus[] = [
+  'notClassified',
   'inProgress',
   'dnf',
   'dns',

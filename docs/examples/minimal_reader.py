@@ -18,7 +18,7 @@ import sys
 SUPPORTED_MAJOR = 1
 
 # Statuses excluded from ranking unless a ranking says otherwise (spec §8.4.2).
-DEFAULT_EXCLUDED = {"inProgress", "dnf", "dns", "dsq", "outOfTime", "withdrawn"}
+DEFAULT_EXCLUDED = {"notClassified", "inProgress", "dnf", "dns", "dsq", "outOfTime", "withdrawn"}
 # `bye` ranks like `finished`: a score without a contest still counts (§7.2.5).
 KNOWN_STATUSES = DEFAULT_EXCLUDED | {"finished", "bye"}
 KNOWN_DIRECTIONS = {"lower", "higher", "none"}

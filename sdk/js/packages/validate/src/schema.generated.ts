@@ -406,6 +406,7 @@ export const OPENRESULT_1_0_SCHEMA = {
       "enum": [
         "finished",
         "bye",
+        "notClassified",
         "inProgress",
         "dnf",
         "dns",

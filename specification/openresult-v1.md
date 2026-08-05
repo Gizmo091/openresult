@@ -389,10 +389,12 @@ across documents.
 present, is an abbreviated form a consumer **MAY** prefer where space is tight; it **MUST NOT**
 carry information absent from `name`.
 
-**§6.1.5** `label` names an entity for display wherever it appears — on a measure, an attribute,
-a ranking or a category — and `description` **MAY** expand on it in prose. Both are **OPTIONAL**
-members of measures, attributes, rankings, categories, events and participants alike, and neither
-is ever parsed.
+**§6.1.5** `label` names an entity for display, and is **REQUIRED** on measures, attributes,
+rankings and categories — the four that a consumer must be able to name on screen. Participants
+and events carry `name` instead, for the same purpose.
+
+**§6.1.6** `description` **MAY** expand on a label in prose, and is **OPTIONAL** on every entity
+that carries one. Neither member is ever parsed.
 
 ### 6.2 `events`
 
@@ -461,18 +463,23 @@ the document declares `events`.
 
 **§7.2.1** `status` **MUST** be one of:
 
-| Value        | Meaning                | Excluded by default |
-| ------------ | ---------------------- | ------------------- |
-| `finished`   | Completed              | No                  |
-| `bye`        | Scored without playing | No                  |
-| `inProgress` | Still competing        | Yes                 |
-| `dnf`        | Did not finish         | Yes                 |
-| `dns`        | Did not start          | Yes                 |
-| `dsq`        | Disqualified           | Yes                 |
-| `outOfTime`  | Outside the time limit | Yes                 |
-| `withdrawn`  | Withdrew or forfeited  | Yes                 |
+| Value           | Meaning                   | Excluded by default |
+| --------------- | ------------------------- | ------------------- |
+| `finished`      | Completed                 | No                  |
+| `bye`           | Scored without playing    | No                  |
+| `notClassified` | Took part, not classified | Yes                 |
+| `inProgress`    | Still competing           | Yes                 |
+| `dnf`           | Did not finish            | Yes                 |
+| `dns`           | Did not start             | Yes                 |
+| `dsq`           | Disqualified              | Yes                 |
+| `outOfTime`     | Outside the time limit    | Yes                 |
+| `withdrawn`     | Withdrew or forfeited     | Yes                 |
 
-**§7.2.2** An unknown `status` **MUST** be treated as `finished`.
+**§7.2.2** An unknown `status` **MUST** be treated as `finished` when _reading_. Whether it is
+also a validation error depends on the version the document declares, on the same terms as an
+unknown member ([§10.2.4](#102-extensions)): a validator checks against the declared version, a
+consumer reading a higher MINOR version folds what it does not recognise onto the documented
+fallback. `OR-103` is a validation diagnostic and carries that same qualification.
 
 **§7.2.3** Exclusion is a property of a **ranking**, not of a status. The column above gives the
 default exclusion set of [§8.4.2](#84-excludestatuses); a ranking that declares its own
@@ -487,6 +494,12 @@ that still sets the fastest lap is the ordinary case, not an anomaly.
 pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the score counts.
 Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
 carries it.
+
+**§7.2.6** `notClassified` marks a competitor who took part and whose performance is recorded,
+but who does not appear in the classification — eliminated in a heat, outside a qualification cut,
+below a minimum distance. It is excluded by default, and unlike `dnf` it asserts nothing about
+whether they finished: a skier who completes the first run cleanly and misses the cut for the
+second is `notClassified`, not `dnf`.
 
 ### 7.3 `values`
 
@@ -633,12 +646,20 @@ list as follows.
 
 All others are **unranked**.
 
-_A ranking that drops results this way is valid and often wrong._ A classification sorting on
-`["round1Faults", "jumpOffFaults"]` leaves every competitor who did not reach the jump-off
-unranked — a twelve-horse Grand Prix rendering as five. The producer's remedy is to publish
-measures every selected result carries, copying earlier values forward where a later round did
-not happen. A validator reports the condition as `OR-908`, because the document cannot say whether
-the omission was deliberate.
+_A ranking that drops results this way is sometimes intended and sometimes a mistake._ A
+classification sorting on `["round1Faults", "jumpOffFaults"]` leaves every competitor who did not
+reach the jump-off unranked — a twelve-horse Grand Prix rendering as five. But an angler who
+caught nothing has no heaviest fish, and a "heaviest fish" ranking is right to leave him out.
+
+The two are distinguishable, and a validator **MUST** distinguish them (`OR-908`). It reports
+`OR-908` only where a result is **status-eligible** for the ranking **and** carries _some_ of the
+measures in `sortBy` but not all — the signature of a competitor who took part and whose record is
+incomplete. A result carrying **none** of them has no place in that ranking, and is not reported.
+
+The producer's remedy, where the omission was not intended, is to publish a measure every selected
+result carries. Copying an earlier round's value forward suits a format where every competitor runs
+the same course; it **MUST NOT** be used where a later round is a qualification cut, since it would
+rank a non-qualifier among the classified and publish a false result.
 
 **§8.5.3 — Sort.** Order the rankable results by successive comparison over `sortBy`. For each
 measure, `betterWhen: "lower"` orders ascending and `betterWhen: "higher"` orders descending. The
