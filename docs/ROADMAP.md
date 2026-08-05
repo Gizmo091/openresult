@@ -102,6 +102,51 @@ what v2 adoption actually demands, through the published evolution process.
 
 ---
 
+## Known gaps, found by outside readers
+
+Every entry here came from someone building a real document from the specification alone, in a
+domain the corpus does not cover. They are recorded rather than fixed because each one is a
+change to the model, not a correction, and v1 is meant to stabilise.
+
+**A result belongs to one competitor.** A wine judged by six jurors is six facts about one wine,
+and §7.1.3 allows one result per (participant, event) pair. The reader's way out was to declare
+each juror as an event — twenty-four of them — which works and reads badly, and which loses the
+juror's identity to a text attribute. The same shape appears wherever an assessor is not a
+competitor: inter-annotator agreement in model evaluation, panels in judged sport, marking in
+examinations.
+
+**A group of results that is deliberately unordered.** A wine competition publishes medals against
+thresholds under a quota, and placing a wine fourth of six is what its rules forbid the organiser
+to do. §8.6.1 makes a document without `rankings` rankable anyway, and §8.6.2 only escapes when
+every measure is `betterWhen: "none"`, which then makes the medal thresholds inexpressible. A
+consumer will render "3rd of 6" for a fact the competition does not publish.
+
+**A standing after each round.** A stage race changes leader daily, and that is the story of the
+race. §8.1.4 requires a computed standing to be published as results on the event it is scoped to,
+so six intermediate general classifications cost six events and about a hundred and seventy
+results, each republishing a cumulative time that already exists. The cycling reader computed all
+six — they are needed to award the jerseys — and published none.
+
+**An attribute holds one value.** A rider leading two classifications wears one jersey and is
+entitled to another. `jersey` is a scalar, §5.3.1 has no list type, and §1.2.3 forbids
+`"yellow,polka"`. The alternatives are a boolean attribute per jersey, growing with the race, or
+prose in `notes`.
+
+**`precision` belongs to the measure, not the event.** Road stages are timed to the second and an
+individual time trial to the hundredth. One measure carries one precision, so a race with both
+either loses the hundredths or shows `4:12:33.00` for five days. The reader removed the time trial
+from their document rather than publish that.
+
+**Zero against absent, when a ranking should list only those who scored.** A mountains
+classification lists riders who took points, not the whole field on nought. Expressing that means
+omitting the measure for non-scorers, but §7.3.2 says an absent measure is unavailable — and their
+zero is perfectly available. The reader published the zeros and accepted a nine-way tie for
+eighteenth.
+
+**A relation between measures.** Nothing says that a retained score is the aggregate of four
+criteria, or that an average is derived from what it averages. Producers dedupe by naming
+convention, which no consumer can read.
+
 ## What will never be in scope
 
 The exclusions in [VISION.md](./VISION.md) are permanent, not a backlog. Transport, storage,

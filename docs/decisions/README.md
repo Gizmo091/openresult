@@ -26,6 +26,7 @@ one `Superseded by`.
 | [0019](./0019-ties-resolved-outside-the-document.md)  | `ties: "resolved"`; `description` on every named entity                                       | Accepted |
 | [0020](./0020-a-status-describes-its-own-result.md)   | A status describes its own result; aggregation is normative; allocated numbers are attributes | Accepted |
 | [0021](./0021-scope-lists-events.md)                  | A ranking scopes to a list of events; durations have a written rendering                      | Accepted |
+| [0023](./0023-scales-and-attribute-units.md)          | Measures declare a scale, attributes declare a unit                                           | Accepted |
 
 ## Project decisions
 
