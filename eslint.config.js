@@ -57,7 +57,14 @@ export default tseslint.config(
   {
     // Tests, repository tooling and command-line programs. Writing to stdout is
     // what a CLI is for.
-    files: ['**/*.test.ts', 'tools/**/*.ts', '**/src/cli.ts', '**/src/reporters/*.ts'],
+    files: [
+      '**/*.test.ts',
+      'tools/**/*.ts',
+      '**/src/cli.ts',
+      '**/src/reporters/*.ts',
+      // Build-time generators. Their output line is how you know what they did.
+      'site/generate/**/*.ts',
+    ],
     rules: {
       'no-console': 'off',
       // A test owns its fixtures. A wrong assertion fails the test, which is
