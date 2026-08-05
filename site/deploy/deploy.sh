@@ -90,7 +90,7 @@ if [[ "$deployed" != "$expected" ]]; then
 fi
 
 say "Live: $(git -C "$repo" rev-parse --short HEAD)"
-for path in / /spec/ /examples/ /view/ /validate/ /docs/ /playground/ /validator/ /schema/openresult-1.0.schema.json; do
+for path in / /spec/ /produce/ /examples/ /view/ /validate/ /docs/ /playground/ /validator/ /schema/openresult-1.0.schema.json; do
   code="$(curl -s -o /dev/null -w '%{http_code}' "https://openresult.dev$path")"
   printf '  %-44s %s\n' "$path" "$code"
   [[ "$code" == "200" ]] || { echo "  ↑ not 200 — check it" >&2; exit 1; }

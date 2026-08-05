@@ -81,7 +81,7 @@ describe('the /produce/ snippets emit a valid document', () => {
     await writeFile(file, code.get('python') ?? '', 'utf8');
     const { stdout } = await run('python3', [file]);
     expectValid(stdout);
-  });
+  }, 30_000);
 
   it('javascript', async () => {
     const file = join(work, 'snippet.mjs');
@@ -89,19 +89,30 @@ describe('the /produce/ snippets emit a valid document', () => {
     await writeFile(file, code.get('javascript') ?? '', 'utf8');
     const { stdout } = await run('node', [file]);
     expectValid(stdout);
-  });
+  }, 30_000);
 
-  it.skipIf(!hasPhp)('php', async () => {
-    const file = join(work, 'snippet.php');
-    await writeFile(file, code.get('php') ?? '', 'utf8');
-    const { stdout } = await run('php', [file]);
-    expectValid(stdout);
-  });
+  it.skipIf(!hasPhp)(
+    'php',
+    async () => {
+      const file = join(work, 'snippet.php');
+      await writeFile(file, code.get('php') ?? '', 'utf8');
+      const { stdout } = await run('php', [file]);
+      expectValid(stdout);
+    },
+    30_000,
+  );
 
-  it.skipIf(!hasGo)('go', async () => {
-    const file = join(work, 'snippet.go');
-    await writeFile(file, code.get('go') ?? '', 'utf8');
-    const { stdout } = await run('go', ['run', file]);
-    expectValid(stdout);
-  });
+  // A minute, because `go run` compiles: on a machine with a cold build cache
+  // it takes tens of seconds, and it took 743 ms on the laptop where the
+  // default five-second budget looked ample.
+  it.skipIf(!hasGo)(
+    'go',
+    async () => {
+      const file = join(work, 'snippet.go');
+      await writeFile(file, code.get('go') ?? '', 'utf8');
+      const { stdout } = await run('go', ['run', file]);
+      expectValid(stdout);
+    },
+    60_000,
+  );
 });
