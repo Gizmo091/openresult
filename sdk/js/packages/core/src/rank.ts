@@ -1,6 +1,5 @@
 import {
   DEFAULT_EXCLUDED_STATUSES,
-  eventWithDescendants,
   measure,
   normalizeBetterWhen,
   normalizeStatus,

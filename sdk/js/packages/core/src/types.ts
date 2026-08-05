@@ -25,33 +25,14 @@ export type BetterWhen = 'lower' | 'higher' | 'none';
 export type AttributeType = 'text' | 'number' | 'date' | 'url' | 'country' | 'boolean';
 
 export type ParticipantType =
-  | 'person'
-  | 'team'
-  | 'machine'
-  | 'product'
-  | 'model'
-  | 'organization'
-  | 'other';
+  'person' | 'team' | 'machine' | 'product' | 'model' | 'organization' | 'other';
 
 export type EventType =
-  | 'heat'
-  | 'match'
-  | 'round'
-  | 'stage'
-  | 'session'
-  | 'final'
-  | 'overall'
-  | 'other';
+  'heat' | 'match' | 'round' | 'stage' | 'session' | 'final' | 'overall' | 'other';
 
 /** Participation status. Only `finished` is rankable (spec §7.2.1). */
 export type ResultStatus =
-  | 'finished'
-  | 'inProgress'
-  | 'dnf'
-  | 'dns'
-  | 'dsq'
-  | 'outOfTime'
-  | 'withdrawn';
+  'finished' | 'inProgress' | 'dnf' | 'dns' | 'dsq' | 'outOfTime' | 'withdrawn';
 
 export type TieHandling = 'standard' | 'dense' | 'strict';
 

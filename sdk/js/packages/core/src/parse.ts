@@ -18,7 +18,9 @@ export interface FormatVersion {
 export function isOpenResult(value: unknown): boolean {
   if (value === null || typeof value !== 'object') return false;
   const candidate = value as Record<string, unknown>;
-  return typeof candidate['openresult'] === 'string' && VERSION_PATTERN.test(candidate['openresult']);
+  return (
+    typeof candidate['openresult'] === 'string' && VERSION_PATTERN.test(candidate['openresult'])
+  );
 }
 
 /**

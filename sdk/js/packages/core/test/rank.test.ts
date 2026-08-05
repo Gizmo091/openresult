@@ -318,11 +318,7 @@ describe('scope', () => {
       ],
     });
 
-    expect([...eventWithDescendants(doc, 'overall')].sort()).toEqual([
-      'heat1',
-      'heat2',
-      'overall',
-    ]);
+    expect([...eventWithDescendants(doc, 'overall')].sort()).toEqual(['heat1', 'heat2', 'overall']);
   });
 });
 
