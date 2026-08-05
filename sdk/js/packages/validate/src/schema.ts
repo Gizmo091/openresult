@@ -1,24 +1,24 @@
-import { Ajv2020, type ErrorObject, type ValidateFunction } from 'ajv/dist/2020.js';
-import addFormats from 'ajv-formats';
+import type { ErrorObject } from 'ajv';
 import { diagnostic, type Diagnostic, type DiagnosticCode } from './diagnostics.js';
-import { OPENRESULT_1_0_SCHEMA } from './schema.generated.js';
+// Compiled from the schema at build time by `pnpm generate:schema`, not here.
+//
+// Ajv's `compile()` builds its validator with `new Function`, which a page
+// served under a Content Security Policy without `'unsafe-eval'` may not do —
+// and that is the policy any site rendering documents from strangers should
+// have. Precompiling also keeps Ajv itself out of every browser bundle.
+import validateSchema from './schema.validator.generated.js';
 
-let compiled: ValidateFunction | undefined;
-
-function validator(): ValidateFunction {
-  if (compiled === undefined) {
-    const ajv = new Ajv2020({ allErrors: true, strict: false, verbose: true });
-    addFormats.default(ajv);
-    compiled = ajv.compile(OPENRESULT_1_0_SCHEMA);
-  }
-  return compiled;
+interface CompiledValidator {
+  (document: unknown): boolean;
+  errors?: ErrorObject[] | null;
 }
+
+const validator = validateSchema as unknown as CompiledValidator;
 
 /** Structural validation against the published schema. */
 export function checkSchema(document: unknown): Diagnostic[] {
-  const validate = validator();
-  if (validate(document)) return [];
-  return (validate.errors ?? []).flatMap(translate);
+  if (validator(document)) return [];
+  return (validator.errors ?? []).flatMap(translate);
 }
 
 /**
