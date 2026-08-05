@@ -3,12 +3,20 @@ import { glob, readFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { listRankings, parse, rank } from '../../sdk/js/packages/core/src/index.js';
+import {
+  formatValue,
+  listRankings,
+  measure,
+  parse,
+  rank,
+} from '../../sdk/js/packages/core/src/index.js';
 import { type Check, fail, pass, skip } from './types.ts';
 
 const run = promisify(execFile);
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const READER = join(repoRoot, 'docs/examples/minimal_reader.py');
+/** The units §5.2.5 governs. */
+const TIME_UNITS = new Set(['s', 'ms', 'min', 'h']);
 
 /**
  * Two implementations, one answer.
@@ -61,6 +69,27 @@ export const crossImplementation: Check = {
         const reference = rank(document, ranking.id).map((entry) => ({
           participant: entry.participant.id,
           rank: entry.rank,
+          // Rendered durations as well as positions. Agreeing on the order and
+          // disagreeing on what is printed is still a divergence: the reference
+          // rendered a duration as `2:12.88` and the minimal reader as
+          // `132.88 s`, and nothing noticed, because the specification
+          // described neither. §5.2.5 now does, so the two must agree.
+          //
+          // Durations only. Everything else about display is deliberately left
+          // to the consumer — thousands separators and default decimals follow
+          // the locale, and a reader in France should see `1 671,0` where one in
+          // the US sees `1,671.0`. Comparing those would be enforcing a rule the
+          // specification does not make.
+          display: Object.fromEntries(
+            Object.keys(entry.values)
+              .sort()
+              .flatMap((id) => {
+                const definition = measure(document, id);
+                if (definition === undefined || definition.kind !== 'duration') return [];
+                if (!TIME_UNITS.has(definition.unit ?? '')) return [];
+                return [[id, formatValue(entry.values[id]!, definition)]];
+              }),
+          ),
         }));
 
         const { stdout } = await run(python, [READER, '--json', absolute, ranking.id]);

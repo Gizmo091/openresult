@@ -94,13 +94,18 @@ def resolve_ranking(document, ranking_id=None):
 
 
 def in_scope(document, ranking, result):
-    """Step 1 — selection (§8.5.1). The scoped event only, never its descendants."""
+    """Step 1 — selection (§8.5.1). The scoped events only, never their descendants."""
     scope = ranking.get("scope")
     if scope is None:
         return True
 
-    if "event" in scope and result.get("event") != scope["event"]:
-        return False
+    if "event" in scope:
+        # One event or several (§8.1.1). Listing them is how a standing spanning
+        # several events avoids copying results; descendants are still excluded.
+        wanted = scope["event"]
+        wanted = wanted if isinstance(wanted, list) else [wanted]
+        if result.get("event") not in wanted:
+            return False
 
     if "category" in scope:
         members = next(
@@ -198,14 +203,39 @@ def rank(document, ranking_id=None):
     return placed + [(result, None) for result in unranked]
 
 
+TIME_UNITS = {"s": 1, "ms": 0.001, "min": 60, "h": 3600}
+
+
+def format_duration(seconds, precision):
+    """Hours, minutes and seconds, leading zero components dropped (§5.2.5)."""
+    negative = seconds < 0
+    seconds = abs(seconds)
+    hours, rest = divmod(seconds, 3600)
+    minutes, secs = divmod(rest, 60)
+
+    body = f"{secs:.{precision}f}"
+    if hours >= 1:
+        text = f"{int(hours)}:{int(minutes):02d}:{body.zfill(precision + 3 if precision else 2)}"
+    elif minutes >= 1:
+        text = f"{int(minutes)}:{body.zfill(precision + 3 if precision else 2)}"
+    else:
+        text = body
+    return f"-{text}" if negative else text
+
+
 def format_value(value, measure):
     """Apply the declared precision and unit. Display only: sorting always uses
     the raw value (§5.1.5)."""
     if not isinstance(value, (int, float)) or isinstance(value, bool):
         return str(value)
+
     precision = measure.get("precision")
-    text = f"{value:.{precision}f}" if precision is not None else str(value)
     unit = measure.get("unit")
+
+    if measure.get("kind") == "duration" and unit in TIME_UNITS:
+        return format_duration(value * TIME_UNITS[unit], precision or 0)
+
+    text = f"{value:.{precision}f}" if precision is not None else str(value)
     return f"{text} {unit}" if unit else text
 
 
@@ -231,8 +261,24 @@ def main():
     # Machine-readable standings, so another implementation can be compared
     # against this one case by case.
     if as_json:
+        # Formatted values travel too: two implementations agreeing on the order
+        # and disagreeing on what they print is still a divergence, and it went
+        # unnoticed until a reader concluded from the specification that a
+        # duration could not be shown as 2:12.88 (§5.2.5).
         print(json.dumps([
-            {"participant": result["participant"], "rank": position}
+            {
+                "participant": result["participant"],
+                "rank": position,
+                # Durations only: everything else about display follows the
+                # locale, and §5.2.5 governs nothing but these.
+                "display": {
+                    measure_id: format_value(value, catalogue[measure_id])
+                    for measure_id, value in sorted((result.get("values") or {}).items())
+                    if measure_id in catalogue
+                    and catalogue[measure_id].get("kind") == "duration"
+                    and catalogue[measure_id].get("unit") in TIME_UNITS
+                },
+            }
             for result, position in rank(document, ranking_id)
         ]))
         return 0
