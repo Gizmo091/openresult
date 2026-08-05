@@ -1,0 +1,659 @@
+// Generated from schema/openresult-1.0.schema.json — do not edit.
+// Regenerate with: pnpm generate:schema
+
+export const OPENRESULT_1_0_SCHEMA = {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openresult.org/schema/openresult-1.0.schema.json",
+  "title": "OpenResult 1.0",
+  "description": "An open standard for describing results as JSON. See specification/openresult-v1.md — the specification is normative, this schema is its machine-readable expression.",
+  "type": "object",
+  "required": [
+    "openresult",
+    "title",
+    "participants",
+    "results"
+  ],
+  "properties": {
+    "openresult": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Format version, MAJOR.MINOR (spec §4.2.1)."
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifies the subject across publications (spec §4.3.1)."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Content version, strictly increasing per id (spec §4.4.2)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "provisional",
+        "official",
+        "amended"
+      ],
+      "description": "Content lifecycle (spec §4.4.1)."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "lang": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+      "description": "BCP 47 language tag (spec §4.5.1)."
+    },
+    "generatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "occurredAt": {
+      "$ref": "#/$defs/timeRange"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "measures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measure"
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attributeDefinition"
+      }
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/participant"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/result"
+      }
+    },
+    "rankings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ranking"
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/link"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    },
+    "presentation": {
+      "$ref": "#/$defs/presentation"
+    }
+  },
+  "patternProperties": {
+    "^x-": true
+  },
+  "unevaluatedProperties": false,
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "minLength": 1,
+      "description": "Opaque producer-assigned identifier (spec §5.4)."
+    },
+    "identifierList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "anyOf": [
+        {
+          "format": "date-time"
+        },
+        {
+          "format": "date"
+        }
+      ],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2}))?$",
+      "description": "RFC 3339 date-time with mandatory offset, or full-date (spec §4.6)."
+    },
+    "timeRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "end": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "measure": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "kind",
+        "betterWhen"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "duration",
+            "distance",
+            "points",
+            "score",
+            "percentage",
+            "count",
+            "money",
+            "rate",
+            "text",
+            "boolean"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "precision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "betterWhen": {
+          "type": "string",
+          "enum": [
+            "lower",
+            "higher",
+            "none"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "description": "unit is required unless kind is text or boolean (spec §5.1.3).",
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "text",
+                  "boolean"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": true,
+          "else": {
+            "required": [
+              "unit"
+            ]
+          }
+        }
+      ],
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "attributeDefinition": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "text",
+            "number",
+            "date",
+            "url",
+            "country",
+            "boolean"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "attributeValues": {
+      "type": "object",
+      "description": "Keys reference declared attribute ids (spec §5.3.2).",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ]
+      }
+    },
+    "participant": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "person",
+            "team",
+            "machine",
+            "product",
+            "model",
+            "organization",
+            "other"
+          ],
+          "default": "person"
+        },
+        "members": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "attributes": {
+          "$ref": "#/$defs/attributeValues"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/asset"
+          }
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "heat",
+            "match",
+            "round",
+            "stage",
+            "session",
+            "final",
+            "overall",
+            "other"
+          ],
+          "default": "other"
+        },
+        "parent": {
+          "$ref": "#/$defs/identifier"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/timeRange"
+        },
+        "participants": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "attributes": {
+          "$ref": "#/$defs/attributeValues"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/asset"
+          }
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "finished",
+        "inProgress",
+        "dnf",
+        "dns",
+        "dsq",
+        "outOfTime",
+        "withdrawn"
+      ],
+      "default": "finished"
+    },
+    "result": {
+      "type": "object",
+      "required": [
+        "participant"
+      ],
+      "properties": {
+        "participant": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event": {
+          "$ref": "#/$defs/identifier"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "values": {
+          "type": "object",
+          "description": "Keys reference declared measure ids. null is forbidden: omit an unavailable measure (spec §7.3.2).",
+          "additionalProperties": {
+            "type": [
+              "number",
+              "string",
+              "boolean"
+            ]
+          }
+        },
+        "attributes": {
+          "$ref": "#/$defs/attributeValues"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/asset"
+          }
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "ranking": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "sortBy"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "event": {
+              "$ref": "#/$defs/identifier"
+            },
+            "category": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "patternProperties": {
+            "^x-": true
+          },
+          "unevaluatedProperties": false
+        },
+        "sortBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "description": "Measure ids by decreasing priority. Direction comes from the measure (spec §8.2.3)."
+        },
+        "ties": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "dense",
+            "strict"
+          ],
+          "default": "standard"
+        },
+        "excludeStatuses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/status"
+          }
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "category": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participants": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "parent": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "license": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "link": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "properties": {
+        "rel": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "asset": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "image",
+            "video",
+            "audio",
+            "document",
+            "other"
+          ]
+        },
+        "href": {
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    },
+    "presentation": {
+      "type": "object",
+      "description": "Non-normative display hints. A consumer may ignore this object entirely (spec §10.1).",
+      "properties": {
+        "defaultView": {
+          "type": "string"
+        },
+        "measureOrder": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "attributeOrder": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "highlight": {
+          "$ref": "#/$defs/identifierList"
+        }
+      },
+      "patternProperties": {
+        "^x-": true
+      },
+      "unevaluatedProperties": false
+    }
+  }
+} as const;
