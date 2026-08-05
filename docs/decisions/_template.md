@@ -1,6 +1,6 @@
 # ADR NNNN — Title
 
-**Status**: Accepted | Superseded by [ADR-NNNN](./NNNN-....md)
+**Status**: Accepted — or: Superseded by ADR-NNNN, linking to it
 **Date**: YYYY-MM-DD
 
 ## Context

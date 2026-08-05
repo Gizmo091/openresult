@@ -6,7 +6,10 @@ A timing system, a benchmark harness, a league platform or a jury tool produces 
 document. Any compatible application can then rank it, chart it, export it, embed it or turn it
 into a PDF — without knowing anything about the producer.
 
-> **Status: work in progress.** The format is being specified. Nothing here is stable yet.
+> **Status: draft.** The format is specified and implemented, and the tooling works. Field names
+> and semantics may still change before 1.0 is declared final. Once it is, the compatibility
+> guarantees in [specification §11](./specification/openresult-v1.md#11-versioning-and-compatibility)
+> apply.
 
 ---
 
@@ -16,15 +19,12 @@ Results are everywhere and interoperable nowhere. Every organiser, every timing 
 benchmark platform publishes in its own shape, so every display is rebuilt from scratch and
 locked to whoever produced the data.
 
-Generic formats do not close the gap:
+Generic formats do not close the gap. **A spreadsheet carries values but no meaning**: nothing
+says which column is the rank, whether a lower time beats a higher one, or what `DNF` means.
+**Ad-hoc JSON is readable only by its author.** **Vendor formats are vertical and closed.**
 
-- **CSV** carries values but no meaning. Nothing says which column is the rank, whether a lower
-  time beats a higher one, or what `DNF` means. No consumer can render it automatically.
-- **Ad-hoc JSON** is readable only by the application that emitted it.
-- **Vendor formats** are vertical, often paid, and never portable across disciplines.
-
-OpenResult carries the results **and what they mean**, so that any consumer can rank and display
-them correctly on its own.
+OpenResult carries the results **and what they mean**, so any consumer can rank and display them
+correctly on its own.
 
 ## What it looks like
 
@@ -56,42 +56,86 @@ them correctly on its own.
 }
 ```
 
-There is no rank in this document. There does not need to be one: `betterWhen: "lower"` says a
-smaller time is better, so any consumer derives the same ranking — and a derived rank is one you
-can verify, unlike a rank you are handed.
+There is no rank in this document. There does not need to be one — `betterWhen: "lower"` says a
+smaller time wins, so any consumer derives the same standings:
+
+```
+$ openresult rank crest-trail.openresult.json
+
+1  Nour Benali       1:28:18.7
+2  Léa Marchand      1:30:12.4
+—  Tomás Ferreira    did not finish
+```
+
+A derived rank is one you can verify. A rank you are handed must be taken on trust.
 
 ## Design principles
 
 - **Meaning travels with the data.** Units, kinds and sort direction are part of the document.
 - **Nothing to evaluate.** No expression language, no scoring formulas. Reading a document means
-  reading values and applying a deterministic sort — a minimal reader fits in 200 lines with no
-  dependency beyond a JSON parser.
-- **Presentation is optional.** A document may suggest how to display itself; a consumer is never
-  required to listen. Drop the presentation layer and the ranking is unchanged.
+  reading values and applying a deterministic sort.
+- **Presentation is a suggestion.** A document may hint at how it would like to be shown; a
+  conforming consumer may ignore every hint and must still be right.
 - **Published documents keep working.** Anything added is optional; anything unknown is ignored
   and preserved.
 
 ## Repository layout
 
-| Path             | Contents                                                            |
-| ---------------- | ------------------------------------------------------------------- |
-| `specification/` | The normative specification — the source of truth                   |
-| `schema/`        | The official JSON Schema                                            |
-| `examples/`      | Realistic documents across eleven very different domains            |
-| `conformance/`   | Language-agnostic conformance test suite                            |
-| `sdk/`           | Reference implementation                                            |
-| `validator/`     | Command-line and browser validators                                 |
-| `viewer/`        | Embeddable viewer — renders any document with no configuration      |
-| `playground/`    | Paste a document, see it rendered and validated as you type         |
-| `docs/`          | Vision, roadmap, implementation guide, governance, decision records |
+| Path                                 | Contents                                                            |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| [`specification/`](./specification/) | The normative specification — the source of truth                   |
+| [`schema/`](./schema/)               | The official JSON Schema (draft 2020-12)                            |
+| [`examples/`](./examples/)           | 19 realistic documents across eleven unlike domains                 |
+| [`conformance/`](./conformance/)     | Language-agnostic conformance suite, 37 cases                       |
+| [`sdk/`](./sdk/)                     | Reference implementation in TypeScript                              |
+| [`validator/`](./validator/)         | Command line and browser validators                                 |
+| [`viewer/`](./viewer/)               | Embeddable viewer — renders any document with no configuration      |
+| [`playground/`](./playground/)       | Paste a document, see it rendered and validated as you type         |
+| [`docs/`](./docs/)                   | Vision, roadmap, implementation guide, governance, decision records |
 
 ## Getting started
 
 ```bash
-pnpm install
-pnpm build
-pnpm check
+pnpm install && pnpm build
+
+pnpm openresult validate my-results.openresult.json   # check a document
+pnpm openresult rank my-results.openresult.json       # see the derived standings
+pnpm --filter @openresult/playground dev              # try the format live
 ```
+
+Writing an implementation? Start with the
+[implementation guide](./docs/IMPLEMENTATION-GUIDE.md), and see
+[`minimal_reader.py`](./docs/examples/minimal_reader.py) — a complete reader in about 160 lines
+of dependency-free Python.
+
+## How the promises are kept
+
+Eight repository checks run on every change. They exist because a principle nobody can violate by
+accident is a property, while a principle enforced by good will is a wish.
+
+```
+$ pnpm check
+
+✓ core-deps                no runtime dependency, 3.5 kB gzipped
+✓ no-domain-logic          42 source files clean
+✓ examples                 19 example(s) valid
+✓ schema-module            embedded schema matches the published one
+✓ rule-coverage            30/111 normative rules exercised
+✓ spec-schema-sync         52 members and 49 enum values all documented
+✓ presentation-optional    74 rankings unchanged without hints
+✓ cross-implementation     39 rankings identical across two implementations
+```
+
+The last one is the one that matters most: the Python minimal reader and the TypeScript reference
+implementation, written independently, agree on every ranking of every example. If they ever
+disagree, the specification is ambiguous — and an ambiguous specification is the failure this
+project exists to avoid.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/GOVERNANCE.md](./docs/GOVERNANCE.md). The most
+valuable report you can file is an ambiguity: if two implementers can read a rule two ways, that
+rule is broken regardless of what it was meant to say.
 
 ## Licence
 
