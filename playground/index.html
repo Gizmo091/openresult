@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenResult Playground</title>
+    <meta
+      name="description"
+      content="Write an OpenResult document and watch it render and validate as you type. Everything runs in your browser."
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <div>
+        <h1>OpenResult Playground</h1>
+        <p class="lede">
+          Edit on the left, see the result on the right. No button to press, nothing uploaded.
+        </p>
+      </div>
+      <div class="masthead-actions">
+        <label class="picker-label" for="example">Start from</label>
+        <select id="example" aria-label="Load an example"></select>
+        <button type="button" id="share">Share</button>
+        <span id="share-note" class="share-note" role="status"></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel" aria-label="Document">
+        <div class="panel-head">
+          <h2>Document</h2>
+          <div id="verdict" class="verdict verdict-idle">Nothing to check yet</div>
+        </div>
+        <div id="editor" class="editor"></div>
+        <ul id="problems" class="problems"></ul>
+      </section>
+
+      <section class="panel" aria-label="Rendered result">
+        <div class="panel-head">
+          <h2>Rendered</h2>
+          <span class="panel-note">by <code>&lt;openresult-viewer&gt;</code></span>
+        </div>
+        <div id="viewer-panel" class="viewer-panel" data-state="empty">
+          <openresult-viewer id="viewer" theme="auto"></openresult-viewer>
+          <p class="viewer-empty">The document cannot be read yet.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        The renderer here is the same component anyone can embed. It has never heard of your sport —
+        everything it shows comes from the semantics your document declares.
+      </p>
+    </footer>
+
+    <script type="module" src="./src/app.ts"></script>
+  </body>
+</html>
