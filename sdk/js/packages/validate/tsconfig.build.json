@@ -1,4 +1,9 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Keep the incremental cache inside dist, so removing dist really does
+    // force a rebuild. Left outside, a stale cache makes tsc emit nothing.
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
+  },
   "include": ["src/**/*.ts"]
 }
