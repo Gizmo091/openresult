@@ -22,7 +22,9 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.test.ts', 'tools/**/*.ts'],
+    // Tests, repository tooling and command-line programs. Writing to stdout is
+    // what a CLI is for.
+    files: ['**/*.test.ts', 'tools/**/*.ts', '**/src/cli.ts', '**/src/reporters/*.ts'],
     rules: {
       'no-console': 'off',
       // A test owns its fixtures. A wrong assertion fails the test, which is
