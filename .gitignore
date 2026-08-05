@@ -24,3 +24,6 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+
+# Python bytecode from the minimal reader
+__pycache__/
