@@ -1,0 +1,116 @@
+name: deploy
+
+# Runs after `check` succeeds on main, rather than on push. Deploying and
+# verifying are the same work done twice otherwise, and a deployment that starts
+# before the checks finish can ship a red commit.
+on:
+  workflow_run:
+    workflows: [check]
+    types: [completed]
+    branches: [main]
+  # For redeploying the current commit without pushing anything.
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-openresult-dev
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    # `workflow_run` fires whatever the outcome, including failure.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://openresult.dev
+
+    steps:
+      # The commit that passed the checks, not whatever main points at now:
+      # `workflow_run` checks out the default branch by default, which is a
+      # different commit whenever two pushes land close together.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Assemble the release
+        run: ./site/deploy/build-release.sh
+
+      - name: Authorise
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # The host key is pinned rather than accepted on sight: trusting an
+          # unknown host is trusting whoever answers the address.
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Ship
+        env:
+          TARGET: ${{ vars.DEPLOY_TARGET }}
+        run: |
+          set -euo pipefail
+          stamp="$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA::7}"
+          tar -czf /tmp/release.tgz -C site/release .
+          scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes /tmp/release.tgz "$TARGET:/srv/openresult/incoming/release.tgz"
+
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes "$TARGET" "set -euo pipefail
+            rm -rf /srv/openresult/releases/$stamp
+            mkdir -p /srv/openresult/releases/$stamp
+            tar -xzf /srv/openresult/incoming/release.tgz -C /srv/openresult/releases/$stamp
+            rm -f /srv/openresult/incoming/release.tgz
+
+            ln -sfn /srv/openresult/releases/$stamp /srv/openresult/current
+            sudo -n systemctl restart openresult
+
+            # Four releases is enough to fall back through a bad run and not
+            # enough to fill the disk.
+            cd /srv/openresult/releases && ls -1 | sort | head -n -4 | xargs -r rm -rf"
+
+      # A deployment that is not verified is a deployment that might have
+      # happened. The commit answering on /VERSION is the only proof that the
+      # symlink moved and the service came back with it.
+      - name: Verify
+        run: |
+          set -euo pipefail
+          for _ in $(seq 1 30); do
+            if curl -fsS -o /dev/null https://openresult.dev/healthz 2>/dev/null; then break; fi
+            sleep 2
+          done
+
+          deployed="$(curl -fsS https://openresult.dev/VERSION)"
+          if [ "$deployed" != "$GITHUB_SHA" ]; then
+            echo "Serving $deployed, expected $GITHUB_SHA" >&2
+            exit 1
+          fi
+
+          for path in / /spec/ /produce/ /examples/ /view/ /validate/ /docs/ /playground/ /validator/ /schema/openresult-1.0.schema.json; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' "https://openresult.dev$path")"
+            printf '  %-44s %s\n' "$path" "$code"
+            [ "$code" = "200" ] || exit 1
+          done
+
+          # The one endpoint a static host could not serve, and the reason this
+          # site runs a process at all.
+          posted="$(curl -s -o /dev/null -w '%{http_code}' -X POST https://openresult.dev/view \
+            -H 'Content-Type: application/json' \
+            --data-binary @examples/swimming/vallonne-meet-100free.openresult.json)"
+          printf '  %-44s %s\n' 'POST /view' "$posted"
+          [ "$posted" = "200" ]

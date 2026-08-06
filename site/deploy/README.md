@@ -20,6 +20,12 @@ the property worth having at the hour a deployment usually goes wrong.
 
 ## Deploying
 
+Automatically, on every commit to `main` whose checks pass — `.github/workflows/deploy.yml`. It
+waits for `check` to go green, ships the commit that passed rather than whatever `main` points at
+by then, and verifies afterwards.
+
+By hand, when you want to ship something that is not on `main`, or to redeploy without pushing:
+
 ```sh
 ./site/deploy/deploy.sh
 ```
@@ -60,6 +66,29 @@ Verify with:
 ```sh
 ssh openresult_ovh 'systemctl list-timers certbot.timer; sudo certbot renew --dry-run'
 ```
+
+## The deploy account
+
+CI connects as `deploy`, not as `ubuntu`. That account owns `/srv/openresult` outright, so
+unpacking a release needs no privilege at all, and `sudoers` grants it exactly two commands:
+
+```
+deploy ALL=(root) NOPASSWD: /usr/bin/systemctl restart openresult, /usr/bin/systemctl is-active openresult
+```
+
+Anything else — reading `/etc/shadow`, restarting nginx, opening a shell — is refused. A leaked
+GitHub secret is then worth one directory and one service restart, not the machine. `deploy` is
+also listed in `AllowUsers` in `/etc/ssh/sshd_config.d/10-hardening.conf`, without which sshd
+rejects it before ever looking at the key.
+
+The host key is pinned in the `DEPLOY_KNOWN_HOSTS` secret rather than accepted on first sight:
+trusting an unknown host is trusting whoever answers the address that day.
+
+| Secret / variable    | What it is                            |
+| -------------------- | ------------------------------------- |
+| `DEPLOY_SSH_KEY`     | Private key of the `deploy` account   |
+| `DEPLOY_KNOWN_HOSTS` | The server's own host keys            |
+| `DEPLOY_TARGET`      | `deploy@…` — a variable, not a secret |
 
 ## The one thing that is not in this repository
 
