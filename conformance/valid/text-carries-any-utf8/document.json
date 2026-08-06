@@ -1,0 +1,55 @@
+{
+  "openresult": "1.0",
+  "title": "Championnat régional — 10 km · 第一回",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivaș"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist",
+      "shortName": "Bö"
+    },
+    {
+      "id": "cai",
+      "name": "蔡 明"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

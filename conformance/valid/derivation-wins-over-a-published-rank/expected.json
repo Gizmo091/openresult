@@ -1,0 +1,20 @@
+{
+  "valid": true,
+  "warnings": ["OR-902"],
+  "rankings": {
+    "general": [
+      {
+        "participant": "bo",
+        "rank": 1
+      },
+      {
+        "participant": "ana",
+        "rank": 2
+      },
+      {
+        "participant": "cai",
+        "rank": 3
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-201",
+      "path": "/results/0/ranks/scratch"
+    }
+  ]
+}

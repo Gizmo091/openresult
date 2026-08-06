@@ -1,0 +1,15 @@
+{
+  "valid": true,
+  "rankings": {
+    "heat-1": [
+      {
+        "participant": "ana",
+        "rank": 1
+      },
+      {
+        "participant": "cai",
+        "rank": 2
+      }
+    ]
+  }
+}

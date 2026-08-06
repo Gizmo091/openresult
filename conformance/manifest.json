@@ -19,6 +19,14 @@
       "path": "invalid/OR-102-attribute-type-mismatch"
     },
     {
+      "id": "OR-102-version-is-not-negative",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.4.2",
+      "description": "A republication version is a non-negative integer.",
+      "path": "invalid/OR-102-version-is-not-negative"
+    },
+    {
       "id": "OR-102-wrong-type",
       "kind": "invalid",
       "level": "reading",
@@ -27,12 +35,28 @@
       "path": "invalid/OR-102-wrong-type"
     },
     {
+      "id": "OR-103-document-status-outside-the-enumeration",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.4.1",
+      "description": "Document status is one of the declared values.",
+      "path": "invalid/OR-103-document-status-outside-the-enumeration"
+    },
+    {
       "id": "OR-103-value-outside-domain",
       "kind": "invalid",
       "level": "reading",
       "rule": "spec §5.1.2",
       "description": "An enumeration value is outside its domain.",
       "path": "invalid/OR-103-value-outside-domain"
+    },
+    {
+      "id": "OR-104-document-id-is-an-identifier",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.3.1",
+      "description": "The document id follows the identifier rule.",
+      "path": "invalid/OR-104-document-id-is-an-identifier"
     },
     {
       "id": "OR-104-identifier-charset",
@@ -91,6 +115,14 @@
       "path": "invalid/OR-110-unit-on-a-non-numeric-attribute"
     },
     {
+      "id": "OR-201-rank-in-an-undeclared-ranking",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.5.4",
+      "description": "A ranks key naming an undeclared ranking is a reference error.",
+      "path": "invalid/OR-201-rank-in-an-undeclared-ranking"
+    },
+    {
       "id": "OR-201-undeclared-reference",
       "kind": "invalid",
       "level": "reading",
@@ -105,6 +137,14 @@
       "rule": "spec §5.4.2",
       "description": "Two entries in one collection share an id.",
       "path": "invalid/OR-202-duplicate-identifier"
+    },
+    {
+      "id": "OR-202-two-measures-share-an-id",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.1",
+      "description": "Measure identifiers are unique within a document.",
+      "path": "invalid/OR-202-two-measures-share-an-id"
     },
     {
       "id": "OR-203-duplicate-participant-event",
@@ -229,38 +269,6 @@
       "path": "invalid/OR-902-rank-disagrees-with-derivation"
     },
     {
-      "id": "compat-unknown-enums",
-      "kind": "invalid",
-      "level": "reading",
-      "rule": "spec §11.3.1",
-      "description": "A document carrying enumeration values from a later version is not conforming to 1.0, yet must still be readable: unknown values fold onto their documented fallback.",
-      "path": "invalid/compat-unknown-enums"
-    },
-    {
-      "id": "unknown-enumerations-outside-ranking",
-      "kind": "invalid",
-      "level": "reading",
-      "rule": "spec §4.4.4",
-      "description": "A document status, a participant type, an event type and an asset type from a later version each fold onto their documented fallback, and the ranking is unaffected.",
-      "path": "invalid/unknown-enumerations-outside-ranking"
-    },
-    {
-      "id": "unknown-kind-and-direction-fold",
-      "kind": "invalid",
-      "level": "ranking",
-      "rule": "spec §5.1.6",
-      "description": "An unknown kind and direction are errors against the declared version, and a consumer still reads them as text and none — so the document ranks.",
-      "path": "invalid/unknown-kind-and-direction-fold"
-    },
-    {
-      "id": "unknown-status-reads-as-finished",
-      "kind": "invalid",
-      "level": "ranking",
-      "rule": "spec §7.2.2",
-      "description": "An unknown status is an error against the declared version and still reads as finished, so the result ranks.",
-      "path": "invalid/unknown-status-reads-as-finished"
-    },
-    {
       "id": "OR-904-result-outside-the-announced-field",
       "kind": "valid",
       "level": "ranking",
@@ -325,6 +333,14 @@
       "path": "valid/OR-911-published-positions-missing"
     },
     {
+      "id": "assign-gives-tied-results-the-same-rank",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.4",
+      "description": "Results equal on every sortBy measure share a rank, and the next result skips it.",
+      "path": "valid/assign-gives-tied-results-the-same-rank"
+    },
+    {
       "id": "compat-extensions",
       "kind": "valid",
       "level": "rewriting",
@@ -339,6 +355,22 @@
       "rule": "spec §11.4.2",
       "description": "A higher minor version is read normally.",
       "path": "valid/compat-higher-minor"
+    },
+    {
+      "id": "compat-unknown-enums",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §11.3.1",
+      "description": "A document carrying enumeration values from a later version is not conforming to 1.0, yet must still be readable: unknown values fold onto their documented fallback.",
+      "path": "invalid/compat-unknown-enums"
+    },
+    {
+      "id": "derivation-wins-over-a-published-rank",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §7.5.2",
+      "description": "A published rank is informative; the ranking is derived from the values.",
+      "path": "valid/derivation-wins-over-a-published-rank"
     },
     {
       "id": "direction-comes-only-from-the-measure",
@@ -379,6 +411,22 @@
       "rule": "spec §7.2.4",
       "description": "Results excluded by status follow the ranked ones without a rank rather than being dropped.",
       "path": "valid/excluded-results-stay-visible"
+    },
+    {
+      "id": "full-date-in-occurred-at-and-date-attributes",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.6.2",
+      "description": "A bare date is accepted in occurredAt and in date attributes.",
+      "path": "valid/full-date-in-occurred-at-and-date-attributes"
+    },
+    {
+      "id": "generated-at-and-occurred-at-are-different-times",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.6.3",
+      "description": "generatedAt records publication; occurredAt records the period covered.",
+      "path": "valid/generated-at-and-occurred-at-are-different-times"
     },
     {
       "id": "kind-mass",
@@ -533,6 +581,14 @@
       "path": "valid/rank-zero-is-a-value"
     },
     {
+      "id": "ranking-computed-with-no-ranks-published",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §3.3.1",
+      "description": "A document may omit ranks entirely; the ranking follows from the declared semantics.",
+      "path": "valid/ranking-computed-with-no-ranks-published"
+    },
+    {
       "id": "ranking-ordered-by-published-positions",
       "kind": "valid",
       "level": "ranking",
@@ -549,6 +605,14 @@
       "path": "valid/ranks-per-ranking"
     },
     {
+      "id": "required-members-alone-are-a-document",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.1.2",
+      "description": "A document carrying only the required members is conforming.",
+      "path": "valid/required-members-alone-are-a-document"
+    },
+    {
       "id": "scale-bounds-and-attribute-units",
       "kind": "valid",
       "level": "ranking",
@@ -563,6 +627,14 @@
       "rule": "spec §8.1.3",
       "description": "An event and a category in the same scope narrow the selection; a result must satisfy both.",
       "path": "valid/scope-event-and-category-intersect"
+    },
+    {
+      "id": "selection-keeps-only-what-scope-names",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.1",
+      "description": "Selection retains only the results a ranking's scope names.",
+      "path": "valid/selection-keeps-only-what-scope-names"
     },
     {
       "id": "status-bye-ranks",
@@ -597,12 +669,52 @@
       "path": "valid/team-legs-in-a-child-event"
     },
     {
+      "id": "text-carries-any-utf8",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.1.4",
+      "description": "Text members carry any UTF-8, including scripts outside Latin-1.",
+      "path": "valid/text-carries-any-utf8"
+    },
+    {
       "id": "ties-resolved-breaks-tie-by-published-rank",
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §8.3.4",
       "description": "Under ties: resolved, published positions settle a residual tie; an unsettled pair is numbered as under standard.",
       "path": "valid/ties-resolved-breaks-tie-by-published-rank"
+    },
+    {
+      "id": "unknown-enumerations-outside-ranking",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.4.4",
+      "description": "A document status, a participant type, an event type and an asset type from a later version each fold onto their documented fallback, and the ranking is unaffected.",
+      "path": "invalid/unknown-enumerations-outside-ranking"
+    },
+    {
+      "id": "unknown-kind-and-direction-fold",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §5.1.6",
+      "description": "An unknown kind and direction are errors against the declared version, and a consumer still reads them as text and none — so the document ranks.",
+      "path": "invalid/unknown-kind-and-direction-fold"
+    },
+    {
+      "id": "unknown-status-reads-as-finished",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.2.2",
+      "description": "An unknown status is an error against the declared version and still reads as finished, so the result ranks.",
+      "path": "invalid/unknown-status-reads-as-finished"
+    },
+    {
+      "id": "unranked-follow-the-ranked-in-declaration-order",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.5",
+      "description": "Unranked results come last, in declaration order, with no rank.",
+      "path": "valid/unranked-follow-the-ranked-in-declaration-order"
     }
   ]
 }

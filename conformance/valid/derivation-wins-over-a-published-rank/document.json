@@ -1,0 +1,63 @@
+{
+  "openresult": "1.0",
+  "title": "Published positions disagree with the times",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "ranks": {
+        "general": 1
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "ranks": {
+        "general": 2
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      },
+      "ranks": {
+        "general": 3
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

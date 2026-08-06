@@ -1,0 +1,15 @@
+{
+  "openresult": "1.0",
+  "title": "Required members only",
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana"
+    }
+  ]
+}
