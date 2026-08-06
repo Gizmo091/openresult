@@ -84,6 +84,33 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
     });
   }
 
+  // A participant nobody competed as. Measures, attributes, rankings and
+  // categories all had a diagnostic for being declared and unused; participants
+  // did not, and a wine competition that declared its jurors as participants —
+  // because there was nowhere else to put them — passed in silence.
+  const competed = new Set(document.results.map((result) => result.participant));
+  const inTeam = new Set(document.participants.flatMap((participant) => participant.members ?? []));
+
+  // Not when the document has no results at all. An announced event publishes
+  // its entry list before anyone has competed, which is a documented and valid
+  // shape — warning about every entrant there would be shouting at the normal
+  // case, which is how a diagnostic teaches people to ignore it.
+  const anyResults = document.results.length > 0;
+
+  document.participants.forEach((participant, index) => {
+    if (!anyResults) return;
+    if (competed.has(participant.id) || inTeam.has(participant.id)) return;
+    found.push(
+      diagnostic(
+        'OR-910',
+        pointer('participants', index),
+        `"${participant.name}" is declared but holds no result and belongs to no team, so ` +
+          `nothing in this document says what they did.`,
+        `Give them a result — a status is enough for someone who did not start — or remove them.`,
+      ),
+    );
+  });
+
   (document.measures ?? []).forEach((measure, index) => {
     if (!usedMeasureIds.has(measure.id)) {
       found.push(

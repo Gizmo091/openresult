@@ -1,0 +1,26 @@
+{
+  "openresult": "1.0",
+  "title": "A participant who did nothing",
+  "lang": "en",
+  "description": "B is declared, holds no result and belongs to no team, so nothing here says what they did. A competitor who did not start still has a result — a status alone is enough — which is why this is worth a warning (spec §6.1.7).",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 55.1 } },
+    { "participant": "c", "status": "dns" }
+  ],
+  "rankings": [{ "id": "main", "label": "Main", "sortBy": ["time"] }]
+}

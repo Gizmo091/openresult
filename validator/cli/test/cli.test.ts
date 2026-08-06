@@ -122,13 +122,21 @@ describe('machine output', () => {
     expect(payload['formatVersion']).toBe('1.0');
     expect((payload['errors'] as { code: string }[])[0]?.code).toBe('OR-201');
 
-    // One warning rides along: the declared measure goes unused (OR-901).
-    // OR-908 does not fire — the dangling result carries none of the sorting
-    // measures, so it has no place in that ranking rather than an incomplete
-    // record. Errors and warnings are counted separately, which is the point.
-    expect(payload['summary']).toEqual({ errors: 1, warnings: 1 });
+    // Errors and warnings are counted separately, which is the point here — not
+    // how many warnings this particular fixture happens to raise. Pinning the
+    // total made this test fail every time a diagnostic was added, which says
+    // nothing about the machine output it is meant to check.
+    const summary = payload['summary'] as { errors: number; warnings: number };
     const warningCodes = (payload['warnings'] as { code: string }[]).map((w) => w.code);
+
+    expect(summary.errors).toBe(1);
+    expect(summary.warnings).toBe(warningCodes.length);
+
+    // The declared measure goes unused. OR-908 does not fire: the dangling
+    // result carries none of the sorting measures, so it has no place in that
+    // ranking rather than an incomplete record.
     expect(warningCodes).toContain('OR-901');
+    expect(warningCodes).not.toContain('OR-908');
   });
 });
 

@@ -73,6 +73,7 @@ export const CATALOGUE = {
   'OR-907': { severity: 'warning', rule: 'spec §9.1.1' },
   'OR-908': { severity: 'warning', rule: 'spec §8.5.2' },
   'OR-909': { severity: 'warning', rule: 'spec §5.1.8' },
+  'OR-910': { severity: 'warning', rule: 'spec §6.1.7' },
 } as const satisfies Record<string, CatalogueEntry>;
 
 export type DiagnosticCode = keyof typeof CATALOGUE;

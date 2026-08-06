@@ -261,6 +261,14 @@
       "path": "valid/OR-908-unranked-for-missing-measure"
     },
     {
+      "id": "OR-910-participant-without-result",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §6.1.7",
+      "description": "A declared participant with no result and no team is warned about; one who did not start carries a status and is not.",
+      "path": "valid/OR-910-participant-without-result"
+    },
+    {
       "id": "compat-extensions",
       "kind": "valid",
       "level": "rewriting",

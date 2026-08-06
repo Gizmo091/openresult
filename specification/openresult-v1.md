@@ -498,6 +498,18 @@ and events carry `name` instead, for the same purpose.
 every entity that carries one: measures, attribute definitions, participants, events, rankings,
 categories, `source`, links, assets, and the document itself. Neither member is ever parsed.
 
+**§6.1.7** A declared participant that holds no result and belongs to no team is reported as
+`OR-910`, a warning — unless the document carries no results at all, which is an announced event
+publishing its entry list in advance ([§7](#7-results)). A competitor who did not start still has a result — a status alone is enough
+([§7.2](#72-status)) — so a participant with nothing attached is usually a name that was declared
+and then never used.
+
+_Non-normative: this is the counterpart of §5.1.7 and §5.3.6 for the one entity that lacked it.
+An outside reader declaring a tasting panel found that jurors could be added as participants and
+carry no result at all, with nothing to signal that the format was being used for something it
+does not model — a juror does not compete (§2.2). The warning does not forbid it; it says the
+document is claiming something it never shows._
+
 ### 6.2 `events`
 
 ```jsonc
@@ -1120,7 +1132,7 @@ plain language, and at least one concrete correction.
 | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `OR-101` | error    | Required member missing (§4.1.1)                                                                                                                                                 |
 | `OR-102` | error    | Member has the wrong type (§5.2.1, §7.3.3)                                                                                                                                       |
-| `OR-103` | error    | Value outside its permitted domain (§5.1.2, §7.2.1)                                                                                                                              |
+| `OR-103` | error    | Value outside its permitted domain, judged against the declared version (§5.1.2, §7.2.1, §7.2.2)                                                                                 |
 | `OR-104` | error    | Identifier does not match the permitted character set (§5.4.1)                                                                                                                   |
 | `OR-105` | error    | Unknown member, not prefixed `x-` (§10.2.4)                                                                                                                                      |
 | `OR-106` | error    | Timestamp is not RFC 3339 with an offset, where §4.6.2 does not allow a full-date (§4.6.1)                                                                                       |
@@ -1151,6 +1163,7 @@ plain language, and at least one concrete correction.
 | `OR-907` | warning  | A declared category selects no result (§9.1.1)                                                                                                                                   |
 | `OR-908` | warning  | A ranking leaves selected results unranked for want of a sorting measure (§8.5.2)                                                                                                |
 | `OR-909` | warning  | A value falls outside the scale its measure declares (§5.1.8)                                                                                                                    |
+| `OR-910` | warning  | A declared participant holds no result and belongs to no team (§6.1.7)                                                                                                           |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 
