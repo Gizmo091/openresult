@@ -27,6 +27,14 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Build first. Everything below reads what it produces: the repository
+      # checks measure the built bundle, the conformance runner imports it, and
+      # the site's tests serve `site/dist`. `check.yml` learned this the hard
+      # way; this file had the same ordering and nobody saw it, because it only
+      # runs on a tag.
+      - name: Build
+        run: pnpm build
+
       # A release that has not passed the invariants and the conformance suite
       # is not a release. Publishing is irreversible on npm: a bad version can
       # be deprecated but never withdrawn.
@@ -38,9 +46,6 @@ jobs:
 
       - name: Conformance suite
         run: pnpm conformance
-
-      - name: Build
-        run: pnpm build
 
       # Packages are named one by one rather than globbed. The glob over
       # `sdk/js/packages/*` silently omitted the viewer, which lives elsewhere

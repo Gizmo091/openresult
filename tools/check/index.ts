@@ -4,6 +4,7 @@ import { compiledValidator } from './compiled-validator.ts';
 import { conformanceManifest } from './conformance-manifest.ts';
 import { noSecrets } from './no-secrets.ts';
 import { publishablePackages } from './publishable-packages.ts';
+import { workflowsBuildFirst } from './workflows-build-first.ts';
 import { diagnosticsCiteRules } from './diagnostics-cite-rules.ts';
 import { sourcesAreTracked } from './sources-are-tracked.ts';
 import { unitVocabulary } from './unit-vocabulary.ts';
@@ -46,6 +47,7 @@ const CHECKS: Check[] = [
   conformanceManifest,
   noSecrets,
   publishablePackages,
+  workflowsBuildFirst,
   diagnosticsCiteRules,
   sourcesAreTracked,
   unitVocabulary,
