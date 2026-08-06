@@ -1,6 +1,6 @@
 {
   "name": "@openresult/playground",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Paste an OpenResult document, see it rendered and validated as you type.",
   "license": "Apache-2.0",
   "type": "module",

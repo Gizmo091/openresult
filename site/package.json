@@ -1,6 +1,6 @@
 {
   "name": "@openresult/site",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "openresult.dev — the specification, the examples, and a viewer anything can post to.",
   "license": "Apache-2.0",
   "type": "module",
