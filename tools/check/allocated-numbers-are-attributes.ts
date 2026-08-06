@@ -9,15 +9,15 @@ const SPEC = join(repoRoot, 'specification/openresult-v1.md');
 /**
  * The examples teach. When they contradict the text, the text loses.
  *
- * §5.3 says an attribute is a descriptive property, neither measured nor ranked.
- * Four reference examples declared the bib, the kart number, the race number and
- * the car number as **measures** — `kind: "count"`, `betterWhen: "none"`. An
- * outside reader reasoned from §5.3 that a lane is allocated rather than
- * observed, chose an attribute for it, and then found the corpus saying the
- * opposite. Their report called it the sharpest interoperability divergence they
- * found, and it was backed by our own examples: two producers put the same datum
- * in two different places, and a consumer composing columns from
- * `measureOrder`/`attributeOrder` renders them differently.
+ * §5.3 says an attribute is a descriptive property, neither measured nor
+ * ranked. Four reference examples declared the bib, the kart number, the race
+ * number and the car number as **measures** — `kind: "count"`,
+ * `betterWhen: "none"`. Reasoning from §5.3 — a lane is allocated rather than
+ * observed — gives an attribute, and the corpus then said the opposite. It is
+ * the sharpest interoperability divergence the format has had, and it was
+ * backed by our own examples: two producers put the same datum in two different
+ * places, and a consumer composing columns from `measureOrder`/`attributeOrder`
+ * renders them differently.
  *
  * §5.3.5 now settles it. This checks the corpus obeys.
  *

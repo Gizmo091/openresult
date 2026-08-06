@@ -5,13 +5,12 @@
 
 ## Context
 
-Two outside readers, working independently on giant slalom and competitive angling, hit the same
+Giant slalom and competitive angling reach the same
 seam from opposite sides.
 
 The skier who runs the first leg cleanly and misses the cut for the second has **taken part** and
 has a recorded time, but does not appear in the classification. No status fitted: `finished` is
-false, `dnf` is false — he finished his run — and `outOfTime` is a different thing. The reader
-chose `outOfTime` and added an `x-classificationCode: "DNQ"` extension, then pointed out that the
+false, `dnf` is false — he finished his run — and `outOfTime` is a different thing. The choice made under duress was `outOfTime` and added an `x-classificationCode: "DNQ"` extension, then pointed out that the
 examples README claims no reference domain has ever needed one. Giant slalom needed one.
 
 The angler who blanks has caught nothing. He declares `weight: 0` — a real measurement, a net
@@ -49,7 +48,7 @@ already unranked by §8.5.2, so no status is strictly needed. Rejected: it confl
 purpose" with "the record happens to be incomplete", and it is exactly the conflation that made
 `OR-908` unusable.
 
-**Reuse `outOfTime`.** What the reader did under duress. Rejected: it is a specific outcome — over
+**Reuse `outOfTime`.** What the constraint forces. Rejected: it is a specific outcome — over
 a time limit — and a consumer rendering "outside the time limit" for a skier who missed a
 placings cut publishes something false.
 

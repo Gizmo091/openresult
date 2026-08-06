@@ -14,7 +14,7 @@ const CATALOGUE = join(repoRoot, 'sdk/js/packages/validate/src/diagnostics.ts');
  * across editorial revisions precisely so a diagnostic can point at one. Three
  * warnings pointed at "§12.2" instead — a section, not a rule — which tells a
  * producer that something is wrong and gives them a page to search rather than a
- * sentence to read. An outside reader noticed, and was right to.
+ * sentence to read. It is a real gap, and worth closing.
  *
  * This checks both directions of the same failure: a citation that names no
  * rule, and a citation that is only a section number.

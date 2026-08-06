@@ -5,12 +5,12 @@
 
 ## Context
 
-An outside reader encoded a three-day swimming meet. Two findings came out of validating what they
+A three-day swimming meet was encoded from the specification alone. Two findings came out of validating what they
 wrote, and neither was their mistake.
 
 **Thirty-one rejections, one cause.** §6.1.6 states that `description` "is **OPTIONAL** on every
 entity that carries one" — a label or, per §6.1.5, a name. The schema accepted it on three: the
-document, measures, attribute definitions. The reader believed the specification and wrote
+document, measures, attribute definitions. Believing the specification meant writing
 `description` on eighteen participants, seven events, five rankings and a category. Every one was
 rejected by our own validator, with a code that suggests the member is a typo. A producer followed
 the rules and was punished for it. This is worse than a format that never promised: the promise is
@@ -20,7 +20,7 @@ what they acted on.
 last place in the final. Under World Aquatics rules the tie is broken by swimming it again. The
 reader published positions 8 and 9 in `ranks`, and `OR-902` reported a divergence — correctly, by
 §3.3.2, since the measures derive 8 for both. No measure in the document holds the swim-off, so
-the warning was permanent. The reader's report put it plainly: a pipeline treating warnings as
+the warning was permanent. Put plainly: a pipeline treating warnings as
 failures pushes the producer either to erase the swim-off, or to invent a fictitious tie-break
 measure. Their explanation of all this sat in the ranking's `description` — itself rejected by the
 first defect.
@@ -74,6 +74,6 @@ positions out of three has not said where the third belongs, and guessing is how
 behaviour nobody documented.
 
 **Narrow §6.1.6 to the three entities that already worked.** Cheaper, and the schema would have
-been right by construction. Rejected: the promise was the better design. Three readers assumed
+been right by construction. Rejected: the promise was the better design. Three separate documents assumed
 `description` was general, and the rule "everything that carries a name carries a description" is
 one an implementer retains — a list of three exceptions is not.

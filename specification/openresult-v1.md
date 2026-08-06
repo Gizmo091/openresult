@@ -355,9 +355,9 @@ _Non-normative: this is display, so it is a **SHOULD** — but it belongs here r
 presentation layer, which a consumer may discard entirely (§3.1.1). Everything needed is already
 declared: the kind says it is a duration, the unit says which one, the precision says how many
 decimals survive. No producer has to add anything, and no consumer needs domain knowledge, which
-is the promise §1.1 makes. Leaving it unwritten cost a reader an hour: they searched §5.1.5 and
-all of §10.1 for a rendering hint, found none, concluded the format could not express `2:12.88`,
-and wrote the convention into a `description` that §6.1.6 says is never parsed. The reference
+is the promise §1.1 makes. Leaving it unwritten was expensive: §5.1.5 and all of §10.1 can be searched for a rendering hint
+without finding one, which leads to the conclusion that the format cannot express `2:12.88` and to
+the convention being written into a `description` that §6.1.6 says is never parsed. The reference
 implementation had done this from the start; only the specification was silent._
 
 **§5.2.6** A `count` unit **MUST** name what is counted. A dimensionless placeholder — `n`, `#`,
@@ -423,12 +423,11 @@ figure read off an instrument or a judgement, or handed out beforehand? A measur
 compared, and an allocated number compares to nothing.
 
 _Non-normative: four of this document's own reference examples got this wrong, declaring bib and
-car numbers as measures of `kind: "count"` with `betterWhen: "none"`. An outside reader found
-them, reasoned from §5.3 that a lane is allocated rather than observed, chose an attribute — and
-then noticed the corpus said otherwise. For someone learning the format the examples carry as
-much weight as the text, so the two pointing different ways is the same defect as the text
-contradicting itself. A count needs a unit that names what is counted; `"n"` names nothing, and
-was the tell in every one of the four._
+car numbers as measures of `kind: "count"` with `betterWhen: "none"`. Reasoning from §5.3 — a lane
+is allocated rather than observed — gives an attribute, and the corpus then said otherwise. For
+someone learning the format the examples carry as much weight as the text, so the two pointing
+different ways is the same defect as the text contradicting itself. A count needs a unit that
+names what is counted; `"n"` names nothing, and was the tell in every one of the four._
 
 _Non-normative: alpha-2 is fixed here rather than left open because a consumer rendering a flag
 or grouping by nation cannot do either against a field that is alpha-2 in one document, alpha-3
@@ -449,18 +448,18 @@ declared on any other type, where it would describe nothing.
 terms as an absent measure ([§7.3.2](#73-values)). It does not mean `false`, `zero` or `none`, and
 a producer who needs to state that something is not the case **MUST** write the value.
 
-_Non-normative: a reader with a boolean measure and a boolean attribute of almost the same meaning
-wrote the measure on all sixty-six results, because §7.3.2 told them what silence meant there, and
-the attribute on the two it applied to, because nothing told them anything. Both readings are
-defensible and only one can be right, which is the definition of an omission rather than a
-decision._
+_Non-normative: a document carrying a boolean measure and a boolean attribute of almost the same
+meaning ended up writing the measure on all sixty-six results, because §7.3.2 said what silence
+meant there, and the attribute on the two it applied to, because nothing said anything. Both
+readings are defensible and only one can be right, which is the definition of an omission rather
+than a decision._
 
 _Non-normative: a stage distance, a summit altitude, a bottle price, an alcohol content and a time
 limit all describe an entity rather than a performance, so they are attributes — and until this
-existed, their unit could only be smuggled into the label, as `"Distance (km)"`. Two outside
-readers hit this independently, in cycling and in wine, and both wrote the unit into a display
-string no consumer can read. Measures had a whole section on unit vocabulary and attributes had
-nothing, which was an omission rather than a decision._
+existed, their unit could only be smuggled into the label, as `"Distance (km)"`. The gap turned up
+independently in a cycling document and a wine one, both of which put the unit in a display string
+no consumer can read. Measures had a whole section on unit vocabulary and attributes had nothing,
+which was an omission rather than a decision._
 
 ### 5.4 Identifiers
 
@@ -519,10 +518,10 @@ publishing its entry list in advance ([§7](#7-results)). A competitor who did n
 and then never used.
 
 _Non-normative: this is the counterpart of §5.1.7 and §5.3.6 for the one entity that lacked it.
-An outside reader declaring a tasting panel found that jurors could be added as participants and
-carry no result at all, with nothing to signal that the format was being used for something it
-does not model — a juror does not compete (§2.2). The warning does not forbid it; it says the
-document is claiming something it never shows._
+A tasting panel declared as participants shows why: jurors can be added and carry no result at
+all, with nothing to signal that the format is being used for something it does not model — a
+juror does not compete (§2.2). The warning does not forbid it; it says the document is claiming
+something it never shows._
 
 ### 6.2 `events`
 
@@ -672,7 +671,7 @@ who abandons mid-course is `dnf` on both.
 
 _Non-normative: every status named here is excluded by default (§8.4.2), so the derived standings
 are identical whichever is chosen — the difference is invisible to a ranking and plain on screen.
-A cycling reader found this and chose `dnf` against the wording of §7.2.7, correctly: two
+Choosing `dnf` against the wording of §7.2.7 is correct here: two
 conforming producers were otherwise free to publish "abandoned" and "not classified" for the same
 fact, with no validator able to tell them apart. That is the divergence this format exists to
 prevent, and it does not stop being one because the numbers agree._
@@ -681,7 +680,7 @@ _Non-normative: the earlier wording of §7.2.6 glossed the status as "eliminated
 reads as an instruction to mark the eliminated swimmers of a qualifying heat `notClassified` —
 and since §8.4.2 excludes that status by default, doing so erases them from the heat's own
 standings, which is where they belong. It contradicted §7.2.3, which holds that exclusion is a
-property of a ranking and not of a status. An outside reader hit it and followed §7.2.3._
+property of a ranking and not of a status, and §7.2.3 is the one to follow._
 
 ### 7.3 `values`
 
@@ -792,9 +791,9 @@ _Non-normative: the distinction is whether a new number exists. Three heats of a
 hold the times that the qualifying classification orders — the same times, nothing added, so the
 classification lists the three heats. A championship standing after eight rounds holds a points
 total that appears nowhere else; it has to be published, because no consumer can be asked to
-compute it (§1.2). Getting this backwards was expensive: an outside reader following the earlier
-text republished 73 of their 183 results, and nothing in the document said the two copies were the
-same swim._
+compute it (§1.2). Getting this backwards is expensive: following the earlier text on a swimming meet meant
+republishing 73 results out of 183, with nothing in the document saying that the two copies were
+the same swim._
 
 ### 8.2 `sortBy`
 
@@ -874,8 +873,7 @@ _Non-normative: some results are an order and nothing else. A competitive examin
 behind it; a jury publishes a palmarès; an administration publishes a list. Until this existed,
 such a document could not be written at all — §8.2.1 required a measure, §8.5.2 then left every
 result unranked for want of it, and §7.5.3 rejected the positions as belonging to a ranking that
-does not rank them. An outside reader building an admission list found three `OR-303` errors on a
-document their institution publishes verbatim._
+does not rank them. An admission list of the kind institutions publish verbatim produced three `OR-303` errors._
 
 _The alternative was to invent a measure holding the rank, which §8.3.4's own note names as the
 thing it exists to avoid: "a measure whose only purpose is to encode an answer already known".
@@ -994,11 +992,11 @@ result, which a validator reports as `OR-907`.
 ([§5.3](#53-attributes)). A place count, an admission threshold, a medal quota and a field size
 belong to the group rather than to any competitor in it, and had nowhere else to go.
 
-_Non-normative: two outside readers put such figures into `description`, where §6.1.6 guarantees
-nothing will read them — a wine competition's medal quota, an examination's number of places and
-its cut-off mark. Both are numbers the organiser is often required to publish, and both are
-properties of a category. Categories were the last entity whose member list was closed, which is
-the whole reason they went into prose._
+_Non-normative: such figures used to end up in `description`, where §6.1.6 guarantees nothing will
+read them — a wine competition's medal quota, an examination's number of places and its cut-off
+mark. Both are numbers the organiser is often required to publish, and both are properties of a
+category. Categories were the last entity whose member list was closed, which is the whole reason
+they went into prose._
 
 ### 9.2 `source`
 

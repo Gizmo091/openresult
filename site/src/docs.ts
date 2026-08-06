@@ -8,7 +8,7 @@ import { chrome, element } from './shell.js';
  *
  * The ADRs are the part worth reading twice: each one carries the alternatives
  * that were turned down and why, which is the only honest way to explain a
- * format's shape. Several exist because an outside reader broke something.
+ * format's shape. Several exist because something broke when the format met a domain it had not seen.
  */
 
 const { main } = chrome();

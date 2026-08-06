@@ -5,33 +5,33 @@
 
 ## Context
 
-Two outside readers worked from the specification alone, in domains the corpus does not cover: a
+Two documents were built from the specification alone, in domains the corpus does not cover: a
 six-stage cycling race and a blind wine competition. Both documents validated with no error and no
-warning, which had not happened before. Their reports are therefore about what the format cannot
+warning, which had not happened before. What came back is therefore about what the format cannot
 say rather than about what it says wrongly, and they arrived at two of the same conclusions
 independently.
 
 **A score has no scale.** A wine is marked out of 10 for appearance, 30 for nose, 40 for palate,
 20 for harmony. `"nose": 27` is excellent out of 30 and poor out of 100. §5.1 offered `id`,
-`label`, `kind`, `unit`, `precision`, `betterWhen`, `description` — nowhere to put the maximum. The
-reader wrote it into `description`, which §6.1.6 says is never parsed, and observed that this is
-the exact scenario §5.2.5's own note tells about durations: searched §5.1.5, searched §10.1, found
-nothing, wrote the convention where nothing can read it.
+`label`, `kind`, `unit`, `precision`, `betterWhen`, `description` — nowhere to put the maximum. It
+went into `description`, which §6.1.6 says is never parsed, and that is the exact scenario §5.2.5's
+own note tells about durations: search §5.1.5, search §10.1, find nothing, write the convention
+where nothing can read it.
 
 **An attribute has no unit.** A stage distance, a summit altitude, an elimination time limit, a
 bottle price, an alcohol content: all describe an entity rather than a performance, so all are
-attributes. Attributes have a `type` and no `unit`. Both readers ended up with
-`"label": "Distance (km)"` — the unit in a display string. As the cycling reader put it, measures
+attributes. Attributes have a `type` and no `unit`. Both ended up with
+`"label": "Distance (km)"` — the unit in a display string. Put another way, measures
 got a whole section on unit vocabulary and two non-normative notes; attributes got nothing, which
 reads as an omission rather than a decision.
 
-Three smaller things came from the same pair of reports:
+Three smaller things came out of the same pair:
 
 - **§8.5 never mentions `resolved`.** A mass finish in road cycling gives every rider in the group
   the same time, and they are still classified in the order they crossed the line — the normal case
-  of an entire sport, not the exception §8.3.4's note describes. The reader spent twenty-five
-  minutes establishing that sort stability (§8.5.3) orders the array and not the rank, then found
-  `resolved` by reading §8.3 to the end.
+  of an entire sport, not the exception §8.3.4's note describes. Establishing that sort stability
+  (§8.5.3) orders the array and not the rank, and then finding `resolved` by reading §8.3 to the
+  end, costs twenty-five minutes.
 - **§7.2.7 forced `notClassified` on an aggregate event**, which destroys the difference between a
   rider who abandoned, one eliminated on time, and one disqualified. All are excluded by default,
   so the derived standings are identical and the screen is not.
@@ -59,7 +59,7 @@ specific applies.
   and competitions all mark against a maximum, and none of them could say so.
 - A consumer can now render `36/40`, normalise four criteria onto one axis, and notice `47` where
   the maximum is 40 — the last of which no validator could previously catch.
-- **A union is not an intersection, and saying so cost me a wrong commit.** My first draft of
+- **A union is not an intersection, and getting that wrong nearly shipped.** The first draft of
   §8.1.2's note claimed that listing a colour and two price bands expressed "the reds under €15".
   It does not: categories combine as a union, so adding the colour widens the selection. The
   conformance case written to demonstrate the claim disproved it, and the rule now states the
@@ -73,8 +73,8 @@ specific applies.
 
 **Leave scales to `x-` extensions.** The format has an extension mechanism precisely for gaps.
 Rejected on the corpus's own criterion: `examples/README.md` says a reference domain needing an
-extension reveals a gap in the format. The wine reader declined to use one for exactly that reason
-and wrote a report instead, which was the more useful thing to do.
+extension reveals a gap in the format. The wine document declined to use one for exactly that
+reason, which is what made the gap visible.
 
 **A single `scale` object, `{ "min": 0, "max": 40 }`.** Tidier to read. Rejected: it makes the
 common case — a maximum with no meaningful minimum — carry a container for one value, and every

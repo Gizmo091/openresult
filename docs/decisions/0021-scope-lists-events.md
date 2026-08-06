@@ -5,7 +5,7 @@
 
 ## Context
 
-The swimming reader's report ended with four things the format could not express, or expressed
+The swimming document ended with four things the format could not express, or expressed
 only through a workaround they described and disliked. All four came from the same session, and
 three of them turned out to be one problem.
 
@@ -31,7 +31,7 @@ machine — and the takeovers became `takeover2`, `takeover3`, `takeover4`: one 
 position, gaining a declaration every time a team gets longer.
 
 **And a duration could not be shown as `2:12.88`.** §5.2.2 requires a plain number, correctly.
-`precision` counts decimals and says it "affects display only". The reader searched §5.1.5 and all
+`precision` counts decimals and says it "affects display only". Searching §5.1.5 and all
 of §10.1 for a rendering hint, found none, concluded the format could not express it, and wrote
 the convention into a `description` that §6.1.6 says is never parsed.
 
@@ -55,7 +55,7 @@ dropped, declared precision kept on the seconds.
 
 ## Consequences
 
-- The reader's 73 duplicate results become zero: the qualifying classification lists its three
+- The 73 duplicate results become zero: the qualifying classification lists its three
   heats, each keeps its own start time and its own order. The session standing and the
   across-events award are the same shape.
 - Listing is enumeration, not evaluation. A consumer selects by reading a list, which keeps

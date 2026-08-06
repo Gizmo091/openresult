@@ -6,6 +6,7 @@ import { noSecrets } from './no-secrets.ts';
 import { publishablePackages } from './publishable-packages.ts';
 import { workflowsBuildFirst } from './workflows-build-first.ts';
 import { diagnosticsCiteRules } from './diagnostics-cite-rules.ts';
+import { siteLinksResolve } from './site-links-resolve.ts';
 import { sourcesAreTracked } from './sources-are-tracked.ts';
 import { unitVocabulary } from './unit-vocabulary.ts';
 import { defaultExclusionsAgree } from './default-exclusions-agree.ts';
@@ -49,6 +50,7 @@ const CHECKS: Check[] = [
   publishablePackages,
   workflowsBuildFirst,
   diagnosticsCiteRules,
+  siteLinksResolve,
   sourcesAreTracked,
   unitVocabulary,
   descriptionEverywhere,

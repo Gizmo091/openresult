@@ -9,8 +9,8 @@ const SPEC = join(repoRoot, 'specification/openresult-v1.md');
 /**
  * Internal coherence of the specification.
  *
- * Two outside readers found six defects that were all the same mistake: a rule
- * added without checking what it contradicted elsewhere. A diagnostic code
+ * Six defects were found at once, all the same mistake: a rule added without
+ * checking what it contradicted elsewhere. A diagnostic code
  * defined twice, a rule with no code, sections out of order, an index that had
  * stopped matching its own document.
  *

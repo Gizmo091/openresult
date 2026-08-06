@@ -5,7 +5,7 @@
 
 ## Context
 
-Three findings from the same swimming reader, all of them about the specification disagreeing
+Three findings from one swimming document, all of them about the specification disagreeing
 with itself or with its own examples.
 
 **§7.2.6 contradicted §7.2.3.** It glossed `notClassified` as covering a competitor "eliminated in
@@ -13,7 +13,7 @@ a heat, outside a qualification cut". A swimmer placed seventeenth in a qualifyi
 eliminated in a heat by those words — but §8.4.2 excludes `notClassified` by default, so marking
 her erases her from the heat's own standings, which is exactly where she belongs, at seventeenth.
 Meanwhile §7.2.3 holds that exclusion is a property of a ranking and never of a status. The two
-cannot both stand. The reader followed §7.2.3 and wrote `finished`, and said the phrase would
+cannot both stand. Following §7.2.3 gives `finished`, and the phrase would
 mislead any producer of results with rounds.
 
 **§6.3 carried an obligation it had no authority to impose.** §8.1.1 forbids a scoped ranking from
@@ -23,7 +23,7 @@ attached to that event". §2.1 says non-normative text imposes no requirement. S
 first question every rounds-based domain asks was, formally, not a rule at all.
 
 **Four reference examples contradicted §5.3.** `bib`, `kartNumber`, `number` and `carNumber` were
-declared as measures of `kind: "count"`, `unit: "n"`, `betterWhen: "none"`. The reader reasoned
+declared as measures of `kind: "count"`, `unit: "n"`, `betterWhen: "none"`. Reasoning
 from §5.3 — an attribute is descriptive, neither measured nor ranked; a lane is allocated, not
 observed — chose an attribute, and then found the corpus doing the opposite. For someone learning
 the format the examples carry as much authority as the text.
@@ -50,7 +50,7 @@ beforehand? The four examples were converted.
   The conformance case that covered `notClassified` was itself teaching the error — it marked the
   status on the leg the competitor had cleanly completed — and now shows both halves.
 - `OR-906` gained the case it never had: a parent event declared with no results attached, which
-  the reader called the commonest way to publish a standing that renders empty.
+  the commonest way to publish a standing that renders empty.
 - The corpus lost five measures and gained five attributes. `no-ranking-declared` needed more than
   a conversion: it was built so that its **first** measure had no direction, to prove the implicit
   ranking skips such measures, and that first measure was the bib. It now carries an average heart
@@ -62,7 +62,7 @@ beforehand? The four examples were converted.
 
 ## Alternatives considered
 
-**Keep "eliminated in a heat" and let producers infer the scope.** Rejected: the reader inferred
+**Keep "eliminated in a heat" and let producers infer the scope.** Rejected: the right inference is reachable and still costs time. Inferring
 correctly and still lost time on it, and the sentence read as an instruction. A gloss that has to
 be reasoned around is a defect whatever the surrounding rules say.
 

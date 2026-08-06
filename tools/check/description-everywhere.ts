@@ -13,10 +13,9 @@ const TYPES = join(repoRoot, 'sdk/js/packages/core/src/types.ts');
  * The schema must keep that promise, and so must the published types.
  *
  * It did not. `description` was accepted on the document, measures and attribute
- * definitions, and rejected on the six other named entities. An outside reader
- * who had read §6.1.6 and believed it wrote 31 of them — on participants,
- * events, rankings and a category — and every one was rejected by our own
- * validator. The specification promised what the format did not deliver, which
+ * definitions, and rejected on the six other named entities. A document written from §6.1.6
+ * alone carried 31 of them — on participants, events, rankings and a category —
+ * and every one was rejected by our own validator. The specification promised what the format did not deliver, which
  * is worse than a format that never promised: the producer followed the rules
  * and was punished for it.
  *

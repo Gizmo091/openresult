@@ -28,6 +28,37 @@ function slug(text: string): string {
     .replace(/\s+/g, '-');
 }
 
+/**
+ * A link as written in the repository, as the site serves it.
+ *
+ * Anything left pointing at a `.md` file would 404: the site renders those
+ * documents, it does not serve them.
+ */
+function siteHref(href: string): string {
+  const [path = '', hash] = href.split('#');
+  const suffix = hash === undefined ? '' : `#${hash}`;
+
+  const named = /(?:^|\/)(VISION|ROADMAP)\.md$/i.exec(path);
+  if (named !== null) return `/docs/?p=${(named[1] ?? '').toLowerCase()}${suffix}`;
+
+  const decision = /(?:^|\/)(\d{4}-[a-z0-9-]+)\.md$/.exec(path);
+  if (decision !== null) return `/docs/?p=${decision[1]}${suffix}`;
+
+  if (/openresult-v1\.md$/.test(path)) return `/spec/${suffix}`;
+  if (/(?:^|\/)LICENSE(-DOCS)?$/.test(path)) {
+    return `https://github.com/Gizmo091/openresult/blob/main/${path.replace(/^[./]+/, '')}`;
+  }
+  if (/examples\/.+\.json$/.test(path)) {
+    return `/examples/${path.split('examples/').pop() ?? ''}`;
+  }
+  // Anything else repository-relative: send it to the source, which at least
+  // exists.
+  if (path.startsWith('./') || path.startsWith('../')) {
+    return `https://github.com/Gizmo091/openresult/blob/main/${path.replace(/^[./]+/, '')}`;
+  }
+  return href;
+}
+
 function renderer(): Marked {
   const marked = new Marked({ gfm: true, breaks: false });
   const seen = new Map<string, number>();
@@ -41,6 +72,16 @@ function renderer(): Marked {
         seen.set(base, count + 1);
         const id = count === 0 ? base : `${base}-${count}`;
         return `<h${depth} id="${id}"><a class="anchor" href="#${id}">#</a>${text}</h${depth}>\n`;
+      },
+      // Repository-relative links have to become site paths. `./VISION.md` is
+      // correct in the repository and a 404 on the site, and a broken link in
+      // the one place explaining what the project will never do is the worst
+      // place to have one.
+      link({ href, title, tokens }) {
+        const text = this.parser.parseInline(tokens);
+        const target = siteHref(href);
+        const attrs = title === null || title === undefined ? '' : ` title="${title}"`;
+        return `<a href="${target}"${attrs}>${text}</a>`;
       },
       // Wide tables must scroll inside their own box rather than push the page
       // sideways; the status and diagnostic tables are far too wide for a phone.

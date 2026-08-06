@@ -5,14 +5,14 @@
 
 ## Context
 
-An outside reader implementing a Swiss-system chess tournament from the specification alone found
+Implementing a Swiss-system chess tournament from the specification alone found
 he could not express a **bye**: a competitor who scores without playing, because the field is odd
 or the draw left them unopposed.
 
 Every existing status is wrong for it. `dnf`, `dns`, `dsq`, `outOfTime` and `withdrawn` are all
 excluded from ranking by default — but a bye _scores_, and the points count towards the
 standings. `finished` ranks correctly but asserts something false: the competitor did not
-compete. The reader worked around it by choosing an even field of ten players, and said so:
+compete. The workaround was an even field of ten players, stated outright:
 _"a real distortion of the domain — a 9-round Swiss normally has an odd round somewhere."_
 
 Byes are not chess exotica. They occur in every knockout draw with a non-power-of-two field, in
