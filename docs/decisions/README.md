@@ -27,6 +27,7 @@ one `Superseded by`.
 | [0020](./0020-a-status-describes-its-own-result.md)   | A status describes its own result; aggregation is normative; allocated numbers are attributes | Accepted |
 | [0021](./0021-scope-lists-events.md)                  | A ranking scopes to a list of events; durations have a written rendering                      | Accepted |
 | [0023](./0023-scales-and-attribute-units.md)          | Measures declare a scale, attributes declare a unit                                           | Accepted |
+| [0024](./0024-a-ranking-may-be-the-order.md)          | A ranking may be the order itself; categories carry figures                                   | Accepted |
 
 ## Project decisions
 
