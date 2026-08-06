@@ -1,0 +1,79 @@
+{
+  "openresult": "1.0",
+  "title": "A category with a place count of its own",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    },
+    {
+      "id": "masters",
+      "label": "Masters",
+      "scope": {
+        "category": "masters"
+      },
+      "sortBy": ["time"]
+    }
+  ],
+  "attributes": [
+    {
+      "id": "places",
+      "label": "Places awarded",
+      "type": "number"
+    }
+  ],
+  "categories": [
+    {
+      "id": "masters",
+      "label": "Masters",
+      "participants": ["ana", "cai"],
+      "attributes": {
+        "places": 2
+      }
+    }
+  ]
+}

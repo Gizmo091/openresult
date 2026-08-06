@@ -1,0 +1,35 @@
+{
+  "valid": true,
+  "rankings": {
+    "general": [
+      {
+        "participant": "ana",
+        "rank": 1
+      },
+      {
+        "participant": "bo",
+        "rank": null
+      },
+      {
+        "participant": "cai",
+        "rank": null
+      },
+      {
+        "participant": "dee",
+        "rank": null
+      },
+      {
+        "participant": "eli",
+        "rank": null
+      },
+      {
+        "participant": "fay",
+        "rank": null
+      },
+      {
+        "participant": "gus",
+        "rank": null
+      }
+    ]
+  }
+}

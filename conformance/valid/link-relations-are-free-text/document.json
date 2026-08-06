@@ -1,0 +1,66 @@
+{
+  "openresult": "1.0",
+  "title": "A link relation nothing is expected to understand",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "links": [
+    {
+      "href": "https://example.org/tt/2026",
+      "rel": "official",
+      "label": "Official results"
+    },
+    {
+      "href": "https://example.org/tt/2026/appeal",
+      "rel": "commissaires-panel-minutes",
+      "label": "Panel minutes"
+    }
+  ]
+}

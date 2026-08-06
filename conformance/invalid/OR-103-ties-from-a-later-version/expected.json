@@ -1,0 +1,29 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-103",
+      "path": "/rankings/0/ties"
+    }
+  ],
+  "rankings": {
+    "general": [
+      {
+        "participant": "bo",
+        "rank": 1
+      },
+      {
+        "participant": "ana",
+        "rank": 2
+      },
+      {
+        "participant": "cai",
+        "rank": 2
+      },
+      {
+        "participant": "dee",
+        "rank": 4
+      }
+    ]
+  }
+}

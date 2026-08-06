@@ -1,0 +1,75 @@
+{
+  "openresult": "1.0",
+  "title": "Every presentation hint at once",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "attributes": {
+        "club": "AC Vallonne"
+      }
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist",
+      "attributes": {
+        "club": "Nordic SK"
+      }
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira",
+      "attributes": {
+        "club": "CD Ribeira"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "attributes": [
+    {
+      "id": "club",
+      "label": "Club",
+      "type": "text"
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["time"],
+    "attributeOrder": ["club"]
+  }
+}

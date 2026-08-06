@@ -1,0 +1,101 @@
+{
+  "note": "Normative rules no conformance case can demonstrate, and what stands in for one. A rule reaches this file only when a document cannot exercise it — because it is about a collection of documents, about the specification itself, or about a consumer's display. `evidence` names what does hold it: a repository check, a test file, or `gap` when nothing does. Read alongside conformance/coverage.json, which ratchets the rules cases do cover. Checked by `pnpm check rule-coverage`.",
+  "rules": {
+    "4.4.3": {
+      "evidence": "gap",
+      "why": "Supersession orders documents sharing an id. The suite runs one document at a time, so nothing here can present the second one. Recorded rather than faked: a case holding two documents in one directory would be a different suite."
+    },
+    "4.5.2": {
+      "evidence": "guidance",
+      "why": "Addressed to producers choosing how to publish several languages. It forbids nothing a document can violate — §4.5.1 already covers prose without a declared language, and that has a case."
+    },
+    "5.2.4": {
+      "evidence": "check:unit-vocabulary",
+      "why": "A SHOULD about the unit vocabulary. No diagnostic reports it, so it is enforced over this repository's own documents, where a unit outside the vocabulary for its kind fails the build."
+    },
+    "5.2.5": {
+      "evidence": "test:sdk/js/packages/core/test/format.test.ts",
+      "why": "A rendering rule. The conformance runner compares validity, diagnostics and derived rankings — never display — so the reference formatter's tests are what hold it."
+    },
+    "5.2.6": {
+      "evidence": "gap",
+      "why": "A MUST with no diagnostic behind it: nothing reports a count unit of `n`, `#` or `no`. `unit-vocabulary` catches it in the corpus and nowhere else. Recorded in docs/ROADMAP.md under \"Rules nothing enforces\"."
+    },
+    "5.2.7": {
+      "evidence": "test:sdk/js/packages/core/test/format.test.ts",
+      "why": "A rendering rule, on the same terms as §5.2.5."
+    },
+    "6.1.3": {
+      "evidence": "definition",
+      "why": "States what participant identity does not span. It defines a boundary rather than requiring anything of a document, so there is nothing for a case to accept or reject."
+    },
+    "7.2.8": {
+      "evidence": "gap",
+      "why": "A duty on the producer: choose the most specific status true of an aggregate. Which status is true of an aggregate depends on the sport, so no validator can tell a correct choice from a lazy one. A case could show the recommended shape and would demonstrate nothing."
+    },
+    "8.5.6": {
+      "evidence": "check:cross-implementation",
+      "why": "Determinism is a claim about two consumers, and one case exercises one. The check derives every ranking in the corpus and the suite with both the TypeScript reference and the Python minimal reader, and fails on any disagreement."
+    },
+    "9.2.2": {
+      "evidence": "gap",
+      "why": "A SHOULD that `license` be an SPDX identifier. Nothing validates the identifier against the SPDX list, so a case would assert only that a string is a string."
+    },
+    "10.2.3": {
+      "evidence": "test:sdk/js/packages/conformance/test/rewriting.test.ts",
+      "why": "Preservation is a property of a read-write cycle. The runner reads and never writes, so the round-trip tests are what hold it: unknown members, nested unknown members, x- extensions at every level, and unknown enumeration values kept verbatim despite being read as fallbacks."
+    },
+    "11.2.2": {
+      "evidence": "process",
+      "why": "Constrains what a future MINOR version may do. Nothing in this version can violate it; the first 1.1 draft is what it governs."
+    },
+    "11.5.1": {
+      "evidence": "check:examples",
+      "why": "The producer profile. Every document in the corpus is one, and the check validates all of them with no error."
+    },
+    "11.5.2": {
+      "evidence": "check:conformance-manifest",
+      "why": "Defines the `reading` level the suite selects cases by. The levels are read out of the runner so the two cannot drift, and a case declaring a level the runner does not know fails rather than being skipped."
+    },
+    "11.5.3": {
+      "evidence": "check:conformance-manifest",
+      "why": "Defines the `ranking` level, on the same terms as §11.5.2."
+    },
+    "11.5.4": {
+      "evidence": "check:conformance-manifest",
+      "why": "Defines the `rewriting` level, on the same terms as §11.5.2."
+    },
+    "11.6.1": {
+      "evidence": "process",
+      "why": "Proposes a media type whose registration is pending. Nothing to run until a registry answers."
+    },
+    "11.6.2": {
+      "evidence": "gap",
+      "why": "Requires consumers to accept `application/json`. It governs an HTTP exchange, and the suite reads documents from disk. The site's server accepts both and its tests say so, but that is one consumer rather than the rule."
+    },
+    "11.6.3": {
+      "evidence": "check:examples",
+      "why": "The recommended file extension. Every document under examples/ must be named *.openresult.json, which the check enforces rather than assuming."
+    },
+    "12.1.1": {
+      "evidence": "suite",
+      "why": "The distinction between an error and a warning is what the suite is built on: an invalid case names errors, a valid case may name warnings, and a warning has never made a document invalid. Every case exercises it, which is why none cites it."
+    },
+    "12.1.2": {
+      "evidence": "suite",
+      "why": "That a validator reports both, distinctly, on the same terms as §12.1.1: the report separates them and the runner compares them separately."
+    },
+    "12.1.3": {
+      "evidence": "compiler",
+      "why": "Every diagnostic must carry a location, the rule in plain language and at least one concrete correction. `diagnostic()` takes all three as required parameters, so a call that omits the correction does not build; `diagnostics-cite-rules` checks the signature has not grown an optional marker back. The first attempt at this read the call sites with a regular expression, passed, and had missed the one call it was written to find."
+    },
+    "12.2.1": {
+      "evidence": "check:diagnostics-cite-rules",
+      "why": "A published code is permanent. The check ratchets the code list: a code that has existed must go on existing, and removing one fails."
+    },
+    "12.3.1": {
+      "evidence": "check:rule-coverage",
+      "why": "The rule this file exists to serve. The check is what reads it."
+    }
+  }
+}

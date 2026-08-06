@@ -1,0 +1,19 @@
+{
+  "valid": true,
+  "rankings": {
+    "general": [
+      {
+        "participant": "2",
+        "rank": 1
+      },
+      {
+        "participant": "1",
+        "rank": 2
+      },
+      {
+        "participant": "3",
+        "rank": 3
+      }
+    ]
+  }
+}

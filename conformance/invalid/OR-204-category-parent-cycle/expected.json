@@ -1,0 +1,13 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-204",
+      "path": "/categories/0/parent"
+    },
+    {
+      "code": "OR-204",
+      "path": "/categories/1/parent"
+    }
+  ]
+}

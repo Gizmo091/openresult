@@ -1,0 +1,65 @@
+{
+  "openresult": "1.0",
+  "title": "A tie rule from a later version",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    },
+    {
+      "id": "dee",
+      "name": "Dee Okonkwo"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 600.0
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 600.0
+      }
+    },
+    {
+      "participant": "dee",
+      "values": {
+        "time": 607.4
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"],
+      "ties": "olympic"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "openresult": "1.0",
+  "title": "Identifiers that look like positions and are not",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "1",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "2",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "3",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "1",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "2",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "3",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

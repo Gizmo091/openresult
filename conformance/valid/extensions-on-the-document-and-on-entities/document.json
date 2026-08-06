@@ -1,0 +1,66 @@
+{
+  "openresult": "1.0",
+  "title": "An extension on the document and on every entity",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower",
+      "x-chip": {
+        "decoder": "loop-3"
+      }
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "x-licence": "2026-004512"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "x-splits": [201.4, 200.9, 201.9]
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"],
+      "x-display": {
+        "highlight": "podium"
+      }
+    }
+  ],
+  "x-club": {
+    "federation": "FFC",
+    "region": "Vallonne"
+  }
+}

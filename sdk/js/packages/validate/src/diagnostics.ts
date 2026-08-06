@@ -21,7 +21,8 @@ export interface Diagnostic {
   message: string;
   /** Reference into the normative specification, e.g. "spec §7.3.1". */
   rule: string;
-  suggestion?: string;
+  /** At least one concrete correction. Always present (spec §12.1.3). */
+  suggestion: string;
 }
 
 export interface ValidationReport {
@@ -79,21 +80,25 @@ export const CATALOGUE = {
 
 export type DiagnosticCode = keyof typeof CATALOGUE;
 
+/**
+ * Build a diagnostic.
+ *
+ * `suggestion` is required, not optional: §12.1.3 asks every diagnostic for the
+ * location, the rule in plain language, **and at least one concrete
+ * correction**. The correction is the part a hurried author drops — the
+ * sentence describing the mistake feels like enough — and a producer holding
+ * "this value does not satisfy the schema" has been told they are wrong and
+ * nothing else. Making it a parameter the compiler insists on is cheaper than
+ * any check that reads the source afterwards.
+ */
 export function diagnostic(
   code: DiagnosticCode,
   path: string,
   message: string,
-  suggestion?: string,
+  suggestion: string,
 ): Diagnostic {
   const entry = CATALOGUE[code];
-  return {
-    code,
-    severity: entry.severity,
-    path,
-    message,
-    rule: entry.rule,
-    ...(suggestion === undefined ? {} : { suggestion }),
-  };
+  return { code, severity: entry.severity, path, message, rule: entry.rule, suggestion };
 }
 
 /** Builds an RFC 6901 pointer, escaping `~` and `/` as the standard requires. */

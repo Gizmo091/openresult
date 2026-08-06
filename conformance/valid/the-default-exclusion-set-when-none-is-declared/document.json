@@ -1,0 +1,82 @@
+{
+  "openresult": "1.0",
+  "title": "One of every status excluded by default",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    },
+    {
+      "id": "dee",
+      "name": "Dee Okonkwo"
+    },
+    {
+      "id": "eli",
+      "name": "Eli Nakamura"
+    },
+    {
+      "id": "fay",
+      "name": "Fay Traoré"
+    },
+    {
+      "id": "gus",
+      "name": "Gus Almeida"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "status": "dnf"
+    },
+    {
+      "participant": "cai",
+      "status": "dns"
+    },
+    {
+      "participant": "dee",
+      "status": "dsq"
+    },
+    {
+      "participant": "eli",
+      "status": "notClassified"
+    },
+    {
+      "participant": "fay",
+      "status": "inProgress"
+    },
+    {
+      "participant": "gus",
+      "status": "withdrawn"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

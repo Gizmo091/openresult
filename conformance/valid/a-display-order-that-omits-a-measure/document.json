@@ -1,0 +1,67 @@
+{
+  "openresult": "1.0",
+  "title": "A display order that names one measure and omits another",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    },
+    {
+      "id": "speed",
+      "label": "Average speed",
+      "kind": "rate",
+      "unit": "km/h",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2,
+        "speed": 29.8
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7,
+        "speed": 30.1
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9,
+        "speed": 29.4
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "presentation": {
+    "measureOrder": ["speed"]
+  }
+}

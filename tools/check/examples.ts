@@ -39,6 +39,19 @@ export const examples: Check = {
     const problems: string[] = [];
     let count = 0;
 
+    // §11.6.3 recommends `.openresult.json`, and the glob below only finds
+    // files that follow it — so a document named otherwise would be skipped in
+    // silence rather than reported. Sweep the directory first.
+    for await (const file of glob('examples/**/*.json', { cwd: repoRoot })) {
+      if (!file.endsWith('.openresult.json')) {
+        problems.push(
+          `${file} does not end in ".openresult.json". §11.6.3 recommends that extension, and ` +
+            `every check here selects documents by it — a file named otherwise is not validated ` +
+            `by anything.`,
+        );
+      }
+    }
+
     for await (const file of glob('examples/**/*.openresult.json', { cwd: repoRoot })) {
       count += 1;
       const raw = await readFile(join(repoRoot, file), 'utf8');

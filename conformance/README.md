@@ -13,6 +13,8 @@ means.
 ```
 manifest.json          index of cases, with the normative rule each exercises
 coverage.json          which rules are covered — a ratchet, checked in CI
+rules-not-by-case.json rules no document can demonstrate, and what holds them instead
+published-codes.json   every diagnostic code published — permanent, a ratchet
 valid/<case>/          document.json + expected.json
 invalid/<case>/        document.json + expected.json
 ```
@@ -94,5 +96,16 @@ edited in place — otherwise a suite could be quietly bent to match a regressio
 `coverage.json` records which normative rules the suite exercises. It is a ratchet, not a target:
 a rule listed there must stay covered, and coverage grows as cases are added.
 
-Demanding total coverage from day one would only produce a pile of hollow cases. `pnpm check
-rule-coverage` reports the current figure and fails on any regression.
+A case may name more than one rule. `alsoExercises` lists the others its document really
+demonstrates — §11.3.2 is §5.4.3 addressed to the reader rather than the writer, and one document
+shows both. A second copy of it would be coverage on paper only.
+
+Some rules no document can demonstrate: they govern a collection of documents, the specification
+itself, or a consumer's display. Each is accounted for in `rules-not-by-case.json`, which names
+what holds it — a repository check, a test file, or `gap` where nothing does. Five are gaps today,
+and saying so is the point: a rule nothing enforces is one a producer will break without ever being
+told.
+
+Every rule must appear in one place or the other. `pnpm check rule-coverage` reports the figures
+and fails on a regression, on a rule accounted for twice, and on a rule accounted for nowhere — so
+a rule cannot be written without someone deciding how it is held.

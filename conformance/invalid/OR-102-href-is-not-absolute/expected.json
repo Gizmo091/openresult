@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-102",
+      "path": "/links/0/href"
+    }
+  ]
+}

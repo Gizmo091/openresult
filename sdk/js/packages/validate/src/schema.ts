@@ -208,17 +208,19 @@ function translate(error: ErrorObject): Diagnostic[] {
 
     default:
       return [
-        make('OR-102', path, error.message ?? `This value does not satisfy the schema.`, undefined),
+        make(
+          'OR-102',
+          path,
+          error.message ?? `This value does not satisfy the schema.`,
+          `Check this member against the specification. ` +
+            `Reaching this reply means the schema grew a keyword nothing here translates, ` +
+            `which is a defect in the validator as much as in the document.`,
+        ),
       ];
   }
 }
 
-function make(
-  code: DiagnosticCode,
-  path: string,
-  message: string,
-  suggestion: string | undefined,
-): Diagnostic {
+function make(code: DiagnosticCode, path: string, message: string, suggestion: string): Diagnostic {
   return diagnostic(code, path === '' ? '/' : path, message, suggestion);
 }
 

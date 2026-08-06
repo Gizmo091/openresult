@@ -25,6 +25,15 @@ export interface ConformanceCase {
   level: ConformanceLevel;
   /** Normative rule the case exercises, e.g. "spec §8.4". */
   rule: string;
+  /**
+   * Other rules this same document demonstrates, e.g. ["spec §11.3.2"].
+   *
+   * Some rules restate one another for a different audience: §11.3.2 tells a
+   * consumer not to read meaning into an identifier, which is §5.4.3 addressed
+   * to the reader rather than the writer. One document demonstrates both, and a
+   * second copy of it would be coverage on paper only.
+   */
+  alsoExercises?: string[];
   description: string;
   /** Directory holding `document.json` and `expected.json`. */
   path: string;
