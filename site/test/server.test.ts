@@ -125,7 +125,9 @@ describe('GET /api/fetch refuses anything off the public internet', () => {
     ['another private range', 'http://192.168.0.1/'],
     ['carrier-grade NAT', 'http://100.64.0.1/'],
     // A public hostname whose A record points at a private address — the case a
-    // scheme-and-literal-address check misses.
+    // scheme-and-literal-address check misses. This one needs the network:
+    // nip.io resolves any embedded address, and if it ever stops existing this
+    // test stops proving anything, which is worth knowing before believing it.
     ['a public name resolving to loopback', 'http://127.0.0.1.nip.io/'],
   ] as const;
 
@@ -133,7 +135,10 @@ describe('GET /api/fetch refuses anything off the public internet', () => {
     it(`refuses ${what}`, async () => {
       const response = await fetch(`${base}/api/fetch?url=${encodeURIComponent(url)}`);
       expect(response.status).toBe(403);
-    });
+    }, // The server resolves the name before deciding, so these do real DNS. On
+    // a CI runner that can take longer than the 5 s default — which is what
+    // broke the build, not the refusal itself.
+    20_000);
   }
 
   it('refuses a scheme that is not http or https', async () => {
