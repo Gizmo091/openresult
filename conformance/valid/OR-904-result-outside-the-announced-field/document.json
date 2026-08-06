@@ -1,0 +1,42 @@
+{
+  "openresult": "1.0",
+  "title": "A result from someone the event did not list",
+  "lang": "en",
+  "description": "The event announces its field, and a result arrives from a competitor who is not in it (spec §6.2.4). Usually a late entry that the field was never updated for, occasionally the wrong event id — either way the document says two things.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "events": [
+    {
+      "id": "heat",
+      "name": "Heat 1",
+      "type": "heat",
+      "participants": ["a", "b"]
+    }
+  ],
+  "results": [
+    { "participant": "a", "event": "heat", "values": { "time": 56.44 } },
+    { "participant": "b", "event": "heat", "values": { "time": 55.1 } },
+    { "participant": "c", "event": "heat", "values": { "time": 54.9 } }
+  ],
+  "rankings": [
+    {
+      "id": "heat",
+      "label": "Heat 1",
+      "scope": { "event": "heat" },
+      "sortBy": ["time"]
+    }
+  ]
+}

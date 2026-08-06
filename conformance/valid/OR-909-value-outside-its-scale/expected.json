@@ -1,0 +1,10 @@
+{
+  "valid": true,
+  "warnings": ["OR-909"],
+  "rankings": {
+    "main": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "b", "rank": 2 }
+    ]
+  }
+}

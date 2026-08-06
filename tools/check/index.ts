@@ -5,6 +5,7 @@ import { conformanceManifest } from './conformance-manifest.ts';
 import { noSecrets } from './no-secrets.ts';
 import { publishablePackages } from './publishable-packages.ts';
 import { workflowsBuildFirst } from './workflows-build-first.ts';
+import { diagnosticsAreExercised } from './diagnostics-are-exercised.ts';
 import { diagnosticsCiteRules } from './diagnostics-cite-rules.ts';
 import { siteLinksResolve } from './site-links-resolve.ts';
 import { sourcesAreTracked } from './sources-are-tracked.ts';
@@ -49,6 +50,7 @@ const CHECKS: Check[] = [
   noSecrets,
   publishablePackages,
   workflowsBuildFirst,
+  diagnosticsAreExercised,
   diagnosticsCiteRules,
   siteLinksResolve,
   sourcesAreTracked,

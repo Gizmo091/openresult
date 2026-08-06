@@ -1,0 +1,13 @@
+{
+  "openresult": "1.0",
+  "title": "A unit on something that is not a quantity",
+  "lang": "en",
+  "description": "A unit describes a quantity, so it belongs only to a number attribute (spec §5.3.7). On a text attribute it describes nothing.",
+  "attributes": [
+    { "id": "club", "label": "Club", "type": "text", "unit": "km" }
+  ],
+  "participants": [
+    { "id": "a", "name": "A", "attributes": { "club": "Malmö SS" } }
+  ],
+  "results": [{ "participant": "a" }]
+}

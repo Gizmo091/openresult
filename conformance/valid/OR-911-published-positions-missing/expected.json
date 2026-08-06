@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "warnings": ["OR-911"],
+  "rankings": {
+    "admission": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "b", "rank": 1 },
+      { "participant": "c", "rank": 1 }
+    ]
+  }
+}

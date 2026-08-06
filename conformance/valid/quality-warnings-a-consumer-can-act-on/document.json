@@ -1,0 +1,33 @@
+{
+  "openresult": "1.0",
+  "title": "Trois déclarations qui ne servent à rien",
+  "description": "Le document porte du texte et ne déclare pas sa langue ; un attribut n'est utilisé nulle part ; une catégorie ne sélectionne aucun résultat. Rien n'est faux, et chacun est presque toujours une erreur de frappe entre la déclaration et l'usage.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Temps",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "attributes": [
+    { "id": "club", "label": "Club", "type": "text" },
+    { "id": "licence", "label": "Licence", "type": "text" }
+  ],
+  "participants": [
+    { "id": "a", "name": "Ana Ruiz", "attributes": { "club": "CN Vallonne" } },
+    {
+      "id": "b",
+      "name": "Bea Nowak",
+      "attributes": { "club": "Warsaw Dolphins" }
+    }
+  ],
+  "categories": [{ "id": "juniors", "label": "Juniors", "participants": [] }],
+  "results": [
+    { "participant": "a", "values": { "time": 56.44 } },
+    { "participant": "b", "values": { "time": 55.1 } }
+  ],
+  "rankings": [{ "id": "main", "label": "Général", "sortBy": ["time"] }]
+}

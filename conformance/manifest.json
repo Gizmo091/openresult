@@ -83,6 +83,14 @@
       "path": "invalid/OR-109-scale-inverted"
     },
     {
+      "id": "OR-110-unit-on-a-non-numeric-attribute",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.7",
+      "description": "A unit declared on an attribute that is not a number describes nothing.",
+      "path": "invalid/OR-110-unit-on-a-non-numeric-attribute"
+    },
+    {
       "id": "OR-201-undeclared-reference",
       "kind": "invalid",
       "level": "reading",
@@ -253,6 +261,14 @@
       "path": "invalid/unknown-status-reads-as-finished"
     },
     {
+      "id": "OR-904-result-outside-the-announced-field",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §6.2.4",
+      "description": "A result whose participant is absent from its event's declared field warns and still ranks.",
+      "path": "valid/OR-904-result-outside-the-announced-field"
+    },
+    {
       "id": "OR-906-parent-event-without-results",
       "kind": "valid",
       "level": "ranking",
@@ -285,12 +301,28 @@
       "path": "valid/OR-908-unranked-for-missing-measure"
     },
     {
+      "id": "OR-909-value-outside-its-scale",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.1.8",
+      "description": "A value above its measure's maximum warns and still takes part in the derivation.",
+      "path": "valid/OR-909-value-outside-its-scale"
+    },
+    {
       "id": "OR-910-participant-without-result",
       "kind": "valid",
       "level": "reading",
       "rule": "spec §6.1.7",
       "description": "A declared participant with no result and no team is warned about; one who did not start carries a status and is not.",
       "path": "valid/OR-910-participant-without-result"
+    },
+    {
+      "id": "OR-911-published-positions-missing",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.5",
+      "description": "A ranking ordered by published positions where one is missing leaves every result sharing first place.",
+      "path": "valid/OR-911-published-positions-missing"
     },
     {
       "id": "compat-extensions",
@@ -379,6 +411,14 @@
       "rule": "spec §3.1.1",
       "description": "Presentation hints never affect the derived ranking.",
       "path": "valid/presentation-ignored"
+    },
+    {
+      "id": "quality-warnings-a-consumer-can-act-on",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §4.5.1",
+      "description": "A missing lang, an unused attribute and an empty category each warn without making the document invalid.",
+      "path": "valid/quality-warnings-a-consumer-can-act-on"
     },
     {
       "id": "rank-direction-higher",

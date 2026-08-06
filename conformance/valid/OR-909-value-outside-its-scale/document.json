@@ -1,0 +1,30 @@
+{
+  "openresult": "1.0",
+  "title": "A mark above its maximum",
+  "lang": "en",
+  "description": "47 on a criterion marked out of 40 is wrong data, and the document still orders perfectly well — so it warns and ranks rather than refusing to render (spec §5.1.8).",
+  "measures": [
+    {
+      "id": "palate",
+      "label": "Palate",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 40,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": { "palate": 47 },
+      "notes": "Above the declared maximum; recorded as given."
+    },
+    { "participant": "b", "values": { "palate": 36 } }
+  ],
+  "rankings": [{ "id": "main", "label": "Main", "sortBy": ["palate"] }]
+}

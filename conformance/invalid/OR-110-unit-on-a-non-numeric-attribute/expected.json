@@ -1,0 +1,4 @@
+{
+  "valid": false,
+  "errors": [{ "code": "OR-110", "path": "/attributes/0/type" }]
+}

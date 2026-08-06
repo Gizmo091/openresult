@@ -1,0 +1,19 @@
+{
+  "openresult": "1.0",
+  "title": "An order that does not order",
+  "lang": "en",
+  "description": "The ranking is ordered by the positions its results publish, and one carries none — so the group cannot be settled and every result shares first place (spec §8.3.5). Silent otherwise, which is why it warns.",
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "a", "ranks": { "admission": 1 } },
+    { "participant": "b", "ranks": { "admission": 2 } },
+    { "participant": "c" }
+  ],
+  "rankings": [
+    { "id": "admission", "label": "Admitted", "sortBy": [], "ties": "resolved" }
+  ]
+}
