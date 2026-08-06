@@ -25,6 +25,24 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# Clés et identifiants. Un secret poussé sur un dépôt public ne se répare pas
+# en le supprimant : il est dans l'historique et dans chaque clone, il faut le
+# renouveler. `pnpm check no-secrets` refuse ceux qui passeraient quand même.
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+.netrc
+.npmrc
+credentials.json
+service-account*.json
+
 # Python bytecode from the minimal reader
 __pycache__/
 
