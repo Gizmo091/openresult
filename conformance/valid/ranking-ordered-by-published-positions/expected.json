@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "rankings": {
+    "admission": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "b", "rank": 2 },
+      { "participant": "c", "rank": 3 },
+      { "participant": "d", "rank": 4 }
+    ]
+  }
+}

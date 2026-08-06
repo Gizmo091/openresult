@@ -173,6 +173,8 @@ export interface Category extends Extensible {
   id: string;
   label: string;
   description?: string;
+  /** A place count, an admission threshold, a quota (spec §9.1.4). */
+  attributes?: Record<string, AttributeValue>;
   participants?: string[];
   parent?: string;
 }

@@ -24,6 +24,12 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
   for (const event of document.events ?? []) {
     for (const key of Object.keys(event.attributes ?? {})) usedAttributeIds.add(key);
   }
+  // Categories carry attributes too since §9.1.4. Without this, an attribute
+  // used only there is reported as unused — the check contradicting the feature
+  // it was extended for.
+  for (const category of document.categories ?? []) {
+    for (const key of Object.keys(category.attributes ?? {})) usedAttributeIds.add(key);
+  }
 
   // A declared scale has to be a scale (spec §5.1.8).
   (document.measures ?? []).forEach((measure, index) => {

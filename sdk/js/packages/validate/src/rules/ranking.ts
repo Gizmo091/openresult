@@ -21,15 +21,45 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
   const found: Diagnostic[] = [];
 
   (document.rankings ?? []).forEach((ranking, index) => {
-    if (ranking.sortBy.length === 0) {
+    // Empty is legal under `resolved`, where the published positions order the
+    // whole set (spec §8.3.5) — an examination publishing its admissions
+    // without the marks behind them, a jury publishing a palmarès.
+    const orderedByPublishedRanks =
+      ranking.sortBy.length === 0 && normalizeTies(ranking.ties) === 'resolved';
+
+    if (ranking.sortBy.length === 0 && !orderedByPublishedRanks) {
       found.push(
         diagnostic(
           'OR-304',
           pointer('rankings', index, 'sortBy'),
           `Ranking "${ranking.label}" lists no measure to sort on, so it cannot order anything.`,
-          `Add at least one measure id to sortBy.`,
+          `Add at least one measure id to sortBy, or declare ties: "resolved" and publish a ` +
+            `position for each result.`,
         ),
       );
+    }
+
+    // Ordered by published positions, and some are missing: §8.3.4 then leaves
+    // the group tied, so the whole ranking collapses to a single shared first
+    // place. Silent, and the opposite of what the producer meant.
+    if (orderedByPublishedRanks) {
+      const selected = rank(document, ranking.id);
+      const without = selected.filter((entry) => entry.result.ranks?.[ranking.id] === undefined);
+      if (without.length > 0) {
+        const names = without.slice(0, 3).map((entry) => `"${entry.participant.name}"`);
+        found.push(
+          diagnostic(
+            'OR-911',
+            pointer('rankings', index),
+            `Ranking "${ranking.label}" is ordered by the positions results publish, and ` +
+              `${without.length} of them carry none — ${names.join(', ')}` +
+              `${without.length > names.length ? ' and others' : ''}. Every selected result then ` +
+              `shares first place.`,
+            `Publish a position for each result this ranking selects, or exclude the ones that ` +
+              `have none.`,
+          ),
+        );
+      }
     }
 
     ranking.sortBy.forEach((measureId, measureIndex) => {

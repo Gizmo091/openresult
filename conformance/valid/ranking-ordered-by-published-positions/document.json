@@ -1,0 +1,27 @@
+{
+  "openresult": "1.0",
+  "title": "Admissions, without the marks behind them",
+  "lang": "en",
+  "description": "The order is the fact published. A competitive examination lists who was admitted and in what order, and is very often forbidden from publishing the marks — so the ranking declares ties: resolved with an empty sortBy, and the positions the results carry order the whole set (spec §8.2.1, §8.3.5).",
+  "participants": [
+    { "id": "a", "name": "Berthier" },
+    { "id": "b", "name": "Ouazzani" },
+    { "id": "c", "name": "Vandenberghe" },
+    { "id": "d", "name": "Delcourt" }
+  ],
+  "results": [
+    { "participant": "c", "ranks": { "admission": 3 } },
+    { "participant": "a", "ranks": { "admission": 1 } },
+    { "participant": "d", "ranks": { "admission": 4 } },
+    { "participant": "b", "ranks": { "admission": 2 } }
+  ],
+  "rankings": [
+    {
+      "id": "admission",
+      "label": "Admitted",
+      "description": "Declaration order is deliberately not the published order: the positions decide, not the array.",
+      "sortBy": [],
+      "ties": "resolved"
+    }
+  ]
+}

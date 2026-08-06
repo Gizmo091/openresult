@@ -785,7 +785,8 @@ same swim._
 ### 8.2 `sortBy`
 
 **§8.2.1** `sortBy` **MUST** be a non-empty array of declared measure identifiers, in decreasing
-order of priority.
+order of priority — unless the ranking declares `ties: "resolved"`, where it **MAY** be empty and
+the published positions order the whole set ([§8.3.5](#83-ties)).
 
 **§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`, nor one whose
 `kind` is `text` or `boolean`. Only numeric kinds may decide an order.
@@ -841,6 +842,24 @@ divergence warning for ever ([§3.3.2](#33-ranks-are-derived)), or invent a meas
 purpose is to encode an answer already known._
 
 ### 8.4 `excludeStatuses`
+
+**§8.3.5** A ranking declaring `resolved` **MAY** leave `sortBy` empty. Every selected result then
+compares equal, so the whole set is one group and the published positions order it entirely
+([§8.3.4](#83-ties)). Each selected result **SHOULD** carry a position for that ranking; where any
+is missing, the rule of §8.3.4 applies unchanged and the set stays tied, which a validator reports
+as `OR-911`.
+
+_Non-normative: some results are an order and nothing else. A competitive examination publishes
+"1. Berthier, 2. Ouazzani, 3. Vandenberghe" and is very often forbidden from publishing the marks
+behind it; a jury publishes a palmarès; an administration publishes a list. Until this existed,
+such a document could not be written at all — §8.2.1 required a measure, §8.5.2 then left every
+result unranked for want of it, and §7.5.3 rejected the positions as belonging to a ranking that
+does not rank them. An outside reader building an admission list found three `OR-303` errors on a
+document their institution publishes verbatim._
+
+_The alternative was to invent a measure holding the rank, which §8.3.4's own note names as the
+thing it exists to avoid: "a measure whose only purpose is to encode an answer already known".
+Determinism is untouched — the order is read from the document, and §8.5.6 holds._
 
 **§8.4.1** `excludeStatuses`, when present, **MUST** be an array of status values excluded from
 this ranking. It **replaces** the default set in full; it is not added to it. A ranking declaring
@@ -931,7 +950,13 @@ declaration order.
 ### 9.1 `categories`
 
 ```jsonc
-{ "id": "mx2", "label": "MX2", "participants": ["p12", "p7"], "parent": "senior" }
+{
+  "id": "mx2",
+  "label": "MX2",
+  "attributes": { "places": 3 }, // OPTIONAL
+  "participants": ["p12", "p7"],
+  "parent": "senior",
+}
 ```
 
 **§9.1.1** A category **MUST** carry `id` and `label`. `description`, `participants` and `parent`
@@ -944,6 +969,16 @@ result, which a validator reports as `OR-907`.
 
 **§9.1.3** Categories **MUST NOT** duplicate results. A category standing is a ranking whose
 `scope.category` names it.
+
+**§9.1.4** A category **MAY** carry `attributes`, on the same terms as any other entity
+([§5.3](#53-attributes)). A place count, an admission threshold, a medal quota and a field size
+belong to the group rather than to any competitor in it, and had nowhere else to go.
+
+_Non-normative: two outside readers put such figures into `description`, where §6.1.6 guarantees
+nothing will read them — a wine competition's medal quota, an examination's number of places and
+its cut-off mark. Both are numbers the organiser is often required to publish, and both are
+properties of a category. Categories were the last entity whose member list was closed, which is
+the whole reason they went into prose._
 
 ### 9.2 `source`
 
@@ -1164,6 +1199,7 @@ plain language, and at least one concrete correction.
 | `OR-908` | warning  | A ranking leaves selected results unranked for want of a sorting measure (§8.5.2)                                                                                                |
 | `OR-909` | warning  | A value falls outside the scale its measure declares (§5.1.8)                                                                                                                    |
 | `OR-910` | warning  | A declared participant holds no result and belongs to no team (§6.1.7)                                                                                                           |
+| `OR-911` | warning  | A ranking ordered by published positions has results that carry none (§8.3.5)                                                                                                    |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 

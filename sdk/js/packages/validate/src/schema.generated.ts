@@ -559,7 +559,6 @@ export const OPENRESULT_1_0_SCHEMA = {
         },
         "sortBy": {
           "type": "array",
-          "minItems": 1,
           "items": {
             "$ref": "#/$defs/identifier"
           },
@@ -585,7 +584,29 @@ export const OPENRESULT_1_0_SCHEMA = {
       "patternProperties": {
         "^x-": true
       },
-      "unevaluatedProperties": false
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "description": "sortBy may only be empty when ties is resolved (spec §8.2.1).",
+          "if": {
+            "properties": {
+              "ties": {
+                "const": "resolved"
+              }
+            },
+            "required": [
+              "ties"
+            ]
+          },
+          "else": {
+            "properties": {
+              "sortBy": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
     },
     "category": {
       "type": "object",
@@ -603,6 +624,9 @@ export const OPENRESULT_1_0_SCHEMA = {
         },
         "description": {
           "type": "string"
+        },
+        "attributes": {
+          "$ref": "#/$defs/attributeValues"
         },
         "participants": {
           "$ref": "#/$defs/identifierList"

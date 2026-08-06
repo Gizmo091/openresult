@@ -437,6 +437,14 @@
       "path": "valid/rank-zero-is-a-value"
     },
     {
+      "id": "ranking-ordered-by-published-positions",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.5",
+      "description": "A ranking with an empty sortBy under ties: resolved is ordered entirely by the positions its results publish.",
+      "path": "valid/ranking-ordered-by-published-positions"
+    },
+    {
       "id": "ranks-per-ranking",
       "kind": "valid",
       "level": "ranking",
