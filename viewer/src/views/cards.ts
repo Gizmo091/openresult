@@ -72,7 +72,7 @@ export const cardsView: ViewPlugin = {
                   : html`
                       <dl class="card-attributes">
                         ${attributes.map((attribute) => {
-                          const text = attributeText(entry, attribute.id);
+                          const text = attributeText(entry, attribute, model.locale);
                           return text === ''
                             ? null
                             : html`<dt>${attribute.label}</dt>

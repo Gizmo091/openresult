@@ -360,6 +360,18 @@ implementation had done this from the start; only the specification was silent._
 `no` — names nothing, and a figure that counts nothing is an allocated identifier, which belongs
 in `attributes` ([§5.3.5](#53-attributes)).
 
+**§5.2.7** A consumer displaying a `score` or `points` measure that declares a `max`
+([§5.1.8](#51-measures)) **SHOULD** render it against that maximum — `36/40` — keeping the
+declared precision on both halves. A `percentage` is excluded: its unit already carries the scale,
+and `85/100 %` is worse than either half of it.
+
+_Non-normative: this is the point of declaring the bound at all. A reader shown `27 pt` cannot
+tell excellent from poor, which is the failure §1.1 exists to prevent, and the producer has no
+other way to say it — §6.1.6 makes `description` unparsed on purpose. The rule is written here
+rather than left to each consumer for the same reason as §5.2.5: what the format normalises, it
+normalises for everyone, and a rendering left unstated is a rendering two implementations do
+differently._
+
 _Non-normative: the earlier form of §5.2.4 listed one flat vocabulary of twelve units, and
 fifteen of the twenty-one units in this document's own examples fell outside it — every one of
 them legitimately. A count and a rate cannot draw on a closed list: `goal`, `lap` and `samples/s`

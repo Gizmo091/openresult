@@ -75,18 +75,26 @@ export const crossImplementation: Check = {
           // `132.88 s`, and nothing noticed, because the specification
           // described neither. §5.2.5 now does, so the two must agree.
           //
-          // Durations only. Everything else about display is deliberately left
-          // to the consumer — thousands separators and default decimals follow
-          // the locale, and a reader in France should see `1 671,0` where one in
-          // the US sees `1,671.0`. Comparing those would be enforcing a rule the
+          // What the specification actually normalises: durations (§5.2.5) and
+          // bounded scores (§5.2.7). Everything else about display is left to
+          // the consumer — thousands separators and default decimals follow the
+          // locale, and a reader in France should see `1 671,0` where one in the
+          // US sees `1,671.0`. Comparing those would enforce a rule the
           // specification does not make.
           display: Object.fromEntries(
             Object.keys(entry.values)
               .sort()
               .flatMap((id) => {
                 const definition = measure(document, id);
-                if (definition === undefined || definition.kind !== 'duration') return [];
-                if (!TIME_UNITS.has(definition.unit ?? '')) return [];
+                if (definition === undefined) return [];
+
+                const isDuration =
+                  definition.kind === 'duration' && TIME_UNITS.has(definition.unit ?? '');
+                const isBoundedScore =
+                  definition.max !== undefined &&
+                  (definition.kind === 'score' || definition.kind === 'points');
+
+                if (!isDuration && !isBoundedScore) return [];
                 return [[id, formatValue(entry.values[id]!, definition)]];
               }),
           ),

@@ -57,7 +57,7 @@ export const tableView: ViewPlugin = {
                   ${ranked ? html`<td class="numeric rank">${entry.rank ?? '—'}</td>` : null}
                   <td class="name">${entry.participant.name}</td>
                   ${attributes.map(
-                    (attribute) => html`<td>${attributeText(entry, attribute.id)}</td>`,
+                    (attribute) => html`<td>${attributeText(entry, attribute, model.locale)}</td>`,
                   )}
                   ${model.measures.map(
                     (measure) => html`<td class="numeric">${cellText(model, entry, measure)}</td>`,

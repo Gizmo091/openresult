@@ -51,7 +51,7 @@ export const rankingView: ViewPlugin = {
                     : html`
                         <span class="attributes">
                           ${attributes
-                            .map((attribute) => attributeText(entry, attribute.id))
+                            .map((attribute) => attributeText(entry, attribute, model.locale))
                             .filter((text) => text !== '')
                             .join(' · ')}
                         </span>

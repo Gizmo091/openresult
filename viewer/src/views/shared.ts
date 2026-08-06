@@ -1,4 +1,11 @@
-import { formatValue, normalizeStatus, type Measure, type RankedEntry } from '@openresult/core';
+import {
+  formatAttribute,
+  formatValue,
+  normalizeStatus,
+  type AttributeDefinition,
+  type Measure,
+  type RankedEntry,
+} from '@openresult/core';
 import type { ViewModel } from '../core/view-model.js';
 
 /**
@@ -39,18 +46,25 @@ export function cellText(model: ViewModel, entry: RankedEntry, measure: Measure)
   return formatValue(value, measure, { locale: model.locale });
 }
 
-export function attributeText(entry: RankedEntry, attributeId: string): string {
+export function attributeText(
+  entry: RankedEntry,
+  attribute: AttributeDefinition,
+  locale?: string,
+): string {
   const value =
-    entry.result.attributes?.[attributeId] ?? entry.participant.attributes?.[attributeId];
+    entry.result.attributes?.[attribute.id] ?? entry.participant.attributes?.[attribute.id];
   if (value === undefined) return '';
-  return typeof value === 'boolean' ? (value ? 'yes' : 'no') : String(value);
+  // Through the core rather than `String(value)`: a numeric attribute may carry
+  // a unit (spec §5.3.7), and a stage distance shown as `182.4` where the
+  // document says `182.4 km` loses the only thing that made it a distance.
+  return formatAttribute(value, attribute, locale === undefined ? {} : { locale });
 }
 
 /** Attributes carried by at least one visible participant or result. */
 export function visibleAttributes(model: ViewModel): ViewModel['attributes'] {
   const order = model.document.presentation?.attributeOrder;
   const used = model.attributes.filter((attribute) =>
-    model.ranked.some((entry) => attributeText(entry, attribute.id) !== ''),
+    model.ranked.some((entry) => attributeText(entry, attribute) !== ''),
   );
   if (order === undefined) return used;
 

@@ -1,9 +1,14 @@
-import type { Measure, MeasureValue } from './types.js';
+import type { AttributeDefinition, AttributeValue, Measure, MeasureValue } from './types.js';
 
 export interface FormatOptions {
   locale?: string;
   /** Render durations as h:mm:ss.sss rather than raw seconds. Default: true. */
   humanizeDuration?: boolean;
+  /**
+   * Render a bounded score against its maximum — `36/40` rather than `36 pt`.
+   * Default: true.
+   */
+  showScale?: boolean;
 }
 
 /**
@@ -21,22 +26,56 @@ export function formatValue(
   if (typeof value === 'boolean') return value ? 'yes' : 'no';
   if (typeof value === 'string') return value;
 
-  const { locale, humanizeDuration = true } = options;
+  const { locale, humanizeDuration = true, showScale = true } = options;
   const precision = measure.precision;
 
   if (measure.kind === 'duration' && humanizeDuration && isTimeUnit(measure.unit)) {
     return formatDuration(toSeconds(value, measure.unit), precision ?? 0);
   }
 
-  const formatted =
-    precision === undefined
-      ? new Intl.NumberFormat(locale).format(value)
-      : new Intl.NumberFormat(locale, {
-          minimumFractionDigits: precision,
-          maximumFractionDigits: precision,
-        }).format(value);
+  const formatted = decimal(value, precision, locale);
+
+  // A jury score means nothing without its scale: 27 is excellent out of 30 and
+  // poor out of 100 (spec §5.1.8). Only where a maximum is declared, and only
+  // for judged kinds — a percentage already carries its scale in its unit, and
+  // "85/100 %" would be worse than either half.
+  if (
+    showScale &&
+    measure.max !== undefined &&
+    (measure.kind === 'score' || measure.kind === 'points')
+  ) {
+    return `${formatted}/${decimal(measure.max, precision, locale)}`;
+  }
 
   return measure.unit === undefined ? formatted : `${formatted} ${measure.unit}`;
+}
+
+/**
+ * Render an attribute value.
+ *
+ * Attributes carry a unit too (spec §5.3.7) — a stage distance, a bottle price,
+ * a time limit. Before that existed, producers put the unit in the label, where
+ * no consumer could read it.
+ */
+export function formatAttribute(
+  value: AttributeValue,
+  attribute: AttributeDefinition,
+  options: FormatOptions = {},
+): string {
+  if (typeof value === 'boolean') return value ? 'yes' : 'no';
+  if (typeof value !== 'number') return value;
+
+  const formatted = decimal(value, undefined, options.locale);
+  return attribute.unit === undefined ? formatted : `${formatted} ${attribute.unit}`;
+}
+
+function decimal(value: number, precision: number | undefined, locale: string | undefined): string {
+  return precision === undefined
+    ? new Intl.NumberFormat(locale).format(value)
+    : new Intl.NumberFormat(locale, {
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision,
+      }).format(value);
 }
 
 function isTimeUnit(unit: string | undefined): unit is 's' | 'ms' | 'min' | 'h' {

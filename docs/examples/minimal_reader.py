@@ -241,6 +241,14 @@ def format_value(value, measure):
         return format_duration(value * TIME_UNITS[unit], precision or 0)
 
     text = f"{value:.{precision}f}" if precision is not None else str(value)
+
+    # A bounded score reads against its maximum (§5.2.7): 27 is excellent out of
+    # 30 and poor out of 100.
+    maximum = measure.get("max")
+    if maximum is not None and measure.get("kind") in ("score", "points"):
+        top = f"{maximum:.{precision}f}" if precision is not None else str(maximum)
+        return f"{text}/{top}"
+
     return f"{text} {unit}" if unit else text
 
 
@@ -274,14 +282,22 @@ def main():
             {
                 "participant": result["participant"],
                 "rank": position,
-                # Durations only: everything else about display follows the
-                # locale, and §5.2.5 governs nothing but these.
+                # What the specification normalises: durations (§5.2.5) and
+                # bounded scores (§5.2.7). Everything else follows the locale.
                 "display": {
                     measure_id: format_value(value, catalogue[measure_id])
                     for measure_id, value in sorted((result.get("values") or {}).items())
                     if measure_id in catalogue
-                    and catalogue[measure_id].get("kind") == "duration"
-                    and catalogue[measure_id].get("unit") in TIME_UNITS
+                    and (
+                        (
+                            catalogue[measure_id].get("kind") == "duration"
+                            and catalogue[measure_id].get("unit") in TIME_UNITS
+                        )
+                        or (
+                            catalogue[measure_id].get("max") is not None
+                            and catalogue[measure_id].get("kind") in ("score", "points")
+                        )
+                    )
                 },
             }
             for result, position in rank(document, ranking_id)
