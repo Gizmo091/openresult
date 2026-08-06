@@ -42,7 +42,18 @@ jobs:
       - name: Build
         run: pnpm build
 
+      # Packages are named one by one rather than globbed. The glob over
+      # `sdk/js/packages/*` silently omitted the viewer, which lives elsewhere
+      # and is the package a consumer is most likely to want, and it silently
+      # included the conformance runner, whose 60 cases live at the repository
+      # root and would not travel with it.
       - name: Publish
-        run: pnpm -r --filter "./sdk/js/packages/*" --filter "./validator/cli" publish --access public --no-git-checks --provenance
+        run: >
+          pnpm
+          --filter @openresult/core
+          --filter @openresult/validate
+          --filter @openresult/viewer
+          --filter @openresult/cli
+          publish --access public --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
