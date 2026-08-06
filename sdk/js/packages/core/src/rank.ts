@@ -127,12 +127,44 @@ function selectResults(document: ResultDocument, ranking: Ranking): Result[] {
 }
 
 /**
+ * The JSON type a measure's kind implies (spec §5.2.1).
+ *
+ * Everything is a number except `text`, which is a string, and `boolean`.
+ */
+function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' {
+  if (kind === 'text') return 'string';
+  if (kind === 'boolean') return 'boolean';
+  return 'number';
+}
+
+/**
+ * Whether a result carries a usable value for a measure (spec §8.5.2).
+ *
+ * The type is checked against the measure's declared kind, never against the
+ * other value being compared. That distinction is the whole point: deciding
+ * pairwise — "a number and a string cannot be compared, so call them equal" —
+ * makes the comparison non-transitive, and the same three results in a
+ * different declaration order then fall into different tie groups. It does,
+ * measurably: one document, six permutations, three different answers to who
+ * was tied with whom. §8.5.6 requires two consumers to agree, and two sorting
+ * algorithms comparing different pairs would not.
+ *
+ * Being a property of one result, this cannot depend on what it is compared
+ * with, so the ordering it produces is the same everywhere.
+ */
+function carriesUsableValue(document: ResultDocument, result: Result, measureId: string): boolean {
+  const value = result.values?.[measureId];
+  if (value === undefined) return false;
+  return typeof value === expectedType(measure(document, measureId)?.kind);
+}
+
+/**
  * Compare two values of one measure. Returns a negative number when `a` ranks
  * ahead of `b`.
  *
- * Values of differing types are treated as equal rather than guessed at: an
- * arbitrary ordering between a number and a string would be a decision the
- * document never made, and the stable sort then preserves declaration order.
+ * Both are known to match the measure's kind by the time this runs, so the
+ * remaining mismatch — a document declaring a kind this version does not know —
+ * compares equal and leaves declaration order to the stable sort.
  */
 function compareValues(a: MeasureValue, b: MeasureValue, betterWhen: BetterWhen): number {
   let ascending = 0;
@@ -211,14 +243,15 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
   const excluded = ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES;
   const selected = selectResults(document, ranking);
 
-  // Step 2 — partition (spec §8.5.2). A result missing any sorting measure
-  // cannot be placed, so it is unranked rather than sorted as if it were zero.
+  // Step 2 — partition (spec §8.5.2). A result missing any sorting measure —
+  // or carrying something its kind does not admit — cannot be placed, so it is
+  // unranked rather than sorted as if it were zero.
   const rankable: Result[] = [];
   const unranked: Result[] = [];
   for (const result of selected) {
     const statusAllows = !excluded.includes(normalizeStatus(result.status));
-    const hasEveryMeasure = ranking.sortBy.every(
-      (measureId) => result.values?.[measureId] !== undefined,
+    const hasEveryMeasure = ranking.sortBy.every((measureId) =>
+      carriesUsableValue(document, result, measureId),
     );
     (statusAllows && hasEveryMeasure ? rankable : unranked).push(result);
   }

@@ -1,0 +1,95 @@
+{
+  "openresult": "1.0",
+  "title": "A description on everything that accepts one",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower",
+      "description": "Elapsed time from the start beep to the line."
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "attributes": {
+        "club": "AC Vallonne"
+      },
+      "description": "Riding her first time trial of the season."
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist",
+      "attributes": {
+        "club": "AC Vallonne"
+      }
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira",
+      "attributes": {
+        "club": "AC Vallonne"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "event": "morning"
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "event": "morning"
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      },
+      "event": "morning"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"],
+      "description": "Every rider, fastest first."
+    }
+  ],
+  "lang": "en",
+  "description": "The club's Sunday time trial over the Vallonne loop.",
+  "attributes": [
+    {
+      "id": "club",
+      "label": "Club",
+      "type": "text",
+      "description": "The club the rider was licensed with on the day."
+    }
+  ],
+  "events": [
+    {
+      "id": "morning",
+      "name": "Morning wave",
+      "type": "session",
+      "description": "Riders numbered 1 to 40, started at one-minute intervals."
+    }
+  ],
+  "categories": [
+    {
+      "id": "masters",
+      "label": "Masters",
+      "participants": ["bo", "cai"],
+      "description": "Riders aged 40 and over on 31 December."
+    }
+  ]
+}

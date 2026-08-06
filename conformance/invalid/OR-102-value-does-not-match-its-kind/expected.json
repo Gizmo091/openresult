@@ -1,0 +1,25 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-102",
+      "path": "/results/1/values/time"
+    }
+  ],
+  "rankings": {
+    "general": [
+      {
+        "participant": "ana",
+        "rank": 1
+      },
+      {
+        "participant": "cai",
+        "rank": 2
+      },
+      {
+        "participant": "bo",
+        "rank": null
+      }
+    ]
+  }
+}

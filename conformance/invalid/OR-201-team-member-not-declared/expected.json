@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-201",
+      "path": "/participants/3/members/1"
+    }
+  ]
+}

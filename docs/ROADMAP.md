@@ -180,6 +180,18 @@ and a `matchesPlayed` of four, and the only thing explaining the gap is an attri
 reads. The alternative — putting surrogate matches on their own event — takes them out of the
 calendar they belong to.
 
+## Rules nothing enforces
+
+A normative rule the validator does not check is a rule a producer will break without ever being
+told. These are the ones in that state, listed so that the gap is visible rather than discovered.
+
+**§5.2.6 — a `count` unit must name what is counted.** `n`, `#` and `no` name nothing, and a
+figure that counts nothing cannot be labelled. The rule is a MUST and no diagnostic reports it;
+`unit-vocabulary` enforces the vocabulary over this repository's own documents, which catches it in
+the corpus and nowhere else. Enforcing it needs a code of its own — a warning, since the document
+still reads perfectly — and the judgement of what counts as a placeholder has to be a closed list
+rather than a guess.
+
 ## What will never be in scope
 
 The exclusions in [VISION.md](./VISION.md) are permanent, not a backlog. Transport, storage,

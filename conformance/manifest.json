@@ -3,6 +3,22 @@
   "formatVersion": "1.0",
   "cases": [
     {
+      "id": "OR-101-participant-without-a-name",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.1.4",
+      "description": "name is required on a participant; shortName does not replace it.",
+      "path": "invalid/OR-101-participant-without-a-name"
+    },
+    {
+      "id": "OR-101-ranking-without-a-label",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.1.5",
+      "description": "label is required on measures, attributes, rankings and categories.",
+      "path": "invalid/OR-101-ranking-without-a-label"
+    },
+    {
       "id": "OR-101-required-member-missing",
       "kind": "invalid",
       "level": "reading",
@@ -17,6 +33,38 @@
       "rule": "spec §5.3.3",
       "description": "Attribute values must match their declared type.",
       "path": "invalid/OR-102-attribute-type-mismatch"
+    },
+    {
+      "id": "OR-102-attribute-value-contradicts-its-type",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.4",
+      "description": "An attribute value must match the type its definition declares.",
+      "path": "invalid/OR-102-attribute-value-contradicts-its-type"
+    },
+    {
+      "id": "OR-102-duration-written-as-a-clock-reading",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §5.2.2",
+      "description": "A duration is a plain number in the declared unit, never 21:24.532 or PT21M.",
+      "path": "invalid/OR-102-duration-written-as-a-clock-reading"
+    },
+    {
+      "id": "OR-102-precision-is-not-negative",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.5",
+      "description": "precision counts digits after the decimal point and cannot be negative.",
+      "path": "invalid/OR-102-precision-is-not-negative"
+    },
+    {
+      "id": "OR-102-value-does-not-match-its-kind",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.3.3",
+      "description": "A value's type follows from its measure's kind; one that does not is unrankable.",
+      "path": "invalid/OR-102-value-does-not-match-its-kind"
     },
     {
       "id": "OR-102-version-is-not-negative",
@@ -35,12 +83,44 @@
       "path": "invalid/OR-102-wrong-type"
     },
     {
+      "id": "OR-103-attribute-type-from-a-later-version",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §5.3.1",
+      "description": "An unknown attribute type is not conforming, and a consumer reads it as text.",
+      "path": "invalid/OR-103-attribute-type-from-a-later-version"
+    },
+    {
       "id": "OR-103-document-status-outside-the-enumeration",
       "kind": "invalid",
       "level": "reading",
       "rule": "spec §4.4.1",
       "description": "Document status is one of the declared values.",
       "path": "invalid/OR-103-document-status-outside-the-enumeration"
+    },
+    {
+      "id": "OR-103-event-type-from-a-later-version",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §6.2.1",
+      "description": "An unknown event type is not conforming, and a consumer reads it as other.",
+      "path": "invalid/OR-103-event-type-from-a-later-version"
+    },
+    {
+      "id": "OR-103-participant-type-from-a-later-version",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §6.1.1",
+      "description": "An unknown participant type is not conforming, and a consumer reads it as other.",
+      "path": "invalid/OR-103-participant-type-from-a-later-version"
+    },
+    {
+      "id": "OR-103-status-from-a-later-version",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.2.1",
+      "description": "An unknown status is not conforming, and a consumer reads it as finished.",
+      "path": "invalid/OR-103-status-from-a-later-version"
     },
     {
       "id": "OR-103-value-outside-domain",
@@ -123,6 +203,22 @@
       "path": "invalid/OR-201-rank-in-an-undeclared-ranking"
     },
     {
+      "id": "OR-201-result-without-an-event",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.2",
+      "description": "Where a document declares events, every result names one.",
+      "path": "invalid/OR-201-result-without-an-event"
+    },
+    {
+      "id": "OR-201-team-member-not-declared",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.1.2",
+      "description": "A team's members must be participants declared in the same document.",
+      "path": "invalid/OR-201-team-member-not-declared"
+    },
+    {
       "id": "OR-201-undeclared-reference",
       "kind": "invalid",
       "level": "reading",
@@ -177,6 +273,14 @@
       "rule": "spec §5.3.2",
       "description": "An attributes key references an undeclared attribute.",
       "path": "invalid/OR-206-undeclared-attribute"
+    },
+    {
+      "id": "OR-301-sort-by-a-measure-with-no-direction",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.1.4",
+      "description": "A measure declaring betterWhen none cannot appear in sortBy.",
+      "path": "invalid/OR-301-sort-by-a-measure-with-no-direction"
     },
     {
       "id": "OR-301-sort-on-directionless-measure",
@@ -261,6 +365,14 @@
       "path": "invalid/OR-402-unsupported-major"
     },
     {
+      "id": "OR-901-measure-declared-but-never-carried",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.1.7",
+      "description": "A declared measure no result carries is legal and warned about.",
+      "path": "valid/OR-901-measure-declared-but-never-carried"
+    },
+    {
       "id": "OR-902-rank-disagrees-with-derivation",
       "kind": "invalid",
       "level": "ranking",
@@ -275,6 +387,14 @@
       "rule": "spec §6.2.4",
       "description": "A result whose participant is absent from its event's declared field warns and still ranks.",
       "path": "valid/OR-904-result-outside-the-announced-field"
+    },
+    {
+      "id": "OR-905-attribute-declared-but-never-carried",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.3.6",
+      "description": "A declared attribute no entity carries is legal and warned about.",
+      "path": "valid/OR-905-attribute-declared-but-never-carried"
     },
     {
       "id": "OR-906-parent-event-without-results",
@@ -333,6 +453,22 @@
       "path": "valid/OR-911-published-positions-missing"
     },
     {
+      "id": "allocated-numbers-are-attributes",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.3.5",
+      "description": "A bib is allocated rather than observed, so it is an attribute.",
+      "path": "valid/allocated-numbers-are-attributes"
+    },
+    {
+      "id": "an-absent-attribute-is-not-recorded",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.3.8",
+      "description": "An entity may omit an attribute; the omission means not recorded, not empty.",
+      "path": "valid/an-absent-attribute-is-not-recorded"
+    },
+    {
       "id": "assign-gives-tied-results-the-same-rank",
       "kind": "valid",
       "level": "ranking",
@@ -371,6 +507,14 @@
       "rule": "spec §7.5.2",
       "description": "A published rank is informative; the ranking is derived from the values.",
       "path": "valid/derivation-wins-over-a-published-rank"
+    },
+    {
+      "id": "description-is-accepted-everywhere",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §6.1.6",
+      "description": "Every entity that carries a name or a label also accepts a description.",
+      "path": "valid/description-is-accepted-everywhere"
     },
     {
       "id": "direction-comes-only-from-the-measure",
@@ -443,6 +587,14 @@
       "rule": "spec §9.3.3",
       "description": "Links and assets on the document, a participant and a result change nothing a consumer derives.",
       "path": "valid/links-and-assets-never-affect-interpretation"
+    },
+    {
+      "id": "no-events-means-one-implicit-event",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §6.2.3",
+      "description": "A document without events has a single implicit event holding every result.",
+      "path": "valid/no-events-means-one-implicit-event"
     },
     {
       "id": "no-rankable-measure-keeps-declaration-order",
@@ -683,6 +835,14 @@
       "rule": "spec §8.3.4",
       "description": "Under ties: resolved, published positions settle a residual tie; an unsettled pair is numbered as under standard.",
       "path": "valid/ties-resolved-breaks-tie-by-published-rank"
+    },
+    {
+      "id": "units-are-displayed-never-converted",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.2.3",
+      "description": "A unit is displayed, never interpreted: the order comes from the numbers alone.",
+      "path": "valid/units-are-displayed-never-converted"
     },
     {
       "id": "unknown-enumerations-outside-ranking",

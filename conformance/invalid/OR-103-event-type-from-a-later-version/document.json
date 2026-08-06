@@ -1,0 +1,64 @@
+{
+  "openresult": "1.0",
+  "title": "An event type from a later version",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "event": "wave"
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "event": "wave"
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      },
+      "event": "wave"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "events": [
+    {
+      "id": "wave",
+      "name": "Morning wave",
+      "type": "wave"
+    }
+  ]
+}

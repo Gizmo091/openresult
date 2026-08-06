@@ -910,9 +910,19 @@ list as follows.
 **§8.5.2 — Partition.** A retained result is **rankable** if _both_ hold:
 
 - its `status` is not in `excludeStatuses`; and
-- its `values` contains every measure listed in `sortBy`.
+- for every measure listed in `sortBy`, its `values` carries a value of the JSON type that
+  measure's `kind` implies ([§5.2.1](#52-values-and-units)).
 
 All others are **unranked**.
+
+_Non-normative: the type is checked against the measure, not against the other result._ A document
+recording a duration as `"10:04.200"` is not conforming ([§7.3.3](#73-values)), and a consumer must
+still read it ([§11.3.1](#113-obligations-on-consumers)). Deciding the question pairwise — a number and
+a string cannot be compared, so call them equal — costs transitivity: three results in one
+declaration order fall into different tie groups than the same three in another, and two consumers
+whose sort algorithms compare different pairs disagree, which [§8.5.6](#85-derivation-algorithm) forbids.
+Checking against the declared kind is a property of a single result, so nothing it is compared with
+can change it.
 
 _A ranking that drops results this way is sometimes intended and sometimes a mistake._ A
 classification sorting on `["round1Faults", "jumpOffFaults"]` leaves every competitor who did not

@@ -124,6 +124,27 @@ def in_scope(document, ranking, result):
     return True
 
 
+def carries_usable_value(document, result, measure_id):
+    """Whether a result carries a value this measure can be ordered by (§8.5.2).
+
+    The type is checked against the measure's declared kind, never against the
+    other value being compared. Deciding pairwise — a number and a string cannot
+    be compared, so call them equal — is not transitive, and the same results in
+    a different declaration order then land in different tie groups. Two
+    consumers would disagree, which §8.5.6 forbids."""
+    value = result.get("values", {}).get(measure_id)
+    if value is None:
+        return False
+    kind = (measures_by_id(document).get(measure_id) or {}).get("kind")
+    if kind == "text":
+        return isinstance(value, str)
+    if kind == "boolean":
+        return isinstance(value, bool)
+    # Everything else is a number (§5.2.1). `bool` is a subclass of `int` in
+    # Python, so it has to be excluded explicitly or True would rank as 1.
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
 def sort_key(document, ranking):
     """Build the comparison key. Direction comes from the measure, never the
     ranking (§8.2.3): one source of truth means no contradiction to arbitrate."""
@@ -169,12 +190,13 @@ def rank(document, ranking_id=None):
     excluded = set(ranking.get("excludeStatuses", DEFAULT_EXCLUDED))
     selected = [r for r in document.get("results", []) if in_scope(document, ranking, r)]
 
-    # Step 2 — partition (§8.5.2). A result missing a sorting measure cannot be
-    # placed, so it is unranked rather than treated as zero.
+    # Step 2 — partition (§8.5.2). A result missing a sorting measure — or
+    # carrying something its kind does not admit — cannot be placed, so it is
+    # unranked rather than treated as zero.
     rankable, unranked = [], []
     for result in selected:
         has_values = all(
-            result.get("values", {}).get(m) is not None for m in ranking["sortBy"]
+            carries_usable_value(document, result, m) for m in ranking["sortBy"]
         )
         (rankable if status_of(result) not in excluded and has_values else unranked).append(result)
 

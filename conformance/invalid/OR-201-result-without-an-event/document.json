@@ -1,0 +1,63 @@
+{
+  "openresult": "1.0",
+  "title": "A result belonging to no declared event",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "event": "morning"
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "event": "morning"
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "events": [
+    {
+      "id": "morning",
+      "name": "Morning wave",
+      "type": "session"
+    }
+  ]
+}

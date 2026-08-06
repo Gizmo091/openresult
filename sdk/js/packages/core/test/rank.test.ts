@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { eventWithDescendants, listRankings, rank } from '../src/index.js';
-import type { ResultDocument } from '../src/index.js';
+import type { Result, ResultDocument } from '../src/index.js';
 
 /**
  * Derivation is the load-bearing behaviour of the format: two consumers must
@@ -285,6 +285,44 @@ describe('stability and determinism', () => {
     rank(doc);
 
     expect(JSON.stringify(doc)).toEqual(before);
+  });
+
+  it('groups the same results the same way whatever order they are declared in', () => {
+    // The property a comparison has to have. Stability may reorder within a tie;
+    // it may never change who is tied with whom. When a value of the wrong type
+    // was compared pairwise — "a number and a boolean cannot be compared, so
+    // they are equal" — these six permutations gave three different answers.
+    const rows: Result[] = [
+      { participant: 'a', values: { time: 604.2 } },
+      { participant: 'b', values: { time: true as unknown as number } },
+      { participant: 'c', values: { time: 611.9 } },
+    ];
+    const permutations = [
+      [0, 1, 2],
+      [0, 2, 1],
+      [1, 0, 2],
+      [1, 2, 0],
+      [2, 0, 1],
+      [2, 1, 0],
+    ];
+
+    const groupings = permutations.map((permutation) => {
+      const doc = document({
+        results: permutation.map((index) => rows[index] as Result),
+        rankings: [{ id: 'r', label: 'R', sortBy: ['time'] }],
+      });
+      // Who holds which rank, independent of the order they come back in.
+      return JSON.stringify(
+        Object.fromEntries(
+          rank(doc, 'r')
+            .map((entry) => [entry.participant.id, entry.rank])
+            .sort(),
+        ),
+      );
+    });
+
+    expect(new Set(groupings).size).toBe(1);
+    expect(JSON.parse(groupings[0] ?? '{}')).toEqual({ a: 1, b: null, c: 2 });
   });
 });
 

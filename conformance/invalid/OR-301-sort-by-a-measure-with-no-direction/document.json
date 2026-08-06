@@ -1,0 +1,64 @@
+{
+  "openresult": "1.0",
+  "title": "Ordering by a measure with no direction",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    },
+    {
+      "id": "bib",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "bib",
+      "betterWhen": "none"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2,
+        "bib": 14
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7,
+        "bib": 27
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "time": 611.9,
+        "bib": 9
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["bib"]
+    }
+  ]
+}
