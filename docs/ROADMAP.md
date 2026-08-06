@@ -147,6 +147,39 @@ eighteenth.
 criteria, or that an average is derived from what it averages. Producers dedupe by naming
 convention, which no consumer can read.
 
+**A result with more than one holder.** In alliance formats — FIRST Robotics, and the same shape in
+doubles, crews, ropes and pairs — one score belongs to several competitors at once, and the
+grouping is thrown away after the match. §2.2 and §7.1.3 make a result belong to exactly one
+participant, so a reader had to invent a participant per alliance **per match**: 26 of their 42
+participants did not exist, and the count grows with the number of matches rather than the number
+of teams. At a real regional that is around 140 fictions for 40 teams.
+
+They proposed an optional, purely informative `coParticipants` on a result — additive, ignored by
+derivation, exactly the status a published rank already has. It would remove the fictions. What it
+does not solve is which competitor the result then belongs to: `participant` stays required, so an
+alliance score still has to name one of its three teams as the holder, which is arbitrary in a way
+the format currently avoids by being honest about the fiction. That is why this is recorded rather
+than done.
+
+**A link between a penalty and the points it awards.** Three fouls by one alliance credit eighteen
+points to the other, and the format writes that single fact as two unrelated numbers on two
+results. A consumer cannot render "18 pts (red alliance fouls)" without knowing the sport — which
+is what §1.1 exists to prevent.
+
+**A bracket.** Nothing says the winner of the first semi-final plays the final. `parent` is
+containment, not progression, so a knockout draw cannot be drawn from the document. The same gap
+affects tennis, judo and esport.
+
+**"Not applicable", distinct from "not recorded".** In a play-off phase where no ranking points
+are awarded, the bonus measures do not exist rather than being unknown. §7.3.2 offers a value,
+zero, or absent — and absent means unknown.
+
+**A ranking that skips results by an attribute.** A surrogate match is played, is real, and does
+not count. `scope` selects by event and category only, so the document publishes five match lines
+and a `matchesPlayed` of four, and the only thing explaining the gap is an attribute no rule
+reads. The alternative — putting surrogate matches on their own event — takes them out of the
+calendar they belong to.
+
 ## What will never be in scope
 
 The exclusions in [VISION.md](./VISION.md) are permanent, not a backlog. Transport, storage,

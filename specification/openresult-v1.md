@@ -310,6 +310,10 @@ They bound the **scale**, never the ranking. A value outside them is reported as
 still takes part in derivation: refusing to order a document because one figure is out of range
 would hide the standings in order to report a typo.
 
+The bounds belong to the measure and therefore to **every** value of it in the document. A measure
+carried both by a single round and by an aggregate of rounds has two scales, not one, and
+**SHOULD** either omit the bounds or be declared as two measures.
+
 _Non-normative: a jury score means nothing without its scale. 27 is excellent out of 30 and poor
 out of 100, and a document declaring four criteria marked out of 10, 30, 40 and 20 cannot be
 rendered as `36/40`, cannot put those criteria on one axis, and cannot notice `47` where the
@@ -440,6 +444,16 @@ the same terms and for the same reason as [§5.1.7](#51-measures).
 **§5.3.7** An attribute of type `number` **MAY** declare a `unit`, drawn from the same vocabulary
 as a measure's ([§5.2.4](#52-values-and-units)) and displayed the same way. It **MUST NOT** be
 declared on any other type, where it would describe nothing.
+
+**§5.3.8** An attribute absent from an `attributes` object means **not recorded**, on the same
+terms as an absent measure ([§7.3.2](#73-values)). It does not mean `false`, `zero` or `none`, and
+a producer who needs to state that something is not the case **MUST** write the value.
+
+_Non-normative: a reader with a boolean measure and a boolean attribute of almost the same meaning
+wrote the measure on all sixty-six results, because §7.3.2 told them what silence meant there, and
+the attribute on the two it applied to, because nothing told them anything. Both readings are
+defensible and only one can be right, which is the definition of an omission rather than a
+decision._
 
 _Non-normative: a stage distance, a summit altitude, a bottle price, an alcohol content and a time
 limit all describe an entity rather than a performance, so they are attributes — and until this
@@ -807,12 +821,12 @@ truth. A case genuinely needing the opposite direction declares a second measure
 
 **§8.3.1** `ties` **MUST** be one of:
 
-| Value      | Produces   | Notes                                                            |
-| ---------- | ---------- | ---------------------------------------------------------------- |
-| `standard` | 1, 2, 2, 4 | Default. Prevailing competition convention.                      |
-| `dense`    | 1, 2, 2, 3 | No rank is skipped.                                              |
-| `strict`   | —          | No tie permitted; a residual tie is a validation **error**.      |
-| `resolved` | 1, 2, 3    | Ties are broken by the published positions ([§8.3.4](#83-ties)). |
+| Value      | Produces   | Notes                                                                                                              |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| `standard` | 1, 2, 2, 4 | Default. Prevailing competition convention.                                                                        |
+| `dense`    | 1, 2, 2, 3 | No rank is skipped.                                                                                                |
+| `strict`   | 1, 2, 2, 4 | No tie is expected; a residual tie is a validation **error** and still ranks as `standard` ([§8.3.3](#83-ties)).   |
+| `resolved` | 1, 2, 3    | Ties are broken by the published positions, and fall back to `standard` where they cannot be ([§8.3.4](#83-ties)). |
 
 **§8.3.2** An unknown `ties` value **MUST** be treated as `standard`.
 
@@ -832,7 +846,13 @@ equal. The group then takes consecutive positions in that order. Otherwise the g
 and is numbered as under `standard`. This is the one place a supplied rank takes part in
 derivation, and the producer asks for it by declaring `resolved`.
 
-_Non-normative: all of the group or none of it, because a partial rule fails to order at all. If a
+_Non-normative: using `resolved` well asks something of the producer that no other member does —
+knowing which results form a tied group, which means having derived the ranking before writing the
+document. §3.3 promises a producer need not compute ranks, and that stays true; but one who
+publishes positions for a group that turns out not to be tied gets `OR-902`, and one who publishes
+them for a result the ranking does not rank gets `OR-303`._
+
+_All of the group or none of it, because a partial rule fails to order at all. If a
 published position separated one pair and not another, the comparison would not be transitive and
 the standings would depend on the sorting algorithm — the divergence §8.5.6 forbids. As for why
 the rule exists: some tie-breaks are settled outside the document and measured by nothing in it —
