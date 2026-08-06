@@ -1,0 +1,368 @@
+{
+  "openresult": "1.0",
+  "id": "concours-vallonne-2026-blancs",
+  "title": "Concours des Vins de Vallonne 2026 — white wines",
+  "description": "Blind tasting by a panel of six. Each criterion is marked against its own maximum, and those maxima are declared (§5.1.8) so a reader can tell 27 out of 30 from 27 out of 100 — and so a consumer can render 36/40 rather than 36 pt. Medals follow thresholds under a quota, not positions, which is why they are attributes and not a ranking.",
+  "lang": "en",
+  "status": "official",
+  "generatedAt": "2026-03-14T18:20:00+01:00",
+  "source": {
+    "name": "Vallonne Wine Society",
+    "license": "CC-BY-4.0"
+  },
+  "measures": [
+    {
+      "id": "appearance",
+      "label": "Appearance",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 10,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "nose",
+      "label": "Nose",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 30,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "palate",
+      "label": "Palate",
+      "description": "The panel's rules break a tie on this criterion.",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 40,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "harmony",
+      "label": "Harmony",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 20,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "total",
+      "label": "Total",
+      "description": "Mean of the six panellists after the highest and lowest are set aside.",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 100,
+      "betterWhen": "higher"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "sample",
+      "label": "Sample",
+      "description": "The number the wine was poured under. Allocated, so an attribute (§5.3.5).",
+      "type": "number"
+    },
+    {
+      "id": "price",
+      "label": "Price",
+      "type": "number",
+      "unit": "EUR"
+    },
+    {
+      "id": "alcohol",
+      "label": "Alcohol",
+      "type": "number",
+      "unit": "%"
+    },
+    {
+      "id": "vintage",
+      "label": "Vintage",
+      "type": "number"
+    },
+    {
+      "id": "appellation",
+      "label": "Appellation",
+      "type": "text"
+    },
+    {
+      "id": "medal",
+      "label": "Medal",
+      "description": "Gold from 90, silver from 86, bronze from 82, and no more than 30% of the field may be awarded.",
+      "type": "text"
+    }
+  ],
+  "participants": [
+    {
+      "id": "pre",
+      "name": "Domaine du Pré, Cuvée Ancienne",
+      "attributes": {
+        "appellation": "Côtes de Vallonne",
+        "vintage": 2022,
+        "price": 24.5,
+        "alcohol": 13.0
+      }
+    },
+    {
+      "id": "ferrand",
+      "name": "Mas Ferrand, Tradition",
+      "attributes": {
+        "appellation": "Côtes de Vallonne",
+        "vintage": 2022,
+        "price": 18.9,
+        "alcohol": 12.5
+      }
+    },
+    {
+      "id": "vaubert",
+      "name": "Clos Vaubert, Les Hautes",
+      "attributes": {
+        "appellation": "Vallonne Villages",
+        "vintage": 2023,
+        "price": 12.0,
+        "alcohol": 12.0
+      }
+    },
+    {
+      "id": "roche",
+      "name": "Domaine de la Roche",
+      "attributes": {
+        "appellation": "Vallonne Villages",
+        "vintage": 2023,
+        "price": 15.5,
+        "alcohol": 13.5
+      }
+    },
+    {
+      "id": "aubrac",
+      "name": "Clos d'Aubrac",
+      "attributes": {
+        "appellation": "Côtes de Vallonne",
+        "vintage": 2021,
+        "price": 29.0,
+        "alcohol": 13.0
+      }
+    },
+    {
+      "id": "thibault",
+      "name": "Maison Thibault",
+      "attributes": {
+        "appellation": "Vallonne Villages",
+        "vintage": 2022,
+        "price": 11.5,
+        "alcohol": 12.5
+      }
+    },
+    {
+      "id": "goutte",
+      "name": "La Goutte d'Or",
+      "attributes": {
+        "appellation": "Côtes de Vallonne",
+        "vintage": 2023,
+        "price": 9.5,
+        "alcohol": 12.0
+      }
+    },
+    {
+      "id": "bosquet",
+      "name": "Domaine du Bosquet",
+      "attributes": {
+        "appellation": "Vallonne Villages",
+        "vintage": 2021,
+        "price": 21.0,
+        "alcohol": 13.5
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "panel",
+      "name": "Panel tasting",
+      "type": "session",
+      "occurredAt": {
+        "start": "2026-03-14T09:30:00+01:00"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "pre",
+      "event": "panel",
+      "attributes": {
+        "sample": 41,
+        "medal": "gold"
+      },
+      "values": {
+        "appearance": 9,
+        "nose": 27,
+        "palate": 36,
+        "harmony": 19,
+        "total": 91.0
+      }
+    },
+    {
+      "participant": "ferrand",
+      "event": "panel",
+      "attributes": {
+        "sample": 44,
+        "medal": "silver"
+      },
+      "values": {
+        "appearance": 8,
+        "nose": 26,
+        "palate": 33,
+        "harmony": 19,
+        "total": 86.5
+      }
+    },
+    {
+      "participant": "vaubert",
+      "event": "panel",
+      "attributes": {
+        "sample": 47,
+        "medal": "silver"
+      },
+      "values": {
+        "appearance": 8,
+        "nose": 22,
+        "palate": 35,
+        "harmony": 19,
+        "total": 86.5
+      }
+    },
+    {
+      "participant": "roche",
+      "event": "panel",
+      "attributes": {
+        "sample": 43,
+        "medal": "bronze"
+      },
+      "values": {
+        "appearance": 8,
+        "nose": 25,
+        "palate": 31,
+        "harmony": 18,
+        "total": 84.0
+      }
+    },
+    {
+      "participant": "aubrac",
+      "event": "panel",
+      "attributes": {
+        "sample": 45,
+        "medal": "bronze"
+      },
+      "values": {
+        "appearance": 9,
+        "nose": 25,
+        "palate": 30,
+        "harmony": 18,
+        "total": 83.5
+      }
+    },
+    {
+      "participant": "thibault",
+      "event": "panel",
+      "attributes": {
+        "sample": 42
+      },
+      "values": {
+        "appearance": 7,
+        "nose": 23,
+        "palate": 29,
+        "harmony": 17,
+        "total": 79.5
+      }
+    },
+    {
+      "participant": "goutte",
+      "event": "panel",
+      "attributes": {
+        "sample": 46
+      },
+      "values": {
+        "appearance": 7,
+        "nose": 22,
+        "palate": 28,
+        "harmony": 16,
+        "total": 76.0
+      }
+    },
+    {
+      "participant": "bosquet",
+      "event": "panel",
+      "attributes": {
+        "sample": 48
+      },
+      "values": {
+        "appearance": 6,
+        "nose": 20,
+        "palate": 26,
+        "harmony": 15,
+        "total": 70.5
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "cotes",
+      "label": "Côtes de Vallonne",
+      "participants": ["pre", "ferrand", "aubrac", "goutte"]
+    },
+    {
+      "id": "villages",
+      "label": "Vallonne Villages",
+      "participants": ["vaubert", "roche", "thibault", "bosquet"]
+    },
+    {
+      "id": "under-15",
+      "label": "Under €15",
+      "participants": ["vaubert", "thibault", "goutte"]
+    },
+    {
+      "id": "15-to-25",
+      "label": "€15 to €25",
+      "participants": ["pre", "ferrand", "roche", "bosquet"]
+    }
+  ],
+  "rankings": [
+    {
+      "id": "overall",
+      "label": "Overall",
+      "description": "Ferrand and Vaubert both scored 86.5; the panel's rules break the tie on palate, which Vaubert wins 35 to 33.",
+      "sortBy": ["total", "palate"]
+    },
+    {
+      "id": "cotes",
+      "label": "Côtes de Vallonne",
+      "scope": {
+        "category": "cotes"
+      },
+      "sortBy": ["total", "palate"]
+    },
+    {
+      "id": "affordable",
+      "label": "Under €25",
+      "description": "An axis built from two declared price bands, selected as a union (§8.1.2).",
+      "scope": {
+        "category": ["under-15", "15-to-25"]
+      },
+      "sortBy": ["total", "palate"]
+    }
+  ],
+  "presentation": {
+    "defaultView": "table",
+    "measureOrder": ["total", "appearance", "nose", "palate", "harmony"],
+    "attributeOrder": [
+      "medal",
+      "appellation",
+      "vintage",
+      "price",
+      "alcohol",
+      "sample"
+    ]
+  }
+}

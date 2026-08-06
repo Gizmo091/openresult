@@ -240,13 +240,17 @@ def format_value(value, measure):
     if measure.get("kind") == "duration" and unit in TIME_UNITS:
         return format_duration(value * TIME_UNITS[unit], precision or 0)
 
-    text = f"{value:.{precision}f}" if precision is not None else str(value)
+    # `:g` rather than `str()`: JSON has one number type and Python has two, so
+    # `str(91.0)` is "91.0" where a JavaScript consumer shows "91". With no
+    # declared precision the format says nothing about decimals, and the two
+    # readers would then disagree on every whole number.
+    text = f"{value:.{precision}f}" if precision is not None else f"{value:g}"
 
     # A bounded score reads against its maximum (§5.2.7): 27 is excellent out of
     # 30 and poor out of 100.
     maximum = measure.get("max")
     if maximum is not None and measure.get("kind") in ("score", "points"):
-        top = f"{maximum:.{precision}f}" if precision is not None else str(maximum)
+        top = f"{maximum:.{precision}f}" if precision is not None else f"{maximum:g}"
         return f"{text}/{top}"
 
     return f"{text} {unit}" if unit else text
