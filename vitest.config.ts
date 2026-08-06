@@ -2,6 +2,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
+    // Sans plafond, un worker par cœur est lancé et chacun charge son propre
+    // environnement : de quoi saturer la RAM d'une machine 16 Go.
+    maxWorkers: 2,
     include: ['**/test/**/*.test.ts', '**/*.test.ts'],
     exclude: ['**/node_modules/**', '**/dist/**'],
     environment: 'node',
