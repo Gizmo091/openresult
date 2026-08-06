@@ -1,5 +1,6 @@
 import { coreDeps } from './core-deps.ts';
 import { allocatedNumbersAreAttributes } from './allocated-numbers-are-attributes.ts';
+import { builtOutputIsCurrent } from './built-output-is-current.ts';
 import { compiledValidator } from './compiled-validator.ts';
 import { conformanceManifest } from './conformance-manifest.ts';
 import { noSecrets } from './no-secrets.ts';
@@ -52,6 +53,7 @@ const CHECKS: Check[] = [
   publishablePackages,
   workflowsBuildFirst,
   diagnosticsAreExercised,
+  builtOutputIsCurrent,
   schemaKeywordsTranslated,
   diagnosticsCiteRules,
   siteLinksResolve,

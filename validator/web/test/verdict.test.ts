@@ -8,6 +8,9 @@ const entry = (severity: Diagnostic['severity']): Diagnostic => ({
   path: '/results/0',
   message: 'Something to fix.',
   rule: 'spec §7.1.1',
+  // Required since §12.1.3 stopped being advisory: every diagnostic carries a
+  // correction, so a fixture without one is not a diagnostic.
+  suggestion: 'Declare it, or remove the reference.',
 });
 
 const report = (errors: number, warnings: number): ValidationReport => ({
