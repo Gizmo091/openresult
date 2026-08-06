@@ -84,7 +84,15 @@ describe('lookups', () => {
   });
 
   it('copes with a document declaring neither', () => {
-    const bare: ResultDocument = { ...document, measures: undefined, attributes: undefined };
+    // Built without them rather than with them set to undefined: under
+    // `exactOptionalPropertyTypes` those are different types, and a document
+    // that omits them is the one a producer actually writes.
+    const bare: ResultDocument = {
+      openresult: '1.0',
+      title: 'Test',
+      participants: document.participants,
+      results: document.results,
+    };
     expect(measure(bare, 'time')).toBeUndefined();
     expect(attribute(bare, 'club')).toBeUndefined();
   });
