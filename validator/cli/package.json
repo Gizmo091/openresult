@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "description": "Command-line validator and ranker for OpenResult documents.",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gizmo091/openresult.git",
+    "directory": "validator/cli"
+  },
+  "homepage": "https://openresult.dev",
+  "bugs": {
+    "url": "https://github.com/Gizmo091/openresult/issues"
+  },
   "type": "module",
   "bin": {
     "openresult": "./dist/cli.js"

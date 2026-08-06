@@ -8,6 +8,15 @@
     "json-schema"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gizmo091/openresult.git",
+    "directory": "sdk/js/packages/validate"
+  },
+  "homepage": "https://openresult.dev",
+  "bugs": {
+    "url": "https://github.com/Gizmo091/openresult/issues"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

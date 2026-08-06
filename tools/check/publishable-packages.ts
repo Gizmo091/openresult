@@ -45,6 +45,8 @@ export const publishablePackages: Check = {
       const manifest = JSON.parse(await readFile(join(repoRoot, file), 'utf8')) as {
         name?: string;
         private?: boolean;
+        repository?: { url?: string; directory?: string };
+        files?: string[];
       };
       const name = manifest.name;
       if (name === undefined) continue;
@@ -60,6 +62,39 @@ export const publishablePackages: Check = {
       }
 
       publishable.push(name);
+
+      // npm refuses to attest provenance for a package that declares no
+      // repository, and the release publishes with `--provenance`. The failure
+      // lands at the very last step of a tagged release, after every check has
+      // passed, which is the worst moment to discover a missing field.
+      const repository = manifest.repository?.url;
+      if (repository === undefined || !repository.includes('github.com/Gizmo091/openresult')) {
+        problems.push(
+          `${name} declares no repository pointing at this project. npm will refuse to attest ` +
+            `provenance for it, and the release fails after publishing whatever came before it ` +
+            `in the list.`,
+        );
+      }
+      if (manifest.repository?.directory === undefined) {
+        problems.push(
+          `${name} declares a repository without a "directory". In a monorepo that sends every ` +
+            `visitor to the root instead of the package.`,
+        );
+      }
+
+      // A package listing README.md in `files` and not having one publishes a
+      // blank page on npm — which is the first thing anyone deciding whether to
+      // install it will see.
+      if (manifest.files?.includes('README.md') === true) {
+        const readme = join(repoRoot, dirname(file), 'README.md');
+        const present = await readFile(readme, 'utf8').catch(() => null);
+        if (present === null) {
+          problems.push(
+            `${name} lists README.md in "files" and has none, so its npm page is blank.`,
+          );
+        }
+      }
+
       if (!published.has(name)) {
         problems.push(
           `${name} is publishable — no "private": true — but the release workflow never names ` +
