@@ -132,12 +132,13 @@ describe('GET /api/fetch refuses anything off the public internet', () => {
   ] as const;
 
   for (const [what, url] of forbidden) {
+    // The server resolves the name before deciding, so these do real DNS. On a
+    // CI runner that lookup can outlast the 5 s default, which is what broke
+    // the build — not the refusal, which was never in doubt.
     it(`refuses ${what}`, async () => {
       const response = await fetch(`${base}/api/fetch?url=${encodeURIComponent(url)}`);
       expect(response.status).toBe(403);
-    }, // a CI runner that can take longer than the 5 s default — which is what // The server resolves the name before deciding, so these do real DNS. On
-    // broke the build, not the refusal itself.
-    20_000);
+    }, 20_000);
   }
 
   it('refuses a scheme that is not http or https', async () => {
