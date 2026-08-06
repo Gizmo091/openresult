@@ -163,12 +163,20 @@ function translate(error: ErrorObject): Diagnostic[] {
 
     // Structural keywords that only exist to route validation. Reporting them
     // would tell a producer about the schema's internals, not about the mistake.
+    //
+    // `propertyNames` belongs here for the same reason with one extra step: the
+    // subschema it applies to the key has already reported the real error — a
+    // ranking id with a space in it comes back as OR-104, naming the key and
+    // saying what an identifier may contain. Ajv then adds "property name must
+    // be valid" on top, which is a second error for one mistake and the one
+    // that helps least.
     case 'if':
     case 'else':
     case 'then':
     case 'anyOf':
     case 'allOf':
     case 'oneOf':
+    case 'propertyNames':
       return [];
 
     case 'minItems':

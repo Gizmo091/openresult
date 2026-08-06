@@ -17,6 +17,7 @@ import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
 import { presentationOptional } from './presentation-optional.ts';
 import { ruleCoverage } from './rule-coverage.ts';
+import { schemaKeywordsTranslated } from './schema-keywords-translated.ts';
 import { schemaModule } from './schema-module.ts';
 import { specCoherence } from './spec-coherence.ts';
 import { specRequiredSync } from './spec-required-sync.ts';
@@ -51,6 +52,7 @@ const CHECKS: Check[] = [
   publishablePackages,
   workflowsBuildFirst,
   diagnosticsAreExercised,
+  schemaKeywordsTranslated,
   diagnosticsCiteRules,
   siteLinksResolve,
   sourcesAreTracked,

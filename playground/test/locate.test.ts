@@ -97,7 +97,7 @@ describe('locating a JSON Pointer', () => {
     // what the code actually promises.
     const found = textAt('/title', long);
     expect(found === null || found === '"Last of all"').toBe(true);
-  });
+  }, 30_000); // `locate` waits up to 5 s for the parse, so the test cannot be capped at 5 s too.
 
   it('still resolves a long document when it has time', () => {
     const filler = Array.from(
