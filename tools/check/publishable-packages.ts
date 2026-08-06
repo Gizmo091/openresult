@@ -25,10 +25,18 @@ export const publishablePackages: Check = {
   async run() {
     const workflow = await readFile(WORKFLOW, 'utf8');
 
-    // `--filter @openresult/core` and friends, from the publish step only.
-    const publishStep = workflow.slice(workflow.indexOf('name: Publish'));
+    // Package names as they appear in the workflow's commands, comments
+    // stripped: the release names them in whichever step does the packing, and
+    // that step has moved before. Matching commands rather than one step's
+    // flags keeps this working when the mechanics change again.
+    const commands = workflow
+      .split('\n')
+      .filter((line) => !/^\s*#/.test(line))
+      .join('\n');
     const published = new Set(
-      [...publishStep.matchAll(/--filter\s+(@[\w-]+\/[\w-]+)/g)].map((match) => match[1] ?? ''),
+      [...commands.matchAll(/(@[\w-]+\/[\w-]+)/g)]
+        .map((match) => match[1] ?? '')
+        .filter((name) => name.startsWith('@openresult/')),
     );
 
     const problems: string[] = [];

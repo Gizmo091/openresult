@@ -47,18 +47,38 @@ jobs:
       - name: Conformance suite
         run: pnpm conformance
 
-      # Packages are named one by one rather than globbed. The glob over
-      # `sdk/js/packages/*` silently omitted the viewer, which lives elsewhere
-      # and is the package a consumer is most likely to want, and it silently
-      # included the conformance runner, whose 60 cases live at the repository
-      # root and would not travel with it.
+      # Trusted publishing needs npm 11.5.1 or later; Node 22 ships npm 10.
+      - name: Install a npm that speaks OIDC
+        run: npm install -g npm@latest
+
+      # Two tools, each doing what it is good at.
+      #
+      # pnpm packs: it is the only one that knows this is a workspace, and it
+      # rewrites `workspace:*` into the real version on the way into the
+      # tarball. npm publishes: it is the only one that speaks OIDC, which pnpm
+      # still does not (pnpm#9812), and OIDC is what replaces the long-lived
+      # token this workflow used to carry.
+      #
+      # Packages are named one by one rather than globbed. A glob over
+      # `sdk/js/packages/*` once omitted the viewer, which lives elsewhere and
+      # is the package a consumer is most likely to want, and included the
+      # conformance runner, whose cases live at the repository root and would
+      # not travel with it.
+      - name: Pack
+        run: |
+          mkdir -p /tmp/tarballs
+          for package in @openresult/core @openresult/validate @openresult/viewer @openresult/cli; do
+            pnpm --filter "$package" exec pnpm pack --pack-destination /tmp/tarballs
+          done
+          ls -la /tmp/tarballs
+
+      # No token: the id-token permission above lets npm exchange a
+      # short-lived, signed OIDC assertion for publish rights, and provenance
+      # comes with it. Each package must have this repository and this workflow
+      # filename registered as a trusted publisher on npmjs.com.
       - name: Publish
-        run: >
-          pnpm
-          --filter @openresult/core
-          --filter @openresult/validate
-          --filter @openresult/viewer
-          --filter @openresult/cli
-          publish --access public --no-git-checks --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          for tarball in /tmp/tarballs/*.tgz; do
+            echo "Publishing $tarball"
+            npm publish "$tarball" --access public --provenance
+          done
