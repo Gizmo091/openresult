@@ -1,0 +1,48 @@
+{
+  "openresult": "1.0",
+  "title": "Links and assets are decoration",
+  "lang": "en",
+  "description": "Links and assets hang off the document, a participant and a result. None of them changes the order, and a consumer that cannot fetch any of them still interprets the document fully (spec §9.3.3, §9.3.4). The rel values are free text and mean nothing to a machine.",
+  "measures": [
+    {
+      "id": "score",
+      "label": "Score",
+      "kind": "score",
+      "unit": "pt",
+      "min": 0,
+      "max": 100,
+      "betterWhen": "higher"
+    }
+  ],
+  "links": [
+    {
+      "rel": "rules",
+      "href": "https://example.org/rules.pdf",
+      "label": "Competition rules"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "A",
+      "links": [{ "rel": "profile", "href": "https://example.org/a" }],
+      "assets": [
+        {
+          "type": "image",
+          "href": "https://example.org/a.jpg",
+          "label": "Portrait of A"
+        }
+      ]
+    },
+    { "id": "b", "name": "B" }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": { "score": 88 },
+      "assets": [{ "type": "video", "href": "https://example.org/a-run.mp4" }]
+    },
+    { "participant": "b", "values": { "score": 91 } }
+  ],
+  "rankings": [{ "id": "main", "label": "Main", "sortBy": ["score"] }]
+}

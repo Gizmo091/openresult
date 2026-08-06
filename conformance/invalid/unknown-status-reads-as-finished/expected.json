@@ -1,0 +1,11 @@
+{
+  "valid": false,
+  "errors": [{ "code": "OR-103", "path": "/results/1/status" }],
+  "rankings": {
+    "main": [
+      { "participant": "b", "rank": 1 },
+      { "participant": "a", "rank": 2 },
+      { "participant": "c", "rank": null }
+    ]
+  }
+}

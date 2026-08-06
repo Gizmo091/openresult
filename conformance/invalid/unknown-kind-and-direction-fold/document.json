@@ -1,0 +1,41 @@
+{
+  "openresult": "1.0",
+  "title": "Unknown enumeration values fold onto the documented fallback",
+  "lang": "en",
+  "description": "A consumer reading a document that uses values it does not know must not refuse it: an unknown kind reads as text and an unknown betterWhen as none, so neither can decide an order (spec §5.1.6). Here only the second measure can rank anything.",
+  "measures": [
+    {
+      "id": "vibe",
+      "label": "Vibe",
+      "kind": "aura",
+      "unit": "pt",
+      "betterWhen": "sideways"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "vibe": 9, "time": 56.44 } },
+    { "participant": "b", "values": { "vibe": 1, "time": 55.1 } },
+    { "participant": "c", "values": { "vibe": 5, "time": 57.9 } }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "description": "vibe leads sortBy and decides nothing: its direction is unknown, so it folds to none and is skipped (§8.2.2, §5.1.6).",
+      "sortBy": ["vibe", "time"]
+    }
+  ]
+}

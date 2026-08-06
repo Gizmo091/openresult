@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "status": "ratified",
+  "title": "Unknown values everywhere a fallback is documented",
+  "lang": "en",
+  "description": "Four enumerations from a later version at once: a document status, a participant type, an event type and an asset type. Each has a documented fallback — provisional, other, other, other — so a consumer reads the document instead of refusing it (spec §4.4.4, §6.1.1, §6.2.1, §9.3.5). None of them touches the order.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A", "type": "swarm" },
+    { "id": "b", "name": "B", "type": "person" }
+  ],
+  "events": [{ "id": "e", "name": "Event", "type": "shootout" }],
+  "results": [
+    {
+      "participant": "a",
+      "event": "e",
+      "values": { "time": 56.44 },
+      "assets": [
+        {
+          "type": "hologram",
+          "href": "https://example.org/a.glb",
+          "label": "Replay"
+        }
+      ]
+    },
+    { "participant": "b", "event": "e", "values": { "time": 55.1 } }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "scope": { "event": "e" },
+      "sortBy": ["time"]
+    }
+  ]
+}

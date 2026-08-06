@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "title": "An event and a category together narrow, not widen",
+  "lang": "en",
+  "description": "When scope carries both, a result must satisfy each of them (spec §8.1.3). Only juniors who raced the final are selected.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" },
+    { "id": "d", "name": "D" }
+  ],
+  "events": [
+    { "id": "heat", "name": "Heat", "type": "heat" },
+    { "id": "final", "name": "Final", "type": "final" }
+  ],
+  "categories": [
+    { "id": "junior", "label": "Junior", "participants": ["a", "c"] }
+  ],
+  "results": [
+    { "participant": "a", "event": "heat", "values": { "time": 57.0 } },
+    { "participant": "c", "event": "heat", "values": { "time": 58.0 } },
+    { "participant": "a", "event": "final", "values": { "time": 56.44 } },
+    { "participant": "b", "event": "final", "values": { "time": 55.1 } },
+    { "participant": "c", "event": "final", "values": { "time": 57.9 } },
+    { "participant": "d", "event": "final", "values": { "time": 55.9 } }
+  ],
+  "rankings": [
+    {
+      "id": "junior-final",
+      "label": "Junior final",
+      "scope": { "event": "final", "category": "junior" },
+      "sortBy": ["time"]
+    }
+  ]
+}

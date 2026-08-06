@@ -1,0 +1,38 @@
+{
+  "openresult": "1.0",
+  "title": "Two rankings, one direction each, both from the measure",
+  "lang": "en",
+  "description": "A ranking cannot declare a direction: it comes exclusively from each measure's betterWhen (spec §8.2.3). The same result set orders one way on time and the other way on distance, because the measures say so and the rankings say nothing.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "distance",
+      "label": "Distance",
+      "kind": "distance",
+      "unit": "m",
+      "precision": 2,
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 55.1, "distance": 6.12 } },
+    { "participant": "b", "values": { "time": 56.44, "distance": 7.05 } },
+    { "participant": "c", "values": { "time": 57.9, "distance": 6.88 } }
+  ],
+  "rankings": [
+    { "id": "fastest", "label": "Fastest", "sortBy": ["time"] },
+    { "id": "furthest", "label": "Furthest", "sortBy": ["distance"] }
+  ]
+}

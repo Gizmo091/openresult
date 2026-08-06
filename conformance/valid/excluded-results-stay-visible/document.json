@@ -1,0 +1,41 @@
+{
+  "openresult": "1.0",
+  "title": "Excluding is not deleting",
+  "lang": "en",
+  "description": "A result the ranking excludes must remain available, shown without a rank rather than dropped (spec §7.2.4, §8.5.5). A field of five that renders as two misrepresents the race.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" },
+    { "id": "d", "name": "D" },
+    { "id": "e", "name": "E" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 55.1 } },
+    {
+      "participant": "b",
+      "status": "dnf",
+      "values": { "time": 30.2 },
+      "notes": "Retired at halfway; the split stands."
+    },
+    { "participant": "c", "values": { "time": 56.44 } },
+    { "participant": "d", "status": "dns" },
+    {
+      "participant": "e",
+      "status": "dsq",
+      "values": { "time": 54.9 },
+      "notes": "Disqualified; the time is recorded and not ranked."
+    }
+  ],
+  "rankings": [{ "id": "main", "label": "Main", "sortBy": ["time"] }]
+}

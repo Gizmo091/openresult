@@ -229,6 +229,30 @@
       "path": "invalid/compat-unknown-enums"
     },
     {
+      "id": "unknown-enumerations-outside-ranking",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.4.4",
+      "description": "A document status, a participant type, an event type and an asset type from a later version each fold onto their documented fallback, and the ranking is unaffected.",
+      "path": "invalid/unknown-enumerations-outside-ranking"
+    },
+    {
+      "id": "unknown-kind-and-direction-fold",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §5.1.6",
+      "description": "An unknown kind and direction are errors against the declared version, and a consumer still reads them as text and none — so the document ranks.",
+      "path": "invalid/unknown-kind-and-direction-fold"
+    },
+    {
+      "id": "unknown-status-reads-as-finished",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.2.2",
+      "description": "An unknown status is an error against the declared version and still reads as finished, so the result ranks.",
+      "path": "invalid/unknown-status-reads-as-finished"
+    },
+    {
       "id": "OR-906-parent-event-without-results",
       "kind": "valid",
       "level": "ranking",
@@ -285,6 +309,14 @@
       "path": "valid/compat-higher-minor"
     },
     {
+      "id": "direction-comes-only-from-the-measure",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.2.3",
+      "description": "Two rankings over one result set order oppositely because their measures do, not because they say so.",
+      "path": "valid/direction-comes-only-from-the-measure"
+    },
+    {
       "id": "empty-results",
       "kind": "valid",
       "level": "reading",
@@ -309,12 +341,36 @@
       "path": "valid/exclude-statuses-replaces-default"
     },
     {
+      "id": "excluded-results-stay-visible",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §7.2.4",
+      "description": "Results excluded by status follow the ranked ones without a rank rather than being dropped.",
+      "path": "valid/excluded-results-stay-visible"
+    },
+    {
       "id": "kind-mass",
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §5.1.2",
       "description": "A physical mass is its own kind: a barbell load is not awarded by a rule.",
       "path": "valid/kind-mass"
+    },
+    {
+      "id": "links-and-assets-never-affect-interpretation",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §9.3.3",
+      "description": "Links and assets on the document, a participant and a result change nothing a consumer derives.",
+      "path": "valid/links-and-assets-never-affect-interpretation"
+    },
+    {
+      "id": "no-rankable-measure-keeps-declaration-order",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §8.6.2",
+      "description": "With no measure carrying a direction the document has no ranking, and results keep declaration order.",
+      "path": "valid/no-rankable-measure-keeps-declaration-order"
     },
     {
       "id": "presentation-ignored",
@@ -459,6 +515,14 @@
       "rule": "spec §5.1.8",
       "description": "Criteria marked out of unlike maxima, and a numeric attribute carrying its unit instead of hiding it in a label.",
       "path": "valid/scale-bounds-and-attribute-units"
+    },
+    {
+      "id": "scope-event-and-category-intersect",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.3",
+      "description": "An event and a category in the same scope narrow the selection; a result must satisfy both.",
+      "path": "valid/scope-event-and-category-intersect"
     },
     {
       "id": "status-bye-ranks",

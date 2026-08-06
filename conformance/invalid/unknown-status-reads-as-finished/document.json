@@ -1,0 +1,31 @@
+{
+  "openresult": "1.0",
+  "title": "A status from a later version still reads",
+  "lang": "en",
+  "description": "A consumer meeting a status it does not know must read it as finished (spec §7.2.2), so a document written against a later MINOR version still ranks rather than losing whoever carries it. Validation against the declared version is a separate question.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 2,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "a", "values": { "time": 56.44 } },
+    {
+      "participant": "b",
+      "status": "provisionallyPlaced",
+      "values": { "time": 55.1 }
+    },
+    { "participant": "c", "status": "dnf" }
+  ],
+  "rankings": [{ "id": "main", "label": "Main", "sortBy": ["time"] }]
+}

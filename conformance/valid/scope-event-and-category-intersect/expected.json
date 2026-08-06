@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "rankings": {
+    "junior-final": [
+      { "participant": "a", "rank": 1 },
+      { "participant": "c", "rank": 2 }
+    ]
+  }
+}

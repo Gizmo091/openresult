@@ -1,0 +1,26 @@
+{
+  "openresult": "1.0",
+  "title": "Nothing to rank on",
+  "lang": "en",
+  "description": "No ranking is declared and no measure has a direction, so the document has no ranking at all and results keep the order they were written in (spec §8.6.2). A start list is exactly this.",
+  "measures": [
+    {
+      "id": "bibNumber",
+      "label": "Bib",
+      "kind": "count",
+      "unit": "rider",
+      "betterWhen": "none"
+    },
+    { "id": "club", "label": "Club code", "kind": "text", "betterWhen": "none" }
+  ],
+  "participants": [
+    { "id": "a", "name": "A" },
+    { "id": "b", "name": "B" },
+    { "id": "c", "name": "C" }
+  ],
+  "results": [
+    { "participant": "c", "values": { "bibNumber": 31, "club": "VLN" } },
+    { "participant": "a", "values": { "bibNumber": 12, "club": "MAL" } },
+    { "participant": "b", "values": { "bibNumber": 7, "club": "CRK" } }
+  ]
+}
