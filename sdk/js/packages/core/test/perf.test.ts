@@ -63,6 +63,9 @@ describe('derivation performance', () => {
     // noise, and a flaky test erodes confidence in the whole suite. A quadratic
     // derivation would need minutes here, not milliseconds.
     const document = largeDocument(50_000);
-    expect(timed(() => rank(document, 'main'))).toBeLessThan(4000);
-  });
+    // Typical is 450 ms and it has been seen at 9.8 s with other suites running
+    // beside it. A quadratic derivation over 50,000 results needs minutes, not
+    // seconds, so a budget this wide still fails on the only thing it is for.
+    expect(timed(() => rank(document, 'main'))).toBeLessThan(30_000);
+  }, 90_000);
 });

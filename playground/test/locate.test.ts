@@ -77,7 +77,7 @@ describe('locating a JSON Pointer', () => {
     expect(() => textAt('/title', '{ "title": ')).not.toThrow();
   });
 
-  it('resolves a pointer past the editor’s initial parse budget', () => {
+  it('never points at the wrong token when the parse cannot finish', () => {
     // The editor parses only part of a long document up front, and the rest
     // lazily. Asking the tree for a pointer near the end used to resolve
     // against whatever had been parsed so far — highlighting an arbitrary
@@ -90,6 +90,24 @@ describe('locating a JSON Pointer', () => {
     ).join(',\n');
     const long = `{\n  "participants": [\n${filler}\n  ],\n  "title": "Last of all"\n}`;
 
+    // Either the right answer or none. On a machine under load the parse can
+    // exceed its budget, and the first version of this fix fell back to the
+    // partial tree — which is how the original bug came back. Asserting the
+    // exact value made the test flake; asserting that it is never *wrong* is
+    // what the code actually promises.
+    const found = textAt('/title', long);
+    expect(found === null || found === '"Last of all"').toBe(true);
+  });
+
+  it('still resolves a long document when it has time', () => {
+    const filler = Array.from(
+      { length: 2_000 },
+      (_, index) => `    { "id": "p${index}", "name": "Competitor ${index}" }`,
+    ).join(',\n');
+    const long = `{\n  "participants": [\n${filler}\n  ],\n  "title": "Last of all"\n}`;
+
+    // Small enough that the budget is never the question, so this one asserts
+    // the value: the feature has to work, not merely fail safely.
     expect(textAt('/title', long)).toBe('"Last of all"');
   });
 });

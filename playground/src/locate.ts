@@ -1,4 +1,4 @@
-import { ensureSyntaxTree, syntaxTree } from '@codemirror/language';
+import { ensureSyntaxTree, type syntaxTree } from '@codemirror/language';
 import type { EditorState } from '@codemirror/state';
 
 export interface Range {
@@ -24,10 +24,21 @@ export function locate(state: EditorState, pointer: string): Range | null {
   // than the editor's initial parse budget stops partway through the document —
   // and a partial tree resolves a pointer to whatever node happens to be the
   // last one reached. The diagnostic then highlights an arbitrary token with no
-  // sign that anything went wrong. `ensureSyntaxTree` finishes the parse; it
-  // returns null only if it runs out of time, in which case the partial tree is
-  // still better than refusing to point at all.
-  const tree = ensureSyntaxTree(state, state.doc.length, PARSE_BUDGET_MS) ?? syntaxTree(state);
+  // sign that anything went wrong. `ensureSyntaxTree` finishes the parse.
+  //
+  // When it cannot finish in time it returns null, and the honest answer is
+  // then *nothing*. Falling back to the partial tree was the first fix here,
+  // and it reinstated the original bug under load: a slow machine parses less
+  // within the budget, and the wrong token gets highlighted exactly when the
+  // editor is busiest. No highlight is a missing feature; the wrong highlight
+  // is a lie, and the reader has no way to tell.
+  const tree = ensureSyntaxTree(state, state.doc.length, PARSE_BUDGET_MS);
+
+  // Null means it gave up. A non-null tree shorter than the document means it
+  // gave up *quietly* — `ensureSyntaxTree` returns what it managed, and asking
+  // that tree for a pointer beyond its end walks into the same wrong answer.
+  // Both cases have the same honest reply: nothing.
+  if (tree === null || tree.length < state.doc.length) return null;
 
   let node = tree.topNode.firstChild;
   if (node === null) return null;
