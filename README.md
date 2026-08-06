@@ -20,6 +20,15 @@ curl -X POST https://openresult.dev/view \
      --data-binary @results.json
 ```
 
+**Libraries**, published from CI with provenance attestations:
+
+| Package                                                                      | For                                               |
+| ---------------------------------------------------------------------------- | ------------------------------------------------- |
+| [`@openresult/core`](https://www.npmjs.com/package/@openresult/core)         | Reading and ranking. No runtime dependencies      |
+| [`@openresult/validate`](https://www.npmjs.com/package/@openresult/validate) | The schema plus the rules a schema cannot express |
+| [`@openresult/viewer`](https://www.npmjs.com/package/@openresult/viewer)     | A web component that renders any document         |
+| [`@openresult/cli`](https://www.npmjs.com/package/@openresult/cli)           | Validating and ranking from a shell or a build    |
+
 ---
 
 ## The problem

@@ -58,6 +58,7 @@ export function chrome(): { main: HTMLElement } {
     element('span', {}, 'Specification and docs: CC BY 4.0. Code: Apache 2.0.'),
     element('a', { href: 'https://github.com/Gizmo091/openresult' }, 'Source'),
     element('a', { href: '/schema/openresult-1.0.schema.json' }, 'JSON Schema'),
+    element('a', { href: 'https://www.npmjs.com/org/openresult' }, 'npm'),
   );
   footer.append(footerRow);
 

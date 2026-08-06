@@ -216,6 +216,24 @@ after.append(
 );
 main.append(after);
 
+const libraries = element('p', { class: 'small muted' });
+libraries.append(
+  'Reading a document is the half where a library earns its place, and those are published: ',
+  element('a', { href: 'https://www.npmjs.com/package/@openresult/core' }, '@openresult/core'),
+  ' for ranking, ',
+  element(
+    'a',
+    { href: 'https://www.npmjs.com/package/@openresult/validate' },
+    '@openresult/validate',
+  ),
+  ' for checking, ',
+  element('a', { href: 'https://www.npmjs.com/package/@openresult/viewer' }, '@openresult/viewer'),
+  ' for rendering, and ',
+  element('a', { href: 'https://www.npmjs.com/package/@openresult/cli' }, '@openresult/cli'),
+  ' to validate from a build.',
+);
+main.append(libraries);
+
 // --- the rules that matter when writing a producer ---------------------
 
 main.append(element('h2', {}, 'Five things worth knowing before you start'));

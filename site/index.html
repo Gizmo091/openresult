@@ -124,6 +124,25 @@ curl -X POST https://openresult.dev/view \
         <code>GET /view?url=…</code> when a link is easier than a form.
       </p>
 
+      <h2>Reading it in your own code</h2>
+      <p>
+        Producing a document needs nothing installed — see
+        <a href="/produce/">producing a document</a>. Reading one is where a library earns its
+        place: the ranking has to come out the same everywhere, and that is the part worth not
+        writing twice.
+      </p>
+
+      <!-- Replaced at load with the packages, versions read from their manifests. -->
+      <div id="packages"></div>
+
+      <p class="small muted">
+        Published from CI with
+        <a href="https://docs.npmjs.com/generating-provenance-statements">provenance attestations</a
+        >, so each release is tied to the commit and the workflow that built it. The specification,
+        the schema and the conformance suite are in the
+        <a href="https://github.com/Gizmo091/openresult">repository</a>.
+      </p>
+
       <h2>What it is deliberately not</h2>
       <p>
         It does not model how a competition is run — no fixtures, no scheduling, no scoring rules,
@@ -162,7 +181,9 @@ curl -X POST https://openresult.dev/view \
         <span>Specification and docs: CC BY 4.0. Code: Apache 2.0.</span>
         <a href="https://github.com/Gizmo091/openresult">Source</a>
         <a href="/schema/openresult-1.0.schema.json">JSON Schema</a>
+        <a href="https://www.npmjs.com/org/openresult">npm</a>
       </div>
     </footer>
+    <script type="module" src="/src/home.ts"></script>
   </body>
 </html>
