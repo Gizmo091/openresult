@@ -17,6 +17,7 @@ import { crossImplementation } from './cross-implementation.ts';
 import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
 import { presentationOptional } from './presentation-optional.ts';
+import { readmeFigures } from './readme-figures.ts';
 import { ruleCoverage } from './rule-coverage.ts';
 import { schemaKeywordsTranslated } from './schema-keywords-translated.ts';
 import { schemaModule } from './schema-module.ts';
@@ -54,6 +55,7 @@ const CHECKS: Check[] = [
   workflowsBuildFirst,
   diagnosticsAreExercised,
   builtOutputIsCurrent,
+  readmeFigures,
   schemaKeywordsTranslated,
   diagnosticsCiteRules,
   siteLinksResolve,

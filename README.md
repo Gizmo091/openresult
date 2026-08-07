@@ -103,8 +103,8 @@ A derived rank is one you can verify. A rank you are handed must be taken on tru
 | ------------------------------------ | ------------------------------------------------------------------- |
 | [`specification/`](./specification/) | The normative specification — the source of truth                   |
 | [`schema/`](./schema/)               | The official JSON Schema (draft 2020-12)                            |
-| [`examples/`](./examples/)           | 19 realistic documents across eleven unlike domains                 |
-| [`conformance/`](./conformance/)     | Language-agnostic conformance suite, 37 cases                       |
+| [`examples/`](./examples/)           | 22 realistic documents across thirteen unlike domains               |
+| [`conformance/`](./conformance/)     | Language-agnostic conformance suite, 128 cases                      |
 | [`sdk/`](./sdk/)                     | Reference implementation in TypeScript                              |
 | [`validator/`](./validator/)         | Command line and browser validators                                 |
 | [`viewer/`](./viewer/)               | Embeddable viewer — renders any document with no configuration      |
@@ -128,20 +128,24 @@ of dependency-free Python.
 
 ## How the promises are kept
 
-Eight repository checks run on every change. They exist because a principle nobody can violate by
-accident is a property, while a principle enforced by good will is a wish.
+Twenty-seven repository checks run on every change. They exist because a principle nobody can
+violate by accident is a property, while a principle enforced by good will is a wish.
 
 ```
 $ pnpm check
 
-✓ core-deps                no runtime dependency, 3.5 kB gzipped
-✓ no-domain-logic          42 source files clean
-✓ examples                 19 example(s) valid
-✓ schema-module            embedded schema matches the published one
-✓ rule-coverage            30/111 normative rules exercised
-✓ spec-schema-sync         52 members and 49 enum values all documented
-✓ presentation-optional    74 rankings unchanged without hints
-✓ cross-implementation     39 rankings identical across two implementations
+✓ core-deps                no runtime dependency, 4.0 kB gzipped
+✓ no-domain-logic          43 source files clean
+✓ examples                 22 example(s) valid
+✓ rule-coverage            115 rules by case, 24 otherwise (5 of them a gap), 139 declared
+✓ spec-coherence           codes unique, rules ordered, index complete, links resolve
+✓ conformance-manifest     128 cases, all runnable
+✓ diagnostics-exercised    34 diagnostics, all exercised
+✓ diagnostics-cite-rules   34 diagnostics: rule cited, location and correction carried
+✓ schema-keywords-translated 18 schema keywords, all translated
+✓ presentation-optional    185 rankings unchanged without hints (18 documents carry them)
+✓ cross-implementation     131 rankings identical across two implementations
+                           … and sixteen more
 ```
 
 The last one is the one that matters most: the Python minimal reader and the TypeScript reference
