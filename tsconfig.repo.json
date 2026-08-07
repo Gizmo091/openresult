@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    // The checks import each other as `./name.ts`, which is what tsx runs and
+    // what Node's type stripping expects.
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  },
+  // The repository's own TypeScript: the checks, the generators, and the
+  // configuration at the root. None of it ships, all of it decides what does.
+  "include": ["tools/**/*.ts", "vite.config.base.ts", "vitest.config.ts"]
+}

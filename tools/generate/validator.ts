@@ -33,9 +33,21 @@ const ajv = new Ajv2020({
 });
 addFormats.default(ajv);
 
+/**
+ * `ajv/dist/standalone` is CommonJS.
+ *
+ * Node's ESM loader hands back the module object, whose function hangs off
+ * `.default`; the published types describe the function itself. Both are true —
+ * of different things — so the unwrap is written once, where it can be seen,
+ * rather than left as a property access no compiler ever looked at. Everything
+ * under tools/ was untyped until this file was the first thing checking it
+ * found.
+ */
+const generate =
+  (standaloneCode as unknown as { default?: typeof standaloneCode }).default ?? standaloneCode;
+
 const validate = ajv.compile(OPENRESULT_1_0_SCHEMA);
-const source = standaloneCode
-  .default(ajv, validate)
+const source = generate(ajv, validate)
   // Ajv reaches for its own length helper the same way. It is a CommonJS
   // module whose function hangs off `.default`, so the import below unwraps it
   // rather than naming the module object — which is a function of nothing and

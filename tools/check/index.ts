@@ -14,6 +14,7 @@ import { unitVocabulary } from './unit-vocabulary.ts';
 import { defaultExclusionsAgree } from './default-exclusions-agree.ts';
 import { descriptionEverywhere } from './description-everywhere.ts';
 import { crossImplementation } from './cross-implementation.ts';
+import { everySourceIsTypechecked } from './every-source-is-typechecked.ts';
 import { examples } from './examples.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
 import { presentationOptional } from './presentation-optional.ts';
@@ -56,6 +57,7 @@ const CHECKS: Check[] = [
   diagnosticsAreExercised,
   builtOutputIsCurrent,
   readmeFigures,
+  everySourceIsTypechecked,
   schemaKeywordsTranslated,
   diagnosticsCiteRules,
   siteLinksResolve,

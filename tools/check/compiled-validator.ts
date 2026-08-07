@@ -4,6 +4,10 @@ import { dirname, join } from 'node:path';
 import { Ajv2020, _ } from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import standaloneCode from 'ajv/dist/standalone/index.js';
+
+/** See tools/generate/validator.ts: the CommonJS default hangs off `.default`. */
+const generate =
+  (standaloneCode as unknown as { default?: typeof standaloneCode }).default ?? standaloneCode;
 import { type Check, fail, pass } from './types.ts';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -37,9 +41,10 @@ export const compiledValidator: Check = {
     });
     addFormats.default(ajv);
 
-    const expected = standaloneCode
-      .default(ajv, ajv.compile(schema))
-      .replaceAll('require("ajv/dist/runtime/ucs2length").default', 'ucs2length');
+    const expected = generate(ajv, ajv.compile(schema)).replaceAll(
+      'require("ajv/dist/runtime/ucs2length").default',
+      'ucs2length',
+    );
 
     // Compare the generated body, not the header the generator writes around it.
     if (!onDisk.includes(expected)) {
