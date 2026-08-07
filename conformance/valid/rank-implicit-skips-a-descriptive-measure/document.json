@@ -1,0 +1,59 @@
+{
+  "openresult": "1.0",
+  "title": "No ranking declared",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "wind",
+      "label": "Wind",
+      "kind": "rate",
+      "unit": "m/s",
+      "betterWhen": "none"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "wind": 1.2,
+        "time": 30
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "wind": -0.4,
+        "time": 10
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "wind": 0.9,
+        "time": 20
+      }
+    }
+  ]
+}

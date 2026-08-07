@@ -1,5 +1,5 @@
 {
-  "note": "Diagnostic codes this project has published. A code is permanent (spec \u00a712.2.1): removing or reassigning one is a breaking change for any consumer keyed on it. A ratchet \u2014 the list only grows. Checked by `pnpm check diagnostics-cite-rules`.",
+  "note": "Diagnostic codes this project has published. A code is permanent (spec §12.2.1): removing or reassigning one is a breaking change for any consumer keyed on it. A ratchet — the list only grows. Checked by `pnpm check diagnostics-cite-rules`.",
   "codes": [
     "OR-101",
     "OR-102",
@@ -11,6 +11,7 @@
     "OR-108",
     "OR-109",
     "OR-110",
+    "OR-111",
     "OR-201",
     "OR-202",
     "OR-203",

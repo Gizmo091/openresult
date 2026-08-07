@@ -243,6 +243,14 @@
       "path": "invalid/OR-110-unit-on-a-non-numeric-attribute"
     },
     {
+      "id": "OR-111-count-unit-that-names-nothing",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.2.6",
+      "description": "A count unit must name what is counted.",
+      "path": "invalid/OR-111-count-unit-that-names-nothing"
+    },
+    {
       "id": "OR-201-rank-in-an-undeclared-ranking",
       "kind": "invalid",
       "level": "reading",
@@ -339,12 +347,21 @@
       "path": "invalid/OR-301-sort-by-a-measure-with-no-direction"
     },
     {
+      "id": "OR-301-sort-on-a-descriptive-measure",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §8.2.2",
+      "description": "A ranking sorts on a measure declaring betterWhen: none.",
+      "path": "invalid/OR-301-sort-on-a-descriptive-measure"
+    },
+    {
       "id": "OR-301-sort-on-directionless-measure",
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §8.2.2",
       "description": "A ranking sorts on a measure declaring betterWhen: none.",
-      "path": "invalid/OR-301-sort-on-directionless-measure"
+      "path": "invalid/OR-301-sort-on-directionless-measure",
+      "deprecated": "Superseded by OR-301-sort-on-a-descriptive-measure. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
     },
     {
       "id": "OR-301-sort-on-text-measure",
@@ -797,7 +814,16 @@
       "level": "ranking",
       "rule": "spec §8.6.1",
       "description": "With no ranking declared, the first directional measure is used.",
-      "path": "valid/rank-implicit"
+      "path": "valid/rank-implicit",
+      "deprecated": "Superseded by rank-implicit-skips-a-descriptive-measure. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
+    },
+    {
+      "id": "rank-implicit-skips-a-descriptive-measure",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.6.1",
+      "description": "With no ranking declared, the first directional measure is used.",
+      "path": "valid/rank-implicit-skips-a-descriptive-measure"
     },
     {
       "id": "rank-missing-measure",
@@ -805,7 +831,8 @@
       "level": "ranking",
       "rule": "spec §8.5.2",
       "description": "A result missing a sorting measure is unranked, not sorted as zero.",
-      "path": "valid/rank-missing-measure"
+      "path": "valid/rank-missing-measure",
+      "deprecated": "Superseded by unranked-when-a-sorting-measure-is-missing. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
     },
     {
       "id": "rank-scope-category",
@@ -1030,6 +1057,14 @@
       "rule": "spec §8.5.5",
       "description": "Unranked results come last, in declaration order, with no rank.",
       "path": "valid/unranked-follow-the-ranked-in-declaration-order"
+    },
+    {
+      "id": "unranked-when-a-sorting-measure-is-missing",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "description": "A result missing a sorting measure is unranked, not sorted as zero.",
+      "path": "valid/unranked-when-a-sorting-measure-is-missing"
     }
   ]
 }

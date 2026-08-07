@@ -183,14 +183,15 @@ calendar they belong to.
 ## Rules nothing enforces
 
 A normative rule the validator does not check is a rule a producer will break without ever being
-told. These are the ones in that state, listed so that the gap is visible rather than discovered.
+told. Four are in that state, listed with their reasons in
+[`conformance/rules-not-by-case.json`](../conformance/rules-not-by-case.json): supersession between
+documents sharing an id (§4.4.3), the status of an aggregate event (§7.2.8), `license` as an SPDX
+identifier (§9.2.2), and a consumer accepting `application/json` (§11.6.2). Each governs something
+outside a single document, or a judgement no validator can make from the document alone.
 
-**§5.2.6 — a `count` unit must name what is counted.** `n`, `#` and `no` name nothing, and a
-figure that counts nothing cannot be labelled. The rule is a MUST and no diagnostic reports it;
-`unit-vocabulary` enforces the vocabulary over this repository's own documents, which catches it in
-the corpus and nowhere else. Enforcing it needs a code of its own — a warning, since the document
-still reads perfectly — and the judgement of what counts as a placeholder has to be a closed list
-rather than a guess.
+§5.2.6 was the fifth until a count whose unit names nothing became `OR-111`. Closing it meant
+first cleaning three conformance documents that modelled a bib as a measure — the very thing the
+rule points at — which had gone unnoticed because the check enforcing it only swept `examples/`.
 
 ## What will never be in scope
 

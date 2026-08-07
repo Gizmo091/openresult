@@ -17,10 +17,6 @@
       "evidence": "test:sdk/js/packages/core/test/format.test.ts",
       "why": "A rendering rule. The conformance runner compares validity, diagnostics and derived rankings — never display — so the reference formatter's tests are what hold it."
     },
-    "5.2.6": {
-      "evidence": "gap",
-      "why": "A MUST with no diagnostic behind it: nothing reports a count unit of `n`, `#` or `no`. `unit-vocabulary` catches it in the corpus and nowhere else. Recorded in docs/ROADMAP.md under \"Rules nothing enforces\"."
-    },
     "5.2.7": {
       "evidence": "test:sdk/js/packages/core/test/format.test.ts",
       "why": "A rendering rule, on the same terms as §5.2.5."

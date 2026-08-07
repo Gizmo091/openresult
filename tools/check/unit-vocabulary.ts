@@ -1,6 +1,7 @@
 import { glob, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { documentsExemptFromCorpusRules } from './conformance-documents.ts';
 import { type Check, fail, pass } from './types.ts';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -37,9 +38,19 @@ export const unitVocabulary: Check = {
   enforces: 'Example units must follow the vocabulary each kind implies (spec §5.2.4, §5.2.6)',
   async run() {
     const problems: string[] = [];
+    const exempt = await documentsExemptFromCorpusRules();
     let inspected = 0;
 
-    for await (const file of glob('examples/**/*.openresult.json', { cwd: repoRoot })) {
+    // Two corpora, held to different parts of this. §5.2.6 is a MUST and binds
+    // every document; §5.2.4 is a SHOULD, and the examples are what the project
+    // publishes as models, so they follow the recommendation as house style. A
+    // conformance case may not: one exists to show that a unit is displayed and
+    // never interpreted, and it makes that point with `fortnight`.
+    for await (const file of glob('{examples/**/*.openresult.json,conformance/**/document.json}', {
+      cwd: repoRoot,
+    })) {
+      if (exempt.has(file)) continue;
+      const isExample = file.startsWith('examples/');
       const document = JSON.parse(await readFile(join(repoRoot, file), 'utf8')) as {
         measures?: { id: string; kind?: string; unit?: string }[];
       };
@@ -51,7 +62,7 @@ export const unitVocabulary: Check = {
         inspected += 1;
 
         const closed = CLOSED[kind];
-        if (closed !== undefined && !closed.includes(unit)) {
+        if (isExample && closed !== undefined && !closed.includes(unit)) {
           problems.push(
             `${file}: "${measure.id}" is a ${kind} measured in "${unit}", which §5.2.4 does not ` +
               `list. Use one of ${closed.map((value) => `"${value}"`).join(', ')}, or widen the ` +
@@ -72,7 +83,7 @@ export const unitVocabulary: Check = {
         // The two attempts that flagged `W` and `bpm` were the check being
         // wrong, not the corpus.
 
-        if (kind === 'money' && !/^[A-Z]{3}$/.test(unit)) {
+        if (isExample && kind === 'money' && !/^[A-Z]{3}$/.test(unit)) {
           problems.push(
             `${file}: "${measure.id}" is money in "${unit}", which is not an ISO 4217 code. ` +
               `A consumer grouping by currency cannot match a symbol against a code.`,

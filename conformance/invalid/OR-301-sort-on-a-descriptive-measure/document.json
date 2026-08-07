@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "title": "Case",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "wind",
+      "label": "Wind",
+      "kind": "rate",
+      "unit": "m/s",
+      "betterWhen": "none"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "wind": 1.2
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "wind": -0.4
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "main",
+      "label": "Main",
+      "sortBy": ["wind"]
+    }
+  ]
+}

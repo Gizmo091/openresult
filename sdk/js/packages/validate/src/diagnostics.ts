@@ -48,6 +48,7 @@ export const CATALOGUE = {
   'OR-108': { severity: 'error', rule: 'spec §7.3.2' },
   'OR-109': { severity: 'error', rule: 'spec §5.1.8' },
   'OR-110': { severity: 'error', rule: 'spec §5.3.7' },
+  'OR-111': { severity: 'error', rule: 'spec §5.2.6' },
   'OR-201': { severity: 'error', rule: 'spec §7.1.1' },
   'OR-202': { severity: 'error', rule: 'spec §5.4.2' },
   'OR-203': { severity: 'error', rule: 'spec §7.1.3' },

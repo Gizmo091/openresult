@@ -1,0 +1,54 @@
+{
+  "openresult": "1.0",
+  "title": "A count with a placeholder for a unit",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    },
+    {
+      "id": "laps",
+      "label": "Laps",
+      "kind": "count",
+      "unit": "n",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2,
+        "laps": 12
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7,
+        "laps": 12
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

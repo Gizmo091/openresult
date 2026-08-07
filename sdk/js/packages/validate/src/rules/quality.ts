@@ -2,12 +2,17 @@ import type { ResultDocument } from '@openresult/core';
 import { diagnostic, pointer, type Diagnostic } from '../diagnostics.js';
 
 /**
- * Non-blocking observations.
+ * What a document says about itself, checked against itself.
  *
- * None of these makes a document invalid. They are reported separately from
- * errors (spec §12.1.2) so that a producer can act on them without being told
- * the document is broken when it is not.
+ * Mostly non-blocking observations — reported separately from errors
+ * (spec §12.1.2) so that a producer can act on them without being told the
+ * document is broken when it is not. Two are errors, and both are declarations
+ * that contradict themselves rather than data that disappoints: a scale whose
+ * minimum exceeds its maximum, and a count whose unit names nothing.
  */
+/** The placeholders §5.2.6 names. Not a wider guess: see the rule's own text. */
+const NAMES_NOTHING = new Set(['n', '#', 'no']);
+
 export function checkQuality(document: ResultDocument): Diagnostic[] {
   const found: Diagnostic[] = [];
 
@@ -44,6 +49,27 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
         ),
       );
     }
+  });
+
+  // A count must name what it counts (spec §5.2.6). The rule names the three
+  // placeholders it means, and this reports exactly those: a validator that
+  // guessed at a wider list would reject documents the specification accepts.
+  // `tools/check/unit-vocabulary.ts` holds this repository's own examples to a
+  // longer one, which is a house style rather than the rule.
+  (document.measures ?? []).forEach((measure, index) => {
+    if (measure.kind !== 'count') return;
+    if (!NAMES_NOTHING.has((measure.unit ?? '').toLowerCase())) return;
+    found.push(
+      diagnostic(
+        'OR-111',
+        pointer('measures', index, 'unit'),
+        `"${measure.label}" counts "${measure.unit}", which names nothing. A count says what it ` +
+          `counts — laps, matches, faults — and a figure counting nothing is an identifier ` +
+          `somebody allocated rather than something anybody measured.`,
+        `Name what is counted, or declare it in "attributes" with type "number" if it is a bib, ` +
+          `a lane or a start number.`,
+      ),
+    );
   });
 
   // Values outside the scale their measure declares. A warning, not an error:

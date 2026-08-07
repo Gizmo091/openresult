@@ -1,6 +1,7 @@
 import { glob, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { documentsExemptFromCorpusRules } from './conformance-documents.ts';
 import { type Check, fail, pass } from './types.ts';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -36,6 +37,7 @@ export const allocatedNumbersAreAttributes: Check = {
   async run() {
     const spec = await readFile(SPEC, 'utf8');
     const problems: string[] = [];
+    const exempt = await documentsExemptFromCorpusRules();
     let inspected = 0;
 
     if (!spec.includes('**§5.3.5**')) {
@@ -45,7 +47,13 @@ export const allocatedNumbersAreAttributes: Check = {
       );
     }
 
-    for await (const file of glob('examples/**/*.openresult.json', { cwd: repoRoot })) {
+    // The conformance suite is a corpus too, and the rule it is held to is the
+    // same one. Three of its own documents modelled a bib as a measure — the
+    // very thing §5.3.5 forbids — because this only ever swept examples/.
+    for await (const file of glob('{examples/**/*.openresult.json,conformance/**/document.json}', {
+      cwd: repoRoot,
+    })) {
+      if (exempt.has(file)) continue;
       const document = JSON.parse(await readFile(join(repoRoot, file), 'utf8')) as {
         measures?: { id: string; kind?: string; unit?: string; betterWhen?: string }[];
       };
