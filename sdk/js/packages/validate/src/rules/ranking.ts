@@ -122,9 +122,11 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
         diagnostic(
           'OR-908',
           pointer('rankings', index),
-          `Ranking "${ranking.label}" leaves ${droppedForMeasure.length} result(s) unranked ` +
-            `because they lack a measure it sorts on — ${names}${more}. They are not excluded by ` +
-            `status, so this is probably not intended.`,
+          `Ranking "${ranking.label}" leaves ${droppedForMeasure.length} ` +
+            `${droppedForMeasure.length === 1 ? 'result' : 'results'} unranked because ` +
+            `${droppedForMeasure.length === 1 ? 'it lacks' : 'they lack'} a measure it sorts on — ` +
+            `${names}${more}. ${droppedForMeasure.length === 1 ? 'It is' : 'They are'} not ` +
+            `excluded by status, so this is probably not intended.`,
           `Publish a value every selected result carries, copying earlier rounds forward where a ` +
             `later one did not happen — or narrow the ranking's scope.`,
         ),
