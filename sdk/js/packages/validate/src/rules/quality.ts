@@ -10,6 +10,17 @@ import { diagnostic, pointer, type Diagnostic } from '../diagnostics.js';
  * that contradict themselves rather than data that disappoints: a scale whose
  * minimum exceeds its maximum, and a count whose unit names nothing.
  */
+/**
+ * The shape of an SPDX identifier or expression (spec §9.2.2).
+ *
+ * Shape, not membership: the licence list runs to several hundred entries and
+ * grows, so checking against a copy would report a new identifier as wrong. A
+ * shape can only fail on something that could not be an identifier at all —
+ * "Creative Commons Attribution 4.0 International", "All rights reserved" —
+ * which is the mistake producers actually make.
+ */
+const SPDX_SHAPE = /^[A-Za-z0-9.+()-]+(?: (?:AND|OR|WITH) [A-Za-z0-9.+()-]+)*$/;
+
 /** The placeholders §5.2.6 names. Not a wider guess: see the rule's own text. */
 const NAMES_NOTHING = new Set(['n', '#', 'no']);
 
@@ -71,6 +82,23 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
       ),
     );
   });
+
+  // A licence a machine can act on (spec §9.2.2). A warning: the terms are
+  // stated either way, and refusing a document over the spelling of its licence
+  // would withhold the results to complain about the metadata.
+  const license = document.source?.license;
+  if (license !== undefined && !SPDX_SHAPE.test(license)) {
+    found.push(
+      diagnostic(
+        'OR-912',
+        '/source/license',
+        `"${license}" is not an SPDX identifier, so nothing can tell whether the data may be ` +
+          `reused without a person reading it.`,
+        `Use the identifier for these terms — "CC-BY-4.0", "CC0-1.0", "ODbL-1.0" — or an SPDX ` +
+          `expression such as "CC-BY-4.0 OR ODbL-1.0".`,
+      ),
+    );
+  }
 
   // Values outside the scale their measure declares. A warning, not an error:
   // the document still orders, and refusing to render standings because one

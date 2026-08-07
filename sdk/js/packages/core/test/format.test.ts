@@ -65,6 +65,35 @@ describe('durations render in hours, minutes and seconds (§5.2.5)', () => {
   });
 });
 
+describe('a half rounds away from zero (§5.1.5)', () => {
+  // Unstated until the reference implementation and the minimal reader rendered
+  // 1:28:08.5 as `1:28:09` and `1:28:08`. Each language's default is a
+  // defensible convention; a published time differing by a second between two
+  // consumers is not.
+  it('rounds a duration up at the half', () => {
+    const seconds = measure({ kind: 'duration', unit: 's' });
+    expect(formatValue(5288.5, seconds, { locale: 'en' })).toBe('1:28:09');
+    expect(formatValue(5287.5, seconds, { locale: 'en' })).toBe('1:28:08');
+  });
+
+  it('keeps the sign, rounding away from zero rather than up', () => {
+    expect(formatValue(-8.5, measure({ kind: 'duration', unit: 's' }), { locale: 'en' })).toBe(
+      '-9',
+    );
+  });
+
+  it('rounds the decimal the document wrote, not the double it became', () => {
+    // 2.675 is stored as 2.67499…, so rounding the stored number gives 2.67 and
+    // rounding what the producer typed gives 2.68. The duration path used to do
+    // the first and every other value the second, which made one implementation
+    // render the same figure two ways.
+    expect(formatValue(2.675, measure({ precision: 2 }), { locale: 'en' })).toBe('2.68 pt');
+    expect(
+      formatValue(2.675, measure({ kind: 'duration', unit: 's', precision: 2 }), { locale: 'en' }),
+    ).toBe('2.68');
+  });
+});
+
 describe('a bounded score renders against its maximum (§5.1.8)', () => {
   it('shows the scale when one is declared', () => {
     const nose = measure({ kind: 'score', max: 30 });

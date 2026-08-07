@@ -14,6 +14,7 @@ exposes its semantics, and derives standings exactly as §8.5 prescribes.
 
 import json
 import sys
+from decimal import Decimal, ROUND_HALF_UP
 
 SUPPORTED_MAJOR = 1
 
@@ -233,6 +234,21 @@ def rank(document, ranking_id=None):
 TIME_UNITS = {"s": 1, "ms": 0.001, "min": 60, "h": 3600}
 
 
+def fixed(value, precision):
+    """Round away from zero at a half, as §5.1.5 requires.
+
+    Python rounds a half to the nearest even digit and JavaScript rounds it up,
+    so `8.5` to no decimals is 8 in one and 9 in the other. Both conventions are
+    defensible; a published time being a second apart between two consumers is
+    not.
+
+    `repr` first, because the rounding applies to the decimal the document
+    wrote rather than to the double it became: 2.675 is stored as 2.67499…, and
+    a producer who typed 2.675 is looking for 2.68."""
+    quantum = Decimal(1).scaleb(-precision)
+    return f"{Decimal(repr(value)).quantize(quantum, rounding=ROUND_HALF_UP):f}"
+
+
 def format_duration(seconds, precision):
     """Hours, minutes and seconds, leading zero components dropped (§5.2.5)."""
     negative = seconds < 0
@@ -240,7 +256,7 @@ def format_duration(seconds, precision):
     hours, rest = divmod(seconds, 3600)
     minutes, secs = divmod(rest, 60)
 
-    body = f"{secs:.{precision}f}"
+    body = fixed(secs, precision)
     if hours >= 1:
         text = f"{int(hours)}:{int(minutes):02d}:{body.zfill(precision + 3 if precision else 2)}"
     elif minutes >= 1:
@@ -266,13 +282,13 @@ def format_value(value, measure):
     # `str(91.0)` is "91.0" where a JavaScript consumer shows "91". With no
     # declared precision the format says nothing about decimals, and the two
     # readers would then disagree on every whole number.
-    text = f"{value:.{precision}f}" if precision is not None else f"{value:g}"
+    text = fixed(value, precision) if precision is not None else f"{value:g}"
 
     # A bounded score reads against its maximum (§5.2.7): 27 is excellent out of
     # 30 and poor out of 100.
     maximum = measure.get("max")
     if maximum is not None and measure.get("kind") in ("score", "points"):
-        top = f"{maximum:.{precision}f}" if precision is not None else f"{maximum:g}"
+        top = fixed(maximum, precision) if precision is not None else f"{maximum:g}"
         return f"{text}/{top}"
 
     return f"{text} {unit}" if unit else text

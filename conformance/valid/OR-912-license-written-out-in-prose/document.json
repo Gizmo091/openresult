@@ -1,0 +1,49 @@
+{
+  "openresult": "1.0",
+  "title": "Crest trail 21 km",
+  "lang": "en",
+  "source": {
+    "name": "Vallonne Athletic Club",
+    "license": "Creative Commons Attribution 4.0 International"
+  },
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 5412.0
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 5288.5
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ]
+}

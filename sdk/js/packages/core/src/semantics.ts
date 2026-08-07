@@ -2,6 +2,7 @@ import type {
   AttributeDefinition,
   BetterWhen,
   Category,
+  DocumentStatus,
   Measure,
   Participant,
   Result,
@@ -135,4 +136,46 @@ export function usedMeasures(document: ResultDocument): Measure[] {
     for (const key of Object.keys(result.values ?? {})) used.add(key);
   }
   return (document.measures ?? []).filter((candidate) => used.has(candidate.id));
+}
+
+/**
+ * Whether `a` supersedes `b` among documents sharing an `id` (spec §4.4.3).
+ *
+ * The commonest real requirement in results publishing: the jury rules, the
+ * standings change, and both documents exist in the wild. Every consumer had to
+ * read §4.4.3 and implement it, which is what a reference implementation is for.
+ *
+ * Returns `undefined` where the rule does not decide, rather than guessing:
+ *
+ * - the two do not share an `id`, so §4.4.3 does not apply — including when
+ *   either carries none, since a document with no `id` names no subject and can
+ *   supersede nothing;
+ * - the versions and the standings are equal, which is a producer publishing
+ *   the same thing twice;
+ * - either carries no `status` and the versions are equal. §4.4.3 ranks
+ *   `official` and `amended` above `provisional` above `draft`; a document
+ *   stating none is in none of those ranks. §4.4.4 covers an *unknown* status,
+ *   which is a different thing from an absent one.
+ *
+ * A version that is absent ranks below any version that is present: §4.4.2 says
+ * a republication increases it, so a document carrying none is not one.
+ */
+export function supersedes(a: ResultDocument, b: ResultDocument): boolean | undefined {
+  if (a.id === undefined || b.id === undefined || a.id !== b.id) return undefined;
+
+  const left = a.version ?? -1;
+  const right = b.version ?? -1;
+  if (left !== right) return left > right;
+
+  if (a.status === undefined || b.status === undefined) return undefined;
+
+  const authority = standingOf(a.status) - standingOf(b.status);
+  return authority === 0 ? undefined : authority > 0;
+}
+
+/** Where a status sits in §4.4.3's order. `official` and `amended` are equal. */
+function standingOf(status: DocumentStatus): number {
+  if (status === 'official' || status === 'amended') return 2;
+  if (status === 'provisional') return 1;
+  return 0;
 }

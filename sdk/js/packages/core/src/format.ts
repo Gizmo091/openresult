@@ -96,6 +96,29 @@ function toSeconds(value: number, unit: 's' | 'ms' | 'min' | 'h'): number {
 }
 
 /**
+ * A number to a fixed number of decimals, rounding a half away from zero
+ * (spec §5.1.5).
+ *
+ * Not `toFixed`, which rounds the binary double: `2.675` is stored as
+ * `2.67499…`, so `toFixed(2)` answers `2.67` while `Intl.NumberFormat` — which
+ * every other value here goes through — answers `2.68`. The same figure
+ * rendered two ways by one implementation, depending only on whether it was a
+ * duration.
+ *
+ * `Intl` rounds the decimal the document wrote, which is the number a producer
+ * typed and the one they will look for. Fixed to `en` so the digits carry `.`
+ * and no grouping, exactly as the clock form needs; the locale-aware path is
+ * `decimal()`.
+ */
+function toDecimalPlaces(value: number, precision: number): string {
+  return new Intl.NumberFormat('en', {
+    minimumFractionDigits: precision,
+    maximumFractionDigits: precision,
+    useGrouping: false,
+  }).format(value);
+}
+
+/**
  * Seconds to a readable duration: `1:28:18.7`, `28:18.70`, `18.712`.
  *
  * Leading zero components are dropped, because a 12-second lap displayed as
@@ -109,7 +132,7 @@ function formatDuration(totalSeconds: number, precision: number): string {
   const minutes = Math.floor((absolute % 3600) / 60);
   const seconds = absolute % 60;
 
-  const secondsText = seconds.toFixed(precision);
+  const secondsText = toDecimalPlaces(seconds, precision);
   const padded = seconds < 10 ? `0${secondsText}` : secondsText;
 
   let text: string;

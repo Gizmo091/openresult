@@ -226,6 +226,13 @@ others. At equal `version`, `official` or `amended` supersedes `provisional`, wh
 **§4.4.4** A consumer that encounters an unknown `status` value **MUST** treat it as
 `provisional`.
 
+_Non-normative: §4.4.3 ranks `official` and `amended` together, above `provisional`, above
+`draft`. It ranks nothing else._ A document carrying no `status` is in none of those ranks, and
+§4.4.4 is about an unknown value rather than an absent one, so where two documents share an `id`
+and a `version` and either states no standing, the order is not defined and a consumer should keep
+both rather than choose. The same holds for two documents that are `official` at the same version:
+one of them was published in error, and guessing which would hide it.
+
 _Non-normative: this is the answer to the most common real-world requirement in results
 publishing — the standings change after the jury rules, and both documents exist in the wild._
 
@@ -292,7 +299,18 @@ is descriptive and **MUST NOT** appear in a ranking's `sortBy` ([§8.2](#82-sort
 
 **§5.1.5** `precision`, when present, **MUST** be a non-negative integer giving the number of
 digits to show **after the decimal point** — not significant figures. It affects display only and
-**MUST NOT** affect ordering.
+**MUST NOT** affect ordering. Rounding applies to the number as the document writes it, and a
+value falling exactly halfway **MUST** be rounded away from zero: `8.5` shown to no decimals is
+`9`, `-8.5` is `-9`, and `2.675` to two decimals is `2.68`.
+
+_Non-normative: the halfway case decides a published time, and two consumers disagreeing about it
+by a second is the divergence this format exists to prevent._ It went unstated until the reference
+implementation and the minimal reader rendered the same 1:28:08.5 as `1:28:09` and `1:28:08` —
+neither wrong, because each language's default rounding is a defensible convention and the format
+had chosen neither. The second sentence matters as much: `2.675` is not stored exactly, and
+rounding what is stored gives `2.67` while rounding what the producer typed gives `2.68`. The
+reference implementation did the first for durations and the second for everything else, so one
+consumer rendered the same figure two ways.
 
 **§5.1.6** A consumer encountering an unknown `kind` **MUST** treat it as `text`; an unknown
 `betterWhen` **MUST** be treated as `none`.

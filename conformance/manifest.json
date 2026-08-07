@@ -535,6 +535,14 @@
       "path": "valid/OR-911-published-positions-missing"
     },
     {
+      "id": "OR-912-license-written-out-in-prose",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §9.2.2",
+      "description": "A licence should be an SPDX identifier, not prose.",
+      "path": "valid/OR-912-license-written-out-in-prose"
+    },
+    {
       "id": "a-category-carries-attributes",
       "kind": "valid",
       "level": "ranking",

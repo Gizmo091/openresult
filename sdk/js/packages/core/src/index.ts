@@ -22,6 +22,7 @@ export {
   eventWithDescendants,
   isRankable,
   usedMeasures,
+  supersedes,
   normalizeStatus,
   normalizeBetterWhen,
   normalizeTies,

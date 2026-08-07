@@ -2,8 +2,8 @@
   "note": "Normative rules no conformance case can demonstrate, and what stands in for one. A rule reaches this file only when a document cannot exercise it — because it is about a collection of documents, about the specification itself, or about a consumer's display. `evidence` names what does hold it: a repository check, a test file, or `gap` when nothing does. Read alongside conformance/coverage.json, which ratchets the rules cases do cover. Checked by `pnpm check rule-coverage`.",
   "rules": {
     "4.4.3": {
-      "evidence": "gap",
-      "why": "Supersession orders documents sharing an id. The suite runs one document at a time, so nothing here can present the second one. Recorded rather than faked: a case holding two documents in one directory would be a different suite."
+      "evidence": "test:sdk/js/packages/core/test/supersession.test.ts",
+      "why": "Supersession orders documents sharing an id, and the suite runs one document at a time — a case holding two would be a different suite. The reference implementation provides the operation instead, as `supersedes(a, b)`, and its tests cover both what the rule decides and what it declines to."
     },
     "4.5.2": {
       "evidence": "guidance",
@@ -32,10 +32,6 @@
     "8.5.6": {
       "evidence": "check:cross-implementation",
       "why": "Determinism is a claim about two consumers, and one case exercises one. The check derives every ranking in the corpus and the suite with both the TypeScript reference and the Python minimal reader, and fails on any disagreement."
-    },
-    "9.2.2": {
-      "evidence": "gap",
-      "why": "A SHOULD that `license` be an SPDX identifier. Nothing validates the identifier against the SPDX list, so a case would assert only that a string is a string."
     },
     "10.2.3": {
       "evidence": "test:sdk/js/packages/conformance/test/rewriting.test.ts",
@@ -66,8 +62,8 @@
       "why": "Proposes a media type whose registration is pending. Nothing to run until a registry answers."
     },
     "11.6.2": {
-      "evidence": "gap",
-      "why": "Requires consumers to accept `application/json`. It governs an HTTP exchange, and the suite reads documents from disk. The site's server accepts both and its tests say so, but that is one consumer rather than the rule."
+      "evidence": "test:validator/cli/test/sources.test.ts",
+      "why": "Requires a consumer to accept `application/json`. It governs an HTTP exchange and the suite reads documents from disk. No consumer here looks at the header — the proposed media type is unregistered and almost no server sends it, so discriminating on it would reject nearly every document published today. The tests serve one document under three media types so that adding such a check would have to be a decision rather than an oversight."
     },
     "11.6.3": {
       "evidence": "check:examples",

@@ -183,15 +183,22 @@ calendar they belong to.
 ## Rules nothing enforces
 
 A normative rule the validator does not check is a rule a producer will break without ever being
-told. Four are in that state, listed with their reasons in
-[`conformance/rules-not-by-case.json`](../conformance/rules-not-by-case.json): supersession between
-documents sharing an id (§4.4.3), the status of an aggregate event (§7.2.8), `license` as an SPDX
-identifier (§9.2.2), and a consumer accepting `application/json` (§11.6.2). Each governs something
-outside a single document, or a judgement no validator can make from the document alone.
+told. One is left, and it is the one that cannot be otherwise:
 
-§5.2.6 was the fifth until a count whose unit names nothing became `OR-111`. Closing it meant
-first cleaning three conformance documents that modelled a bib as a measure — the very thing the
-rule points at — which had gone unnoticed because the check enforcing it only swept `examples/`.
+**§7.2.8 — the status of an aggregate event** must be the most specific one true of the aggregate.
+Which status is true depends on the sport: a rider who abandons stage four is `dnf` on the general
+classification, and whether the same is true of a swimmer disqualified in a heat is a question the
+document cannot answer. No validator can tell a considered choice from a lazy one, so a case would
+show the recommended shape and demonstrate nothing.
+
+The other four closed while this file was being kept honest. §5.2.6 became `OR-111` and §9.2.2
+became `OR-912`; §4.4.3 became `supersedes()` in the reference implementation, since the suite runs
+one document at a time and supersession is about two; §11.6.2 became tests serving one document
+under three media types, so that discriminating on the header would have to be a decision.
+
+Closing §5.2.6 meant first cleaning three conformance documents that modelled a bib as a measure —
+the very thing the rule points at — which had gone unnoticed because the check enforcing it only
+swept `examples/`.
 
 ## What will never be in scope
 

@@ -179,6 +179,31 @@ describe('urls', () => {
     );
   });
 
+  it.each(['application/json', 'application/vnd.openresult+json', 'text/plain'])(
+    'accepts a document served as %s',
+    async (type) => {
+      // §11.6.2: a consumer must accept `application/json`. The proposed media
+      // type is not registered and most servers will not send it, so a consumer
+      // that discriminated on the header would reject nearly every document
+      // published today. This one does not look at the header at all, and these
+      // are here so that adding a check would have to be a decision.
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(
+          async () =>
+            new Response('{"openresult":"1.0"}', {
+              status: 200,
+              headers: { 'content-type': type },
+            }),
+        ),
+      );
+
+      const [source] = await resolveSources(['https://example.org/r.json']);
+
+      expect(source?.content).toBe('{"openresult":"1.0"}');
+    },
+  );
+
   it('treats only http and https as urls', async () => {
     // Anything else is a path. `file:///etc/passwd` must not become a fetch.
     await expect(resolveSources(['ftp://example.org/r.json'])).rejects.toThrow('does not exist');
