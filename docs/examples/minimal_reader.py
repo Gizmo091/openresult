@@ -94,6 +94,11 @@ def resolve_ranking(document, ranking_id=None):
     return declared[0] if declared else implicit_ranking(document)
 
 
+def as_list(value):
+    """§8.1.1 and §8.1.2 both accept one identifier or several."""
+    return value if isinstance(value, list) else [value]
+
+
 def in_scope(document, ranking, result):
     """Step 1 — selection (§8.5.1). The scoped events only, never their descendants."""
     scope = ranking.get("scope")
@@ -103,16 +108,13 @@ def in_scope(document, ranking, result):
     if "event" in scope:
         # One event or several (§8.1.1). Listing them is how a standing spanning
         # several events avoids copying results; descendants are still excluded.
-        wanted = scope["event"]
-        wanted = wanted if isinstance(wanted, list) else [wanted]
-        if result.get("event") not in wanted:
+        if result.get("event") not in as_list(scope["event"]):
             return False
 
     if "category" in scope:
         # One category or several (§8.1.2). Several is a union: belonging to any
         # of them is enough.
-        wanted = scope["category"]
-        wanted = wanted if isinstance(wanted, list) else [wanted]
+        wanted = as_list(scope["category"])
         members = {
             participant
             for category in document.get("categories", [])
@@ -136,7 +138,7 @@ def carries_usable_value(document, result, measure_id):
     value = result.get("values", {}).get(measure_id)
     if value is None:
         return False
-    kind = (measures_by_id(document).get(measure_id) or {}).get("kind")
+    kind = measures_by_id(document).get(measure_id, {}).get("kind")
     if kind == "text":
         return isinstance(value, str)
     if kind == "boolean":
@@ -203,10 +205,10 @@ def rank(document, ranking_id=None):
 
     # Step 3 — sort (§8.5.3). Python's sort is stable, which is what preserves
     # declaration order among results that compare equal.
-    ordered = sorted(rankable, key=sort_key(document, ranking))
+    key = sort_key(document, ranking)
+    ordered = sorted(rankable, key=key)
 
     # Step 4 — assign (§8.5.4).
-    key = sort_key(document, ranking)
     ties, placed, group_number = ties_of(ranking), [], 0
     index = 0
     while index < len(ordered):

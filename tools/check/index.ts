@@ -16,6 +16,7 @@ import { descriptionEverywhere } from './description-everywhere.ts';
 import { crossImplementation } from './cross-implementation.ts';
 import { everySourceIsTypechecked } from './every-source-is-typechecked.ts';
 import { examples } from './examples.ts';
+import { minimalReaderSize } from './minimal-reader-size.ts';
 import { noDomainLogic } from './no-domain-logic.ts';
 import { presentationOptional } from './presentation-optional.ts';
 import { readmeFigures } from './readme-figures.ts';
@@ -57,6 +58,7 @@ const CHECKS: Check[] = [
   diagnosticsAreExercised,
   builtOutputIsCurrent,
   readmeFigures,
+  minimalReaderSize,
   everySourceIsTypechecked,
   schemaKeywordsTranslated,
   diagnosticsCiteRules,

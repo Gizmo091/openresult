@@ -16,7 +16,7 @@ contacting anyone.
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Specification            | Normative RFC-style document: terminology, concepts, versioning, compatibility, required and optional fields, types, rules, validation, examples |
 | Schema                   | Official JSON Schema (draft 2020-12), versioned and addressable                                                                                  |
-| Examples                 | Eleven realistic domains plus an edge-case library                                                                                               |
+| Examples                 | Thirteen realistic domains plus an edge-case library                                                                                             |
 | Conformance              | Declarative, language-agnostic suite, with expected derived rankings                                                                             |
 | Reference implementation | TypeScript: read, rank, validate                                                                                                                 |
 | Validator                | Command line and browser                                                                                                                         |
@@ -33,10 +33,20 @@ views, ports beyond the reference implementation.
 
 - A developer unfamiliar with the project produces a valid document for their own domain in under
   thirty minutes, from the published documents alone.
-- All eleven domains are expressible without a proprietary extension.
+- All thirteen domains are expressible without a proprietary extension.
 - Every example renders correctly in the viewer with no per-example configuration.
 - The conformance suite covers every normative rule.
-- A minimal reader fits in under two hundred lines with no dependency.
+- A minimal reader fits in under 220 lines with no dependency, excluding its command-line front
+  end. Checked by `pnpm check minimal-reader-size`.
+
+_The reader's ceiling was two hundred when it was written, and nothing counted the lines. It
+reached two hundred and sixty-seven while every addition was justified on its own: `scope`
+accepting several events or categories, `ties: "resolved"` and the group it settles, the partition
+that checks a value against its measure's kind, and the rounding rule. Those are about forty lines
+of specification, not of reader — remove them and it is back at its original size. Two hundred and
+ten of the current lines implement the format and fifty-seven are a command-line demo, which is
+what the second figure separates. The ceiling is now enforced rather than stated, and raising it
+means saying here what grew it._
 
 ---
 
