@@ -438,9 +438,16 @@ value matches its `kind` ([§5.2.1](#52-values-and-units)):
 **§5.3.4** A value contradicting its declared type is reported as `OR-102`.
 
 **§5.3.5** An identifier the organisation allocates — a bib, a start number, a car number, a lane
-— **MUST** be declared as an attribute, never as a measure. The test is one question: was this
-figure read off an instrument or a judgement, or handed out beforehand? A measure exists to be
-compared, and an allocated number compares to nothing.
+— **MUST** be declared as an attribute, never as a measure. The test is one question: did the
+competition **produce** this figure, or was it **assigned** — before, as a bib is, or after, as
+prize money is? A measure exists to be compared, and an allocated number compares to nothing.
+
+_Non-normative: the second half of that question was missing, and a county show found it._ Prize
+money is neither read off an instrument nor handed out beforehand: it is settled by the placing,
+afterwards. It is an attribute, because comparing two animals' prize money is comparing their
+placings by a longer route. Revenue in a sales ranking is the opposite — the competition is about
+the revenue — and is a measure of kind `money`. The rule is the direction of the arrow: from the
+competition to the number, or from the number to the competition.
 
 _Non-normative: four of this document's own reference examples got this wrong, declaring bib and
 car numbers as measures of `kind: "count"` with `betterWhen: "none"`. Reasoning from §5.3 — a lane

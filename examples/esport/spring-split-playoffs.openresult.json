@@ -45,66 +45,110 @@
       "unit": "%",
       "precision": 1,
       "betterWhen": "higher"
+    }
+  ],
+  "attributes": [
+    {
+      "id": "org",
+      "label": "Organisation",
+      "type": "text"
     },
     {
       "id": "prize",
       "label": "Prize money",
-      "kind": "money",
+      "type": "number",
       "unit": "EUR",
-      "precision": 0,
-      "betterWhen": "higher"
+      "description": "Settled by the final placing, not produced by the competition (spec §5.3.5)."
     }
   ],
-  "attributes": [{ "id": "org", "label": "Organisation", "type": "text" }],
   "participants": [
-    { "id": "pl1", "name": "Kira Solberg", "shortName": "kira" },
-    { "id": "pl2", "name": "Nikolai Petrov", "shortName": "nikko" },
-    { "id": "pl3", "name": "Aisha Rahman", "shortName": "ash" },
-    { "id": "pl4", "name": "Bruno Camargo", "shortName": "bru" },
-    { "id": "pl5", "name": "Elin Karlsson", "shortName": "elk" },
-    { "id": "pl6", "name": "Tarek Haddad", "shortName": "trk" },
-
+    {
+      "id": "pl1",
+      "name": "Kira Solberg",
+      "shortName": "kira"
+    },
+    {
+      "id": "pl2",
+      "name": "Nikolai Petrov",
+      "shortName": "nikko"
+    },
+    {
+      "id": "pl3",
+      "name": "Aisha Rahman",
+      "shortName": "ash"
+    },
+    {
+      "id": "pl4",
+      "name": "Bruno Camargo",
+      "shortName": "bru"
+    },
+    {
+      "id": "pl5",
+      "name": "Elin Karlsson",
+      "shortName": "elk"
+    },
+    {
+      "id": "pl6",
+      "name": "Tarek Haddad",
+      "shortName": "trk"
+    },
     {
       "id": "e1",
       "name": "Nova Collective",
       "type": "team",
       "members": ["pl1", "pl2", "pl3"],
-      "attributes": { "org": "Nova Esports" }
+      "attributes": {
+        "org": "Nova Esports"
+      }
     },
     {
       "id": "e2",
       "name": "Ember Nine",
       "type": "team",
       "members": ["pl4", "pl5", "pl6"],
-      "attributes": { "org": "Ember Gaming" }
+      "attributes": {
+        "org": "Ember Gaming"
+      }
     },
     {
       "id": "e3",
       "name": "Quartz Vanguard",
       "type": "team",
-      "attributes": { "org": "Quartz" }
+      "attributes": {
+        "org": "Quartz"
+      }
     },
     {
       "id": "e4",
       "name": "Zenith Owls",
       "type": "team",
-      "attributes": { "org": "Zenith" }
+      "attributes": {
+        "org": "Zenith"
+      }
     },
     {
       "id": "e5",
       "name": "Harbour Wolves",
       "type": "team",
-      "attributes": { "org": "Harbour" }
+      "attributes": {
+        "org": "Harbour"
+      }
     },
     {
       "id": "e6",
       "name": "Iron Meridian",
       "type": "team",
-      "attributes": { "org": "Meridian" }
+      "attributes": {
+        "org": "Meridian"
+      }
     }
   ],
   "events": [
-    { "id": "groups", "name": "Group stage", "type": "round" },
+    {
+      "id": "groups",
+      "name": "Group stage",
+      "type": "round"
+    },
     {
       "id": "semi1",
       "name": "Semi-final 1",
@@ -187,34 +231,71 @@
       },
       "notes": "Withdrew after match day 2; remaining fixtures forfeited."
     },
-
-    { "participant": "e1", "event": "semi1", "values": { "mapsWon": 2 } },
-    { "participant": "e4", "event": "semi1", "values": { "mapsWon": 0 } },
-    { "participant": "e2", "event": "semi2", "values": { "mapsWon": 2 } },
-    { "participant": "e3", "event": "semi2", "values": { "mapsWon": 1 } },
+    {
+      "participant": "e1",
+      "event": "semi1",
+      "values": {
+        "mapsWon": 2
+      }
+    },
+    {
+      "participant": "e4",
+      "event": "semi1",
+      "values": {
+        "mapsWon": 0
+      }
+    },
+    {
+      "participant": "e2",
+      "event": "semi2",
+      "values": {
+        "mapsWon": 2
+      }
+    },
+    {
+      "participant": "e3",
+      "event": "semi2",
+      "values": {
+        "mapsWon": 1
+      }
+    },
     {
       "participant": "e1",
       "event": "grand-final",
-      "values": { "mapsWon": 3, "prize": 40000 }
+      "values": {
+        "mapsWon": 3
+      },
+      "attributes": {
+        "prize": 40000
+      }
     },
     {
       "participant": "e2",
       "event": "grand-final",
-      "values": { "mapsWon": 2, "prize": 20000 }
+      "values": {
+        "mapsWon": 2
+      },
+      "attributes": {
+        "prize": 20000
+      }
     }
   ],
   "rankings": [
     {
       "id": "group-standings",
       "label": "Group stage standings",
-      "scope": { "event": "groups" },
+      "scope": {
+        "event": "groups"
+      },
       "sortBy": ["seriesWon", "mapDifference", "roundWinRate"],
       "ties": "standard"
     },
     {
       "id": "final-standings",
       "label": "Grand final",
-      "scope": { "event": "grand-final" },
+      "scope": {
+        "event": "grand-final"
+      },
       "sortBy": ["mapsWon"],
       "ties": "strict"
     }
