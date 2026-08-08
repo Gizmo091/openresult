@@ -39,9 +39,13 @@ export function formatValue(
   // poor out of 100 (spec §5.1.8). Only where a maximum is declared, and only
   // for judged kinds — a percentage already carries its scale in its unit, and
   // "85/100 %" would be worse than either half.
+  // A maximum of one is excluded too: a chess game point truthfully bounded at
+  // one would read `1.0/1.0`, and a producer should not have to withhold a true
+  // bound to avoid that.
   if (
     showScale &&
     measure.max !== undefined &&
+    measure.max !== 1 &&
     (measure.kind === 'score' || measure.kind === 'points')
   ) {
     return `${formatted}/${decimal(measure.max, precision, locale)}`;

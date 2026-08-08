@@ -385,7 +385,9 @@ in `attributes` ([§5.3.5](#53-attributes)).
 **§5.2.7** A consumer displaying a `score` or `points` measure that declares a `max`
 ([§5.1.8](#51-measures)) **SHOULD** render it against that maximum — `36/40` — keeping the
 declared precision on both halves. A `percentage` is excluded: its unit already carries the scale,
-and `85/100 %` is worse than either half of it.
+and `85/100 %` is worse than either half of it. A `max` of `1` is excluded on the same grounds: a
+chess game point truthfully bounded at one would read `1.0/1.0`, and a producer should not have to
+withhold a true bound to avoid an absurd rendering.
 
 _Non-normative: this is the point of declaring the bound at all. A reader shown `27 pt` cannot
 tell excellent from poor, which is the failure §1.1 exists to prevent, and the producer has no
@@ -640,6 +642,8 @@ results.
 }
 ```
 
+### 7.1 `participant` and `event`
+
 **§7.1.1** `participant` **MUST** reference a declared participant.
 
 **§7.1.2** `event`, when present, **MUST** reference a declared event. It **MUST** be present if
@@ -880,6 +884,13 @@ equal. The group then takes consecutive positions in that order. Otherwise the g
 and is numbered as under `standard`. This is the one place a supplied rank takes part in
 derivation, and the producer asks for it by declaring `resolved`.
 
+_Non-normative: only the relative order of those positions is read, so a group landing at 16th and
+17th could be published as `1` and `2` and still order correctly._ A producer **SHOULD** publish
+the positions the competition actually awarded. Nothing here can tell the two apart — a rank that
+merely sorts satisfies this rule and raises no diagnostic — but a document read by a person is
+read for its numbers, and `1` against a competitor who finished sixteenth is wrong in the way
+[§3.3.2](#33-ranks-are-derived) exists to prevent.
+
 _Non-normative: using `resolved` well asks something of the producer that no other member does —
 knowing which results form a tied group, which means having derived the ranking before writing the
 document. §3.3 promises a producer need not compute ranks, and that stays true; but one who
@@ -895,13 +906,13 @@ a swim-off, a jury ruling, a drawn lot. The outcome is a fact no measure holds. 
 divergence warning for ever ([§3.3.2](#33-ranks-are-derived)), or invent a measure whose only
 purpose is to encode an answer already known._
 
-### 8.4 `excludeStatuses`
-
 **§8.3.5** A ranking declaring `resolved` **MAY** leave `sortBy` empty. Every selected result then
 compares equal, so the whole set is one group and the published positions order it entirely
 ([§8.3.4](#83-ties)). Each selected result **SHOULD** carry a position for that ranking; where any
 is missing, the rule of §8.3.4 applies unchanged and the set stays tied, which a validator reports
 as `OR-911`.
+
+### 8.4 `excludeStatuses`
 
 _Non-normative: some results are an order and nothing else. A competitive examination publishes
 "1. Berthier, 2. Ouazzani, 3. Vandenberghe" and is very often forbidden from publishing the marks

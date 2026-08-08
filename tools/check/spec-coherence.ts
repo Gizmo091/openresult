@@ -29,11 +29,15 @@ export const specCoherence: Check = {
     problems.push(...checkRulesInOrder(spec));
     problems.push(...checkIndexCoversEveryRule(spec));
     problems.push(...checkInternalLinks(spec));
+    problems.push(...checkRulesSitUnderTheirSection(spec));
 
     if (problems.length > 0) {
       return fail(this.name, `${problems.length} internal inconsistencies`, problems);
     }
-    return pass(this.name, 'codes unique, rules ordered, index complete, links resolve');
+    return pass(
+      this.name,
+      'codes unique, rules ordered and correctly filed, index complete, links resolve',
+    );
   },
 };
 
@@ -154,5 +158,43 @@ function checkInternalLinks(spec: string): string[] {
       problems.push(`Link to #${target} matches no heading in this document.`);
     }
   }
+  return [...new Set(problems)];
+}
+
+/**
+ * A rule must be printed under the section its number names.
+ *
+ * §8.3.5 was added in the wrong place and printed under `### 8.4`, so a reader
+ * looking for the empty-`sortBy` rule where its number says it lives did not
+ * find it and only met it while reading about something else. §7.1.1 to §7.1.3
+ * had the opposite problem: §7.2 through §7.5 each had a heading and §7.1 had
+ * none, so its rules read as belonging to the previous section.
+ *
+ * Ordering was already checked. Where a rule sits was not, and the two are
+ * different questions: a rule can be in the right order and under the wrong
+ * heading.
+ */
+function checkRulesSitUnderTheirSection(spec: string): string[] {
+  const problems: string[] = [];
+  let section: string | undefined;
+
+  for (const line of spec.split('\n')) {
+    const heading = /^### (\d+\.\d+)/.exec(line);
+    if (heading !== null) {
+      section = heading[1];
+      continue;
+    }
+
+    const rule = /^\*\*§(\d+\.\d+)\.\d+/.exec(line);
+    if (rule === null || section === undefined) continue;
+
+    if (rule[1] !== section) {
+      problems.push(
+        `§${rule[1]}.x is printed under the heading for §${section}. A reader looking where the ` +
+          `number says it lives will not find it. Move the rule, or give its section a heading.`,
+      );
+    }
+  }
+
   return [...new Set(problems)];
 }

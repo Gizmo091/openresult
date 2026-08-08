@@ -137,6 +137,15 @@ describe('a bounded score renders against its maximum (§5.1.8)', () => {
     expect(formatValue(27, measure({ kind: 'score' }), { locale: 'en-GB' })).toBe('27 pt');
   });
 
+  it('leaves a maximum of one alone, which says nothing worth printing', () => {
+    // A chess game point is truthfully bounded at one, and `1.0/1.0` is worse
+    // than `1.0`. Without this a producer has to withhold a true bound.
+    const gamePoint = measure({ kind: 'points', unit: 'pt', min: 0, max: 1, precision: 1 });
+
+    expect(formatValue(0.5, gamePoint, { locale: 'en' })).toBe('0.5 pt');
+    expect(formatValue(1, gamePoint, { locale: 'en' })).toBe('1.0 pt');
+  });
+
   it('leaves a percentage alone, which already carries its scale', () => {
     // "85/100 %" is worse than either half.
     const share = measure({ kind: 'percentage', unit: '%', max: 100, precision: 1 });

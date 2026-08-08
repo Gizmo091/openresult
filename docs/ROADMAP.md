@@ -178,7 +178,8 @@ declaring, in the document, something about bodyweight that is false. The remedy
 second measure with the opposite direction, does not fit: what is wanted is no direction outside
 this one comparison.
 
-**Nowhere to say where it happened, or what the whole document is about.** The root object has no
+**Nowhere to say where it happened, or what the whole document is about.** _Found independently by
+two readers, in powerlifting and in chess._ The root object has no
 `attributes`, so a fact true of every event — the equipment division of a championship, the edition
 of the rules in force — has to be hung on one event chosen arbitrarily, and cannot be stated at all
 by a document that omits `events`. There is also no location member anywhere: not on the document,
@@ -188,6 +189,40 @@ not on an event, not in `source`. Every results document ever published names a 
 nothing goes the other way, so a consumer rendering one competitor's row has no way to show their
 weight class without the producer duplicating the roster into a text attribute. Every producer
 will, and the two copies will drift.
+
+**A tie-break that is a rule, not a number.** Chess separates players on equal points by the game
+they played against each other, or by wins with Black. `ties: "resolved"` (§8.3.4) carries the
+outcome, so the document is deterministic — but it records _that_ the arbiter decided and never
+_why_. A consumer recomputing after a later correction gets the order wrong, and two arbiters
+publishing different Buchholz conventions under the same label are indistinguishable. The same
+shape appears wherever a tie-break consults something the document does not measure.
+
+**Three different unplayed games share one status.** A pairing bye, a requested half-point bye and
+a forfeit win are all `status: "bye"` (§7.2.5), and §7.2.5's own answer is that `notes` carries the
+difference — a member §7.4.1 forbids a consumer to parse. In chess an unplayed game is excluded
+from rating reports and treated specially by every tie-break, so this is not cosmetic. It is the
+one machine-readable bit the domain needs and the only one it cannot have.
+
+**Stating that something is not the case.** §5.3.8 says an absent attribute means _not recorded_,
+and that a producer needing to say something is not so must write the value — but for "holds no
+FIDE title" there is no value to write. Omitting it asserts the titles were not looked up, which
+is false. A boolean attribute per possibility grows with the domain.
+
+**Events have no order of their own.** Nothing on an event says it is the third round. §5.4.3
+forbids reading `3` out of the id `r3`, so the only ordering available is `occurredAt`, which
+works only for a producer who timestamps every round. Both readers declared a number attribute
+that no consumer has any reason to read as an ordinal.
+
+**A dimensionless index still needs a unit.** §5.1.3 requires one for every kind but `text` and
+`boolean`, and §5.2.4 offers `pt` for a score. A rating performance of 2231 is an index with no
+unit at all, so it renders as "2231 pt". `money` and `percentage` got real vocabularies; a bare
+index got nothing.
+
+**The default exclusions cannot be subtracted from.** Chess classifies a withdrawn player — he
+keeps his score and his line in the crosstable — and the only way to say so is
+`excludeStatuses: []`, which by §8.4.1's replacement rule also stops excluding `dsq`, `dnf` and
+the rest. It is safe until the first disqualification, which is then silently classified. §8.4.1's
+note admits the cost; nothing removes it.
 
 **A relation between measures.** Nothing says that a retained score is the aggregate of four
 criteria, or that an average is derived from what it averages. Producers dedupe by naming
