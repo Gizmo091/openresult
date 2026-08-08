@@ -32,12 +32,20 @@ views, ports beyond the reference implementation.
 ### Exit criteria
 
 - A developer unfamiliar with the project produces a valid document for their own domain in under
-  thirty minutes, from the published documents alone.
-- All thirteen domains are expressible without a proprietary extension.
+  thirty minutes, from the published documents alone. _Judged, not measured — see below._
+- All thirteen domains are expressible without a proprietary extension. _`pnpm check examples`._
 - Every example renders correctly in the viewer with no per-example configuration.
-- The conformance suite covers every normative rule.
+  _`viewer/test/examples.test.ts`._
+- The conformance suite covers every normative rule. _`pnpm check rule-coverage`._
 - A minimal reader fits in under 220 lines with no dependency, excluding its command-line front
-  end. Checked by `pnpm check minimal-reader-size`.
+  end. _`pnpm check minimal-reader-size`._
+
+Four of the five hold by machine, and go on holding. The first cannot: it asks whether a stranger
+can read the specification, which only a stranger can answer. It is tested by giving someone the
+specification and the examples — nothing else, no code, no decision records — asking them to write
+a document for a domain the corpus does not cover, and reading what they could not express. Every
+normative change in §5.1.8, §5.3.7, §7.2.8, §8.1.2 and §8.3.5 came from one of those, and so did
+finding that a published rank could not settle a tie.
 
 _The reader's ceiling was two hundred when it was written, and nothing counted the lines. It
 reached two hundred and sixty-seven while every addition was justified on its own: `scope`
