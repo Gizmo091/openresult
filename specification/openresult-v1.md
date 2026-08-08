@@ -621,6 +621,13 @@ parent event, so the team standing is unaffected by their presence. What this av
 alternative: one measure per position — `takeover2`, `takeover3`, `takeover4` — which is a single
 measure indexed by a number, and grows a new declaration every time a team gets longer.
 
+What is condemned is the index, not the count. A fixed, bounded set of named points is a set of
+measures: a 100 m freestyle has one intermediate and `split50` is its name, as
+`examples/swimming/` shows. A course with ten controls, or a relay of unknown length, has no such
+names — the number _is_ the name — and that is where the child events belong. A reader took the
+swimming example as licence for `split1` through `split10`, which is the pattern this paragraph
+exists to refuse.
+
 **Head-to-head matches.** Declare a `match` event and **two** results, one per participant, each
 carrying its own score. A match is not a special case in this model: it is an event with two
 results.
@@ -777,7 +784,7 @@ A ranking declares **how to order**, never the order itself.
     "event": "overall",
     "category": "mx2",
   },
-  "sortBy": ["points", "time"], // REQUIRED
+  "sortBy": ["points", "time"], // REQUIRED, may be [] under ties: "resolved"
   "ties": "standard", // OPTIONAL, default "standard"
   "excludeStatuses": ["dnf", "dns"], // OPTIONAL
 }
@@ -847,6 +854,17 @@ the same swim._
 **§8.2.1** `sortBy` **MUST** be a non-empty array of declared measure identifiers, in decreasing
 order of priority — unless the ranking declares `ties: "resolved"`, where it **MAY** be empty and
 the published positions order the whole set ([§8.3.5](#83-ties)).
+
+_Non-normative: some results are an order and nothing else. A competitive examination publishes
+"1. Berthier, 2. Ouazzani, 3. Vandenberghe" and is very often forbidden from publishing the marks
+behind it; a jury publishes a palmarès; an administration publishes a list. Until this existed,
+such a document could not be written at all — §8.2.1 required a measure, §8.5.2 then left every
+result unranked for want of it, and §7.5.3 rejected the positions as belonging to a ranking that
+does not rank them. An admission list of the kind institutions publish verbatim produced three `OR-303` errors._
+
+_The alternative was to invent a measure holding the rank, which §8.3.4's own note names as the
+thing it exists to avoid: "a measure whose only purpose is to encode an answer already known".
+Determinism is untouched — the order is read from the document, and §8.5.6 holds._
 
 **§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`, nor one whose
 `kind` is `text` or `boolean`. Only numeric kinds may decide an order.
@@ -920,18 +938,17 @@ compares equal, so the whole set is one group and the published positions order 
 is missing, the rule of §8.3.4 applies unchanged and the set stays tied, which a validator reports
 as `OR-911`.
 
+_Non-normative: the consequence is larger than the wording suggests._ There is nothing else to
+order by, so one forgotten integer does not mislay one competitor — it publishes the whole class as
+equal winners. In a class of six placed to fifth, omitting a single position turns five placings
+into a six-way tie for first.
+
+**§8.3.6** A reading-level consumer ([§11.5.2](#115-conformance-levels)) **MUST** present `ranks`.
+Where a ranking declares `resolved` with an empty `sortBy`, the published positions are the only
+statement of the result, and a consumer that ignores them shows the field in declaration order and
+no result at all.
+
 ### 8.4 `excludeStatuses`
-
-_Non-normative: some results are an order and nothing else. A competitive examination publishes
-"1. Berthier, 2. Ouazzani, 3. Vandenberghe" and is very often forbidden from publishing the marks
-behind it; a jury publishes a palmarès; an administration publishes a list. Until this existed,
-such a document could not be written at all — §8.2.1 required a measure, §8.5.2 then left every
-result unranked for want of it, and §7.5.3 rejected the positions as belonging to a ranking that
-does not rank them. An admission list of the kind institutions publish verbatim produced three `OR-303` errors._
-
-_The alternative was to invent a measure holding the rank, which §8.3.4's own note names as the
-thing it exists to avoid: "a measure whose only purpose is to encode an answer already known".
-Determinism is untouched — the order is read from the document, and §8.5.6 holds._
 
 **§8.4.1** `excludeStatuses`, when present, **MUST** be an array of status values excluded from
 this ranking. It **replaces** the default set in full; it is not added to it. A ranking declaring
@@ -1205,9 +1222,9 @@ and attribute it uses; expresses values in declared units; omits unavailable mea
 emitting `null`; produces documents that validate without error.
 
 **§11.5.2 — Consumer, _reading_ level.** Reads `openresult` and rejects an unknown MAJOR;
-presents participants, results and values with their units; distinguishes rankable from
-non-rankable statuses; ignores extensions and unknown enumeration values; distinguishes an absent
-measure from a zero.
+presents participants, results and values with their units; presents the positions results publish
+in `ranks` ([§8.3.6](#83-ties)); distinguishes rankable from non-rankable statuses; ignores
+extensions and unknown enumeration values; distinguishes an absent measure from a zero.
 
 **§11.5.3 — Consumer, _ranking_ level.** Everything above, plus [§8.5](#85-derivation-algorithm)
 implemented exactly, including sort stability and tie handling.
@@ -1265,7 +1282,7 @@ plain language, and at least one concrete correction.
 | `OR-301` | error    | `sortBy` contains a measure whose `betterWhen` is `none` (§8.2.2)                                                                                                                |
 | `OR-302` | error    | Residual tie under `ties: "strict"` (§8.3.1)                                                                                                                                     |
 | `OR-303` | error    | `ranks` names a ranking that excludes this result (§7.5.3)                                                                                                                       |
-| `OR-304` | error    | `sortBy` is empty (§8.2.1)                                                                                                                                                       |
+| `OR-304` | error    | `sortBy` is empty and `ties` is not `resolved` (§8.2.1)                                                                                                                          |
 | `OR-305` | error    | `sortBy` contains a `text` or `boolean` measure (§8.2.2)                                                                                                                         |
 | `OR-401` | error    | `openresult` absent or malformed (§4.2.1)                                                                                                                                        |
 | `OR-402` | error    | Unsupported MAJOR version (§11.4.1)                                                                                                                                              |

@@ -179,7 +179,12 @@ second measure with the opposite direction, does not fit: what is wanted is no d
 this one comparison.
 
 **Nowhere to say where it happened, or what the whole document is about.** _Found independently by
-two readers, in powerlifting and in chess._ The root object has no
+three readers — powerlifting, chess and orienteering — each of whom invented a different
+workaround: hanging the facts on an arbitrary event, or inventing an event that holds no results
+and exists only to carry them. It is the strongest-evidenced gap in this file, and §9.1.4 is the
+precedent: categories were given `attributes` on exactly this argument, that such figures had
+nowhere else to go. Adding the same member to the document would be additive, would invalidate no
+document, and is the leading candidate for the last change before v1 freezes._ The root object has no
 `attributes`, so a fact true of every event — the equipment division of a championship, the edition
 of the rules in force — has to be hung on one event chosen arbitrarily, and cannot be stated at all
 by a document that omits `events`. There is also no location member anywhere: not on the document,
@@ -223,6 +228,44 @@ keeps his score and his line in the crosstable — and the only way to say so is
 `excludeStatuses: []`, which by §8.4.1's replacement rule also stops excluding `dsq`, `dnf` and
 the rest. It is safe until the first disqualification, which is then silently classified. §8.4.1's
 note admits the cost; nothing removes it.
+
+**No member for the person who decided.** A cattle show's result is one named judge's opinion, and
+their name is the most load-bearing fact about the document's authority. There is no `judge`,
+`officials` or `jury` member anywhere, and §6.1.7 closes the only other door — a juror does not
+compete, and declaring one as a participant raises `OR-910` — without opening a replacement. The
+same shape is every judged sport, every examination board and every jury.
+
+**No array-valued anything.** A show class publishes its prize schedule — 1st £50, 2nd £35, down
+to 5th — before entries open. §5.3.3's attribute types are text, number, date, url, country and
+boolean, so five numbers that decide every payment in the document end up in `description`. The
+alternative, `prize1` through `prize5`, is the indexed-measure pattern §6.3 names by hand.
+
+**A competitor cannot belong to an entity that does not compete.** The animal is placed and the
+exhibitor is paid. `members` (§6.1.2) runs the other way — a team composed of competitors — so six
+exhibitors were spelled out thirty-seven times as a text attribute, and one typo makes seven of
+them. The same gap covers a club in an individual sport and a school in an examination.
+
+**A result contaminated by an earlier one.** An orienteering runner who misses control 7 has valid
+splits at 8, 9 and 10 and a void run. §7.2.7 says a status describes the result it sits on, so
+read literally those three are `finished`, and a consumer then places a competitor first at three
+controls of a run that does not count. The reader marked them `notClassified` against the rule to
+keep the standings honest.
+
+**No status for a void performance that was completed.** A mispunch, a failed lift, a gymnastics
+routine outside the apparatus rules: recorded, published, and worth nothing. §7.2.1's list is
+closed and none of its nine fits, so two producers reasonably choose `notClassified` and `dsq` for
+the same fact, which is the divergence §7.2.8's note says the format exists to prevent. The unit
+vocabulary was opened up when the corpus showed a closed list did not fit; the same evidence now
+exists for statuses.
+
+**A result has no time of its own.** `occurredAt` sits on the document and on events, not on
+results, and orienteering starts are individual. The same fact is a first-class member in one
+place and an ad-hoc attribute in another.
+
+**An attribute cannot reference anything.** A class runs a course; a category cannot name the
+event it is run on. §5.3.1 has no reference type, and §5.4.3 makes an identifier written into a
+text attribute unresolvable by construction — so the relation exists only as a side effect of a
+ranking's scope.
 
 **A relation between measures.** Nothing says that a retained score is the aggregate of four
 criteria, or that an average is derived from what it averages. Producers dedupe by naming

@@ -105,6 +105,26 @@ describe('view selection', () => {
   });
 });
 
+describe('a result that is an order and nothing else (§8.3.6)', () => {
+  it('shows the published positions, which are the whole result', () => {
+    // A competitive examination publishes who was admitted and in what order,
+    // and is often forbidden from publishing the marks. Nothing is measured, so
+    // a consumer that ignored `ranks` would render the field in declaration
+    // order and no result at all — which is what §11.5.2 asked for until this
+    // rule was written.
+    const model = buildViewModel(
+      load('conformance/valid/ranking-ordered-by-published-positions/document.json'),
+    );
+    const plugin = selectView(model);
+    const text = renderToString(plugin!.render({ model, selection: [], onSelect: () => {} }));
+
+    // Berthier is declared second and admitted first; Vandenberghe is declared
+    // first and admitted third.
+    expect(text.indexOf('Berthier')).toBeLessThan(text.indexOf('Vandenberghe'));
+    expect(text).toContain('Delcourt');
+  });
+});
+
 describe('unknown content degrades quietly', () => {
   it('renders a document carrying extensions and unknown enum values', () => {
     const model = buildViewModel(
