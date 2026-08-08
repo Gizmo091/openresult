@@ -684,8 +684,13 @@ that still sets the fastest lap is the ordinary case, not an anomaly.
 
 **§7.2.5** `bye` marks a competitor who scored without a contest — an odd field in a Swiss
 pairing, a knockout draw with no opponent, or a walkover. It ranks normally: the score counts.
-Where the distinction between an unopposed pairing and an absent opponent matters, `notes`
-carries it.
+
+_Non-normative: this version does not distinguish an unopposed pairing from a requested bye or an
+absent opponent._ All three are `bye`, and in some domains they are treated differently — a chess
+tie-break counts a played game and an unplayed one by different conventions. `notes` can tell a
+person which happened; it cannot tell a consumer, because [§7.4.1](#74-notes) forbids parsing it.
+Saying so is better than pointing at a member no machine may read, which reads as an answer and is
+not one.
 
 **§7.2.6** `notClassified` marks a competitor who took part, whose performance is recorded, and
 who does not appear in the classification **of the event this result is attached to** — short of a

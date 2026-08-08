@@ -30,13 +30,14 @@ export const specCoherence: Check = {
     problems.push(...checkIndexCoversEveryRule(spec));
     problems.push(...checkInternalLinks(spec));
     problems.push(...checkRulesSitUnderTheirSection(spec));
+    problems.push(...checkProseIsNotOfferedAsAnAnswer(spec));
 
     if (problems.length > 0) {
       return fail(this.name, `${problems.length} internal inconsistencies`, problems);
     }
     return pass(
       this.name,
-      'codes unique, rules ordered and correctly filed, index complete, links resolve',
+      'codes unique, rules ordered and filed, index complete, links resolve, prose not load-bearing',
     );
   },
 };
@@ -197,4 +198,46 @@ function checkRulesSitUnderTheirSection(spec: string): string[] {
   }
 
   return [...new Set(problems)];
+}
+
+/**
+ * A normative rule must not offer prose as the answer to a machine's question.
+ *
+ * §7.2.5 said that where the difference between an unopposed pairing and an
+ * absent opponent matters, "`notes` carries it" — and §7.4.1 forbids a consumer
+ * to parse `notes`. The format was telling a producer to record a distinction
+ * in the one place it guarantees nothing will read. It reads as an answer, and
+ * a producer who takes it stores information no consumer can act on.
+ *
+ * `description` is the same trap by §6.1.6. Both members are legitimate and
+ * both are for people; naming one as where information *goes* is what this
+ * catches. The rules that define them are exempt, since defining a member means
+ * naming it.
+ */
+function checkProseIsNotOfferedAsAnAnswer(spec: string): string[] {
+  const CONVEY = '(carries|carry|holds|hold|goes in|record it in|write it in|put it in)';
+  const before = new RegExp('`(notes|description)`[^.]{0,60}?' + CONVEY);
+  const after = new RegExp(CONVEY + '[^.]{0,60}?`(notes|description)`');
+
+  const problems: string[] = [];
+  for (const block of spec.split('\n\n')) {
+    const rule = /^\*\*§(\d+\.\d+\.\d+)/.exec(block.trim());
+    if (rule === null) continue;
+
+    const id = rule[1] ?? '';
+    // §7.4 defines `notes` and §6.1.6 defines `description`.
+    if (id.startsWith('7.4') || id === '6.1.6') continue;
+
+    const flat = block.replace(/\s+/g, ' ');
+    if (before.test(flat) || after.test(flat)) {
+      problems.push(
+        `§${id} names \`notes\` or \`description\` as where information goes. Both are addressed ` +
+          `to a person — §7.4.1 forbids parsing one and §6.1.6 guarantees nothing parses the ` +
+          `other — so a producer who follows this stores something no consumer can act on. Say ` +
+          `the format does not express it, or give it a member.`,
+      );
+    }
+  }
+
+  return problems;
 }
