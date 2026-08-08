@@ -1,0 +1,79 @@
+{
+  "openresult": "1.0",
+  "title": "Masters within the men's field",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "total",
+      "label": "Total",
+      "kind": "mass",
+      "unit": "kg",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "categories": [
+    {
+      "id": "open",
+      "label": "Open",
+      "participants": ["ana"]
+    },
+    {
+      "id": "masters",
+      "label": "Masters",
+      "parent": "open",
+      "participants": ["bo", "cai"]
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "total": 610.0
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "total": 587.5
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "total": 592.5
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "open",
+      "label": "Open",
+      "scope": {
+        "category": "open"
+      },
+      "sortBy": ["total"]
+    },
+    {
+      "id": "masters",
+      "label": "Masters",
+      "scope": {
+        "category": "masters"
+      },
+      "sortBy": ["total"]
+    }
+  ]
+}

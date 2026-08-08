@@ -161,6 +161,34 @@ omitting the measure for non-scorers, but §7.3.2 says an absent measure is unav
 zero is perfectly available. Publishing the zeros means accepting a nine-way tie for
 eighteenth.
 
+**A figure that was recorded and must not be compared.** A failed lift has a weight — the bar was
+loaded, the attempt is published, and it counts for nothing. §7.3.2 offers a value, zero, or
+absent, and absent means _not available_, which a 305 kg failure is not. Writing the weight beside
+a separate `good: false` leaves the two joined by nothing a consumer can read, so a conforming
+reader renders "305 kg" for a lift that did not happen. Writing only successful lifts publishes
+the same number twice under two measures, which §8.1.5 names as a defect in so many words. The
+format offers a choice between an inexpressible coupling and a documented duplication, and no rule
+for choosing. The same shape appears in every attempt sport: throws, vaults, archery ends.
+
+**`betterWhen` answers two questions with one member.** A tie-break on bodyweight needs the
+lighter lifter first, and that is a convention of one ranking, not a claim that being lighter is
+better. §8.2.3 puts direction on the measure precisely so two rankings cannot contradict each
+other, and §8.2.2 forbids a directionless measure in `sortBy` — so expressing the tie-break means
+declaring, in the document, something about bodyweight that is false. The remedy §8.2.3 offers, a
+second measure with the opposite direction, does not fit: what is wanted is no direction outside
+this one comparison.
+
+**Nowhere to say where it happened, or what the whole document is about.** The root object has no
+`attributes`, so a fact true of every event — the equipment division of a championship, the edition
+of the rules in force — has to be hung on one event chosen arbitrarily, and cannot be stated at all
+by a document that omits `events`. There is also no location member anywhere: not on the document,
+not on an event, not in `source`. Every results document ever published names a place.
+
+**A participant cannot be asked which categories they are in.** A category lists its members, and
+nothing goes the other way, so a consumer rendering one competitor's row has no way to show their
+weight class without the producer duplicating the roster into a text attribute. Every producer
+will, and the two copies will drift.
+
 **A relation between measures.** Nothing says that a retained score is the aggregate of four
 criteria, or that an average is derived from what it averages. Producers dedupe by naming
 convention, which no consumer can read.

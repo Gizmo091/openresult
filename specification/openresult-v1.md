@@ -458,9 +458,14 @@ display them correctly without knowing what they are._
 **§5.3.6** A declared attribute that no entity carries a value for is reported as `OR-905`, on
 the same terms and for the same reason as [§5.1.7](#51-measures).
 
-**§5.3.7** An attribute of type `number` **MAY** declare a `unit`, drawn from the same vocabulary
-as a measure's ([§5.2.4](#52-values-and-units)) and displayed the same way. It **MUST NOT** be
-declared on any other type, where it would describe nothing.
+**§5.3.7** An attribute of type `number` **MAY** declare a `unit`, naming what the number counts
+or measures, and displayed the same way as a measure's. It **MUST NOT** be declared on any other
+type, where it would describe nothing.
+
+_Non-normative: [§5.2.4](#52-values-and-units)'s table is a useful guide — a length is `m`, `km`
+or `mi` wherever it appears — but it is indexed by `kind`, and an attribute has no `kind`. Read it
+by the quantity rather than by the row: an age is `year`, a bottle price is `EUR`, a class limit is
+`kg`._
 
 **§5.3.8** An attribute absent from an `attributes` object means **not recorded**, on the same
 terms as an absent measure ([§7.3.2](#73-values)). It does not mean `false`, `zero` or `none`, and
@@ -569,7 +574,7 @@ event.
 **§6.2.4** `participants`, when present, restricts the field for that event. It is informative:
 a result referencing a participant absent from this list is valid, and validators **SHOULD** warn.
 
-### 6.3 Four structures worth stating explicitly
+### 6.3 Five structures worth stating explicitly
 
 _Non-normative._
 
@@ -592,6 +597,15 @@ The same shape answers the second question a multi-day meeting asks: an award sp
 events, or a session standing, is a ranking that lists the events it covers. `parent` gives an
 event one place in one hierarchy; `scope.event` lets a ranking draw any set it likes across that
 hierarchy, without the events having to agree on a single organising axis.
+
+**Repeated attempts by one competitor.** Three lifts at a bar, six throws, four vaults: a
+competitor produces several figures and one of them is the result. §7.1.3 allows one result per
+competitor per event, so declare an event per attempt — `squat-1`, `squat-2`, `squat-3` — with
+`parent` set to the event the discipline is judged on, and attach each attempt there. Selecting one
+of them is computing within the meaning of [§8.1.4](#81-scope), so publish the best as a result on
+the parent event and scope the standing there. [§8.1.5](#81-scope) does not apply: listing the
+attempt events in `scope.event` would rank every attempt against every other, which is a different
+question from who lifted most.
 
 **Per-member figures inside a team result.** A relay leg, a rower's split, a player's line in a
 team match: the member's performance is a result like any other. Declare a child event for the
@@ -779,6 +793,9 @@ by evaluating a rule (§1.2)._
 
 **§8.1.2** `scope.category`, when present, **MUST** be a declared category identifier or an array
 of them; only results whose participant belongs to **at least one** of them are considered.
+Membership is the category's own `participants`: a scope sees the categories it names and never
+their children, on the same terms as [§8.1.4](#81-scope) for events. A category's `parent`
+([§9.1.2](#91-categories)) organises them for a reader and selects nothing.
 
 _Non-normative: this expresses an axis built from ranges — "under €15", spanning two declared
 price bands — without a third category that re-lists the wines the first two already contain. Such
@@ -912,11 +929,9 @@ instance, a boat that does not finish scores and is classified last.
 
 _Non-normative: replacement rather than union is what makes a "fastest lap" ranking
 expressible at all — one that ranks competitors the overall standings exclude. It does not, on its
-own, express "best attempt across rounds": a ranking sees one event ([§8.1.1](#81-scope)), so a
-producer comparing attempts held in separate events publishes the best as a result on their parent
-event. The
-cost is that an author writing `excludeStatuses: ["dsq"]` gets only that exclusion, so the common
-case is to omit the member entirely and take the default._
+own, express "best attempt across rounds", which is [§6.3](#63-five-structures-worth-stating-explicitly).
+The cost is that an author writing `excludeStatuses: ["dsq"]` gets only that exclusion, so the
+common case is to omit the member entirely and take the default._
 
 ### 8.5 Derivation algorithm
 

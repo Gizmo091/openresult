@@ -551,6 +551,14 @@
       "path": "valid/a-category-carries-attributes"
     },
     {
+      "id": "a-category-parent-selects-nothing",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.2",
+      "description": "A scope sees the categories it names, never their children.",
+      "path": "valid/a-category-parent-selects-nothing"
+    },
+    {
       "id": "a-category-standing-is-a-scoped-ranking",
       "kind": "valid",
       "level": "ranking",
