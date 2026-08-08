@@ -95,7 +95,13 @@ export const crossImplementation: Check = {
                   (definition.kind === 'score' || definition.kind === 'points');
 
                 if (!isDuration && !isBoundedScore) return [];
-                return [[id, formatValue(entry.values[id]!, definition)]];
+                // An explicit locale, because the comparison is about what the
+                // specification normalises and nothing else. Left to the host,
+                // this asked a French machine for `86,5` and a Python reader
+                // that has no locale for `86.5`, so the check failed for a
+                // contributor in Paris and passed in CI — an invariant that
+                // depends on where it runs is not one.
+                return [[id, formatValue(entry.values[id]!, definition, { locale: 'en' })]];
               }),
           ),
         }));

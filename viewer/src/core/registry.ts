@@ -30,6 +30,16 @@ export interface RenderContext {
 
 const registry: ViewPlugin[] = [];
 
+/**
+ * Add a view, or replace the one already answering to its id.
+ *
+ * Replacing rather than appending is deliberate: two views under one id would
+ * make the choice depend on which was registered first, and overriding a
+ * built-in — a host that wants its own `table` — is a thing a viewer should let
+ * you do. The replacement keeps the original's position, because position is
+ * the tie-break between views scoring equally and re-registering one should not
+ * quietly promote it past everything added since.
+ */
 export function registerView(plugin: ViewPlugin): void {
   const existing = registry.findIndex((entry) => entry.id === plugin.id);
   if (existing >= 0) {
