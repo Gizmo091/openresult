@@ -14,7 +14,7 @@ exposes its semantics, and derives standings exactly as §8.5 prescribes.
 
 import json
 import sys
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_HALF_UP, localcontext
 
 SUPPORTED_MAJOR = 1
 
@@ -234,6 +234,13 @@ def rank(document, ranking_id=None):
 TIME_UNITS = {"s": 1, "ms": 0.001, "min": 60, "h": 3600}
 
 
+# The most decimals either reader shows. §5.1.5 sets no ceiling and neither does
+# the schema, so a document may declare a hundred and one; JavaScript's formatter
+# throws past this point, and a reader that refused to show results because the
+# producer over-specified how to show them would be failing at its one job.
+MOST_DECIMALS = 100
+
+
 def fixed(value, precision):
     """Round away from zero at a half, as §5.1.5 requires.
 
@@ -245,8 +252,13 @@ def fixed(value, precision):
     `repr` first, because the rounding applies to the decimal the document
     wrote rather than to the double it became: 2.675 is stored as 2.67499…, and
     a producer who typed 2.675 is looking for 2.68."""
-    quantum = Decimal(1).scaleb(-precision)
-    return f"{Decimal(repr(value)).quantize(quantum, rounding=ROUND_HALF_UP):f}"
+    places = min(max(int(precision), 0), MOST_DECIMALS)
+    # The default context carries 28 significant digits and raises past it, so a
+    # hundred decimal places would trade one crash for another.
+    with localcontext() as context:
+        context.prec = MOST_DECIMALS * 2
+        quantum = Decimal(1).scaleb(-places)
+        return f"{Decimal(repr(value)).quantize(quantum, rounding=ROUND_HALF_UP):f}"
 
 
 def format_duration(seconds, precision):

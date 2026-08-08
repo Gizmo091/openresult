@@ -10,25 +10,27 @@ one `Superseded by`.
 
 ## Format decisions
 
-| ADR                                                     | Title                                                                                         | Status   |
-| ------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------- |
-| [0001](./0001-domain-entities-over-generic-table.md)    | Domain entities rather than a generic table                                                   | Accepted |
-| [0002](./0002-presentation-is-non-normative.md)         | The presentation layer is non-normative                                                       | Accepted |
-| [0003](./0003-rank-is-optional-ranking-is-derived.md)   | Rank is optional; ranking is derived by the consumer                                          | Accepted |
-| [0009](./0009-numeric-durations.md)                     | Durations are plain numbers, not ISO 8601                                                     | Accepted |
-| [0010](./0010-rfc3339-dates.md)                         | Dates use RFC 3339 with a mandatory offset                                                    | Accepted |
-| [0011](./0011-x-prefix-extensions.md)                   | Extensions use the `x-` prefix                                                                | Accepted |
-| [0012](./0012-version-declaration.md)                   | One field declares the format version                                                         | Accepted |
-| [0013](./0013-sort-direction-from-measure.md)           | Sort direction comes from the measure                                                         | Accepted |
-| [0016](./0016-naming-and-identifiers.md)                | camelCase names, opaque identifiers                                                           | Accepted |
-| [0017](./0017-bye-is-a-status.md)                       | `bye` is a status, and it ranks                                                               | Accepted |
-| [0018](./0018-not-classified-is-a-status.md)            | `notClassified` is a status; `OR-908` only warns on partial records                           | Accepted |
-| [0019](./0019-ties-resolved-outside-the-document.md)    | `ties: "resolved"`; `description` on every named entity                                       | Accepted |
-| [0020](./0020-a-status-describes-its-own-result.md)     | A status describes its own result; aggregation is normative; allocated numbers are attributes | Accepted |
-| [0021](./0021-scope-lists-events.md)                    | A ranking scopes to a list of events; durations have a written rendering                      | Accepted |
-| [0023](./0023-scales-and-attribute-units.md)            | Measures declare a scale, attributes declare a unit                                           | Accepted |
-| [0024](./0024-a-ranking-may-be-the-order.md)            | A ranking may be the order itself; categories carry figures                                   | Accepted |
-| [0025](./0025-a-value-is-judged-against-its-measure.md) | A value is judged against its measure, never against another value                            | Accepted |
+| ADR                                                                   | Title                                                                                         | Status   |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------- |
+| [0001](./0001-domain-entities-over-generic-table.md)                  | Domain entities rather than a generic table                                                   | Accepted |
+| [0002](./0002-presentation-is-non-normative.md)                       | The presentation layer is non-normative                                                       | Accepted |
+| [0003](./0003-rank-is-optional-ranking-is-derived.md)                 | Rank is optional; ranking is derived by the consumer                                          | Accepted |
+| [0009](./0009-numeric-durations.md)                                   | Durations are plain numbers, not ISO 8601                                                     | Accepted |
+| [0010](./0010-rfc3339-dates.md)                                       | Dates use RFC 3339 with a mandatory offset                                                    | Accepted |
+| [0011](./0011-x-prefix-extensions.md)                                 | Extensions use the `x-` prefix                                                                | Accepted |
+| [0012](./0012-version-declaration.md)                                 | One field declares the format version                                                         | Accepted |
+| [0013](./0013-sort-direction-from-measure.md)                         | Sort direction comes from the measure                                                         | Accepted |
+| [0016](./0016-naming-and-identifiers.md)                              | camelCase names, opaque identifiers                                                           | Accepted |
+| [0017](./0017-bye-is-a-status.md)                                     | `bye` is a status, and it ranks                                                               | Accepted |
+| [0018](./0018-not-classified-is-a-status.md)                          | `notClassified` is a status; `OR-908` only warns on partial records                           | Accepted |
+| [0019](./0019-ties-resolved-outside-the-document.md)                  | `ties: "resolved"`; `description` on every named entity                                       | Accepted |
+| [0020](./0020-a-status-describes-its-own-result.md)                   | A status describes its own result; aggregation is normative; allocated numbers are attributes | Accepted |
+| [0021](./0021-scope-lists-events.md)                                  | A ranking scopes to a list of events; durations have a written rendering                      | Accepted |
+| [0023](./0023-scales-and-attribute-units.md)                          | Measures declare a scale, attributes declare a unit                                           | Accepted |
+| [0024](./0024-a-ranking-may-be-the-order.md)                          | A ranking may be the order itself; categories carry figures                                   | Accepted |
+| [0025](./0025-a-value-is-judged-against-its-measure.md)               | A value is judged against its measure, never against another value                            | Accepted |
+| [0026](./0026-rounding-is-defined-and-defined-on-what-was-written.md) | Rounding is defined, and defined on the number as written                                     | Accepted |
+| [0027](./0027-every-rule-is-accounted-for.md)                         | Every rule is accounted for, by a case or by naming what holds it                             | Accepted |
 
 ## Project decisions
 

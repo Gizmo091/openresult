@@ -94,6 +94,34 @@ describe('a half rounds away from zero (§5.1.5)', () => {
   });
 });
 
+describe('a precision no double can carry', () => {
+  // §5.1.5 sets no ceiling and the schema sets none either, so a document may
+  // declare a hundred and one decimals. Both readers crashed on it: the
+  // reference through Intl's own limit, the minimal reader through Python's
+  // decimal context. Refusing to show results because the producer
+  // over-specified how to show them is the one thing a consumer must not do.
+  it('shows the figure instead of throwing', () => {
+    const absurd = measure({ kind: 'duration', unit: 's', precision: 101 });
+
+    expect(() => formatValue(12.5, absurd, { locale: 'en' })).not.toThrow();
+    expect(formatValue(12.5, absurd, { locale: 'en' })).toMatch(/^12\.50{99}$/);
+  });
+
+  it('stops both readers at the same place', () => {
+    // Not merely "does not throw": two consumers padding to different lengths
+    // would disagree about a published figure, which is what §8.5.6 forbids.
+    // The minimal Python reader clamps to the same hundred.
+    expect(formatValue(12.5, measure({ precision: 101 }), { locale: 'en' })).toBe(
+      `12.${'5'}${'0'.repeat(99)} pt`,
+    );
+  });
+
+  it('treats a negative precision as none rather than failing', () => {
+    // OR-102 reports it, and the reader still has to render the document.
+    expect(formatValue(12.5, measure({ precision: -3 }), { locale: 'en' })).toBe('13 pt');
+  });
+});
+
 describe('a bounded score renders against its maximum (§5.1.8)', () => {
   it('shows the scale when one is declared', () => {
     const nose = measure({ kind: 'score', max: 30 });

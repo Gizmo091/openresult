@@ -69,12 +69,28 @@ export function formatAttribute(
   return attribute.unit === undefined ? formatted : `${formatted} ${attribute.unit}`;
 }
 
+/**
+ * The most decimals `Intl.NumberFormat` accepts. Beyond it, it throws.
+ *
+ * §5.1.5 puts no ceiling on `precision` and the schema puts none either, so a
+ * document may declare a hundred and one. A reader that threw on it would fail
+ * to show results because the producer over-specified how to show them, which
+ * is the one thing a consumer must never do (§11.3.1). A double carries about
+ * seventeen significant digits, so everything past this point is zeros in any
+ * case.
+ */
+const MOST_DECIMALS = 100;
+
+function fractionDigits(precision: number): number {
+  return Math.min(Math.max(Math.trunc(precision), 0), MOST_DECIMALS);
+}
+
 function decimal(value: number, precision: number | undefined, locale: string | undefined): string {
   return precision === undefined
     ? new Intl.NumberFormat(locale).format(value)
     : new Intl.NumberFormat(locale, {
-        minimumFractionDigits: precision,
-        maximumFractionDigits: precision,
+        minimumFractionDigits: fractionDigits(precision),
+        maximumFractionDigits: fractionDigits(precision),
       }).format(value);
 }
 
@@ -112,8 +128,8 @@ function toSeconds(value: number, unit: 's' | 'ms' | 'min' | 'h'): number {
  */
 function toDecimalPlaces(value: number, precision: number): string {
   return new Intl.NumberFormat('en', {
-    minimumFractionDigits: precision,
-    maximumFractionDigits: precision,
+    minimumFractionDigits: fractionDigits(precision),
+    maximumFractionDigits: fractionDigits(precision),
     useGrouping: false,
   }).format(value);
 }
