@@ -1,0 +1,32 @@
+{
+  "valid": true,
+  "warnings": ["OR-913"],
+  "rankings": {
+    "m83": [
+      {
+        "participant": "ana",
+        "rank": 1
+      },
+      {
+        "participant": "bo",
+        "rank": 2
+      },
+      {
+        "participant": "ana",
+        "rank": null
+      },
+      {
+        "participant": "bo",
+        "rank": null
+      },
+      {
+        "participant": "ana",
+        "rank": null
+      },
+      {
+        "participant": "bo",
+        "rank": null
+      }
+    ]
+  }
+}

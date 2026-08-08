@@ -61,6 +61,7 @@ export const diagnosticsCiteRules: Check = {
     }
 
     problems.push(...checkACorrectionIsCompulsory(catalogue));
+    problems.push(...checkEveryCodeIsPublished(codes, spec));
     problems.push(...(await checkCodesArePermanent(codes)));
 
     if (problems.length > 0) {
@@ -124,4 +125,24 @@ async function checkCodesArePermanent(codes: string[]): Promise<string[]> {
     await writeFile(PUBLISHED, `${JSON.stringify({ ...published, codes: merged }, null, 2)}\n`);
   }
   return [];
+}
+
+/**
+ * Every code the validator can raise must have a row in §12.2's table.
+ *
+ * The table is where a producer looks up a code they have just been shown. A
+ * code missing from it is a diagnostic that arrives with a number nothing
+ * explains — and `OR-111` was in that state from the day it was added, because
+ * the only check on the table asked the other question: whether a code *cited
+ * in the prose* had a row. Both directions matter, and only one was checked.
+ */
+function checkEveryCodeIsPublished(codes: string[], spec: string): string[] {
+  const published = new Set([...spec.matchAll(/^\| `(OR-\d+)` \|/gm)].map((match) => match[1]));
+  const missing = [...new Set(codes)].filter((code) => !published.has(code)).sort();
+
+  if (missing.length === 0) return [];
+  return [
+    `${missing.join(', ')} can be raised and ${missing.length === 1 ? 'has' : 'have'} no row in ` +
+      `§12.2's table, so a producer shown the code has nothing to look it up in. Add a row.`,
+  ];
 }

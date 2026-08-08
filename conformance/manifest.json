@@ -543,6 +543,14 @@
       "path": "valid/OR-912-license-written-out-in-prose"
     },
     {
+      "id": "OR-913-a-standing-that-gathers-sub-events",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.1.1",
+      "description": "A standing scoped only by category also gathers its sub-event results.",
+      "path": "valid/OR-913-a-standing-that-gathers-sub-events"
+    },
+    {
       "id": "a-category-carries-attributes",
       "kind": "valid",
       "level": "ranking",

@@ -1,0 +1,111 @@
+{
+  "openresult": "1.0",
+  "title": "A class standing that also gathers every attempt",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "attempt",
+      "label": "Attempt",
+      "kind": "mass",
+      "unit": "kg",
+      "betterWhen": "none"
+    },
+    {
+      "id": "total",
+      "label": "Total",
+      "kind": "mass",
+      "unit": "kg",
+      "betterWhen": "higher"
+    }
+  ],
+  "events": [
+    {
+      "id": "overall",
+      "name": "Overall",
+      "type": "overall"
+    },
+    {
+      "id": "squat-1",
+      "name": "Squat 1",
+      "type": "round",
+      "parent": "overall"
+    },
+    {
+      "id": "squat-2",
+      "name": "Squat 2",
+      "type": "round",
+      "parent": "overall"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana"
+    },
+    {
+      "id": "bo",
+      "name": "Bo"
+    }
+  ],
+  "categories": [
+    {
+      "id": "m83",
+      "label": "-83 kg",
+      "participants": ["ana", "bo"]
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "event": "overall",
+      "values": {
+        "total": 610.0
+      }
+    },
+    {
+      "participant": "bo",
+      "event": "overall",
+      "values": {
+        "total": 587.5
+      }
+    },
+    {
+      "participant": "ana",
+      "event": "squat-1",
+      "values": {
+        "attempt": 220.0
+      }
+    },
+    {
+      "participant": "bo",
+      "event": "squat-1",
+      "values": {
+        "attempt": 210.0
+      }
+    },
+    {
+      "participant": "ana",
+      "event": "squat-2",
+      "values": {
+        "attempt": 230.0
+      }
+    },
+    {
+      "participant": "bo",
+      "event": "squat-2",
+      "values": {
+        "attempt": 215.0
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "m83",
+      "label": "-83 kg",
+      "scope": {
+        "category": "m83"
+      },
+      "sortBy": ["total"]
+    }
+  ]
+}

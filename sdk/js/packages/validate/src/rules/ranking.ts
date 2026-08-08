@@ -94,6 +94,37 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
 
     const entries = rank(document, ranking.id);
 
+    // A ranking that never narrowed by event, spanning several of them, where
+    // some selected results are about something else entirely. §6.3 tells a
+    // producer to declare an event per attempt and scope the standing to the
+    // parent; a scope naming only a category skips that, gathers every attempt
+    // as well, and the standing renders as the real order followed by the same
+    // competitors again with no position. Nothing else reports it: OR-908
+    // deliberately says nothing about a result carrying none of the sorting
+    // measures, because an angler who caught nothing belongs out of a heaviest
+    // fish ranking. Across events, carrying none means something different.
+    if (ranking.scope?.event === undefined) {
+      const eventsSeen = new Set(entries.map((entry) => entry.result.event ?? ''));
+      const carryingNone = entries.filter(
+        (entry) =>
+          entry.rank === null && ranking.sortBy.every((id) => entry.values[id] === undefined),
+      );
+      if (eventsSeen.size > 1 && carryingNone.length > 0) {
+        found.push(
+          diagnostic(
+            'OR-913',
+            pointer('rankings', index),
+            `Ranking "${ranking.label}" gathers results from ${eventsSeen.size} events and does ` +
+              `not say which it means, so ${carryingNone.length} of them — carrying none of the ` +
+              `measures it sorts on — follow the standings with no position, repeating ` +
+              `competitors already listed.`,
+            `Add "scope": { "event": "…" } naming the event this standing belongs to, alongside ` +
+              `any category it selects.`,
+          ),
+        );
+      }
+    }
+
     // Warn only where the record is *partial* — some sorting measures present,
     // not all. That is a competitor who took part and whose record is
     // incomplete, which is usually a mistake.

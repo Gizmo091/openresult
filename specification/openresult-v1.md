@@ -801,7 +801,10 @@ figure is published twice. Enumeration is deliberate — a consumer selects by r
 by evaluating a rule (§1.2)._
 
 **§8.1.2** `scope.category`, when present, **MUST** be a declared category identifier or an array
-of them; only results whose participant belongs to **at least one** of them are considered.
+of them; only results whose participant belongs to **at least one** of them are considered. A
+category selects a set of competitors and says nothing about which of their results is meant, so a
+standing over a document that decomposes into sub-events **SHOULD** name the event too; a scope
+that does not is reported as `OR-913`.
 Membership is the category's own `participants`: a scope sees the categories it names and never
 their children, on the same terms as [§8.1.4](#81-scope) for events. A category's `parent`
 ([§9.1.2](#91-categories)) organises them for a reader and selects nothing.
@@ -1252,6 +1255,7 @@ plain language, and at least one concrete correction.
 | `OR-108` | error    | `null` used for an unavailable measure (§7.3.2)                                                                                                                                  |
 | `OR-109` | error    | A measure declares `min` greater than `max` (§5.1.8)                                                                                                                             |
 | `OR-110` | error    | A `unit` is declared on an attribute that is not a number (§5.3.7)                                                                                                               |
+| `OR-111` | error    | A count unit names nothing — `n`, `#`, `no` (§5.2.6)                                                                                                                             |
 | `OR-201` | error    | Reference to an undeclared entity (§6.1.2, §7.1.1, §7.1.2, §8.1.1)                                                                                                               |
 | `OR-202` | error    | Duplicate identifier within a collection (§5.4.2)                                                                                                                                |
 | `OR-203` | error    | Duplicate (`participant`, `event`) pair (§7.1.3)                                                                                                                                 |
@@ -1277,6 +1281,8 @@ plain language, and at least one concrete correction.
 | `OR-909` | warning  | A value falls outside the scale its measure declares (§5.1.8)                                                                                                                    |
 | `OR-910` | warning  | A declared participant holds no result and belongs to no team (§6.1.7)                                                                                                           |
 | `OR-911` | warning  | A ranking ordered by published positions has results that carry none (§8.3.5)                                                                                                    |
+| `OR-912` | warning  | A licence is not an SPDX identifier (§9.2.2)                                                                                                                                     |
+| `OR-913` | warning  | A standing gathers results from several events without naming one (§8.1.2)                                                                                                       |
 
 **§12.2.1** A published code is permanent. Removing or reassigning one is a breaking change.
 
