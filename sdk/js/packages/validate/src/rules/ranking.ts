@@ -43,7 +43,16 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
     // the group tied, so the whole ranking collapses to a single shared first
     // place. Silent, and the opposite of what the producer meant.
     if (orderedByPublishedRanks) {
-      const selected = rank(document, ranking.id);
+      // Status-excluded results are not part of the tie, so they cannot break
+      // it. A show class places five and shows nine; the four unplaced are
+      // `notClassified`, which is how the producer keeps them out — and warning
+      // about them told a correct document to fix what it had already done.
+      // The suggestion this diagnostic offers was, word for word, the thing
+      // that had been done.
+      const excluded = ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES;
+      const selected = rank(document, ranking.id).filter(
+        (entry) => !excluded.includes(normalizeStatus(entry.result.status)),
+      );
       const without = selected.filter((entry) => entry.result.ranks?.[ranking.id] === undefined);
       if (without.length > 0) {
         const names = without.slice(0, 3).map((entry) => `"${entry.participant.name}"`);

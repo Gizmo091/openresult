@@ -784,6 +784,14 @@
       "path": "valid/notes-never-drive-behaviour"
     },
     {
+      "id": "positions-only-for-the-placed",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.5",
+      "description": "A result the ranking excludes by status owes it no position.",
+      "path": "valid/positions-only-for-the-placed"
+    },
+    {
       "id": "presentation-carries-every-hint-and-decides-nothing",
       "kind": "valid",
       "level": "ranking",

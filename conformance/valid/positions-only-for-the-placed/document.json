@@ -1,0 +1,64 @@
+{
+  "openresult": "1.0",
+  "title": "A class placed to third, shown by five",
+  "lang": "en",
+  "description": "A judged class places the first three and shows five. The two unplaced are notClassified, which is how a producer keeps them out of the standing — so they carry no position and none is expected of them (spec §8.3.5).",
+  "participants": [
+    {
+      "id": "a",
+      "name": "Wrenbury Duchess"
+    },
+    {
+      "id": "b",
+      "name": "Cranbourne Lyric"
+    },
+    {
+      "id": "c",
+      "name": "Halloughton Rosette"
+    },
+    {
+      "id": "d",
+      "name": "Marlbrook Fern"
+    },
+    {
+      "id": "e",
+      "name": "Selby Coronet"
+    }
+  ],
+  "results": [
+    {
+      "participant": "c",
+      "ranks": {
+        "class": 2
+      }
+    },
+    {
+      "participant": "a",
+      "ranks": {
+        "class": 1
+      }
+    },
+    {
+      "participant": "d",
+      "status": "notClassified"
+    },
+    {
+      "participant": "b",
+      "ranks": {
+        "class": 3
+      }
+    },
+    {
+      "participant": "e",
+      "status": "notClassified"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "class",
+      "label": "Senior heifer",
+      "sortBy": [],
+      "ties": "resolved"
+    }
+  ]
+}

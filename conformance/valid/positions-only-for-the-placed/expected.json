@@ -1,0 +1,27 @@
+{
+  "valid": true,
+  "rankings": {
+    "class": [
+      {
+        "participant": "a",
+        "rank": 1
+      },
+      {
+        "participant": "c",
+        "rank": 2
+      },
+      {
+        "participant": "b",
+        "rank": 3
+      },
+      {
+        "participant": "d",
+        "rank": null
+      },
+      {
+        "participant": "e",
+        "rank": null
+      }
+    ]
+  }
+}
