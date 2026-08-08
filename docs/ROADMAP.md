@@ -181,14 +181,19 @@ this one comparison.
 **Nowhere to say where it happened, or what the whole document is about.** _Found independently by
 three readers — powerlifting, chess and orienteering — each of whom invented a different
 workaround: hanging the facts on an arbitrary event, or inventing an event that holds no results
-and exists only to carry them. It is the strongest-evidenced gap in this file, and §9.1.4 is the
-precedent: categories were given `attributes` on exactly this argument, that such figures had
-nowhere else to go. Adding the same member to the document would be additive, would invalidate no
-document, and is the leading candidate for the last change before v1 freezes._ The root object has no
+and exists only to carry them._ The root object has no
 `attributes`, so a fact true of every event — the equipment division of a championship, the edition
 of the rules in force — has to be hung on one event chosen arbitrarily, and cannot be stated at all
 by a document that omits `events`. There is also no location member anywhere: not on the document,
 not on an event, not in `source`. Every results document ever published names a place.
+
+The reason this is not a one-line fix is worth stating, because it is why three readers each
+invented something different rather than converging. **The obvious name is taken.** On every
+entity `attributes` holds values; on the document it holds the _definitions_. So the document
+cannot carry its own values under the name every other entity uses, and whoever closes this gap has
+to choose — a second member beside the definitions, a nested object, or a rename that 1.0 cannot
+have. §9.1.4 is the precedent for granting the member and settles nothing about what to call it.
+That choice is the work, and it is the strongest-evidenced item in this file.
 
 **A participant cannot be asked which categories they are in.** A category lists its members, and
 nothing goes the other way, so a consumer rendering one competitor's row has no way to show their
