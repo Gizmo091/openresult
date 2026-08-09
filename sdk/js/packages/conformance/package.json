@@ -1,6 +1,6 @@
 {
   "name": "@openresult/conformance",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Runner for the language-agnostic OpenResult conformance suite.",
   "license": "Apache-2.0",
   "repository": {
