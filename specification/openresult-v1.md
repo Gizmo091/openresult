@@ -317,7 +317,14 @@ is descriptive and **MUST NOT** appear in a ranking's `sortBy` ([§8.2](#82-sort
 digits to show **after the decimal point** — not significant figures. It affects display only and
 **MUST NOT** affect ordering. Rounding applies to the number as the document writes it, and a
 value falling exactly halfway **MUST** be rounded away from zero: `8.5` shown to no decimals is
-`9`, `-8.5` is `-9`, and `2.675` to two decimals is `2.68`.
+`9`, `-8.5` is `-9`, and `2.675` to two decimals is `2.68`. Where `precision` is absent, a consumer
+**MUST** show the number as the document writes it, adding and removing no digits: `12` is `12` and
+`14.8` is `14.8`.
+
+_Non-normative: the absent case was open for as long as the halfway case was._ A sailing series
+prints `12.0` and `14.8` and declares `precision: 1` to get it; a producer who declares nothing
+used to get whatever the consumer's language does with a whole number, which is `12` in one and
+`12.0` in another — the same divergence, one rule away.
 
 _Non-normative: the halfway case decides a published time, and two consumers disagreeing about it
 by a second is the divergence this format exists to prevent._ It went unstated until the reference
@@ -399,11 +406,15 @@ implementation had done this from the start; only the specification was silent._
 in `attributes` ([§5.3.5](#53-attributes)).
 
 **§5.2.7** A consumer displaying a `score` or `points` measure that declares a `max`
-([§5.1.8](#51-measures)) **SHOULD** render it against that maximum — `36/40` — keeping the
-declared precision on both halves. A `percentage` is excluded: its unit already carries the scale,
-and `85/100 %` is worse than either half of it. A `max` of `1` is excluded on the same grounds: a
-chess game point truthfully bounded at one would read `1.0/1.0`, and a producer should not have to
-withhold a true bound to avoid an absurd rendering.
+([§5.1.8](#51-measures)) and declares `betterWhen: "higher"` **SHOULD** render it against that
+maximum — `36/40` — keeping the declared precision on both halves.
+
+Three exclusions, all of them cases where the rendering says something false. A `percentage`,
+because its unit already carries the scale and `85/100 %` is worse than either half of it. A `max`
+of `1`, because a chess game point truthfully bounded at one would read `1.0/1.0`. And any measure
+where lower is better: a sailing race is scored by finishing place out of a fleet of twenty-one,
+and the boat that won reads `1.0/21.0`, which states the opposite of what happened. In each, a
+producer should not have to withhold a true bound to avoid an absurd rendering.
 
 _Non-normative: this is the point of declaring the bound at all. A reader shown `27 pt` cannot
 tell excellent from poor, which is the failure §1.1 exists to prevent, and the producer has no
@@ -497,6 +508,8 @@ by the quantity rather than by the row: an age is `year`, a bottle price is `EUR
 **§5.3.8** An attribute absent from an `attributes` object means **not recorded**, on the same
 terms as an absent measure ([§7.3.2](#73-values)). It does not mean `false`, `zero` or `none`, and
 a producer who needs to state that something is not the case **MUST** write the value.
+
+_Non-normative: a `text` attribute has no value meaning "none", so a producer needing to state that one does not apply cannot._ Nineteen boats in a sailing race have no scoring code, which is a fact rather than an omission, and the only choices are to omit it — against the letter of this rule — or to invent a sentinel string, which [§1.2.3](#12-design-constraints) refuses. Omit it. The rule reads as written for `boolean` and `number`, where writing the value is always possible.
 
 _Non-normative: a document carrying a boolean measure and a boolean attribute of almost the same
 meaning ended up writing the measure on all sixty-six results, because §7.3.2 said what silence
@@ -685,7 +698,9 @@ the document declares `events`.
 
 ### 7.2 `status`
 
-**§7.2.1** `status` **MUST** be one of:
+**§7.2.1** `status` **MUST** be one of. _The last column is the **default**, which a ranking
+replaces in full by declaring `excludeStatuses` — including with an empty array, which places
+every competitor whatever their status ([§8.4.3](#84-excludestatuses))._
 
 | Value           | Meaning                   | Excluded by default |
 | --------------- | ------------------------- | ------------------- |
@@ -742,8 +757,12 @@ distance, short of a qualifying standard, outside a published field. A skier eli
 after a clean first run is `finished` on that run and `notClassified` on the combined event; one
 who abandons mid-course is `dnf` on both.
 
-_Non-normative: every status named here is excluded by default (§8.4.2), so the derived standings
-are identical whichever is chosen — the difference is invisible to a ranking and plain on screen.
+_Non-normative: under the default exclusions (§8.4.2) every status named here is excluded, so the
+choice between them changes no standing — it is invisible to a ranking and plain on screen. Under
+`excludeStatuses: []`, which [§8.4.3](#84-excludestatuses) calls the ordinary shape for a race
+order that must place its retirements, the choice decides where the competitor is placed and is
+very visible indeed. A sailing series that scores a boat which left after two days nineteenth on
+ninety-one points is the case: the status is what carries her into or out of the standing._
 Choosing `dnf` against the wording of §7.2.7 is correct here: two
 conforming producers were otherwise free to publish "abandoned" and "not classified" for the same
 fact, with no validator able to tell them apart. That is the divergence this format exists to

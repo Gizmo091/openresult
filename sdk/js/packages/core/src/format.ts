@@ -1,3 +1,4 @@
+import { normalizeBetterWhen } from './semantics.js';
 import type { AttributeDefinition, AttributeValue, Measure, MeasureValue } from './types.js';
 
 export interface FormatOptions {
@@ -39,13 +40,16 @@ export function formatValue(
   // poor out of 100 (spec §5.1.8). Only where a maximum is declared, and only
   // for judged kinds — a percentage already carries its scale in its unit, and
   // "85/100 %" would be worse than either half.
-  // A maximum of one is excluded too: a chess game point truthfully bounded at
-  // one would read `1.0/1.0`, and a producer should not have to withhold a true
-  // bound to avoid that.
+  // Three exclusions, each a case where the scale states something false: a
+  // percentage carries its scale in its unit; a maximum of one reads `1.0/1.0`;
+  // and where lower is better, a sailing race scored by finishing place out of
+  // twenty-one shows the winner as `1.0/21.0`, which is the opposite of what
+  // happened (spec §5.2.7).
   if (
     showScale &&
     measure.max !== undefined &&
     measure.max !== 1 &&
+    normalizeBetterWhen(measure.betterWhen) === 'higher' &&
     (measure.kind === 'score' || measure.kind === 'points')
   ) {
     return `${formatted}/${decimal(measure.max, precision, locale)}`;

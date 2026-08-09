@@ -146,6 +146,23 @@ describe('a bounded score renders against its maximum (§5.1.8)', () => {
     expect(formatValue(1, gamePoint, { locale: 'en' })).toBe('1.0 pt');
   });
 
+  it('leaves a low-point score alone, where the scale would invert the meaning', () => {
+    // A sailing race is scored by finishing place out of the fleet. Rendering
+    // the winner as `1.0/21.0` states the opposite of what happened, so a
+    // producer would have to withhold a true bound to avoid it.
+    const race = measure({
+      kind: 'points',
+      unit: 'pt',
+      min: 1,
+      max: 21,
+      precision: 1,
+      betterWhen: 'lower',
+    });
+
+    expect(formatValue(1, race, { locale: 'en' })).toBe('1.0 pt');
+    expect(formatValue(21, race, { locale: 'en' })).toBe('21.0 pt');
+  });
+
   it('leaves a percentage alone, which already carries its scale', () => {
     // "85/100 %" is worse than either half.
     const share = measure({ kind: 'percentage', unit: '%', max: 100, precision: 1 });

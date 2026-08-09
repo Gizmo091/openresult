@@ -300,10 +300,15 @@ def format_value(value, measure):
 
     # A bounded score reads against its maximum (§5.2.7): 27 is excellent out of
     # 30 and poor out of 100.
-    # A maximum of one is excluded (§5.2.7): a game point bounded at one would
-    # read "1.0/1.0", so a producer would have to hide a true bound.
+    # Excluded where the scale would say something false (§5.2.7): a maximum of
+    # one reads "1.0/1.0", and where lower is better a race win out of a fleet
+    # of twenty-one reads "1.0/21.0".
     maximum = measure.get("max")
-    if maximum not in (None, 1) and measure.get("kind") in ("score", "points"):
+    if (
+        maximum not in (None, 1)
+        and direction_of(measure) == "higher"
+        and measure.get("kind") in ("score", "points")
+    ):
         top = fixed(maximum, precision) if precision is not None else f"{maximum:g}"
         return f"{text}/{top}"
 
