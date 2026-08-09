@@ -42,12 +42,17 @@ export const suiteRunsElsewhere: Check = {
   async run() {
     const summaries: string[] = [];
     const problems: string[] = [];
+    const absent: string[] = [];
     let ran = 0;
 
     for (const runner of RUNNERS) {
       const command = await detect(runner.commands);
       if (command === null) {
-        summaries.push(`${runner.language} absent`);
+        // A contributor's laptop may reasonably lack PHP, and failing there
+        // would be hostile. CI is where this invariant is authoritative, and a
+        // runner quietly dropping out of it would leave the check reporting a
+        // pass for half the work — the failure this whole file is about.
+        absent.push(runner.language);
         continue;
       }
       ran += 1;
@@ -81,13 +86,26 @@ export const suiteRunsElsewhere: Check = {
       summaries.push(`${runner.language} ${passed}/${total}, ${rankings} rankings`);
     }
 
+    if (absent.length > 0 && process.env['CI'] !== undefined) {
+      problems.push(
+        `${absent.join(' and ')} missing from the CI image, so ${
+          absent.length === 1 ? 'that runner' : 'those runners'
+        } did not run. Half a check reporting a pass is how a suite stops being ` +
+          `language-agnostic without anyone noticing. Install ${absent.join(' and ')} in the ` +
+          `workflow, or remove the runner from this check and say why.`,
+      );
+    }
+
     if (problems.length > 0) {
-      return fail(this.name, `${problems.length} runner(s) disagree`, problems);
+      return fail(this.name, `${problems.length} problem(s) running the suite elsewhere`, problems);
     }
     if (ran === 0) {
       return skip(this.name, 'neither python3 nor php on this machine');
     }
-    return pass(this.name, summaries.join(' · '));
+    return pass(
+      this.name,
+      summaries.join(' · ') + (absent.length > 0 ? ` (${absent.join(', ')} absent here)` : ''),
+    );
   },
 };
 
