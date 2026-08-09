@@ -27,6 +27,8 @@ declare(strict_types=1);
 
 const DEFAULT_EXCLUDED = ['notClassified', 'inProgress', 'dnf', 'dns', 'dsq', 'outOfTime', 'withdrawn'];
 const KNOWN_STATUSES = [...DEFAULT_EXCLUDED, 'finished', 'bye'];
+const KNOWN_KINDS = ['duration', 'distance', 'mass', 'points', 'score', 'percentage',
+                     'count', 'money', 'rate', 'text', 'boolean'];
 
 function statusOf(array $result): string {
     $status = $result['status'] ?? 'finished';
@@ -115,6 +117,8 @@ function carriesUsableValue(array $document, array $result, string $measureId): 
     $value = $result['values'][$measureId] ?? null;
     if ($value === null) return false;
     $kind = measureById($document, $measureId)['kind'] ?? null;
+    // A kind this version does not know implies no type (§5.1.6, §8.5.2).
+    if (!in_array($kind, KNOWN_KINDS, true)) return true;
     if ($kind === 'text') return is_string($value);
     if ($kind === 'boolean') return is_bool($value);
     // Everything else is a number (§5.2.1). `is_numeric` would accept "12", and

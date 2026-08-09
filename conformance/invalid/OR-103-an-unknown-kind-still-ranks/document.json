@@ -1,0 +1,46 @@
+{
+  "openresult": "1.0",
+  "title": "A numeric kind a 1.0 consumer does not know",
+  "lang": "en",
+  "description": "The kind is one a later MINOR might add (§11.2.2). §5.1.6 folds it onto text for display, and §8.5.2 must not infer a string type from that fold — otherwise every value here is unrankable and the standing vanishes, which is the opposite of what §11.2.1 promises.",
+  "measures": [
+    {
+      "id": "reading",
+      "label": "Reading",
+      "kind": "temperature",
+      "unit": "degC",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "reading": 18.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "reading": 21.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "warmest",
+      "label": "Warmest",
+      "sortBy": ["reading"]
+    }
+  ]
+}

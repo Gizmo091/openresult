@@ -131,7 +131,31 @@ function selectResults(document: ResultDocument, ranking: Ranking): Result[] {
  *
  * Everything is a number except `text`, which is a string, and `boolean`.
  */
-function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' {
+const KNOWN_KINDS = new Set([
+  'duration',
+  'distance',
+  'mass',
+  'points',
+  'score',
+  'percentage',
+  'count',
+  'money',
+  'rate',
+  'text',
+  'boolean',
+]);
+
+/**
+ * The JSON type a kind implies, or `undefined` where this version does not know
+ * the kind (spec §5.1.6, §8.5.2).
+ *
+ * `undefined` is the whole point. §5.1.6 folds an unknown kind onto `text` and
+ * §11.2.2 lets a 1.1 add `temperature`; a 1.0 consumer that inferred `string`
+ * from the fold would reject every number the document carries and publish an
+ * empty standing, which is the opposite of what §11.2.1 promises.
+ */
+function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' | undefined {
+  if (kind === undefined || !KNOWN_KINDS.has(kind)) return undefined;
   if (kind === 'text') return 'string';
   if (kind === 'boolean') return 'boolean';
   return 'number';
@@ -155,7 +179,8 @@ function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean'
 function carriesUsableValue(document: ResultDocument, result: Result, measureId: string): boolean {
   const value = result.values?.[measureId];
   if (value === undefined) return false;
-  return typeof value === expectedType(measure(document, measureId)?.kind);
+  const wanted = expectedType(measure(document, measureId)?.kind);
+  return wanted === undefined || typeof value === wanted;
 }
 
 /**

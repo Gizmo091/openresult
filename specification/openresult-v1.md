@@ -13,7 +13,17 @@ or analyse them without knowing anything about the producer.
 
 ## Status of this document
 
-This is 1.0, final. The compatibility guarantees in
+This is 1.0, final.
+
+**Erratum, 2026-08-09.** Published earlier the same day, 1.0 contained a rule that broke its own
+forward-compatibility promise. [§5.1.6](#51-measures) folds an unknown `kind` onto `text`;
+[§8.5.2](#85-derivation-algorithm) requires a result to carry a value of the type its kind implies;
+[§11.2.2](#112-guarantees-to-producers) permits a MINOR version to add a kind. Together those meant
+a 1.1 measure of kind `temperature` carrying numbers would fail the type test on every value when
+read by a 1.0 consumer, and the standing would vanish — the opposite of what
+[§11.2.1](#112-guarantees-to-producers) promises. §5.1.6 and §8.5.2 now say that an unrecognised
+kind implies no value type. Found by the first person to write an implementation from this document
+without being able to ask a question. The compatibility guarantees in
 [§11](#11-versioning-and-compatibility) apply from here: a document valid under 1.0 stays valid and
 identically interpretable under every later 1.x, and no member name or meaning in this document
 will change without a MAJOR version.
@@ -346,8 +356,9 @@ rounding what is stored gives `2.67` while rounding what the producer typed give
 reference implementation did the first for durations and the second for everything else, so one
 consumer rendered the same figure two ways.
 
-**§5.1.6** A consumer encountering an unknown `kind` **MUST** treat it as `text`; an unknown
-`betterWhen` **MUST** be treated as `none`.
+**§5.1.6** A consumer encountering an unknown `kind` **MUST** treat it as `text` for display, and
+**MUST NOT** infer a value type from it when deciding what a result carries
+([§8.5.2](#85-derivation-algorithm)). An unknown `betterWhen` **MUST** be treated as `none`.
 
 **§5.1.7** A declared measure that no result carries a value for is reported as `OR-901`, a
 warning. It is legal — a measure may be declared for a round that has not been swum yet — but the
@@ -1045,7 +1056,8 @@ list as follows.
 
 - its `status` is not in `excludeStatuses`; and
 - for every measure listed in `sortBy`, its `values` carries a value of the JSON type that
-  measure's `kind` implies ([§5.2.1](#52-values-and-units)).
+  measure's `kind` implies ([§5.2.1](#52-values-and-units)) — or a value of any type, where the
+  consumer does not recognise the `kind`.
 
 All others are **unranked**.
 
@@ -1055,6 +1067,14 @@ figure — it does not fall back to the first measure alone. So a final decided 
 whose results carry nothing else, cannot declare the tie-break its qualification rounds use. That
 is what determinism costs here: a sort key that is sometimes shorter would order differently
 depending on which results happened to carry what.
+
+_Non-normative: an unrecognised `kind` implies no type, and that exception is load-bearing._
+[§5.1.6](#51-measures) folds an unknown `kind` onto `text`, [§11.2.2](#112-guarantees-to-producers)
+permits a MINOR version to add one, and [§11.2.1](#112-guarantees-to-producers) promises a document
+reads identically under every later 1.x. Without the exception those three cannot all be true: a
+1.1 measure of kind `temperature` carrying numbers, read by a 1.0 consumer, folds to `text`, fails
+the type test on every value, and the standings vanish. Demonstrated, not reasoned about — two
+results, one document, nought of two rankable.
 
 _Non-normative: the type is checked against the measure, not against the other result._ A document
 recording a duration as `"10:04.200"` is not conforming ([§7.3.3](#73-values)), and a consumer must

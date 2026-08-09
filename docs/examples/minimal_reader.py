@@ -24,6 +24,10 @@ DEFAULT_EXCLUDED = {"notClassified", "inProgress", "dnf", "dns", "dsq", "outOfTi
 KNOWN_STATUSES = DEFAULT_EXCLUDED | {"finished", "bye"}
 KNOWN_DIRECTIONS = {"lower", "higher", "none"}
 KNOWN_TIES = {"standard", "dense", "strict", "resolved"}
+KNOWN_KINDS = {
+    "duration", "distance", "mass", "points", "score", "percentage",
+    "count", "money", "rate", "text", "boolean",
+}
 
 
 class UnsupportedVersion(Exception):
@@ -139,6 +143,11 @@ def carries_usable_value(document, result, measure_id):
     if value is None:
         return False
     kind = measures_by_id(document).get(measure_id, {}).get("kind")
+    # A kind this version does not know implies no type (§5.1.6, §8.5.2). §5.1.6
+    # folds it onto `text` for display, and inferring a string from that fold
+    # would make every value of a kind a later 1.x adds unrankable.
+    if kind not in KNOWN_KINDS:
+        return True
     if kind == "text":
         return isinstance(value, str)
     if kind == "boolean":

@@ -115,6 +115,15 @@
       "path": "invalid/OR-102-wrong-type"
     },
     {
+      "id": "OR-103-an-unknown-kind-still-ranks",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §5.1.6",
+      "alsoExercises": ["spec §11.2.1"],
+      "description": "An unknown kind folds for display and implies no value type, so the standing survives.",
+      "path": "invalid/OR-103-an-unknown-kind-still-ranks"
+    },
+    {
       "id": "OR-103-asset-type-from-a-later-version",
       "kind": "invalid",
       "level": "ranking",
