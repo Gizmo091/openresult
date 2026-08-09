@@ -131,12 +131,18 @@ numbers; a class runs a course, and nothing can say which.
 **Ports.** PHP, Python, Go, C#, Java and Rust, each proven by the conformance suite. Nothing was
 written before v1 froze: an implementation built against a moving format is thrown away.
 
-The first step is taken. `conformance/runner.py` reads the manifest and drives the Python minimal
-reader, and it passes every case a ranking-level implementation can judge — 84 cases, 98 rankings.
-It also measured what "language-agnostic" was worth: the suite reads cleanly from another language,
-and 47 of its 137 cases state only diagnostics, which a reader cannot judge at all. **The ranking
-half of the suite travels; the diagnostic half does not yet.** A port that validates — rather than
-only reads — is what would close that, and it is the larger half of the work nobody has costed.
+The first step is taken, twice. `conformance/runner.py` and `conformance/runner.php` read the
+manifest and drive readers of their own, and both pass every case a ranking-level implementation
+can judge — 84 cases, 98 rankings, the PHP one on its first run. The suite reads cleanly from both,
+which is what "language-agnostic" was worth.
+
+Two things it measured that were not visible before. **The ranking half of the suite travels; the
+diagnostic half does not** — 47 of the 137 cases state only diagnostics, which a reader cannot
+judge at all, so a port that validates rather than only reads is the larger half of the work and
+nobody has costed it. And **three languages by one author is not what this criterion asks for**: it
+tests whether the specification is precise enough to reimplement, not whether it is clear enough
+for a stranger. The reader tests answered the second question for documents; nothing has yet asked
+it for code.
 
 **More views.** Charts, timeline and statistics. The v1 viewer ships the extension mechanism and
 four views that prove it works; the catalogue grows here.

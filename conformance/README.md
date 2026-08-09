@@ -13,6 +13,7 @@ means.
 ```
 manifest.json          index of cases, with the normative rule each exercises
 runner.py              a second runner, in a language the suite was not written in
+runner.php             a third, in the language results are actually published in
 coverage.json          which rules are covered — a ratchet, checked in CI
 rules-not-by-case.json rules no document can demonstrate, and what holds them instead
 published-codes.json   every diagnostic code published — permanent, a ratchet
@@ -106,16 +107,36 @@ which diagnostics it raises, and what rankings it derives. The third is what a
 consumer produces; the first two are what a validator produces, and they are
 different programs.
 
-`conformance/runner.py` drives the Python minimal reader from this manifest. It
-judges every case that states a ranking — 84 of them, comparing 98 rankings —
-and skips the 47 that state only diagnostics, saying so rather than reporting a
-pass it did not earn. So the ranking half of this suite is verified in two
-languages and the diagnostic half is verified in one.
+`runner.py` and `runner.php` each drive a reader of their own from this
+manifest. Both judge every case that states a ranking — 84 of them, comparing 98
+rankings — and both skip the 47 that state only diagnostics, saying so rather
+than reporting a pass they did not earn. So the ranking half of this suite is
+verified in three languages and the diagnostic half in one.
 
 That is worth knowing before reading "language-agnostic" as a finished claim.
 Until `runner.py` existed the whole suite had been read by exactly one program,
 written by the same people as the cases, in the same language as the reference
 implementation. `pnpm check suite-runs-elsewhere` keeps it that way.
+
+### What the third implementation cost
+
+Three things bit while writing the PHP reader, and they are the things a fourth
+implementer will meet:
+
+**Sort stability is a runtime property.** §8.5.3 requires it, and PHP's `usort`
+has only been stable since 8.0 — on an older runtime the same document would
+reorder ties silently, with nothing to show for it. Python and JavaScript both
+guarantee it, so nothing had made the requirement visible before.
+
+**A missing key and a null value are the same thing in some languages.** PHP's
+`isset` answers false for a member that exists and holds null, so
+`array_key_exists` is what §8.1's scope checks need. §7.3.2 makes absent and
+zero different facts; a language that blurs absent and null will blur those too.
+
+**"Is this a number" is not one question.** `is_numeric` accepts `"12"`, and
+§5.2.1 does not: a duration recorded as a string is not a duration. The type has
+to be checked against the measure's declared kind, and against the language's
+notion of a number rather than its notion of numeric-looking.
 
 ## Coverage
 

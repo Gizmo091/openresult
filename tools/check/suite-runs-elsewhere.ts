@@ -6,7 +6,11 @@ import { type Check, fail, pass, skip } from './types.ts';
 
 const run = promisify(execFile);
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const RUNNER = join(repoRoot, 'conformance/runner.py');
+/** Each runner: the command to look for, and the script it runs. */
+const RUNNERS = [
+  { language: 'Python', commands: ['python3', 'python'], script: 'conformance/runner.py' },
+  { language: 'PHP', commands: ['php'], script: 'conformance/runner.php' },
+];
 
 /**
  * The suite must run from a language it was not written in.
@@ -17,57 +21,78 @@ const RUNNER = join(repoRoot, 'conformance/runner.py');
  * declares itself implementable by others; a suite only readable by its author
  * proves nothing about that.
  *
- * `conformance/runner.py` drives the minimal reader from the manifest. It
- * claims the ranking level and judges every case that level can judge — the
- * ones stating a derived ranking, valid and invalid alike, since §11.3.1
- * requires a consumer to read a non-conforming document rather than refuse it.
+ * Two runners answer it now, in Python and in PHP. Each claims the ranking
+ * level and judges every case that level can judge — the ones stating a derived
+ * ranking, valid and invalid alike, since §11.3.1 requires a consumer to read a
+ * non-conforming document rather than refuse it.
  *
- * It cannot judge a case that states only diagnostics, and it says so instead
- * of reporting a pass. That is the same failure this project has already had
- * once, where a skip was counted as a pass and two cases were never run.
+ * Neither can judge a case that states only diagnostics, and both say so
+ * instead of reporting a pass. That is the same failure this project has
+ * already had once, where a skip was counted as a pass and two cases were never
+ * run.
+ *
+ * What this does not prove is independent authorship, which is what v2's exit
+ * criterion asks for. Three languages by one author tests whether the
+ * specification is precise enough to reimplement; it does not test whether it
+ * is clear enough for a stranger.
  */
 export const suiteRunsElsewhere: Check = {
   name: 'suite-runs-elsewhere',
   enforces: 'The conformance suite must run from a second language, not only its own',
   async run() {
-    const python = await detectPython();
-    if (python === null) {
-      return skip(this.name, 'no python3 on this machine');
-    }
+    const summaries: string[] = [];
+    const problems: string[] = [];
+    let ran = 0;
 
-    const { stdout } = await run(python, [RUNNER], { cwd: repoRoot }).catch(
-      (error: { stdout?: string; stderr?: string }) => ({
+    for (const runner of RUNNERS) {
+      const command = await detect(runner.commands);
+      if (command === null) {
+        summaries.push(`${runner.language} absent`);
+        continue;
+      }
+      ran += 1;
+
+      const { stdout } = await run(command, [join(repoRoot, runner.script)], {
+        cwd: repoRoot,
+      }).catch((error: { stdout?: string; stderr?: string }) => ({
         stdout: `${error.stdout ?? ''}${error.stderr ?? ''}`,
-      }),
-    );
+      }));
 
-    const summary = /(\d+)\/(\d+) cases passed, (\d+) rankings compared/.exec(stdout);
-    if (summary === null) {
-      return fail(this.name, 'the second runner said nothing this check understands', [
-        `Expected a summary line from conformance/runner.py; got:\n${stdout.slice(0, 400)}`,
-      ]);
+      const summary = /(\d+)\/(\d+) cases passed, (\d+) rankings compared/.exec(stdout);
+      if (summary === null) {
+        problems.push(
+          `${runner.language} said nothing this check understands:\n${stdout.slice(0, 300)}`,
+        );
+        continue;
+      }
+
+      const [, passed = '0', total = '0', rankings = '0'] = summary;
+      if (passed !== total || stdout.includes('FAILED')) {
+        problems.push(
+          `${runner.language}: ${Number(total) - Number(passed)} case(s) fail.\n` +
+            stdout
+              .split('\n')
+              .filter((line) => line.trim().startsWith('✗') || line.trim().startsWith('ranking'))
+              .slice(0, 8)
+              .join('\n'),
+        );
+        continue;
+      }
+      summaries.push(`${runner.language} ${passed}/${total}, ${rankings} rankings`);
     }
 
-    const [, passed = '0', total = '0', rankings = '0'] = summary;
-    if (passed !== total || stdout.includes('FAILED')) {
-      return fail(this.name, `${Number(total) - Number(passed)} case(s) fail in Python`, [
-        stdout
-          .split('\n')
-          .filter((line) => line.trim().startsWith('✗') || line.trim().startsWith('ranking'))
-          .slice(0, 10)
-          .join('\n'),
-      ]);
+    if (problems.length > 0) {
+      return fail(this.name, `${problems.length} runner(s) disagree`, problems);
     }
-
-    return pass(
-      this.name,
-      `${passed}/${total} cases pass from Python, ${rankings} rankings compared`,
-    );
+    if (ran === 0) {
+      return skip(this.name, 'neither python3 nor php on this machine');
+    }
+    return pass(this.name, summaries.join(' · '));
   },
 };
 
-async function detectPython(): Promise<string | null> {
-  for (const candidate of ['python3', 'python']) {
+async function detect(candidates: string[]): Promise<string | null> {
+  for (const candidate of candidates) {
     try {
       await run(candidate, ['--version']);
       return candidate;
