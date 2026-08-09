@@ -1,0 +1,1507 @@
+{
+  "openresult": "1.0",
+  "id": "wrenbury-vale-show-2026-cattle",
+  "title": "Wrenbury Vale County Show 2026 — Cattle",
+  "description": "Seven judged classes across three breeds, three breed championships and the supreme cattle championship. Nothing here is measured: there is no time, no weight and no score. Each class is an order one judge decided by eye, so every ranking declares ties: \"resolved\" with an empty sortBy (§8.2.1, §8.3.5) and the order is carried entirely by the published positions in ranks. The judge's spoken reasons are recorded in notes, which §7.4.1 says nothing will parse. Prize money is recorded as a measure of kind money whose betterWhen is none: it follows from the placing and never decides it. Version 2, amended: one yearling heifer was disqualified after the ring on a registration irregularity and the animals behind her have moved up.",
+  "lang": "en",
+  "status": "amended",
+  "version": 2,
+  "generatedAt": "2026-07-27T09:15:00+01:00",
+  "occurredAt": {
+    "start": "2026-07-25T09:00:00+01:00",
+    "end": "2026-07-25T15:10:00+01:00"
+  },
+  "source": {
+    "name": "Wrenbury Vale Agricultural Society",
+    "description": "Cattle section, judged in the Main Ring on Saturday 25 July 2026.",
+    "url": "https://example.org/wrenburyvaleshow/2026/cattle",
+    "contact": "secretary@example.org",
+    "license": "CC-BY-4.0"
+  },
+  "attributeDefinitions": [
+    {
+      "id": "breed",
+      "label": "Breed",
+      "type": "text"
+    },
+    {
+      "id": "exhibitor",
+      "label": "Exhibitor",
+      "description": "The person or business that entered and showed the animal, and to whom the prize money is paid.",
+      "type": "text"
+    },
+    {
+      "id": "earNumber",
+      "label": "Ear number",
+      "description": "The official individual identification carried by the animal. Allocated, so an attribute and not a measure (§5.3.5).",
+      "type": "text"
+    },
+    {
+      "id": "dob",
+      "label": "Date of birth",
+      "description": "Classes are defined by age, so the date of birth is what places an animal in its class.",
+      "type": "date"
+    },
+    {
+      "id": "sire",
+      "label": "Sire",
+      "type": "text"
+    },
+    {
+      "id": "catalogueNumber",
+      "label": "Catalogue number",
+      "description": "The number the animal was shown under. Allocated, so an attribute (§5.3.5).",
+      "type": "number"
+    },
+    {
+      "id": "judge",
+      "label": "Judge",
+      "description": "The person whose opinion is the result. There is no member for an official, so the judge is recorded as a text attribute on each event they decided.",
+      "type": "text"
+    },
+    {
+      "id": "award",
+      "label": "Award",
+      "description": "The perpetual trophy attached to a placing, where there is one.",
+      "type": "text"
+    },
+    {
+      "id": "prize",
+      "label": "Prize money",
+      "type": "number",
+      "unit": "GBP",
+      "description": "Settled by the placing rather than produced by the judging, so an attribute (spec §5.3.5)."
+    }
+  ],
+  "participants": [
+    {
+      "id": "lim-netherby-jasmine",
+      "name": "Netherby Jasmine 8th",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Netherby Livestock Ltd, Penrith",
+        "earNumber": "UK382914 500118",
+        "dob": "2025-02-14",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 101
+      }
+    },
+    {
+      "id": "lim-marlbrook-delphine",
+      "name": "Marlbrook Delphine",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 500442",
+        "dob": "2025-01-29",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 102
+      }
+    },
+    {
+      "id": "lim-kirkbank-odette",
+      "name": "Kirkbank Odette",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "J. & M. Aldridge, Kirkbank Farm, Wetherby",
+        "earNumber": "UK511208 500073",
+        "dob": "2025-03-06",
+        "sire": "Glenfarne Aristocrat",
+        "catalogueNumber": 103
+      }
+    },
+    {
+      "id": "lim-overbeck-solitaire",
+      "name": "Overbeck Solitaire",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 500391",
+        "dob": "2025-02-02",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 104
+      }
+    },
+    {
+      "id": "lim-redlynch-nightingale",
+      "name": "Redlynch Nightingale",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 500226",
+        "dob": "2025-04-11",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 105
+      }
+    },
+    {
+      "id": "lim-ashdale-pirouette",
+      "name": "Ashdale Pirouette",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "D. & C. Pritchard, Ashdale Grange, Welshpool",
+        "earNumber": "UK733419 500064",
+        "dob": "2025-03-22",
+        "sire": "Glenfarne Aristocrat",
+        "catalogueNumber": 106
+      }
+    },
+    {
+      "id": "lim-trelawney-bramble",
+      "name": "Trelawney Bramble 12th",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "R. S. Trelawney & Son, Bodmin",
+        "earNumber": "UK905112 200347",
+        "dob": "2020-04-08",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 111
+      }
+    },
+    {
+      "id": "lim-kirkbank-larkspur",
+      "name": "Kirkbank Larkspur 4th",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "J. & M. Aldridge, Kirkbank Farm, Wetherby",
+        "earNumber": "UK511208 200019",
+        "dob": "2021-03-17",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 112
+      }
+    },
+    {
+      "id": "lim-marlbrook-heloise",
+      "name": "Marlbrook Héloïse",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 200288",
+        "dob": "2021-01-30",
+        "sire": "Glenfarne Aristocrat",
+        "catalogueNumber": 113
+      }
+    },
+    {
+      "id": "lim-overbeck-clementine",
+      "name": "Overbeck Clementine",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 200155",
+        "dob": "2022-02-25",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 114
+      }
+    },
+    {
+      "id": "lim-netherby-mirabelle",
+      "name": "Netherby Mirabelle 3rd",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Netherby Livestock Ltd, Penrith",
+        "earNumber": "UK382914 200061",
+        "dob": "2022-05-19",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 115
+      }
+    },
+    {
+      "id": "lim-kirkbank-emperor",
+      "name": "Kirkbank Emperor",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "J. & M. Aldridge, Kirkbank Farm, Wetherby",
+        "earNumber": "UK511208 300204",
+        "dob": "2022-09-12",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 121
+      }
+    },
+    {
+      "id": "lim-cranbourne-gladiator",
+      "name": "Cranbourne Gladiator",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "A. L. Fitzgerald, Cranbourne",
+        "earNumber": "UK648025 300117",
+        "dob": "2023-08-04",
+        "sire": "Glenfarne Aristocrat",
+        "catalogueNumber": 122
+      }
+    },
+    {
+      "id": "lim-overbeck-trojan",
+      "name": "Overbeck Trojan",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 300092",
+        "dob": "2022-11-27",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 123
+      }
+    },
+    {
+      "id": "lim-marlbrook-sovereign",
+      "name": "Marlbrook Sovereign",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 300510",
+        "dob": "2023-03-15",
+        "sire": "Broadmeadow Ulysses",
+        "catalogueNumber": 124
+      }
+    },
+    {
+      "id": "lim-redlynch-highwayman",
+      "name": "Redlynch Highwayman",
+      "type": "other",
+      "attributes": {
+        "breed": "Limousin",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 300038",
+        "dob": "2023-05-21",
+        "sire": "Carrowmore Templar",
+        "catalogueNumber": 125
+      }
+    },
+    {
+      "id": "bs-hallam-bluebell",
+      "name": "Hallam Bluebell 9th",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Hallam Bros., Bakewell",
+        "earNumber": "UK209874 500330",
+        "dob": "2025-01-18",
+        "sire": "Dunsyre Ambassador",
+        "catalogueNumber": 201
+      }
+    },
+    {
+      "id": "bs-ashdale-rosette",
+      "name": "Ashdale Rosette 3rd",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "D. & C. Pritchard, Ashdale Grange, Welshpool",
+        "earNumber": "UK733419 500129",
+        "dob": "2025-02-27",
+        "sire": "Millerston Highlander",
+        "catalogueNumber": 202
+      }
+    },
+    {
+      "id": "bs-cranbourne-wildflower",
+      "name": "Cranbourne Wildflower",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "A. L. Fitzgerald, Cranbourne",
+        "earNumber": "UK648025 500403",
+        "dob": "2025-03-09",
+        "sire": "Dunsyre Ambassador",
+        "catalogueNumber": 203
+      }
+    },
+    {
+      "id": "bs-marlbrook-clover",
+      "name": "Marlbrook Clover 7th",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 500617",
+        "dob": "2025-01-05",
+        "sire": "Millerston Highlander",
+        "catalogueNumber": 204
+      }
+    },
+    {
+      "id": "bs-redlynch-snowdrop",
+      "name": "Redlynch Snowdrop",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 500488",
+        "dob": "2025-04-02",
+        "sire": "Dunsyre Ambassador",
+        "catalogueNumber": 205
+      }
+    },
+    {
+      "id": "bs-overbeck-buttercup",
+      "name": "Overbeck Buttercup 2nd",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 500254",
+        "dob": "2025-02-10",
+        "sire": "Millerston Highlander",
+        "catalogueNumber": 206
+      }
+    },
+    {
+      "id": "bs-hallam-chancellor",
+      "name": "Hallam Chancellor",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Hallam Bros., Bakewell",
+        "earNumber": "UK209874 300071",
+        "dob": "2022-10-03",
+        "sire": "Dunsyre Ambassador",
+        "catalogueNumber": 211
+      }
+    },
+    {
+      "id": "bs-ashdale-warrior",
+      "name": "Ashdale Warrior",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "D. & C. Pritchard, Ashdale Grange, Welshpool",
+        "earNumber": "UK733419 300196",
+        "dob": "2023-04-19",
+        "sire": "Millerston Highlander",
+        "catalogueNumber": 212
+      }
+    },
+    {
+      "id": "bs-marlbrook-regent",
+      "name": "Marlbrook Regent",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 300725",
+        "dob": "2023-01-11",
+        "sire": "Dunsyre Ambassador",
+        "catalogueNumber": 213
+      }
+    },
+    {
+      "id": "bs-redlynch-talisman",
+      "name": "Redlynch Talisman",
+      "type": "other",
+      "attributes": {
+        "breed": "Beef Shorthorn",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 300142",
+        "dob": "2022-12-08",
+        "sire": "Millerston Highlander",
+        "catalogueNumber": 214
+      }
+    },
+    {
+      "id": "hf-stanhope-rosalind",
+      "name": "Stanhope Rosalind 21st",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Stanhope Dairy, Barnard Castle",
+        "earNumber": "UK857203 400512",
+        "dob": "2023-06-14",
+        "sire": "Willowbrook Altitude",
+        "catalogueNumber": 301
+      }
+    },
+    {
+      "id": "hf-overbeck-camellia",
+      "name": "Overbeck Camellia 9th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 400318",
+        "dob": "2023-05-02",
+        "sire": "Rosedale Commander",
+        "catalogueNumber": 302
+      }
+    },
+    {
+      "id": "hf-cranbourne-lucia",
+      "name": "Cranbourne Lucia",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "A. L. Fitzgerald, Cranbourne",
+        "earNumber": "UK648025 400227",
+        "dob": "2023-08-25",
+        "sire": "Hartfield Meridian",
+        "catalogueNumber": 303
+      }
+    },
+    {
+      "id": "hf-marlbrook-juniper",
+      "name": "Marlbrook Juniper 5th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 400833",
+        "dob": "2023-07-07",
+        "sire": "Willowbrook Altitude",
+        "catalogueNumber": 304
+      }
+    },
+    {
+      "id": "hf-redlynch-verbena",
+      "name": "Redlynch Verbena",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 400604",
+        "dob": "2023-04-30",
+        "sire": "Rosedale Commander",
+        "catalogueNumber": 305
+      }
+    },
+    {
+      "id": "hf-stanhope-coronet",
+      "name": "Stanhope Coronet 6th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Stanhope Dairy, Barnard Castle",
+        "earNumber": "UK857203 100248",
+        "dob": "2019-11-21",
+        "sire": "Hartfield Meridian",
+        "catalogueNumber": 311
+      }
+    },
+    {
+      "id": "hf-ashdale-duchess",
+      "name": "Ashdale Duchess 14th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "D. & C. Pritchard, Ashdale Grange, Welshpool",
+        "earNumber": "UK733419 200417",
+        "dob": "2020-09-30",
+        "sire": "Willowbrook Altitude",
+        "catalogueNumber": 312
+      }
+    },
+    {
+      "id": "hf-overbeck-hyacinth",
+      "name": "Overbeck Hyacinth 11th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "E. J. Sowerby, Overbeck, Hawes",
+        "earNumber": "UK163377 200506",
+        "dob": "2021-02-16",
+        "sire": "Rosedale Commander",
+        "catalogueNumber": 313
+      }
+    },
+    {
+      "id": "hf-cranbourne-tulip",
+      "name": "Cranbourne Tulip 8th",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "A. L. Fitzgerald, Cranbourne",
+        "earNumber": "UK648025 200139",
+        "dob": "2021-06-05",
+        "sire": "Hartfield Meridian",
+        "catalogueNumber": 314
+      }
+    },
+    {
+      "id": "hf-redlynch-antoinette",
+      "name": "Redlynch Antoinette",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Redlynch Estate Farms, Salisbury",
+        "earNumber": "UK420561 200721",
+        "dob": "2022-01-24",
+        "sire": "Willowbrook Altitude",
+        "catalogueNumber": 315
+      }
+    },
+    {
+      "id": "hf-marlbrook-seraphina",
+      "name": "Marlbrook Seraphina 2nd",
+      "type": "other",
+      "attributes": {
+        "breed": "Holstein Friesian",
+        "exhibitor": "Marlbrook Farms Partnership, Ludlow",
+        "earNumber": "UK274630 200902",
+        "dob": "2020-12-11",
+        "sire": "Rosedale Commander",
+        "catalogueNumber": 316
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "sec-limousin",
+      "name": "Limousin section",
+      "description": "Groups the Limousin classes and the breed championship for navigation. It holds no results of its own.",
+      "type": "session",
+      "attributes": {
+        "judge": "Mr R. G. Fanshawe, Rothbury"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T09:00:00+01:00"
+      }
+    },
+    {
+      "id": "lim-heifer-yearling",
+      "name": "Class 1 — Limousin, yearling heifer, born on or after 1 January 2025",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10. Animals shown and not placed receive nothing.",
+      "type": "other",
+      "parent": "sec-limousin",
+      "attributes": {
+        "judge": "Mr R. G. Fanshawe, Rothbury"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T09:00:00+01:00"
+      }
+    },
+    {
+      "id": "lim-cow",
+      "name": "Class 2 — Limousin, cow in calf or with calf at foot",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10.",
+      "type": "other",
+      "parent": "sec-limousin",
+      "attributes": {
+        "judge": "Mr R. G. Fanshawe, Rothbury"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T09:35:00+01:00"
+      }
+    },
+    {
+      "id": "lim-bull-senior",
+      "name": "Class 3 — Limousin, senior bull, born before 1 January 2024",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10.",
+      "type": "other",
+      "parent": "sec-limousin",
+      "attributes": {
+        "judge": "Mr R. G. Fanshawe, Rothbury"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T10:05:00+01:00"
+      }
+    },
+    {
+      "id": "champ-limousin",
+      "name": "Limousin breed championship",
+      "description": "Contested by the three class winners. When a class winner takes the championship, the animal placed second to it in that class comes into the ring for the reserve. Prize money: champion £75, reserve £40.",
+      "type": "final",
+      "parent": "sec-limousin",
+      "attributes": {
+        "judge": "Mr R. G. Fanshawe, Rothbury"
+      },
+      "participants": [
+        "lim-netherby-jasmine",
+        "lim-trelawney-bramble",
+        "lim-kirkbank-emperor",
+        "lim-cranbourne-gladiator"
+      ],
+      "occurredAt": {
+        "start": "2026-07-25T10:40:00+01:00"
+      }
+    },
+    {
+      "id": "sec-shorthorn",
+      "name": "Beef Shorthorn section",
+      "description": "Groups the Beef Shorthorn classes and the breed championship for navigation. It holds no results of its own.",
+      "type": "session",
+      "attributes": {
+        "judge": "Miss K. A. Dunlop, Castle Douglas"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T11:00:00+01:00"
+      }
+    },
+    {
+      "id": "bs-heifer-yearling",
+      "name": "Class 4 — Beef Shorthorn, yearling heifer, born on or after 1 January 2025",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10. The placings published here are the amended ones: the animal placed first in the ring was disqualified after the show on a registration irregularity and the animals behind her have moved up one place each.",
+      "type": "other",
+      "parent": "sec-shorthorn",
+      "attributes": {
+        "judge": "Miss K. A. Dunlop, Castle Douglas"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T11:00:00+01:00"
+      }
+    },
+    {
+      "id": "bs-bull-senior",
+      "name": "Class 5 — Beef Shorthorn, senior bull, born before 1 January 2024",
+      "description": "Four forward, so four placings. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15.",
+      "type": "other",
+      "parent": "sec-shorthorn",
+      "attributes": {
+        "judge": "Miss K. A. Dunlop, Castle Douglas"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T11:30:00+01:00"
+      }
+    },
+    {
+      "id": "champ-shorthorn",
+      "name": "Beef Shorthorn breed championship",
+      "description": "Contested by the two class winners, with the second-placed senior bull coming forward for the reserve. Prize money: champion £75, reserve £40. This result stands as judged: the heifer later disqualified in Class 4 was in the ring here and was not placed, so the championship was not re-made.",
+      "type": "final",
+      "parent": "sec-shorthorn",
+      "attributes": {
+        "judge": "Miss K. A. Dunlop, Castle Douglas"
+      },
+      "participants": [
+        "bs-hallam-bluebell",
+        "bs-hallam-chancellor",
+        "bs-ashdale-warrior"
+      ],
+      "occurredAt": {
+        "start": "2026-07-25T11:55:00+01:00"
+      }
+    },
+    {
+      "id": "sec-holstein",
+      "name": "Holstein Friesian section",
+      "description": "Groups the Holstein Friesian classes and the breed championship for navigation. It holds no results of its own.",
+      "type": "session",
+      "attributes": {
+        "judge": "Mrs H. E. Corrigan, Lampeter"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T12:20:00+01:00"
+      }
+    },
+    {
+      "id": "hf-heifer-in-milk",
+      "name": "Class 6 — Holstein Friesian, heifer in milk, first lactation",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10.",
+      "type": "other",
+      "parent": "sec-holstein",
+      "attributes": {
+        "judge": "Mrs H. E. Corrigan, Lampeter"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T12:20:00+01:00"
+      }
+    },
+    {
+      "id": "hf-cow-in-milk",
+      "name": "Class 7 — Holstein Friesian, cow in milk, any age",
+      "description": "Placed to fifth. Prize money: 1st £50, 2nd £35, 3rd £25, 4th £15, 5th £10.",
+      "type": "other",
+      "parent": "sec-holstein",
+      "attributes": {
+        "judge": "Mrs H. E. Corrigan, Lampeter"
+      },
+      "occurredAt": {
+        "start": "2026-07-25T12:50:00+01:00"
+      }
+    },
+    {
+      "id": "champ-holstein",
+      "name": "Holstein Friesian breed championship",
+      "description": "Contested by the two class winners, with the second-placed cow in milk coming forward for the reserve. Prize money: champion £75, reserve £40.",
+      "type": "final",
+      "parent": "sec-holstein",
+      "attributes": {
+        "judge": "Mrs H. E. Corrigan, Lampeter"
+      },
+      "participants": [
+        "hf-stanhope-rosalind",
+        "hf-stanhope-coronet",
+        "hf-ashdale-duchess"
+      ],
+      "occurredAt": {
+        "start": "2026-07-25T13:25:00+01:00"
+      }
+    },
+    {
+      "id": "champ-supreme",
+      "name": "Supreme cattle championship",
+      "description": "Contested by the three breed champions before a separate judge. Prize money: supreme champion £250, reserve £100.",
+      "type": "final",
+      "attributes": {
+        "judge": "Mr A. T. Mawdsley, Kirkby Lonsdale"
+      },
+      "participants": [
+        "lim-kirkbank-emperor",
+        "bs-hallam-chancellor",
+        "hf-stanhope-coronet"
+      ],
+      "occurredAt": {
+        "start": "2026-07-25T14:30:00+01:00"
+      }
+    }
+  ],
+  "results": [
+    {
+      "participant": "lim-netherby-jasmine",
+      "event": "lim-heifer-yearling",
+      "ranks": {
+        "lim-heifer-yearling": 1
+      },
+      "notes": "Judge: a heifer of great style and quality, long from hooks to pins, clean through her shoulder and moving out on a hard, correct foot. She was never headed.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "lim-marlbrook-delphine",
+      "event": "lim-heifer-yearling",
+      "ranks": {
+        "lim-heifer-yearling": 2
+      },
+      "notes": "Judge: thicker through her back end than my winner and very well presented, but she does not walk with the same freedom.",
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "lim-kirkbank-odette",
+      "event": "lim-heifer-yearling",
+      "ranks": {
+        "lim-heifer-yearling": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "lim-overbeck-solitaire",
+      "event": "lim-heifer-yearling",
+      "ranks": {
+        "lim-heifer-yearling": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "lim-redlynch-nightingale",
+      "event": "lim-heifer-yearling",
+      "ranks": {
+        "lim-heifer-yearling": 5
+      },
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "lim-ashdale-pirouette",
+      "event": "lim-heifer-yearling",
+      "status": "notClassified",
+      "notes": "Shown and not placed. The judge placed five in a class of six; no order was given below fifth.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "lim-trelawney-bramble",
+      "event": "lim-cow",
+      "ranks": {
+        "lim-cow": 1
+      },
+      "notes": "Judge: a tremendous cow of real capacity with a strong bull calf at foot, and as sound on her legs today as she must have been as a heifer.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "lim-kirkbank-larkspur",
+      "event": "lim-cow",
+      "ranks": {
+        "lim-cow": 2
+      },
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "lim-marlbrook-heloise",
+      "event": "lim-cow",
+      "ranks": {
+        "lim-cow": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "lim-overbeck-clementine",
+      "event": "lim-cow",
+      "ranks": {
+        "lim-cow": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "lim-netherby-mirabelle",
+      "event": "lim-cow",
+      "ranks": {
+        "lim-cow": 5
+      },
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "lim-kirkbank-emperor",
+      "event": "lim-bull-senior",
+      "ranks": {
+        "lim-bull-senior": 1
+      },
+      "notes": "Judge: an enormous bull carrying power through his top and a huge quarter, and yet he walks freely and carries his head. He filled the eye from the moment he came in.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "lim-cranbourne-gladiator",
+      "event": "lim-bull-senior",
+      "ranks": {
+        "lim-bull-senior": 2
+      },
+      "notes": "Judge: a year younger and not yet furnished, but the most correct bull in the class on his legs and feet. He will take some beating another day.",
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "lim-overbeck-trojan",
+      "event": "lim-bull-senior",
+      "ranks": {
+        "lim-bull-senior": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "lim-marlbrook-sovereign",
+      "event": "lim-bull-senior",
+      "ranks": {
+        "lim-bull-senior": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "lim-redlynch-highwayman",
+      "event": "lim-bull-senior",
+      "ranks": {
+        "lim-bull-senior": 5
+      },
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "lim-kirkbank-emperor",
+      "event": "champ-limousin",
+      "ranks": {
+        "champ-limousin": 1
+      },
+      "attributes": {
+        "award": "The Wrenbury Cup — Limousin champion",
+        "prize": 75
+      },
+      "notes": "Judge: breed champion. He has scale and power without losing his manners, and nothing in the ring today made me look twice at him."
+    },
+    {
+      "participant": "lim-cranbourne-gladiator",
+      "event": "champ-limousin",
+      "ranks": {
+        "champ-limousin": 2
+      },
+      "notes": "Judge: reserve champion. He came in as runner-up in the senior bull class and beat two class winners for the red ticket; I would not have quarrelled had he stood higher.",
+      "attributes": {
+        "prize": 40
+      }
+    },
+    {
+      "participant": "lim-netherby-jasmine",
+      "event": "champ-limousin",
+      "status": "notClassified",
+      "notes": "Came forward as winner of Class 1 and was not placed in the championship.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "lim-trelawney-bramble",
+      "event": "champ-limousin",
+      "status": "notClassified",
+      "notes": "Came forward as winner of Class 2 and was not placed in the championship.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "bs-hallam-bluebell",
+      "event": "bs-heifer-yearling",
+      "status": "dsq",
+      "notes": "Placed first in the ring. Placing void: at the post-show check the herd book registration produced for this animal did not correspond to the passport she was shown under, contrary to Rule 14(b). Prize money forfeited and the animals behind her move up one place each. Judge's reason as given in the ring: a heifer of outstanding quality and balance. Her result in the breed championship, where she was not placed, is unaffected.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "bs-ashdale-rosette",
+      "event": "bs-heifer-yearling",
+      "ranks": {
+        "bs-heifer-yearling": 1
+      },
+      "notes": "Placed second in the ring; awarded the class on the disqualification of the animal ahead of her. Judge: a smart, feminine heifer with a good head and plenty of hair, wanting only a little more length of body.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "bs-cranbourne-wildflower",
+      "event": "bs-heifer-yearling",
+      "ranks": {
+        "bs-heifer-yearling": 2
+      },
+      "notes": "Placed third in the ring; moved up one place.",
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "bs-marlbrook-clover",
+      "event": "bs-heifer-yearling",
+      "ranks": {
+        "bs-heifer-yearling": 3
+      },
+      "notes": "Placed fourth in the ring; moved up one place.",
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "bs-redlynch-snowdrop",
+      "event": "bs-heifer-yearling",
+      "ranks": {
+        "bs-heifer-yearling": 4
+      },
+      "notes": "Placed fifth in the ring; moved up one place.",
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "bs-overbeck-buttercup",
+      "event": "bs-heifer-yearling",
+      "ranks": {
+        "bs-heifer-yearling": 5
+      },
+      "notes": "Shown and not placed in the ring; moved into fifth place and prize money awarded.",
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "bs-hallam-chancellor",
+      "event": "bs-bull-senior",
+      "ranks": {
+        "bs-bull-senior": 1
+      },
+      "notes": "Judge: a masterful bull, deep and thick with a lovely soft coat, and he uses himself well going away.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "bs-ashdale-warrior",
+      "event": "bs-bull-senior",
+      "ranks": {
+        "bs-bull-senior": 2
+      },
+      "notes": "Judge: a growthy young bull who wants a little more time; on another day he might have turned the tables.",
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "bs-marlbrook-regent",
+      "event": "bs-bull-senior",
+      "ranks": {
+        "bs-bull-senior": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "bs-redlynch-talisman",
+      "event": "bs-bull-senior",
+      "ranks": {
+        "bs-bull-senior": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "bs-hallam-chancellor",
+      "event": "champ-shorthorn",
+      "ranks": {
+        "champ-shorthorn": 1
+      },
+      "attributes": {
+        "award": "The Vale Salver — Beef Shorthorn champion",
+        "prize": 75
+      },
+      "notes": "Judge: breed champion. The complete Shorthorn: correct, sound and full of breed character."
+    },
+    {
+      "participant": "bs-ashdale-warrior",
+      "event": "champ-shorthorn",
+      "ranks": {
+        "champ-shorthorn": 2
+      },
+      "notes": "Judge: reserve champion. He came forward as runner-up in the senior bull class and beat the winner of the heifer class for the reserve.",
+      "attributes": {
+        "prize": 40
+      }
+    },
+    {
+      "participant": "bs-hallam-bluebell",
+      "event": "champ-shorthorn",
+      "status": "notClassified",
+      "notes": "Came forward as winner of Class 4 and was not placed. Her Class 4 placing was later voided; this result is unaffected.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "hf-stanhope-rosalind",
+      "event": "hf-heifer-in-milk",
+      "ranks": {
+        "hf-heifer-in-milk": 1
+      },
+      "notes": "Judge: a beautifully balanced first-calver with a wide rear udder and a strong median suspensory ligament. She is dairy without being frail.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "hf-overbeck-camellia",
+      "event": "hf-heifer-in-milk",
+      "ranks": {
+        "hf-heifer-in-milk": 2
+      },
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "hf-cranbourne-lucia",
+      "event": "hf-heifer-in-milk",
+      "ranks": {
+        "hf-heifer-in-milk": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "hf-marlbrook-juniper",
+      "event": "hf-heifer-in-milk",
+      "ranks": {
+        "hf-heifer-in-milk": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "hf-redlynch-verbena",
+      "event": "hf-heifer-in-milk",
+      "ranks": {
+        "hf-heifer-in-milk": 5
+      },
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "hf-stanhope-coronet",
+      "event": "hf-cow-in-milk",
+      "ranks": {
+        "hf-cow-in-milk": 1
+      },
+      "notes": "Judge: a great show cow in tremendous order for her age, with an udder that would grace a much younger animal. She wins the class on her udder and her dairy strength.",
+      "attributes": {
+        "prize": 50
+      }
+    },
+    {
+      "participant": "hf-ashdale-duchess",
+      "event": "hf-cow-in-milk",
+      "ranks": {
+        "hf-cow-in-milk": 2
+      },
+      "notes": "Judge: taller and more open in the rib than my winner, but she cannot match her for udder texture today.",
+      "attributes": {
+        "prize": 35
+      }
+    },
+    {
+      "participant": "hf-overbeck-hyacinth",
+      "event": "hf-cow-in-milk",
+      "ranks": {
+        "hf-cow-in-milk": 3
+      },
+      "attributes": {
+        "prize": 25
+      }
+    },
+    {
+      "participant": "hf-cranbourne-tulip",
+      "event": "hf-cow-in-milk",
+      "ranks": {
+        "hf-cow-in-milk": 4
+      },
+      "attributes": {
+        "prize": 15
+      }
+    },
+    {
+      "participant": "hf-redlynch-antoinette",
+      "event": "hf-cow-in-milk",
+      "ranks": {
+        "hf-cow-in-milk": 5
+      },
+      "attributes": {
+        "prize": 10
+      }
+    },
+    {
+      "participant": "hf-marlbrook-seraphina",
+      "event": "hf-cow-in-milk",
+      "status": "withdrawn",
+      "notes": "Withdrawn before judging on veterinary advice. She never entered the ring, so no prize figure exists for her — contrast the disqualified heifer in Class 4, whose prize is recorded as 0 because it was awarded and then forfeited."
+    },
+    {
+      "participant": "hf-stanhope-coronet",
+      "event": "champ-holstein",
+      "ranks": {
+        "champ-holstein": 1
+      },
+      "attributes": {
+        "award": "The Wrenbury Vale Dairy Cup — Holstein Friesian champion",
+        "prize": 75
+      },
+      "notes": "Judge: breed champion, and an easy decision."
+    },
+    {
+      "participant": "hf-stanhope-rosalind",
+      "event": "champ-holstein",
+      "ranks": {
+        "champ-holstein": 2
+      },
+      "notes": "Judge: reserve champion. A lovely young cow who will be hard to beat when she has had another calf.",
+      "attributes": {
+        "prize": 40
+      }
+    },
+    {
+      "participant": "hf-ashdale-duchess",
+      "event": "champ-holstein",
+      "status": "notClassified",
+      "notes": "Came forward as runner-up to the champion in Class 7 and was not placed.",
+      "attributes": {
+        "prize": 0
+      }
+    },
+    {
+      "participant": "hf-stanhope-coronet",
+      "event": "champ-supreme",
+      "ranks": {
+        "champ-supreme": 1
+      },
+      "attributes": {
+        "award": "The County Challenge Cup — supreme cattle champion",
+        "prize": 250
+      },
+      "notes": "Judge: supreme champion. Three worthy champions, and the dairy cow took it on presence and on the sheer quality of her udder."
+    },
+    {
+      "participant": "lim-kirkbank-emperor",
+      "event": "champ-supreme",
+      "ranks": {
+        "champ-supreme": 2
+      },
+      "notes": "Judge: reserve supreme champion. A magnificent bull who pushed the winner all the way.",
+      "attributes": {
+        "prize": 100
+      }
+    },
+    {
+      "participant": "bs-hallam-chancellor",
+      "event": "champ-supreme",
+      "status": "notClassified",
+      "notes": "Came forward as Beef Shorthorn champion and was not placed.",
+      "attributes": {
+        "prize": 0
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "limousin",
+      "label": "Limousin",
+      "parent": "beef",
+      "participants": [
+        "lim-netherby-jasmine",
+        "lim-marlbrook-delphine",
+        "lim-kirkbank-odette",
+        "lim-overbeck-solitaire",
+        "lim-redlynch-nightingale",
+        "lim-ashdale-pirouette",
+        "lim-trelawney-bramble",
+        "lim-kirkbank-larkspur",
+        "lim-marlbrook-heloise",
+        "lim-overbeck-clementine",
+        "lim-netherby-mirabelle",
+        "lim-kirkbank-emperor",
+        "lim-cranbourne-gladiator",
+        "lim-overbeck-trojan",
+        "lim-marlbrook-sovereign",
+        "lim-redlynch-highwayman"
+      ]
+    },
+    {
+      "id": "beef-shorthorn",
+      "label": "Beef Shorthorn",
+      "parent": "beef",
+      "participants": [
+        "bs-hallam-bluebell",
+        "bs-ashdale-rosette",
+        "bs-cranbourne-wildflower",
+        "bs-marlbrook-clover",
+        "bs-redlynch-snowdrop",
+        "bs-overbeck-buttercup",
+        "bs-hallam-chancellor",
+        "bs-ashdale-warrior",
+        "bs-marlbrook-regent",
+        "bs-redlynch-talisman"
+      ]
+    },
+    {
+      "id": "holstein-friesian",
+      "label": "Holstein Friesian",
+      "parent": "dairy",
+      "participants": [
+        "hf-stanhope-rosalind",
+        "hf-overbeck-camellia",
+        "hf-cranbourne-lucia",
+        "hf-marlbrook-juniper",
+        "hf-redlynch-verbena",
+        "hf-stanhope-coronet",
+        "hf-ashdale-duchess",
+        "hf-overbeck-hyacinth",
+        "hf-cranbourne-tulip",
+        "hf-redlynch-antoinette",
+        "hf-marlbrook-seraphina"
+      ]
+    },
+    {
+      "id": "beef",
+      "label": "Beef breeds",
+      "description": "The parent of the two beef breed categories. §8.1.2 says a scope sees the categories it names and never their children, and §9.1.1 warns on a category with no participants of its own, so the whole beef roster has to be written out again here. These names are a second copy of the two lists above and nothing in the format ties them together.",
+      "participants": [
+        "lim-netherby-jasmine",
+        "lim-marlbrook-delphine",
+        "lim-kirkbank-odette",
+        "lim-overbeck-solitaire",
+        "lim-redlynch-nightingale",
+        "lim-ashdale-pirouette",
+        "lim-trelawney-bramble",
+        "lim-kirkbank-larkspur",
+        "lim-marlbrook-heloise",
+        "lim-overbeck-clementine",
+        "lim-netherby-mirabelle",
+        "lim-kirkbank-emperor",
+        "lim-cranbourne-gladiator",
+        "lim-overbeck-trojan",
+        "lim-marlbrook-sovereign",
+        "lim-redlynch-highwayman",
+        "bs-hallam-bluebell",
+        "bs-ashdale-rosette",
+        "bs-cranbourne-wildflower",
+        "bs-marlbrook-clover",
+        "bs-redlynch-snowdrop",
+        "bs-overbeck-buttercup",
+        "bs-hallam-chancellor",
+        "bs-ashdale-warrior",
+        "bs-marlbrook-regent",
+        "bs-redlynch-talisman"
+      ]
+    },
+    {
+      "id": "dairy",
+      "label": "Dairy breeds",
+      "participants": [
+        "hf-stanhope-rosalind",
+        "hf-overbeck-camellia",
+        "hf-cranbourne-lucia",
+        "hf-marlbrook-juniper",
+        "hf-redlynch-verbena",
+        "hf-stanhope-coronet",
+        "hf-ashdale-duchess",
+        "hf-overbeck-hyacinth",
+        "hf-cranbourne-tulip",
+        "hf-redlynch-antoinette",
+        "hf-marlbrook-seraphina"
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "id": "lim-heifer-yearling",
+      "label": "Class 1 — Limousin yearling heifer",
+      "description": "No measure decides this order; the judge did. sortBy is empty and ties: \"resolved\" makes the published positions the order (§8.2.1, §8.3.5).",
+      "scope": {
+        "event": "lim-heifer-yearling"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "lim-cow",
+      "label": "Class 2 — Limousin cow",
+      "scope": {
+        "event": "lim-cow"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "lim-bull-senior",
+      "label": "Class 3 — Limousin senior bull",
+      "scope": {
+        "event": "lim-bull-senior"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "champ-limousin",
+      "label": "Limousin championship",
+      "description": "1 is the breed champion, 2 the reserve. The reserve was placed second in the senior bull class and beat two class winners here.",
+      "scope": {
+        "event": "champ-limousin"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "bs-heifer-yearling",
+      "label": "Class 4 — Beef Shorthorn yearling heifer",
+      "description": "Amended. The animal placed first in the ring is recorded as dsq and carries no position; the four behind her have each moved up one place and a fifth prize is now paid.",
+      "scope": {
+        "event": "bs-heifer-yearling"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "bs-bull-senior",
+      "label": "Class 5 — Beef Shorthorn senior bull",
+      "scope": {
+        "event": "bs-bull-senior"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "champ-shorthorn",
+      "label": "Beef Shorthorn championship",
+      "scope": {
+        "event": "champ-shorthorn"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "hf-heifer-in-milk",
+      "label": "Class 6 — Holstein Friesian heifer in milk",
+      "scope": {
+        "event": "hf-heifer-in-milk"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "hf-cow-in-milk",
+      "label": "Class 7 — Holstein Friesian cow in milk",
+      "scope": {
+        "event": "hf-cow-in-milk"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "champ-holstein",
+      "label": "Holstein Friesian championship",
+      "scope": {
+        "event": "champ-holstein"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    },
+    {
+      "id": "champ-supreme",
+      "label": "Supreme cattle championship",
+      "description": "Judged across the breeds by a separate judge from the three breed champions.",
+      "scope": {
+        "event": "champ-supreme"
+      },
+      "sortBy": [],
+      "ties": "resolved"
+    }
+  ],
+  "presentation": {
+    "defaultView": "ranking",
+    "measureOrder": ["prize"],
+    "attributeOrder": [
+      "award",
+      "exhibitor",
+      "breed",
+      "dob",
+      "sire",
+      "earNumber",
+      "catalogueNumber",
+      "judge"
+    ]
+  }
+}

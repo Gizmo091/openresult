@@ -103,7 +103,7 @@ A derived rank is one you can verify. A rank you are handed must be taken on tru
 | ------------------------------------ | ------------------------------------------------------------------- |
 | [`specification/`](./specification/) | The normative specification — the source of truth                   |
 | [`schema/`](./schema/)               | The official JSON Schema (draft 2020-12)                            |
-| [`examples/`](./examples/)           | 22 realistic documents across thirteen unlike domains               |
+| [`examples/`](./examples/)           | 23 realistic documents across fourteen unlike domains               |
 | [`conformance/`](./conformance/)     | Language-agnostic conformance suite, 137 cases                      |
 | [`sdk/`](./sdk/)                     | Reference implementation in TypeScript                              |
 | [`validator/`](./validator/)         | Command line and browser validators                                 |
@@ -136,7 +136,7 @@ $ pnpm check
 
 ✓ core-deps                no runtime dependency, 4.0 kB gzipped
 ✓ no-domain-logic          43 source files clean
-✓ examples                 22 example(s) valid
+✓ examples                 23 example(s) valid
 ✓ rule-coverage            117 rules by case, 22 otherwise (1 of them a gap), 139 declared
 ✓ spec-coherence           codes unique, rules ordered, index complete, links resolve
 ✓ conformance-manifest     137 cases, all runnable

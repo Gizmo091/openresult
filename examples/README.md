@@ -5,7 +5,7 @@ meeting, a CPU benchmark and a photo contest, the model is doing its job. Eight 
 case each.
 
 Every file validates against [the schema](../schema/openresult-1.0.schema.json) on each change,
-and **none of the thirteen domain examples uses an extension**: a reference domain that needed one
+and **none of the fourteen domain examples uses an extension**: a reference domain that needed one
 would reveal a gap in the format. That is checked automatically too.
 
 ## Domains
@@ -25,6 +25,7 @@ would reveal a gap in the format. That is checked automatically too.
 | [`photo-contest/`](./photo-contest/wildlife-open-2026.openresult.json)         | Public vote plus jury score. Two entries share second place. Images attached as `assets`, which never affect interpretation.                                                                                                                                                                                                                                                                |
 | [`swimming/`](./swimming/vallonne-meet-100free.openresult.json)                | Three heats classified together through a **list** of events in `scope.event`, so no time is republished. A swim-off decides the last qualifying place, and `ties: "resolved"` lets the published positions settle what no measure holds. Lane as an attribute, because it is allocated rather than observed.                                                                               |
 | [`wine-competition/`](./wine-competition/vallonne-whites-2026.openresult.json) | A judged, non-sporting domain. Criteria marked against **unlike maxima**, so a consumer renders `36/40` rather than `36 pt`. Medals by threshold under a quota — attributes, not positions. Attributes that carry a unit: a price in euros, an alcohol content. An axis built from two price bands as a **union** of categories. A tie broken on a second criterion the panel's rules name. |
+| [`agricultural-show/`](./agricultural-show/wrenbury-vale-2026.openresult.json) | A competition with **no measured value at all**: seven classes placed by eye, three breed championships and a supreme. Every ranking declares `ties: "resolved"` with an empty `sortBy`, so the published positions carry the whole result. A class runner-up takes a championship over two class winners.                                                                                  |
 
 ## Edge cases
 

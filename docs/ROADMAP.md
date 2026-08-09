@@ -16,7 +16,7 @@ contacting anyone.
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Specification            | Normative RFC-style document: terminology, concepts, versioning, compatibility, required and optional fields, types, rules, validation, examples |
 | Schema                   | Official JSON Schema (draft 2020-12), versioned and addressable                                                                                  |
-| Examples                 | Thirteen realistic domains plus an edge-case library                                                                                             |
+| Examples                 | Fourteen realistic domains plus an edge-case library                                                                                             |
 | Conformance              | Declarative, language-agnostic suite, with expected derived rankings                                                                             |
 | Reference implementation | TypeScript: read, rank, validate                                                                                                                 |
 | Validator                | Command line and browser                                                                                                                         |
@@ -33,7 +33,7 @@ views, ports beyond the reference implementation.
 
 - A developer unfamiliar with the project produces a valid document for their own domain in under
   thirty minutes, from the published documents alone. _Judged, not measured — see below._
-- All thirteen domains are expressible without a proprietary extension. _`pnpm check examples`._
+- All fourteen domains are expressible without a proprietary extension. _`pnpm check examples`._
 - Every example renders correctly in the viewer with no per-example configuration.
   _`viewer/test/examples.test.ts`._
 - The conformance suite covers every normative rule. _`pnpm check rule-coverage`._
