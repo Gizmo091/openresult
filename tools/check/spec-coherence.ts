@@ -31,6 +31,7 @@ export const specCoherence: Check = {
     problems.push(...checkInternalLinks(spec));
     problems.push(...checkRulesSitUnderTheirSection(spec));
     problems.push(...checkProseIsNotOfferedAsAnAnswer(spec));
+    problems.push(...checkNotesDoNotPrescribe(spec));
 
     if (problems.length > 0) {
       return fail(this.name, `${problems.length} internal inconsistencies`, problems);
@@ -240,4 +241,40 @@ function checkProseIsNotOfferedAsAnAnswer(spec: string): string[] {
   }
 
   return problems;
+}
+
+/**
+ * A non-normative note must not prescribe.
+ *
+ * §6.3 is marked non-normative and was, for a while, the only place that said
+ * how a competition with repeated attempts should be shaped — and it
+ * contradicted a normative rule. A reader followed it and published eighteen
+ * figures twice. §8.3.4's note carried a `SHOULD` of its own, which is either a
+ * requirement in the wrong place or advice dressed as one.
+ *
+ * A note explaining why a rule is a SHOULD is fine and common — "this is
+ * display, so it is a **SHOULD**" — so the keyword is only a problem when
+ * something follows it. That is what the lookbehind separates.
+ */
+function checkNotesDoNotPrescribe(spec: string): string[] {
+  const problems: string[] = [];
+
+  for (const block of spec.split('\n\n')) {
+    const flat = block.replace(/\s+/g, ' ').trim();
+    if (!flat.slice(0, 40).includes('_Non-normative')) continue;
+
+    for (const match of block.matchAll(/\*\*(MUST NOT|MUST|SHOULD NOT|SHOULD|MAY)\*\*/g)) {
+      const before = block.slice(Math.max(0, match.index - 14), match.index).replace(/\s+/g, ' ');
+      // "is a **SHOULD**" names the keyword; "**SHOULD** publish" uses it.
+      if (/(is a|it is|than a|a) $/.test(before)) continue;
+
+      problems.push(
+        `A non-normative note prescribes with ${match[1]}: "${flat.slice(0, 90)}…". Either it is a ` +
+          `requirement, and belongs in a numbered rule where the conformance suite can reach it, ` +
+          `or it is advice and should not borrow the word.`,
+      );
+    }
+  }
+
+  return [...new Set(problems)];
 }

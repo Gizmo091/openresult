@@ -962,14 +962,14 @@ be ordered by the positions the producer published for this ranking in `ranks`
 ([§7.5](#75-ranks)) — but only when every result in the group carries one and no two of them are
 equal. The group then takes consecutive positions in that order. Otherwise the group stays tied
 and is numbered as under `standard`. This is the one place a supplied rank takes part in
-derivation, and the producer asks for it by declaring `resolved`.
+derivation, and the producer asks for it by declaring `resolved`. Only the relative order of those
+positions decides the outcome, and a producer **SHOULD** nevertheless publish the positions the
+competition actually awarded.
 
-_Non-normative: only the relative order of those positions is read, so a group landing at 16th and
-17th could be published as `1` and `2` and still order correctly._ A producer **SHOULD** publish
-the positions the competition actually awarded. Nothing here can tell the two apart — a rank that
-merely sorts satisfies this rule and raises no diagnostic — but a document read by a person is
-read for its numbers, and `1` against a competitor who finished sixteenth is wrong in the way
-[§3.3.2](#33-ranks-are-derived) exists to prevent.
+_Non-normative: nothing here can tell the two apart._ A group landing at sixteenth and seventeenth
+could be published as `1` and `2` and would order correctly, satisfying the rule and raising no
+diagnostic — but a document is read by people as well as consumers, and `1` against a competitor
+who finished sixteenth is wrong in the way [§3.3.2](#33-ranks-are-derived) exists to prevent.
 
 _Non-normative: using `resolved` well asks something of the producer that no other member does —
 knowing which results form a tied group, which means having derived the ranking before writing the
