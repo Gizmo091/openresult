@@ -183,6 +183,22 @@ nothing goes the other way, so a consumer rendering one competitor's row has no 
 weight class without the producer duplicating the roster into a text attribute. Every producer
 will, and the two copies will drift.
 
+**A result excluded from an aggregate by rule.** After five races a sailing boat discards her
+worst score, so the series total is not the sum of what is published — and nothing marks which
+score was dropped, or that a disqualification declared non-excludable must be carried anyway. The
+reader wrote a boolean on all one hundred and twenty race results and no rule attaches behaviour to
+it: `scope` selects on event and category only, so no ranking can exclude on an attribute. The same
+shape is a discarded round in any series and a dropped worst judge in any panel.
+
+**An event that was held and counts for nothing.** A sailing race abandoned and resailed produces
+no results, so there is no status to carry it — §7.2.1 is per-result — and an event with no results
+is invisible to any ranking, since scoping to it is `OR-906`. The fact that a fleet sailed a full
+race that counted survives only in prose.
+
+**`members` has no roles.** A boat's competitor is the boat; the person every entry list names is
+the helm. Declaring her in `members` (§6.1.2) makes her an entity and loses which member she is,
+and swells a twenty-boat regatta's participant list with twenty people who are not competing.
+
 **A tie-break that is a rule, not a number.** Chess separates players on equal points by the game
 they played against each other, or by wins with Black. `ties: "resolved"` (§8.3.4) carries the
 outcome, so the document is deterministic — but it records _that_ the arbiter decided and never
@@ -255,9 +271,19 @@ event it is run on. §5.3.1 has no reference type, and §5.4.3 makes an identifi
 text attribute unresolvable by construction — so the relation exists only as a side effect of a
 ranking's scope.
 
-**A relation between measures.** Nothing says that a retained score is the aggregate of four
-criteria, or that an average is derived from what it averages. Producers dedupe by naming
-convention, which no consumer can read.
+**A relation between measures.** _Found independently by three readers — powerlifting, sailing and
+gymnastics — and it is the largest thing this file records._ A gymnastics routine publishes a
+difficulty score, an execution score, a neutral deduction and the apparatus score they make; a
+powerlifting total is the sum of three best lifts; a sailing series total is the sum of the races
+minus a discard. In each the arithmetic is the most-checked fact in the sport, and the format
+carries the figures and drops every relation between them. A consumer cannot show `5.4 + 8.050 −
+0.100`, cannot verify one score, and cannot notice a producer who publishes a total its components
+contradict.
+
+§1.2.2 refuses formulas, and refusing to _evaluate_ one is right — a format that computed would
+have to agree with every federation's rules for ever. Declaring that a relation _exists_ is a
+different thing: it is checkable by a validator, renderable by a consumer, and asks the format to
+compute nothing. That distinction is what a fix would turn on.
 
 **A result with more than one holder.** In alliance formats — FIRST Robotics, and the same shape in
 doubles, crews, ropes and pairs — one score belongs to several competitors at once, and the

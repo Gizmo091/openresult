@@ -352,7 +352,9 @@ still takes part in derivation: refusing to order a document because one figure 
 would hide the standings in order to report a typo.
 
 The bounds belong to the measure and therefore to **every** value of it in the document. A measure
-carried both by a single round and by an aggregate of rounds has two scales, not one, and
+carried both by a single round and by an aggregate of rounds has two scales, not one — where the
+aggregate is a **sum**. An aggregate that averages is on the scale of what it averages: a vault
+final scoring the mean of two vaults out of the same ten is one measure and one scale. And
 **SHOULD** either omit the bounds or be declared as two measures.
 
 _Non-normative: a jury score means nothing without its scale. 27 is excellent out of 30 and poor
@@ -646,6 +648,14 @@ of them is computing within the meaning of [§8.1.4](#81-scope), so publish the 
 the parent event and scope the standing there. [§8.1.5](#81-scope) does not apply: listing the
 attempt events in `scope.event` would rank every attempt against every other, which is a different
 question from who lifted most.
+
+The dividing line is whether anything was chosen. A best of three lifts is chosen — which of them
+counts is new information, even where the number is byte-identical to one already published. A
+gymnastics qualification that counts the first vault by rule chooses nothing: the figure _is_ the
+first vault, so §8.1.5 applies and the standing scopes to that event rather than republishing it.
+Reading this paragraph as "attempts always aggregate upward" puts the same figure in the document
+twice with nothing to say the two copies are one vault, which is the defect §8.1.5 exists to
+prevent.
 
 **Per-member figures inside a team result.** A relay leg, a rower's split, a player's line in a
 team match: the member's performance is a result like any other. Declare a child event for the
@@ -1027,6 +1037,13 @@ list as follows.
   measure's `kind` implies ([§5.2.1](#52-values-and-units)).
 
 All others are **unranked**.
+
+_Non-normative: **every** measure, including the ones that only ever break a tie._ A ranking
+sorting on `["score", "execution"]` leaves unranked any result carrying a score and no execution
+figure — it does not fall back to the first measure alone. So a final decided on an averaged score,
+whose results carry nothing else, cannot declare the tie-break its qualification rounds use. That
+is what determinism costs here: a sort key that is sometimes shorter would order differently
+depending on which results happened to carry what.
 
 _Non-normative: the type is checked against the measure, not against the other result._ A document
 recording a duration as `"10:04.200"` is not conforming ([§7.3.3](#73-values)), and a consumer must
