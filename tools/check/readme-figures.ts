@@ -7,6 +7,8 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const README = join(repoRoot, 'README.md');
 const MANIFEST = join(repoRoot, 'conformance/manifest.json');
 const REGISTRY = join(repoRoot, 'tools/check/index.ts');
+const SPEC = join(repoRoot, 'specification/openresult-v1.md');
+const SITE = join(repoRoot, 'site/index.html');
 
 /**
  * The front page must not quote a figure that has stopped being true.
@@ -90,6 +92,24 @@ export const readmeFigures: Check = {
         problems.push(`README says ${match[1]} ${what}; there are ${actual}.`);
       }
     };
+
+    // The specification's own status line decides. A front page that still says
+    // draft after 1.0 was tagged is the same defect as a stale count, and it is
+    // the one a reader believes first.
+    const status = /^\*\*Status\*\*: (\w+)/m.exec(await readFile(SPEC, 'utf8'));
+    if (status?.[1] === 'Final') {
+      for (const [where, text] of [
+        ['README.md', readme],
+        ['site/index.html', await readFile(SITE, 'utf8')],
+      ] as const) {
+        if (/\bdraft\b/i.test(text.replace(/draft 2020-12/gi, '').replace(/"draft"/g, ''))) {
+          problems.push(
+            `${where} still calls the format a draft, and the specification says Final. That is ` +
+              `the first thing a reader believes and the last thing anyone thinks to change.`,
+          );
+        }
+      }
+    }
 
     expect(/conformance suite, ([\d]+) cases/, String(cases), 'conformance cases');
     expect(/^([\w-]+) repository checks run on every change/m, WORDS[checks] ?? '?', 'checks');

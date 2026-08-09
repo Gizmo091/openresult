@@ -6,12 +6,12 @@ A timing system, a benchmark harness, a league platform or a jury tool produces 
 document. Any compatible application can then rank it, chart it, export it, embed it or turn it
 into a PDF — without knowing anything about the producer.
 
-> **Status: draft.** The format is specified and implemented, and the tooling works. Field names
-> and semantics may still change before 1.0 is declared final. Once it is, the compatibility
-> guarantees in [specification §11](./specification/openresult-v1.md#11-versioning-and-compatibility)
-> apply.
+> **Status: 1.0, final.** The compatibility guarantees in
+> [specification §11](./specification/openresult-v1.md#11-versioning-and-compatibility) apply: a
+> document valid under 1.0 stays valid and identically interpretable under every later 1.x, and no
+> member name or meaning changes without a MAJOR version.
 
-**[openresult.dev](https://openresult.dev)** — the specification, twenty worked examples, a
+**[openresult.dev](https://openresult.dev)** — the specification, twenty-three worked examples, a
 validator, a playground, and a viewer you can post a document to:
 
 ```sh
