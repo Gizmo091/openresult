@@ -128,8 +128,15 @@ numbers; a class runs a course, and nothing can say which.
 
 ### Scope
 
-**Ports.** PHP, Python, Go, C#, Java and Rust, each proven by the conformance suite. Nothing is
-written before v1 freezes: an implementation built against a moving format is thrown away.
+**Ports.** PHP, Python, Go, C#, Java and Rust, each proven by the conformance suite. Nothing was
+written before v1 froze: an implementation built against a moving format is thrown away.
+
+The first step is taken. `conformance/runner.py` reads the manifest and drives the Python minimal
+reader, and it passes every case a ranking-level implementation can judge — 84 cases, 98 rankings.
+It also measured what "language-agnostic" was worth: the suite reads cleanly from another language,
+and 47 of its 137 cases state only diagnostics, which a reader cannot judge at all. **The ranking
+half of the suite travels; the diagnostic half does not yet.** A port that validates — rather than
+only reads — is what would close that, and it is the larger half of the work nobody has costed.
 
 **More views.** Charts, timeline and statistics. The v1 viewer ships the extension mechanism and
 four views that prove it works; the catalogue grows here.

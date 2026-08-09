@@ -12,6 +12,7 @@ means.
 
 ```
 manifest.json          index of cases, with the normative rule each exercises
+runner.py              a second runner, in a language the suite was not written in
 coverage.json          which rules are covered — a ratchet, checked in CI
 rules-not-by-case.json rules no document can demonstrate, and what holds them instead
 published-codes.json   every diagnostic code published — permanent, a ratchet
@@ -97,6 +98,24 @@ JSON pointer would leave a dead document naming a member that no longer exists. 
 forbids is changing an expectation because the implementation changed; what it permits is following
 the format when the format was changed on purpose. `attributeDefinitions` moved two pointers under
 ADR 0028, and nothing else about those two cases changed.
+
+## Two halves, and only one of them travels
+
+A case states some mixture of three things: whether the document is conforming,
+which diagnostics it raises, and what rankings it derives. The third is what a
+consumer produces; the first two are what a validator produces, and they are
+different programs.
+
+`conformance/runner.py` drives the Python minimal reader from this manifest. It
+judges every case that states a ranking — 84 of them, comparing 98 rankings —
+and skips the 47 that state only diagnostics, saying so rather than reporting a
+pass it did not earn. So the ranking half of this suite is verified in two
+languages and the diagnostic half is verified in one.
+
+That is worth knowing before reading "language-agnostic" as a finished claim.
+Until `runner.py` existed the whole suite had been read by exactly one program,
+written by the same people as the cases, in the same language as the reference
+implementation. `pnpm check suite-runs-elsewhere` keeps it that way.
 
 ## Coverage
 

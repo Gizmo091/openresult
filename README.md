@@ -128,7 +128,7 @@ of dependency-free Python.
 
 ## How the promises are kept
 
-Twenty-nine repository checks run on every change. They exist because a principle nobody can
+Thirty repository checks run on every change. They exist because a principle nobody can
 violate by accident is a property, while a principle enforced by good will is a wish.
 
 ```
@@ -145,7 +145,7 @@ $ pnpm check
 ✓ schema-keywords-translated 18 schema keywords, all translated
 ✓ presentation-optional    185 rankings unchanged without hints (18 documents carry them)
 ✓ cross-implementation     131 rankings identical across two implementations
-                           … and eighteen more
+                           … and nineteen more
 ```
 
 The last one is the one that matters most: the Python minimal reader and the TypeScript reference
