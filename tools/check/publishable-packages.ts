@@ -18,10 +18,16 @@ const WORKFLOW = join(repoRoot, '.github/workflows/release.yml');
  *
  * A package is publishable unless it says `private: true`. That is npm's own
  * rule, so this compares intent against what the workflow actually names.
+ *
+ * It also checks the versions agree. Tagging 1.0 meant editing four
+ * `package.json` files by hand and one was missed — the viewer, again. Three
+ * packages published at 1.0.0 and the fourth stopped the release dead, because
+ * npm refuses to publish over a version that already exists. A release is all
+ * of them or none, so the versions have to be one number.
  */
 export const publishablePackages: Check = {
   name: 'publishable-packages',
-  enforces: 'A package that is not private must be in the release workflow, and vice versa',
+  enforces: 'Every publishable package is in the release workflow, at one shared version',
   async run() {
     const workflow = await readFile(WORKFLOW, 'utf8');
 
@@ -41,6 +47,7 @@ export const publishablePackages: Check = {
 
     const problems: string[] = [];
     const publishable: string[] = [];
+    const versions = new Map<string, string>();
 
     for await (const file of glob(
       '{sdk/js/packages,validator,viewer,playground,site}/**/package.json',
@@ -52,6 +59,7 @@ export const publishablePackages: Check = {
 
       const manifest = JSON.parse(await readFile(join(repoRoot, file), 'utf8')) as {
         name?: string;
+        version?: string;
         private?: boolean;
         repository?: { url?: string; directory?: string };
         files?: string[];
@@ -70,6 +78,7 @@ export const publishablePackages: Check = {
       }
 
       publishable.push(name);
+      versions.set(name, manifest.version ?? '(none)');
 
       // npm refuses to attest provenance for a package that declares no
       // repository, and the release publishes with `--provenance`. The failure
@@ -116,6 +125,16 @@ export const publishablePackages: Check = {
       if (!publishable.includes(name)) {
         problems.push(`The release workflow publishes ${name}, which is not a package here.`);
       }
+    }
+
+    const distinct = [...new Set(versions.values())];
+    if (distinct.length > 1) {
+      problems.push(
+        `The packages carry ${distinct.length} different versions — ` +
+          `${[...versions].map(([name, version]) => `${name}@${version}`).join(', ')}. A release ` +
+          `publishes them together, and npm refuses to publish over a version that already ` +
+          `exists, so one straggler stops the whole release after the others have gone out.`,
+      );
     }
 
     if (problems.length > 0) {

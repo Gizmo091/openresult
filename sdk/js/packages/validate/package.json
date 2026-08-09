@@ -1,6 +1,6 @@
 {
   "name": "@openresult/validate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validate OpenResult documents against the official schema and semantic rules.",
   "keywords": [
     "openresult",

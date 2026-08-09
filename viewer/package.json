@@ -1,6 +1,6 @@
 {
   "name": "@openresult/viewer",
-  "version": "0.1.1",
+  "version": "1.0.1",
   "description": "Embeddable web component that renders any OpenResult document, with no configuration.",
   "keywords": [
     "openresult",
