@@ -54,7 +54,7 @@
       "sortBy": ["time"]
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "started",
       "label": "Started",

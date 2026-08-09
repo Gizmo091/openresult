@@ -32,33 +32,76 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
-    { "id": "price", "label": "Price", "type": "number", "unit": "EUR" },
-    { "id": "vintage", "label": "Vintage", "type": "number" }
+  "attributeDefinitions": [
+    {
+      "id": "price",
+      "label": "Price",
+      "type": "number",
+      "unit": "EUR"
+    },
+    {
+      "id": "vintage",
+      "label": "Vintage",
+      "type": "number"
+    }
   ],
   "participants": [
     {
       "id": "a",
       "name": "Domaine du Pré, Cuvée Ancienne",
-      "attributes": { "price": 24.5, "vintage": 2022 }
+      "attributes": {
+        "price": 24.5,
+        "vintage": 2022
+      }
     },
     {
       "id": "b",
       "name": "Clos Vaubert, Les Hautes",
-      "attributes": { "price": 12, "vintage": 2023 }
+      "attributes": {
+        "price": 12,
+        "vintage": 2023
+      }
     },
     {
       "id": "c",
       "name": "Mas Ferrand, Tradition",
-      "attributes": { "price": 18.9, "vintage": 2022 }
+      "attributes": {
+        "price": 18.9,
+        "vintage": 2022
+      }
     }
   ],
   "results": [
-    { "participant": "a", "values": { "nose": 27, "palate": 36, "total": 91 } },
-    { "participant": "b", "values": { "nose": 24, "palate": 33, "total": 84 } },
-    { "participant": "c", "values": { "nose": 26, "palate": 31, "total": 86 } }
+    {
+      "participant": "a",
+      "values": {
+        "nose": 27,
+        "palate": 36,
+        "total": 91
+      }
+    },
+    {
+      "participant": "b",
+      "values": {
+        "nose": 24,
+        "palate": 33,
+        "total": 84
+      }
+    },
+    {
+      "participant": "c",
+      "values": {
+        "nose": 26,
+        "palate": 31,
+        "total": 86
+      }
+    }
   ],
   "rankings": [
-    { "id": "overall", "label": "Overall", "sortBy": ["total", "palate"] }
+    {
+      "id": "overall",
+      "label": "Overall",
+      "sortBy": ["total", "palate"]
+    }
   ]
 }

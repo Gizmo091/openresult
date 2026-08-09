@@ -57,7 +57,7 @@
       "description": "Tie-break for the overall standings: riders level on points are separated by their result in the last race."
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "number",
       "label": "Number",
@@ -77,8 +77,22 @@
       "id": "nationality",
       "label": "Nationality",
       "type": "country"
+    },
+    {
+      "id": "venue",
+      "label": "Circuit",
+      "type": "text"
+    },
+    {
+      "id": "surface",
+      "label": "Surface",
+      "type": "text"
     }
   ],
+  "attributes": {
+    "venue": "Circuit de la Vallonne, Saint-Aubin",
+    "surface": "Sand over hardpack"
+  },
   "categories": [
     {
       "id": "mx2",

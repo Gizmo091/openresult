@@ -66,9 +66,17 @@
       "betterWhen": "none"
     }
   ],
-  "attributes": [
-    { "id": "track", "label": "Track", "type": "text" },
-    { "id": "repository", "label": "Repository", "type": "url" }
+  "attributeDefinitions": [
+    {
+      "id": "track",
+      "label": "Track",
+      "type": "text"
+    },
+    {
+      "id": "repository",
+      "label": "Repository",
+      "type": "url"
+    }
   ],
   "categories": [
     {
@@ -197,7 +205,9 @@
     {
       "participant": "h6",
       "status": "dsq",
-      "values": { "teamSize": 6 },
+      "values": {
+        "teamSize": 6
+      },
       "notes": "Disqualified: the submission relied on code written before the event window."
     }
   ],
@@ -211,13 +221,17 @@
     {
       "id": "mobility-track",
       "label": "Mobility track",
-      "scope": { "category": "mobility" },
+      "scope": {
+        "category": "mobility"
+      },
       "sortBy": ["total", "impact"]
     },
     {
       "id": "environment-track",
       "label": "Environment track",
-      "scope": { "category": "environment" },
+      "scope": {
+        "category": "environment"
+      },
       "sortBy": ["total", "impact"]
     }
   ],

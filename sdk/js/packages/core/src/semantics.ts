@@ -62,7 +62,7 @@ export function measure(document: ResultDocument, id: string): Measure | undefin
 }
 
 export function attribute(document: ResultDocument, id: string): AttributeDefinition | undefined {
-  return document.attributes?.find((candidate) => candidate.id === id);
+  return document.attributeDefinitions?.find((candidate) => candidate.id === id);
 }
 
 export function participant(document: ResultDocument, id: string): Participant | undefined {

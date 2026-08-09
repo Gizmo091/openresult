@@ -57,17 +57,33 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
-    { "id": "region", "label": "Region", "type": "text" },
-    { "id": "tier", "label": "Partner tier", "type": "text" },
-    { "id": "since", "label": "Partner since", "type": "date" }
+  "attributeDefinitions": [
+    {
+      "id": "region",
+      "label": "Region",
+      "type": "text"
+    },
+    {
+      "id": "tier",
+      "label": "Partner tier",
+      "type": "text"
+    },
+    {
+      "id": "since",
+      "label": "Partner since",
+      "type": "date"
+    }
   ],
   "participants": [
     {
       "id": "pt1",
       "name": "Alpine Systems",
       "type": "organization",
-      "attributes": { "region": "DACH", "tier": "Gold", "since": "2019-06-01" }
+      "attributes": {
+        "region": "DACH",
+        "tier": "Gold",
+        "since": "2019-06-01"
+      }
     },
     {
       "id": "pt2",
@@ -126,8 +142,16 @@
       "label": "Gold tier",
       "participants": ["pt1", "pt2", "pt4"]
     },
-    { "id": "silver", "label": "Silver tier", "participants": ["pt3", "pt5"] },
-    { "id": "bronze", "label": "Bronze tier", "participants": ["pt6"] }
+    {
+      "id": "silver",
+      "label": "Silver tier",
+      "participants": ["pt3", "pt5"]
+    },
+    {
+      "id": "bronze",
+      "label": "Bronze tier",
+      "participants": ["pt6"]
+    }
   ],
   "results": [
     {
@@ -183,7 +207,11 @@
     {
       "participant": "pt6",
       "status": "inProgress",
-      "values": { "revenue": 84300, "deals": 6, "avgDealSize": 14050 },
+      "values": {
+        "revenue": 84300,
+        "deals": 6,
+        "avgDealSize": 14050
+      },
       "notes": "Onboarded mid-quarter; growth and retention are not meaningful over a partial period."
     }
   ],
@@ -203,7 +231,9 @@
     {
       "id": "gold-tier",
       "label": "Gold tier",
-      "scope": { "category": "gold" },
+      "scope": {
+        "category": "gold"
+      },
       "sortBy": ["revenue", "retention"]
     }
   ],

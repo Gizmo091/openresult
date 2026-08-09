@@ -30,6 +30,10 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
   const usedMeasureIds = new Set<string>();
   const usedAttributeIds = new Set<string>();
 
+  // The document carries its own facts now, and an attribute only it uses is
+  // used (spec §4.7.1).
+  for (const key of Object.keys(document.attributes ?? {})) usedAttributeIds.add(key);
+
   for (const result of document.results) {
     for (const key of Object.keys(result.values ?? {})) usedMeasureIds.add(key);
     for (const key of Object.keys(result.attributes ?? {})) usedAttributeIds.add(key);
@@ -184,7 +188,7 @@ export function checkQuality(document: ResultDocument): Diagnostic[] {
     }
   });
 
-  (document.attributes ?? []).forEach((attribute, index) => {
+  (document.attributeDefinitions ?? []).forEach((attribute, index) => {
     if (!usedAttributeIds.has(attribute.id)) {
       found.push(
         diagnostic(

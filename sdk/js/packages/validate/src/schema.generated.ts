@@ -65,11 +65,15 @@ export const OPENRESULT_1_0_SCHEMA = {
         "$ref": "#/$defs/measure"
       }
     },
-    "attributes": {
+    "attributeDefinitions": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/attributeDefinition"
       }
+    },
+    "attributes": {
+      "$ref": "#/$defs/attributeValues",
+      "description": "Facts about the competition itself — a venue, an equipment division, the edition of the rules in force (spec §4.7.1)."
     },
     "participants": {
       "type": "array",

@@ -54,10 +54,22 @@
       "betterWhen": "none"
     }
   ],
-  "attributes": [
-    { "id": "vendor", "label": "Vendor", "type": "text" },
-    { "id": "process", "label": "Process node", "type": "text" },
-    { "id": "released", "label": "Release date", "type": "date" }
+  "attributeDefinitions": [
+    {
+      "id": "vendor",
+      "label": "Vendor",
+      "type": "text"
+    },
+    {
+      "id": "process",
+      "label": "Process node",
+      "type": "text"
+    },
+    {
+      "id": "released",
+      "label": "Release date",
+      "type": "date"
+    }
   ],
   "participants": [
     {
@@ -192,7 +204,9 @@
       "participant": "cpu-f",
       "event": "run-2026q2",
       "status": "dnf",
-      "values": { "cores": 16 },
+      "values": {
+        "cores": 16
+      },
       "notes": "Run aborted: thermal throttling made the result non-comparable."
     }
   ],

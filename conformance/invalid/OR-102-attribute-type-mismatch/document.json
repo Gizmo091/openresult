@@ -11,7 +11,7 @@
       "betterWhen": "lower"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "elo",
       "label": "Rating",

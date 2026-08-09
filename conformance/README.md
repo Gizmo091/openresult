@@ -91,6 +91,13 @@ full: that is how backward compatibility stops being a promise and starts being 
 **A published case is never rewritten.** It can be marked `deprecated` with a reason, never
 edited in place — otherwise a suite could be quietly bent to match a regression.
 
+The one exception is a deliberate change to the format itself, recorded in a decision record.
+Renaming a member moves the pointers a case expects, and deprecating a case whose only change is a
+JSON pointer would leave a dead document naming a member that no longer exists. What the policy
+forbids is changing an expectation because the implementation changed; what it permits is following
+the format when the format was changed on purpose. `attributeDefinitions` moved two pointers under
+ADR 0028, and nothing else about those two cases changed.
+
 ## Coverage
 
 `coverage.json` records which normative rules the suite exercises. It is a ratchet, not a target:

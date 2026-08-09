@@ -170,7 +170,8 @@ the document uninterpretable to a consumer that computes its own._
   "occurredAt": { "start": "…", "end": "…" },   // OPTIONAL
   "source": { … },                  // OPTIONAL
   "measures": [ … ],                // OPTIONAL
-  "attributes": [ … ],              // OPTIONAL
+  "attributeDefinitions": [ … ],    // OPTIONAL
+  "attributes": { "venue": "…" },   // OPTIONAL
   "participants": [ … ],            // REQUIRED
   "events": [ … ],                  // OPTIONAL
   "results": [ … ],                 // REQUIRED
@@ -257,6 +258,21 @@ date-time with an offset is **REQUIRED**.
 the results cover, as an object with **OPTIONAL** `start` and `end` members.
 
 ---
+
+### 4.7 `attributes`
+
+**§4.7.1** The document **MAY** carry `attributes`, on the same terms as any other entity
+([§5.3](#53-attributes)). A venue, an equipment division, the edition of the rules in force, a map
+scale: facts about the competition rather than about any competitor in it.
+
+_Non-normative: this member is why the declaration array beside it is called_ `attributeDefinitions`
+_and not_ `attributes`. Three readers building documents from this specification alone — a
+powerlifting championship, a chess tournament, an orienteering event — each found that a document
+could not state a fact about itself, and each invented something different. One hung the facts on
+an arbitrary event. One invented an event that holds no results and exists only to carry them.
+They diverged because the obvious name was taken: on every entity `attributes` held values, and on
+the document it held the declarations. It now means values everywhere, and the declarations say
+what they are.
 
 ## 5. Measures and attributes
 
@@ -405,7 +421,9 @@ was the correct repair, not fixing the corpus._
 ### 5.3 `attributes`
 
 An attribute defines a descriptive property: a club, a nationality, a manufacturer, a model
-version. Attributes are neither measured nor ranked.
+version. Attributes are neither measured nor ranked. The document declares them once in
+`attributeDefinitions`; every entity that carries one — including the document itself
+([§4.7.1](#47-attributes)) — puts the value in its own `attributes` object.
 
 ```jsonc
 {
@@ -1397,7 +1415,7 @@ each case, the rule it exercises.
 | Area                          | Sections          |
 | ----------------------------- | ----------------- |
 | Layers and derivability       | §3.1.1 – §3.3.2   |
-| Document structure            | §4.1.1 – §4.6.3   |
+| Document structure            | §4.1.1 – §4.7.1   |
 | Measures and attributes       | §5.1.1 – §5.4.3   |
 | Participants and events       | §6.1.1 – §6.2.4   |
 | Results                       | §7.1.1 – §7.5.4   |

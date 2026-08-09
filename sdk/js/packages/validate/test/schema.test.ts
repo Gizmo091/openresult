@@ -120,7 +120,7 @@ describe('a value outside what the member allows', () => {
     // constant" and helps nobody.
     const found = find(
       diagnose((doc) => {
-        doc['attributes'] = [{ id: 'club', label: 'Club', type: 'text', unit: 'km' }];
+        doc['attributeDefinitions'] = [{ id: 'club', label: 'Club', type: 'text', unit: 'km' }];
       }),
       'OR-110',
     );

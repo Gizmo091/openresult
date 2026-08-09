@@ -68,7 +68,7 @@
   ],
   "lang": "en",
   "description": "The club's Sunday time trial over the Vallonne loop.",
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "club",
       "label": "Club",

@@ -20,7 +20,7 @@ function document_(size: number): ResultDocument {
       { id: 'time', label: 'Time', kind: 'duration', unit: 's', precision: 2, betterWhen: 'lower' },
       { id: 'laps', label: 'Laps', kind: 'count', unit: 'lap', betterWhen: 'higher' },
     ],
-    attributes: [{ id: 'club', label: 'Club', type: 'text' }],
+    attributeDefinitions: [{ id: 'club', label: 'Club', type: 'text' }],
     participants: Array.from({ length: size }, (_, index) => ({
       id: `p${index}`,
       name: `Competitor ${index}`,

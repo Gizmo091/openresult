@@ -42,10 +42,22 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
-    { "id": "title", "label": "Photograph", "type": "text" },
-    { "id": "country", "label": "Country", "type": "country" },
-    { "id": "technique", "label": "Technique", "type": "text" }
+  "attributeDefinitions": [
+    {
+      "id": "title",
+      "label": "Photograph",
+      "type": "text"
+    },
+    {
+      "id": "country",
+      "label": "Country",
+      "type": "country"
+    },
+    {
+      "id": "technique",
+      "label": "Technique",
+      "type": "text"
+    }
   ],
   "categories": [
     {
@@ -53,7 +65,11 @@
       "label": "Mammals",
       "participants": ["ph1", "ph3", "ph5"]
     },
-    { "id": "birds", "label": "Birds", "participants": ["ph2", "ph4"] }
+    {
+      "id": "birds",
+      "label": "Birds",
+      "participants": ["ph2", "ph4"]
+    }
   ],
   "participants": [
     {
@@ -119,24 +135,42 @@
   "results": [
     {
       "participant": "ph1",
-      "values": { "finalScore": 92.4, "juryScore": 55.0, "publicVotes": 3812 }
+      "values": {
+        "finalScore": 92.4,
+        "juryScore": 55.0,
+        "publicVotes": 3812
+      }
     },
     {
       "participant": "ph2",
-      "values": { "finalScore": 88.1, "juryScore": 52.0, "publicVotes": 3104 }
+      "values": {
+        "finalScore": 88.1,
+        "juryScore": 52.0,
+        "publicVotes": 3104
+      }
     },
     {
       "participant": "ph3",
-      "values": { "finalScore": 88.1, "juryScore": 51.5, "publicVotes": 3260 }
+      "values": {
+        "finalScore": 88.1,
+        "juryScore": 51.5,
+        "publicVotes": 3260
+      }
     },
     {
       "participant": "ph4",
-      "values": { "finalScore": 81.7, "juryScore": 49.0, "publicVotes": 2418 }
+      "values": {
+        "finalScore": 81.7,
+        "juryScore": 49.0,
+        "publicVotes": 2418
+      }
     },
     {
       "participant": "ph5",
       "status": "dsq",
-      "values": { "publicVotes": 2901 },
+      "values": {
+        "publicVotes": 2901
+      },
       "notes": "Entry withdrawn from judging: flight permit could not be evidenced for the protected area."
     }
   ],
@@ -157,7 +191,9 @@
     {
       "id": "mammals-category",
       "label": "Mammals",
-      "scope": { "category": "mammals" },
+      "scope": {
+        "category": "mammals"
+      },
       "sortBy": ["finalScore"]
     }
   ],

@@ -583,6 +583,14 @@
       "path": "valid/a-display-order-that-omits-a-measure"
     },
     {
+      "id": "a-document-states-facts-about-itself",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §4.7.1",
+      "description": "A document carries facts about the competition itself.",
+      "path": "valid/a-document-states-facts-about-itself"
+    },
+    {
       "id": "a-plain-1-0-document",
       "kind": "valid",
       "level": "ranking",

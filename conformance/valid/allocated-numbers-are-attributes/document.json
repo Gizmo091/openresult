@@ -60,7 +60,7 @@
       "sortBy": ["time"]
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "bib",
       "label": "Bib",

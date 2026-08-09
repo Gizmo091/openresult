@@ -63,10 +63,22 @@
       "betterWhen": "lower"
     }
   ],
-  "attributes": [
-    { "id": "developer", "label": "Developer", "type": "text" },
-    { "id": "openWeights", "label": "Open weights", "type": "boolean" },
-    { "id": "modelCard", "label": "Model card", "type": "url" }
+  "attributeDefinitions": [
+    {
+      "id": "developer",
+      "label": "Developer",
+      "type": "text"
+    },
+    {
+      "id": "openWeights",
+      "label": "Open weights",
+      "type": "boolean"
+    },
+    {
+      "id": "modelCard",
+      "label": "Model card",
+      "type": "url"
+    }
   ],
   "participants": [
     {
@@ -121,7 +133,11 @@
     }
   ],
   "categories": [
-    { "id": "open", "label": "Open weights", "participants": ["m2", "m4"] },
+    {
+      "id": "open",
+      "label": "Open weights",
+      "participants": ["m2", "m4"]
+    },
     {
       "id": "closed",
       "label": "Closed weights",
@@ -195,7 +211,9 @@
     {
       "id": "open-weights",
       "label": "Open-weights models",
-      "scope": { "category": "open" },
+      "scope": {
+        "category": "open"
+      },
       "sortBy": ["aggregate"]
     },
     {

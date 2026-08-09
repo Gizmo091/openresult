@@ -57,7 +57,7 @@
       "betterWhen": "lower"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "carNumber",
       "label": "Car",

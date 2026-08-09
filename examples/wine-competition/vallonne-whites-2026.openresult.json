@@ -59,7 +59,7 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "sample",
       "label": "Sample",

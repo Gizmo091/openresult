@@ -20,27 +20,57 @@
       "betterWhen": "lower"
     }
   ],
-  "attributes": [{ "id": "bib", "label": "Bib", "type": "number" }],
+  "attributeDefinitions": [
+    {
+      "id": "bib",
+      "label": "Bib",
+      "type": "number"
+    }
+  ],
   "participants": [
-    { "id": "a", "name": "Competitor A" },
-    { "id": "b", "name": "Competitor B" },
-    { "id": "c", "name": "Competitor C" }
+    {
+      "id": "a",
+      "name": "Competitor A"
+    },
+    {
+      "id": "b",
+      "name": "Competitor B"
+    },
+    {
+      "id": "c",
+      "name": "Competitor C"
+    }
   ],
   "results": [
     {
       "participant": "a",
-      "attributes": { "bib": 12 },
-      "values": { "heartRateAvg": 168, "time": 184.55 }
+      "attributes": {
+        "bib": 12
+      },
+      "values": {
+        "heartRateAvg": 168,
+        "time": 184.55
+      }
     },
     {
       "participant": "b",
-      "attributes": { "bib": 3 },
-      "values": { "heartRateAvg": 174, "time": 179.02 }
+      "attributes": {
+        "bib": 3
+      },
+      "values": {
+        "heartRateAvg": 174,
+        "time": 179.02
+      }
     },
     {
       "participant": "c",
-      "attributes": { "bib": 27 },
-      "values": { "heartRateAvg": 161, "time": 191.4 }
+      "attributes": {
+        "bib": 27
+      },
+      "values": {
+        "heartRateAvg": 161,
+        "time": 191.4
+      }
     }
   ]
 }

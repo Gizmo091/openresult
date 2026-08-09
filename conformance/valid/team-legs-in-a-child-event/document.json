@@ -21,25 +21,53 @@
       "betterWhen": "none"
     }
   ],
-  "attributes": [
-    { "id": "leg", "label": "Leg", "type": "number" },
-    { "id": "stroke", "label": "Stroke", "type": "text" }
+  "attributeDefinitions": [
+    {
+      "id": "leg",
+      "label": "Leg",
+      "type": "number"
+    },
+    {
+      "id": "stroke",
+      "label": "Stroke",
+      "type": "text"
+    }
   ],
   "participants": [
-    { "id": "s1", "name": "Swimmer 1" },
-    { "id": "s2", "name": "Swimmer 2" },
-    { "id": "s3", "name": "Swimmer 3" },
-    { "id": "s4", "name": "Swimmer 4" },
+    {
+      "id": "s1",
+      "name": "Swimmer 1"
+    },
+    {
+      "id": "s2",
+      "name": "Swimmer 2"
+    },
+    {
+      "id": "s3",
+      "name": "Swimmer 3"
+    },
+    {
+      "id": "s4",
+      "name": "Swimmer 4"
+    },
     {
       "id": "t1",
       "name": "Club A",
       "type": "team",
       "members": ["s1", "s2", "s3", "s4"]
     },
-    { "id": "t2", "name": "Club B", "type": "team" }
+    {
+      "id": "t2",
+      "name": "Club B",
+      "type": "team"
+    }
   ],
   "events": [
-    { "id": "relay", "name": "4 x 100 m medley relay", "type": "final" },
+    {
+      "id": "relay",
+      "name": "4 x 100 m medley relay",
+      "type": "final"
+    },
     {
       "id": "relay-legs",
       "name": "4 x 100 m medley relay — legs",
@@ -49,44 +77,83 @@
     }
   ],
   "results": [
-    { "participant": "t1", "event": "relay", "values": { "time": 201.44 } },
-    { "participant": "t2", "event": "relay", "values": { "time": 203.1 } },
+    {
+      "participant": "t1",
+      "event": "relay",
+      "values": {
+        "time": 201.44
+      }
+    },
+    {
+      "participant": "t2",
+      "event": "relay",
+      "values": {
+        "time": 203.1
+      }
+    },
     {
       "participant": "s1",
       "event": "relay-legs",
-      "values": { "time": 55.02 },
-      "attributes": { "leg": 1, "stroke": "backstroke" }
+      "values": {
+        "time": 55.02
+      },
+      "attributes": {
+        "leg": 1,
+        "stroke": "backstroke"
+      }
     },
     {
       "participant": "s2",
       "event": "relay-legs",
-      "values": { "time": 60.11, "takeover": 0.31 },
-      "attributes": { "leg": 2, "stroke": "breaststroke" }
+      "values": {
+        "time": 60.11,
+        "takeover": 0.31
+      },
+      "attributes": {
+        "leg": 2,
+        "stroke": "breaststroke"
+      }
     },
     {
       "participant": "s3",
       "event": "relay-legs",
-      "values": { "time": 53.9, "takeover": 0.24 },
-      "attributes": { "leg": 3, "stroke": "butterfly" }
+      "values": {
+        "time": 53.9,
+        "takeover": 0.24
+      },
+      "attributes": {
+        "leg": 3,
+        "stroke": "butterfly"
+      }
     },
     {
       "participant": "s4",
       "event": "relay-legs",
-      "values": { "time": 32.41, "takeover": 0.19 },
-      "attributes": { "leg": 4, "stroke": "freestyle" }
+      "values": {
+        "time": 32.41,
+        "takeover": 0.19
+      },
+      "attributes": {
+        "leg": 4,
+        "stroke": "freestyle"
+      }
     }
   ],
   "rankings": [
     {
       "id": "relay",
       "label": "Relay",
-      "scope": { "event": "relay" },
+      "scope": {
+        "event": "relay"
+      },
       "sortBy": ["time"]
     },
     {
       "id": "legs",
       "label": "Legs, fastest first",
-      "scope": { "event": "relay-legs" },
+      "scope": {
+        "event": "relay-legs"
+      },
       "sortBy": ["time"]
     }
   ]

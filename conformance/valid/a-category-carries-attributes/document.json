@@ -59,7 +59,7 @@
       "sortBy": ["time"]
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "places",
       "label": "Places awarded",

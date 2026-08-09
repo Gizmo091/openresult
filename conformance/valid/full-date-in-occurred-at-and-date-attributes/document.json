@@ -60,7 +60,7 @@
       "sortBy": ["time"]
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "licensed",
       "label": "Licence issued",

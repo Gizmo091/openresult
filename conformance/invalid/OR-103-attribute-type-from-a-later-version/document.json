@@ -60,7 +60,7 @@
       "sortBy": ["time"]
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "club",
       "label": "Club",

@@ -47,7 +47,7 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "org",
       "label": "Organisation",

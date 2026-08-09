@@ -28,7 +28,7 @@ const document: ResultDocument = {
     { id: 'time', label: 'Time', kind: 'duration', unit: 's', betterWhen: 'lower' },
     { id: 'unused', label: 'Unused', kind: 'points', unit: 'pt', betterWhen: 'higher' },
   ],
-  attributes: [{ id: 'club', label: 'Club', type: 'text' }],
+  attributeDefinitions: [{ id: 'club', label: 'Club', type: 'text' }],
   participants: [{ id: 'a', name: 'A' }],
   results: [{ participant: 'a', values: { time: 55.1 } }],
 };

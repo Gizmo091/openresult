@@ -54,7 +54,7 @@ export function buildViewModel(
     rankings,
     activeRanking,
     measures: orderMeasures(document),
-    attributes: document.attributes ?? [],
+    attributes: document.attributeDefinitions ?? [],
     events: buildEventTree(document.events ?? []),
     categories: document.categories ?? [],
     locale: options.locale ?? document.lang ?? 'en',

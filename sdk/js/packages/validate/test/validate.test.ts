@@ -246,7 +246,7 @@ describe('ranking coherence', () => {
 
   it('rejects an attribute value contradicting its declared type', () => {
     const document = base();
-    document['attributes'] = [{ id: 'elo', label: 'Rating', type: 'number' }];
+    document['attributeDefinitions'] = [{ id: 'elo', label: 'Rating', type: 'number' }];
     (document['participants'] as Record<string, unknown>[])[0]!['attributes'] = { elo: '2478' };
     const found = validate(document).errors.find((entry) => entry.code === 'OR-102');
     expect(found?.path).toBe('/participants/0/attributes/elo');
@@ -255,7 +255,7 @@ describe('ranking coherence', () => {
 
   it('rejects a country code that is not ISO 3166-1 alpha-2', () => {
     const document = base();
-    document['attributes'] = [{ id: 'country', label: 'Country', type: 'country' }];
+    document['attributeDefinitions'] = [{ id: 'country', label: 'Country', type: 'country' }];
     (document['participants'] as Record<string, unknown>[])[0]!['attributes'] = { country: 'FRA' };
     expect(codes(validate(document))).toContain('OR-102');
   });

@@ -208,7 +208,9 @@ export interface ResultDocument extends Extensible {
   occurredAt?: TimeRange;
   source?: Source;
   measures?: Measure[];
-  attributes?: AttributeDefinition[];
+  attributeDefinitions?: AttributeDefinition[];
+  /** Facts about the competition itself, not about any competitor (spec §4.7.1). */
+  attributes?: Record<string, AttributeValue>;
   participants: Participant[];
   events?: ResultEvent[];
   results: Result[];

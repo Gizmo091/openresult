@@ -31,6 +31,7 @@ one `Superseded by`.
 | [0025](./0025-a-value-is-judged-against-its-measure.md)               | A value is judged against its measure, never against another value                            | Accepted |
 | [0026](./0026-rounding-is-defined-and-defined-on-what-was-written.md) | Rounding is defined, and defined on the number as written                                     | Accepted |
 | [0027](./0027-every-rule-is-accounted-for.md)                         | Every rule is accounted for, by a case or by naming what holds it                             | Accepted |
+| [0028](./0028-a-document-may-state-facts-about-itself.md)             | A document may state facts about itself; `attributes` means values everywhere                 | Accepted |
 
 ## Project decisions
 

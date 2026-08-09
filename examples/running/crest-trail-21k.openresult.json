@@ -35,7 +35,7 @@
       "betterWhen": "lower"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "bib",
       "label": "Bib",
@@ -50,8 +50,23 @@
       "id": "nationality",
       "label": "Nationality",
       "type": "country"
+    },
+    {
+      "id": "venue",
+      "label": "Venue",
+      "type": "text"
+    },
+    {
+      "id": "ascent",
+      "label": "Total ascent",
+      "type": "number",
+      "unit": "m"
     }
   ],
+  "attributes": {
+    "venue": "Crest, Drôme",
+    "ascent": 820
+  },
   "categories": [
     {
       "id": "senior-w",

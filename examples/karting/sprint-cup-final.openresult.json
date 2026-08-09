@@ -52,7 +52,7 @@
       "betterWhen": "higher"
     }
   ],
-  "attributes": [
+  "attributeDefinitions": [
     {
       "id": "kartNumber",
       "label": "Kart",
