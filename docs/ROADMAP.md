@@ -58,6 +58,70 @@ means saying here what grew it._
 
 ---
 
+## What a 1.x can still carry
+
+**Every gap recorded below can be published in a 1.x.** That is the finding that made freezing 1.0
+the right call rather than a hopeful one, and it is checkable: §11.2.2 says a MINOR version may add
+optional members, enumeration values and warning-level rules, and may not add a required member,
+remove one, narrow a value domain, or change the derivation algorithm. Each entry in **Known gaps**
+was put to that test.
+
+| Shape of the fix                                                                                                                                                                                                                     | Gaps it covers                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **An optional member.** Nothing existing changes; a document written today is unaffected because it does not carry it.                                                                                                               | The relation between measures. A member for the judge. Roles on `members`. An order on events. A time on a result. A co-holder of a result. A bracket. Marking a result excluded from an aggregate. Subtracting from the default exclusions. An entity that is paid without competing. Recording why a tie was resolved. A per-event precision. |
+| **A value in an existing enumeration.** §11.2.2 names this explicitly, and §11.3.1 already requires a consumer to fold an unknown value onto its documented fallback — so a 1.0 reader handles a 1.1 document without being updated. | Three kinds of unplayed game. A status for a void performance. An attribute type that holds a list. An attribute type that references another entity. A unit for a dimensionless index.                                                                                                                                                         |
+| **A warning-level rule.** Also named explicitly. A document that was valid stays valid; it merely gains an observation.                                                                                                              | Checking a declared relation between measures against the figures. A licence outside SPDX, which is already `OR-912`.                                                                                                                                                                                                                           |
+
+One entry needed a second look. **`betterWhen` answers two questions with one member** looked like
+it needed a MAJOR, because a direction chosen per ranking would change how a document sorts. It
+does not: allowing a `sortBy` entry to carry its own direction _widens_ a value domain rather than
+narrowing one, and no document written against 1.0 sorts differently for it. What stands in the way
+is not the versioning policy but [ADR 0013](./decisions/0013-sort-direction-from-measure.md) —
+a decision that direction has one source of truth, which a freeze does not make permanent and
+evidence could still overturn.
+
+So nothing recorded here forces a 2.0. The versioning policy was written for exactly this, and it
+holds.
+
+---
+
+## v1.1 — What the corpus asked for
+
+**Goal**: the additions six independent readers arrived at without being able to compare notes.
+
+Nothing here changes a document written against 1.0. Ordered by how many readers hit it.
+
+**A relation between measures** — three readers, three unrelated sports. A gymnastics routine
+publishes a difficulty score, an execution score, a deduction and the score they make; a
+powerlifting total is the sum of three lifts; a sailing series is the races minus a discard. The
+arithmetic is the most-checked fact in each sport and the format drops it. Declaring that a
+relation _exists_ asks the format to compute nothing, and lets a validator notice a total its own
+components contradict.
+
+**An order on events** — two readers. Nothing says a round is the third; §5.4.3 forbids reading it
+out of the identifier, so both invented a number attribute no consumer has reason to read as an
+ordinal.
+
+**A status for a performance that happened and counts for nothing** — two readers. A mispunch, a
+failed lift. Recorded, published, worth nothing, and none of the nine statuses fits, so two
+producers reasonably choose differently and no validator can tell them apart.
+
+**A member for the person who decided.** At a judged show the result _is_ one named judge's
+opinion, and §6.1.7 closes the only other door without opening a replacement.
+
+**Roles on `members`.** A boat's competitor is the boat; the person every entry list names is the
+helm.
+
+**An attribute that holds a list, and one that references an entity.** A prize schedule is five
+numbers; a class runs a course, and nothing can say which.
+
+### Exit criteria
+
+- No addition breaks a 1.0 document, demonstrated by the conformance suite running unchanged.
+- Each addition arrived from a real document somebody tried to publish, not from a design session.
+
+---
+
 ## v2 — Adoption
 
 **Goal**: many independent implementations, and the semantic gaps that only real usage reveals.

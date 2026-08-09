@@ -1,8 +1,8 @@
 # OpenResult Specification
 
 **Version**: 1.0
-**Status**: Draft
-**Date**: 2026-08-05
+**Status**: Final
+**Date**: 2026-08-09
 **Schema**: `https://openresult.dev/schema/openresult-1.0.schema.json`
 
 ## Abstract
@@ -13,8 +13,19 @@ or analyse them without knowing anything about the producer.
 
 ## Status of this document
 
-This is a draft. Field names and semantics may change before 1.0 is declared final. Once 1.0 is
-published, the compatibility guarantees in [§11](#11-versioning-and-compatibility) apply.
+This is 1.0, final. The compatibility guarantees in
+[§11](#11-versioning-and-compatibility) apply from here: a document valid under 1.0 stays valid and
+identically interpretable under every later 1.x, and no member name or meaning in this document
+will change without a MAJOR version.
+
+_Non-normative: what settled it._ Six people were given this specification and the example corpus,
+nothing else, and asked to publish a competition from a domain the corpus does not cover —
+powerlifting, chess, orienteering, a county show's cattle judging, a sailing regatta, artistic
+gymnastics. All six documents validate with no error and no warning. The last two found no missing
+capability at all: what they found was prose — a rule that assumed higher is better, a note that
+asserted something false, guidance filed where nobody looks. Those are fixed. What remains is
+recorded in `docs/ROADMAP.md`, and every entry there can be published in a 1.x under
+[§11.2.2](#112-guarantees-to-producers) without breaking a document written today.
 
 ## Table of contents
 
