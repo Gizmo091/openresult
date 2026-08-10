@@ -1537,7 +1537,7 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | [§3.1.1](#31-three-layers)                         | A consumer that discards the presentation layer MUST still produce a correct interpretation and a correct ranking      |
 | [§3.1.2](#31-three-layers)                         | This specification MUST NOT require a conforming consumer to honour any presentation hint                              |
-| [§3.3.1](#33-ranks-are-derived)                    | A document MAY omit ranks entirely                                                                                     |
+| [§3.3.1](#33-ranks-are-derived)                    | A document MAY omit ranks entirely · A conforming consumer MUST be able to compute a correct ranking from the declare… |
 | [§3.3.2](#33-ranks-are-derived)                    | When a producer supplies a rank, it is informative and MUST name the ranking it belongs to (§7.5)                      |
 | [§4.1.1](#41-root-object)                          | A document MUST contain openresult, title, participants and results                                                    |
 | [§4.1.2](#41-root-object)                          | All other members are OPTIONAL                                                                                         |
@@ -1551,7 +1551,7 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§4.4.3](#44-content-lifecycle-status-and-version) | Among documents sharing an id, the one with the highest version supersedes the others                                  |
 | [§4.4.4](#44-content-lifecycle-status-and-version) | A consumer that encounters an unknown status value MUST treat it as provisional                                        |
 | [§4.5.1](#45-lang)                                 | lang, when present, MUST be a BCP 47 language tag describing the language of the human-readable text in the document   |
-| [§4.5.2](#45-lang)                                 | A document carries text in a single language                                                                           |
+| [§4.5.2](#45-lang)                                 | A document carries text in a single language · Producers needing several languages SHOULD publish one document per la… |
 | [§4.6.1](#46-dates-and-times)                      | Every timestamp MUST be an RFC 3339 date-time including a UTC offset                                                   |
 | [§4.6.2](#46-dates-and-times)                      | A full-date (2026-05-17) MAY be used in occurredAt.start, occurredAt.end and in attribute values of type date          |
 | [§4.6.3](#46-dates-and-times)                      | generatedAt records when the document was produced                                                                     |
@@ -1559,18 +1559,18 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§5.1.1](#51-measures)                             | id MUST be unique among measures (§5.4)                                                                                |
 | [§5.1.2](#51-measures)                             | kind MUST be one of duration, distance, mass, points, score, percentage, count, money, rate, text, boolean             |
 | [§5.1.3](#51-measures)                             | unit MUST be present when kind is anything other than text or boolean                                                  |
-| [§5.1.4](#51-measures)                             | betterWhen MUST be one of lower, higher, none                                                                          |
+| [§5.1.4](#51-measures)                             | betterWhen MUST be one of lower, higher, none · A measure declaring none is descriptive and MUST NOT appear in a rank… |
 | [§5.1.5](#51-measures)                             | precision, when present, MUST be a non-negative integer giving the number of digits to show after the decimal point —… |
 | [§5.1.6](#51-measures)                             | A consumer encountering an unknown kind MUST treat it as text for display, and MUST NOT infer a value type from it wh… |
 | [§5.1.7](#51-measures)                             | A declared measure that no result carries a value for is reported as OR-901, a warning                                 |
-| [§5.1.8](#51-measures)                             | min and max MAY declare the bounds of the scale the measure is expressed on                                            |
+| [§5.1.8](#51-measures)                             | min and max MAY declare the bounds of the scale the measure is expressed on · min MUST NOT exceed max (OR-109)         |
 | [§5.2.1](#52-values-and-units)                     | Every measured quantity MUST be a JSON number, expressed in the unit its measure declares — except for measures of ki… |
-| [§5.2.2](#52-values-and-units)                     | Durations MUST be expressed in the declared unit as a plain number                                                     |
+| [§5.2.2](#52-values-and-units)                     | Durations MUST be expressed in the declared unit as a plain number · Structured representations such as PT21M24.532S…  |
 | [§5.2.3](#52-values-and-units)                     | unit is never interpreted by a consumer, only displayed                                                                |
 | [§5.2.4](#52-values-and-units)                     | A unit SHOULD be drawn from the vocabulary its kind implies                                                            |
 | [§5.2.5](#52-values-and-units)                     | A consumer displaying a duration in a time unit — s, ms, min, h — SHOULD render it in hours, minutes and seconds, dro… |
 | [§5.2.6](#52-values-and-units)                     | A count unit MUST name what is counted                                                                                 |
-| [§5.2.7](#52-values-and-units)                     | A consumer displaying a score or points measure that declares a max (§5.1.8) and declares betterWhen                   |
+| [§5.2.7](#52-values-and-units)                     | A consumer displaying a score or points measure that declares a max (§5.1.8) and declares betterWhen · "higher" SHOUL… |
 | [§5.3.1](#53-attributes)                           | type MUST be one of text, number, date, url, country, boolean                                                          |
 | [§5.3.2](#53-attributes)                           | Every key used in any attributes object on an entity MUST reference a declared attribute id                            |
 | [§5.3.3](#53-attributes)                           | An attribute value MUST match its declared type, on the same terms as a measured value matches its kind (§5.2.1)       |
@@ -1578,21 +1578,21 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§5.3.5](#53-attributes)                           | An identifier the organisation allocates — a bib, a start number, a car number, a lane — MUST be declared as an attri… |
 | [§5.3.6](#53-attributes)                           | A declared attribute that no entity carries a value for is reported as OR-905, on the same terms and for the same rea… |
 | [§5.3.7](#53-attributes)                           | An attribute of type number MAY declare a unit, naming what the number counts or measures, and displayed the same way… |
-| [§5.3.8](#53-attributes)                           | An attribute absent from an attributes object means not recorded, on the same terms as an absent measure (§7.3.2)      |
+| [§5.3.8](#53-attributes)                           | An attribute absent from an attributes object means not recorded, on the same terms as an absent measure (§7.3.2) · I… |
 | [§5.4.1](#54-identifiers)                          | Every producer-assigned identifier — the document id, and those of measures, attributes, participants, events, catego… |
 | [§5.4.2](#54-identifiers)                          | Identifiers MUST be unique within their own collection                                                                 |
-| [§5.4.3](#54-identifiers)                          | Identifiers are opaque                                                                                                 |
+| [§5.4.3](#54-identifiers)                          | Identifiers are opaque · A consumer MUST NOT infer meaning from an identifier's shape or content                       |
 | [§6.1.1](#61-participants)                         | type MUST be one of person, team, machine, product, model, organization, other                                         |
 | [§6.1.2](#61-participants)                         | members, when present, MUST reference declared participant identifiers in the same document                            |
 | [§6.1.3](#61-participants)                         | Participant identity is scoped to the document                                                                         |
-| [§6.1.4](#61-participants)                         | name is the participant's full display name and is REQUIRED                                                            |
+| [§6.1.4](#61-participants)                         | name is the participant's full display name and is REQUIRED · it MUST NOT carry information absent from name           |
 | [§6.1.5](#61-participants)                         | label names an entity for display, and is REQUIRED on measures, attributes, rankings and categories — the four that a… |
 | [§6.1.6](#61-participants)                         | description MAY expand on a name or a label in prose, and is OPTIONAL on every entity that carries one                 |
 | [§6.1.7](#61-participants)                         | A declared participant that holds no result and belongs to no team is reported as OR-910, a warning — unless the docu… |
 | [§6.2.1](#62-events)                               | type MUST be one of heat, match, round, stage, session, final, overall, other                                          |
 | [§6.2.2](#62-events)                               | parent, when present, MUST reference another declared event                                                            |
 | [§6.2.3](#62-events)                               | events MAY be absent                                                                                                   |
-| [§6.2.4](#62-events)                               | participants, when present, restricts the field for that event                                                         |
+| [§6.2.4](#62-events)                               | participants, when present, restricts the field for that event · a result referencing a participant absent from this…  |
 | [§7.1.1](#71-participant-and-event)                | participant MUST reference a declared participant                                                                      |
 | [§7.1.2](#71-participant-and-event)                | event, when present, MUST reference a declared event                                                                   |
 | [§7.1.3](#71-participant-and-event)                | The pair (participant, event) MUST be unique across results                                                            |
@@ -1605,16 +1605,16 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§7.2.7](#72-status)                               | A status describes the result it sits on, never a later round                                                          |
 | [§7.2.8](#72-status)                               | On an event that aggregates others, the status MUST be the most specific one that is true of the aggregate             |
 | [§7.3.1](#73-values)                               | Every key in values MUST reference a declared measure id                                                               |
-| [§7.3.2](#73-values)                               | A measure absent from values means not available                                                                       |
+| [§7.3.2](#73-values)                               | A measure absent from values means not available · null MUST NOT be used, and 0 means zero                             |
 | [§7.3.3](#73-values)                               | The type of each value MUST match its measure's kind, per §5.2.1                                                       |
-| [§7.4.1](#74-notes)                                | notes is free text addressed to a human reader                                                                         |
+| [§7.4.1](#74-notes)                                | notes is free text addressed to a human reader · A consumer MUST NOT parse it to derive machine behaviour              |
 | [§7.5.1](#75-ranks)                                | ranks, when present, MUST be an object whose keys are declared ranking identifiers and whose values are positive inte… |
-| [§7.5.2](#75-ranks)                                | A supplied rank is informative                                                                                         |
+| [§7.5.2](#75-ranks)                                | A supplied rank is informative · It is never required, and a consumer MUST be able to derive the same ordering withou… |
 | [§7.5.3](#75-ranks)                                | A key MUST NOT name a ranking that does not rank this result — whether its scope never selected it (§8.5.1) or the pa… |
 | [§7.5.4](#75-ranks)                                | A key naming an undeclared ranking is a reference error (OR-201)                                                       |
 | [§8.1.1](#81-scope)                                | scope.event, when present, MUST be a declared event identifier or an array of them                                     |
 | [§8.1.2](#81-scope)                                | scope.category, when present, MUST be a declared category identifier or an array of them                               |
-| [§8.1.3](#81-scope)                                | scope absent means all results in the document                                                                         |
+| [§8.1.3](#81-scope)                                | scope absent means all results in the document · when both are present, a result MUST satisfy each of them             |
 | [§8.1.4](#81-scope)                                | A standing whose figures are computed from several events — a points total, a sum of legs, a best-of — MUST be publis… |
 | [§8.1.5](#81-scope)                                | Where nothing is computed and the results are directly comparable, the events SHOULD be listed in scope.event instead… |
 | [§8.2.1](#82-sortby)                               | sortBy MUST be a non-empty array of declared measure identifiers, in decreasing order of priority — unless the rankin… |
@@ -1622,21 +1622,21 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§8.2.3](#82-sortby)                               | Sort direction MUST NOT be declared in the ranking                                                                     |
 | [§8.3.1](#83-ties)                                 | ties MUST be one of                                                                                                    |
 | [§8.3.2](#83-ties)                                 | An unknown ties value MUST be treated as standard                                                                      |
-| [§8.3.3](#83-ties)                                 | strict declares an expectation, not a consumer behaviour                                                               |
+| [§8.3.3](#83-ties)                                 | strict declares an expectation, not a consumer behaviour · A consumer encountering a residual tie under strict MUST a… |
 | [§8.3.4](#83-ties)                                 | Under resolved, a group of results comparing equal on every sorting measure MUST be ordered by the positions the prod… |
-| [§8.3.5](#83-ties)                                 | A ranking declaring resolved MAY leave sortBy empty                                                                    |
+| [§8.3.5](#83-ties)                                 | A ranking declaring resolved MAY leave sortBy empty · Each selected result SHOULD carry a position for that ranking    |
 | [§8.3.6](#83-ties)                                 | A reading-level consumer (§11.5.2) MUST present ranks                                                                  |
 | [§8.4.1](#84-excludestatuses)                      | excludeStatuses, when present, MUST be an array of status values excluded from this ranking                            |
 | [§8.4.2](#84-excludestatuses)                      | When absent, the default set applies                                                                                   |
 | [§8.4.3](#84-excludestatuses)                      | excludeStatuses MAY be an empty array, which excludes nothing and ranks every selected result whatever its status      |
 | [§8.5.1](#85-derivation-algorithm)                 | **Selection** — Retain results matching scope                                                                          |
-| [§8.5.2](#85-derivation-algorithm)                 | **Partition** — A retained result is rankable if both hold                                                             |
-| [§8.5.3](#85-derivation-algorithm)                 | **Sort** — Order the rankable results by successive comparison over sortBy                                             |
+| [§8.5.2](#85-derivation-algorithm)                 | **Partition** — A retained result is rankable if both hold · it MUST NOT be used where a later round is a qualificati… |
+| [§8.5.3](#85-derivation-algorithm)                 | **Sort** — Order the rankable results by successive comparison over sortBy · The sort MUST be stable                   |
 | [§8.5.4](#85-derivation-algorithm)                 | **Assign** — Assign ranks according to ties                                                                            |
 | [§8.5.5](#85-derivation-algorithm)                 | **Unranked** — Unranked results follow the ranked ones, in declaration order, with no rank                             |
-| [§8.5.6](#85-derivation-algorithm)                 | **Determinism** — The result depends only on the document                                                              |
+| [§8.5.6](#85-derivation-algorithm)                 | **Determinism** — The result depends only on the document · Two conforming consumers processing the same document MUS… |
 | [§8.5.7](#85-derivation-algorithm)                 | **Output** — Derivation produces an ordered list of every selected result, each with the position it holds or none     |
-| [§8.6.1](#86-implicit-ranking)                     | A document declaring no rankings — the member absent, or present and empty — remains rankable                          |
+| [§8.6.1](#86-implicit-ranking)                     | A document declaring no rankings — the member absent, or present and empty — remains rankable · A consumer MUST apply… |
 | [§8.6.2](#86-implicit-ranking)                     | If no measure qualifies, the document has no ranking, and results are presented in declaration order                   |
 | [§9.1.1](#91-categories)                           | A category MUST carry id and label                                                                                     |
 | [§9.1.2](#91-categories)                           | parent, when present, MUST reference another declared category, and the graph MUST be acyclic                          |
@@ -1644,22 +1644,22 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§9.1.4](#91-categories)                           | A category MAY carry attributes, on the same terms as any other entity (§5.3)                                          |
 | [§9.2.1](#92-source)                               | name identifies the organisation answerable for the results and is REQUIRED whenever source is present                 |
 | [§9.2.2](#92-source)                               | license, when present, SHOULD be an SPDX identifier, and states the terms under which the data may be reused           |
-| [§9.3.1](#93-links-and-assets)                     | Both MAY appear on the document and on any entity                                                                      |
+| [§9.3.1](#93-links-and-assets)                     | Both MAY appear on the document and on any entity · A link MUST carry href                                             |
 | [§9.3.2](#93-links-and-assets)                     | href MUST be an absolute URI                                                                                           |
 | [§9.3.3](#93-links-and-assets)                     | Their absence MUST NOT prevent interpretation                                                                          |
-| [§9.3.4](#93-links-and-assets)                     | rel describes what a link points at, as free text                                                                      |
+| [§9.3.4](#93-links-and-assets)                     | rel describes what a link points at, as free text · A consumer MUST NOT make behaviour depend on rel, whose vocabular… |
 | [§9.3.5](#93-links-and-assets)                     | An asset's type MUST be one of image, video, audio, document or other                                                  |
 | [§10.1.1](#101-presentation)                       | Every member of presentation is OPTIONAL and non-normative                                                             |
-| [§10.1.2](#101-presentation)                       | A consumer MAY ignore the entire object                                                                                |
-| [§10.1.3](#101-presentation)                       | defaultView is a suggestion                                                                                            |
-| [§10.1.4](#101-presentation)                       | measureOrder and attributeOrder suggest a display order                                                                |
-| [§10.2.1](#102-extensions)                         | Any member whose name begins with x- is an extension                                                                   |
+| [§10.1.2](#101-presentation)                       | A consumer MAY ignore the entire object · Removing it from a document MUST NOT change any derived ranking              |
+| [§10.1.3](#101-presentation)                       | defaultView is a suggestion · A consumer that does not implement the named view MUST select its own                    |
+| [§10.1.4](#101-presentation)                       | measureOrder and attributeOrder suggest a display order · identifiers they omit MUST still be displayable, and identi… |
+| [§10.2.1](#102-extensions)                         | Any member whose name begins with x- is an extension · Extensions MAY appear on the document and on any entity         |
 | [§10.2.2](#102-extensions)                         | A consumer MUST ignore extensions it does not understand, without error                                                |
 | [§10.2.3](#102-extensions)                         | A consumer that rewrites a document MUST preserve extensions unchanged                                                 |
 | [§10.2.4](#102-extensions)                         | Any member that is neither defined by this specification nor prefixed x- is a validation error, for the version the d… |
 | [§11.1.1](#111-version-numbering)                  | The format is versioned MAJOR.MINOR                                                                                    |
 | [§11.2.1](#112-guarantees-to-producers)            | A document valid under 1.0 MUST remain valid and identically interpretable under every later 1.x version               |
-| [§11.2.2](#112-guarantees-to-producers)            | A MINOR version MAY add optional members, enumeration values, and warning-level rules                                  |
+| [§11.2.2](#112-guarantees-to-producers)            | A MINOR version MAY add optional members, enumeration values, and warning-level rules · It MUST NOT add a required me… |
 | [§11.3.1](#113-obligations-on-consumers)           | A consumer MUST ignore unknown members prefixed x-, and MUST treat unknown enumeration values as the fallback defined… |
 | [§11.3.2](#113-obligations-on-consumers)           | A consumer MUST NOT derive meaning from identifiers (§5.4.3)                                                           |
 | [§11.3.3](#113-obligations-on-consumers)           | A consumer MUST NOT make interpretation depend on the presentation layer                                               |
@@ -1676,7 +1676,7 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§12.1.2](#121-severity)                           | A validator MUST report both, distinctly                                                                               |
 | [§12.1.3](#121-severity)                           | Every diagnostic MUST carry the location in the document, the rule violated in plain language, and at least one concr… |
 | [§12.2.1](#122-diagnostic-codes)                   | A published code is permanent                                                                                          |
-| [§12.3.1](#123-conformance-suite)                  | The conformance suite is the operational definition of conformance                                                     |
+| [§12.3.1](#123-conformance-suite)                  | The conformance suite is the operational definition of conformance · <!-- rule-index:start -->                         | Rule | What it says… |
 
 <!-- rule-index:end -->
 

@@ -38,7 +38,15 @@ export function buildRuleIndex(spec: string): string {
     text = text.replace(/\*\*(MUST NOT|MUST|SHOULD NOT|SHOULD|MAY|REQUIRED|OPTIONAL)\*\*/g, '$1');
     text = text.replace(/[*_`]/g, '').trim();
 
-    const sentence = (text.split(/(?<=[.;:])\s/)[0] ?? '').replace(/[.;:]$/, '').trim();
+    // What it opens with, and what it requires, when those differ. §8.5.3 opens
+    // "Order the rankable results by successive comparison" and says "The sort
+    // MUST be stable" two sentences later — and stability is the half a reader
+    // has to write by hand in a language whose sort is not. An index is for
+    // finding a rule from the words you have in mind, so it carries both.
+    const sentences = text.split(/(?<=[.;:])\s/);
+    const opening = (sentences[0] ?? '').replace(/[.;:]$/, '').trim();
+    const requirement = strongest(sentences);
+    const sentence = requirement === opening ? opening : `${opening} · ${requirement}`;
     const summary = name === '' ? sentence : `**${name}** — ${sentence}`;
     rows.push(`| [§${rule}](#${anchorFor(rule, spec)}) | ${clip(summary)} |`);
   }
@@ -57,6 +65,27 @@ function anchorFor(rule: string, spec: string): string {
     .replace(/[^\w\s-]/g, '')
     .trim()
     .replace(/\s+/g, '-')}`;
+}
+
+/** The sentence with the strongest normative keyword, or the first. */
+function strongest(sentences: string[]): string {
+  const rank = (sentence: string): number => {
+    if (/\bMUST NOT\b/.test(sentence)) return 4;
+    if (/\bMUST\b/.test(sentence)) return 3;
+    if (/\bSHOULD( NOT)?\b/.test(sentence)) return 2;
+    if (/\bMAY\b/.test(sentence)) return 1;
+    return 0;
+  };
+
+  let best = sentences[0] ?? '';
+  let bestRank = rank(best);
+  for (const sentence of sentences.slice(1)) {
+    if (rank(sentence) > bestRank) {
+      best = sentence;
+      bestRank = rank(sentence);
+    }
+  }
+  return best.replace(/[.;:]$/, '').trim();
 }
 
 function clip(text: string): string {
