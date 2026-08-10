@@ -32,6 +32,7 @@ one `Superseded by`.
 | [0026](./0026-rounding-is-defined-and-defined-on-what-was-written.md) | Rounding is defined, and defined on the number as written                                     | Accepted |
 | [0027](./0027-every-rule-is-accounted-for.md)                         | Every rule is accounted for, by a case or by naming what holds it                             | Accepted |
 | [0028](./0028-a-document-may-state-facts-about-itself.md)             | A document may state facts about itself; `attributes` means values everywhere                 | Accepted |
+| [0029](./0029-an-unrecognised-kind-carries-a-number.md)               | An unrecognised kind carries a number, and a later minor is not an error                      | Accepted |
 
 ## Project decisions
 
