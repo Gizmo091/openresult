@@ -180,6 +180,14 @@
       "path": "invalid/OR-103-ties-from-a-later-version"
     },
     {
+      "id": "OR-103-unknown-status-folds-where-it-matters",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.2.2",
+      "description": "An unknown status folds to finished, which a ranking excluding finishers then excludes.",
+      "path": "invalid/OR-103-unknown-status-folds-where-it-matters"
+    },
+    {
       "id": "OR-103-value-outside-domain",
       "kind": "invalid",
       "level": "reading",
@@ -988,6 +996,22 @@
       "path": "valid/required-members-alone-are-a-document"
     },
     {
+      "id": "resolved-positions-are-relative-not-absolute",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.4",
+      "description": "A settled group takes the consecutive positions it lands on, not the ones published.",
+      "path": "valid/resolved-positions-are-relative-not-absolute"
+    },
+    {
+      "id": "resolved-with-two-equal-positions-stays-tied",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.3.4",
+      "description": "Two equal published positions cannot settle a group, so it stays tied.",
+      "path": "valid/resolved-with-two-equal-positions-stays-tied"
+    },
+    {
       "id": "scale-bounds-and-attribute-units",
       "kind": "valid",
       "level": "ranking",
@@ -1010,6 +1034,14 @@
       "rule": "spec §8.5.1",
       "description": "Selection retains only the results a ranking's scope names.",
       "path": "valid/selection-keeps-only-what-scope-names"
+    },
+    {
+      "id": "stability-across-a-large-tied-field",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "A field tied on the only sorting measure keeps its declaration order.",
+      "path": "valid/stability-across-a-large-tied-field"
     },
     {
       "id": "status-bye-ranks",

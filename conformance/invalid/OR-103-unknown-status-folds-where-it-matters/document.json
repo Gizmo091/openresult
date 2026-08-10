@@ -1,0 +1,60 @@
+{
+  "openresult": "1.0",
+  "title": "A status from a later version, in a ranking that excludes finishers",
+  "lang": "en",
+  "description": "The ranking excludes `finished`, which is what a fastest-lap-style standing does when it wants only the competitors the main classification leaves out. An unknown status folds to `finished` (§7.2.2), so the competitor carrying it is excluded too. A consumer that skipped the fold would rank them.",
+  "measures": [
+    {
+      "id": "lap",
+      "label": "Best lap",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "status": "finished",
+      "values": {
+        "lap": 88.2
+      }
+    },
+    {
+      "participant": "bo",
+      "status": "provisionallyPlaced",
+      "values": {
+        "lap": 87.1
+      }
+    },
+    {
+      "participant": "cai",
+      "status": "dnf",
+      "values": {
+        "lap": 89.4
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "amongst-the-rest",
+      "label": "Amongst the rest",
+      "sortBy": ["lap"],
+      "excludeStatuses": ["finished"]
+    }
+  ]
+}

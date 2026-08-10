@@ -1,0 +1,63 @@
+{
+  "openresult": "1.0",
+  "title": "A jury that published the same position twice",
+  "lang": "en",
+  "description": "Under resolved, a tied group is ordered by the positions published for it only when every member carries one and no two are equal (§8.3.4). Here two are equal, so the rule does not apply and the group is numbered as under standard.",
+  "measures": [
+    {
+      "id": "score",
+      "label": "Score",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "score": 90
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "score": 70
+      },
+      "ranks": {
+        "final": 2
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "score": 70
+      },
+      "ranks": {
+        "final": 2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "final",
+      "label": "Final",
+      "sortBy": ["score"],
+      "ties": "resolved"
+    }
+  ]
+}

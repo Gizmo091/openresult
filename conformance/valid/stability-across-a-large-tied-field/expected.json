@@ -1,0 +1,79 @@
+{
+  "valid": true,
+  "rankings": {
+    "stage": [
+      {
+        "participant": "p00",
+        "rank": 1
+      },
+      {
+        "participant": "p01",
+        "rank": 1
+      },
+      {
+        "participant": "p02",
+        "rank": 1
+      },
+      {
+        "participant": "p03",
+        "rank": 1
+      },
+      {
+        "participant": "p04",
+        "rank": 1
+      },
+      {
+        "participant": "p05",
+        "rank": 1
+      },
+      {
+        "participant": "p06",
+        "rank": 1
+      },
+      {
+        "participant": "p07",
+        "rank": 1
+      },
+      {
+        "participant": "p08",
+        "rank": 1
+      },
+      {
+        "participant": "p09",
+        "rank": 1
+      },
+      {
+        "participant": "p10",
+        "rank": 1
+      },
+      {
+        "participant": "p11",
+        "rank": 1
+      },
+      {
+        "participant": "p12",
+        "rank": 1
+      },
+      {
+        "participant": "p13",
+        "rank": 1
+      },
+      {
+        "participant": "p14",
+        "rank": 1
+      },
+      {
+        "participant": "p15",
+        "rank": 1
+      },
+      {
+        "participant": "p16",
+        "rank": 1
+      },
+      {
+        "participant": "p17",
+        "rank": 1
+      }
+    ]
+  }
+}

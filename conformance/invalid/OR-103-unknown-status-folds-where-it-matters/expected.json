@@ -1,0 +1,25 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-103",
+      "path": "/results/1/status"
+    }
+  ],
+  "rankings": {
+    "amongst-the-rest": [
+      {
+        "participant": "cai",
+        "rank": 1
+      },
+      {
+        "participant": "ana",
+        "rank": null
+      },
+      {
+        "participant": "bo",
+        "rank": null
+      }
+    ]
+  }
+}

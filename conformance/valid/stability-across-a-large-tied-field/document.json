@@ -1,0 +1,206 @@
+{
+  "openresult": "1.0",
+  "title": "A mass finish given the same time",
+  "lang": "en",
+  "description": "Eighteen riders credited with the same time, which is what a mass finish publishes. Nothing but §8.5.3's stable sort decides their order. Eighteen and not three because the number is measured: Ruby's sort preserves order at seven elements and reorders at twelve, and until this case the largest results array in the whole suite was seven — so a consumer on a runtime without a stable sort earned a clean conformance run and reordered a mass finish in production.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "p00",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "p01",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "p02",
+      "name": "Cai Ferreira"
+    },
+    {
+      "id": "p03",
+      "name": "Dee Okonkwo"
+    },
+    {
+      "id": "p04",
+      "name": "Eli Nakamura"
+    },
+    {
+      "id": "p05",
+      "name": "Fay Traoré"
+    },
+    {
+      "id": "p06",
+      "name": "Gus Almeida"
+    },
+    {
+      "id": "p07",
+      "name": "Hana Brandão"
+    },
+    {
+      "id": "p08",
+      "name": "Ivo Petrov"
+    },
+    {
+      "id": "p09",
+      "name": "Jae Sunwoo"
+    },
+    {
+      "id": "p10",
+      "name": "Kit Halvorsen"
+    },
+    {
+      "id": "p11",
+      "name": "Lena Marchetti"
+    },
+    {
+      "id": "p12",
+      "name": "Mo Diallo"
+    },
+    {
+      "id": "p13",
+      "name": "Nia Kowalska"
+    },
+    {
+      "id": "p14",
+      "name": "Ola Bergström"
+    },
+    {
+      "id": "p15",
+      "name": "Pim de Vries"
+    },
+    {
+      "id": "p16",
+      "name": "Quinn Ashby"
+    },
+    {
+      "id": "p17",
+      "name": "Rui Tanaka"
+    }
+  ],
+  "results": [
+    {
+      "participant": "p00",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p01",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p02",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p03",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p04",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p05",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p06",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p07",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p08",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p09",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p10",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p11",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p12",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p13",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p14",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p15",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p16",
+      "values": {
+        "time": 13284.0
+      }
+    },
+    {
+      "participant": "p17",
+      "values": {
+        "time": 13284.0
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "stage",
+      "label": "Stage",
+      "sortBy": ["time"]
+    }
+  ]
+}
