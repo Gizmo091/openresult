@@ -1,0 +1,51 @@
+{
+  "openresult": "1.0",
+  "title": "Two rankings with the same id",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    },
+    {
+      "id": "general",
+      "label": "Also general",
+      "sortBy": ["time"]
+    }
+  ],
+  "description": "A ranks key names one ranking, so two cannot answer to one id (§5.4.2)."
+}

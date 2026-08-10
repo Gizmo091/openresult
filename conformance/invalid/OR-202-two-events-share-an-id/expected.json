@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-202",
+      "path": "/events/1/id"
+    }
+  ]
+}

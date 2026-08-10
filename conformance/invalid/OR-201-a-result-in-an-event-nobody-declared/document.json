@@ -1,0 +1,35 @@
+{
+  "openresult": "1.0",
+  "title": "Regional qualifier",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Nour Belkacem"
+    }
+  ],
+  "events": [
+    {
+      "id": "heat-1",
+      "name": "Heat 1"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "event": "heat-2",
+      "values": {
+        "time": 51.2
+      }
+    }
+  ]
+}

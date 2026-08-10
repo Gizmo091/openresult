@@ -1,19 +1,13 @@
 {
-  "openresult": "1.0",
-  "title": "A display order that names one measure and omits another",
+  "openresult": "1.1",
+  "title": "A 1.1 ranking excluding a status 1.0 does not define",
+  "lang": "en",
   "measures": [
     {
-      "id": "time",
-      "label": "Time",
-      "kind": "duration",
-      "unit": "s",
-      "betterWhen": "lower"
-    },
-    {
-      "id": "speed",
-      "label": "Top speed",
-      "kind": "rate",
-      "unit": "km/h",
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
       "betterWhen": "higher"
     }
   ],
@@ -35,22 +29,20 @@
     {
       "participant": "ana",
       "values": {
-        "time": 604.2,
-        "speed": 29.8
+        "points": 31
       }
     },
     {
       "participant": "bo",
       "values": {
-        "time": 598.7,
-        "speed": 30.1
+        "points": 27
       }
     },
     {
       "participant": "cai",
+      "status": "dnf",
       "values": {
-        "time": 611.9,
-        "speed": 31.2
+        "points": 12
       }
     }
   ],
@@ -59,13 +51,12 @@
       "id": "general",
       "label": "General",
       "sortBy": [
-        "time"
+        "points"
+      ],
+      "excludeStatuses": [
+        "dnf",
+        "provisionallyExcluded"
       ]
     }
-  ],
-  "presentation": {
-    "measureOrder": [
-      "speed"
-    ]
-  }
+  ]
 }

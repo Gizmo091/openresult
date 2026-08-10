@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-201",
+      "path": "/rankings/0/scope/event"
+    }
+  ]
+}

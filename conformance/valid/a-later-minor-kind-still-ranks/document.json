@@ -1,0 +1,56 @@
+{
+  "openresult": "1.1",
+  "title": "A measure kind 1.0 does not define, carrying numbers",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "grade",
+      "label": "Grade",
+      "kind": "ordinalGrade",
+      "unit": "fr",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "points": 31,
+        "grade": 7
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "points": 27,
+        "grade": 6
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "grade"
+      ]
+    }
+  ]
+}

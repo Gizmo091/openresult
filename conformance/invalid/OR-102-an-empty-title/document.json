@@ -1,0 +1,46 @@
+{
+  "openresult": "1.0",
+  "title": "",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "description": "The member is required and a blank string is not a title (spec §4.1.1)."
+}

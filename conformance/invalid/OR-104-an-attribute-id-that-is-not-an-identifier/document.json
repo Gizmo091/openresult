@@ -1,0 +1,53 @@
+{
+  "openresult": "1.0",
+  "title": "An attribute id with a space in it",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "attributeDefinitions": [
+    {
+      "id": "home club",
+      "label": "Club",
+      "type": "text"
+    }
+  ],
+  "description": "Identifiers survive being placed in a URL or a selector (§5.4.1)."
+}

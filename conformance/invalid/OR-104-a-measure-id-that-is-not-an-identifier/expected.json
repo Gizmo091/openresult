@@ -1,0 +1,21 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-104",
+      "path": "/measures/0/id"
+    },
+    {
+      "code": "OR-205",
+      "path": "/results/0/values/time"
+    },
+    {
+      "code": "OR-205",
+      "path": "/results/1/values/time"
+    },
+    {
+      "code": "OR-201",
+      "path": "/rankings/0/sortBy/0"
+    }
+  ]
+}

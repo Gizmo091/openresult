@@ -1,0 +1,46 @@
+{
+  "openresult": "1.0",
+  "title": "A language tag that is not one",
+  "lang": "english",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "description": "lang is a BCP 47 tag, not free text (§4.5.1)."
+}

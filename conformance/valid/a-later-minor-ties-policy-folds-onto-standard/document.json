@@ -1,0 +1,48 @@
+{
+  "openresult": "1.1",
+  "title": "A tie policy 1.0 does not define",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "points": 31
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "points": 31
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "points"
+      ],
+      "ties": "olympic"
+    }
+  ]
+}

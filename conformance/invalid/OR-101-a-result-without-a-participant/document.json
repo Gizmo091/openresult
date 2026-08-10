@@ -1,0 +1,45 @@
+{
+  "openresult": "1.0",
+  "title": "A result belonging to nobody",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "description": "Every result names the competitor it belongs to (§7.1.1)."
+}

@@ -23,35 +23,57 @@ const END = '<!-- rule-index:end -->';
 export function buildRuleIndex(spec: string): string {
   const rows: string[] = [];
 
+  // Parse the specification without the index, or §12.3.1 — the last rule in the
+  // document — swallows §13, §14 and the previous index, and its row comes back
+  // carrying this generator's own markers. It read its own output as prose.
+  const body = withoutIndex(spec);
+
   // Every rule marker, wherever it sits: several share a paragraph, and the
   // derivation steps carry a name — `**§8.5.2 — Partition.**`.
-  const markers = [...spec.matchAll(/\*\*§(\d+\.\d+\.\d+)(?:\s*—\s*([^*]+?))?\*\*/g)];
+  const markers = [...body.matchAll(/\*\*§(\d+\.\d+\.\d+)(?:\s*—\s*([^*]+?))?\*\*/g)];
 
   for (const [index, marker] of markers.entries()) {
     const rule = marker[1] ?? '';
     const name = (marker[2] ?? '').trim().replace(/\.$/, '');
     const from = (marker.index ?? 0) + marker[0].length;
-    const to = markers[index + 1]?.index ?? spec.length;
+    const next = markers[index + 1]?.index ?? body.length;
+    // A section's last rule otherwise absorbs the prose of the section after it.
+    const heading = body.slice(from, next).search(/\n#{2,4} /);
+    const to = heading < 0 ? next : from + heading;
 
-    let text = spec.slice(from, to).replace(/\s+/g, ' ');
+    let text = body.slice(from, to).replace(/\s+/g, ' ');
     text = text.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1');
     text = text.replace(/\*\*(MUST NOT|MUST|SHOULD NOT|SHOULD|MAY|REQUIRED|OPTIONAL)\*\*/g, '$1');
     text = text.replace(/[*_`]/g, '').trim();
 
-    // What it opens with, and what it requires, when those differ. §8.5.3 opens
-    // "Order the rankable results by successive comparison" and says "The sort
-    // MUST be stable" two sentences later — and stability is the half a reader
-    // has to write by hand in a language whose sort is not. An index is for
-    // finding a rule from the words you have in mind, so it carries both.
-    const sentences = text.split(/(?<=[.;:])\s/);
-    const opening = (sentences[0] ?? '').replace(/[.;:]$/, '').trim();
-    const requirement = strongest(sentences);
-    const sentence = requirement === opening ? opening : `${opening} · ${requirement}`;
+    // The rule's own first sentence, whole and verbatim.
+    //
+    // This used to carry a second sentence too — the one with the strongest
+    // keyword — joined with a `·`, on the reasoning that §8.5.3 opens "Order the
+    // rankable results by successive comparison" and says "The sort MUST be
+    // stable" two sentences later, and a reader searching for "stable" should
+    // find it. The reasoning was sound and the result was false statements: a
+    // sentence lifted away from its subject means something else. §6.1.4 came
+    // out as "name is the participant's full display name · it MUST NOT carry
+    // information absent from name" — the elided subject was shortName, and the
+    // row as printed is nonsense. An index that misquotes rules is worse than
+    // one that is merely incomplete, because a normative document is quoting
+    // itself. Where a rule's first sentence buries what it requires, the fix is
+    // to rewrite the rule.
+    const sentence = (text.split(/(?<=[.;:])\s/)[0] ?? '').replace(/[.;:]$/, '').trim();
     const summary = name === '' ? sentence : `**${name}** — ${sentence}`;
-    rows.push(`| [§${rule}](#${anchorFor(rule, spec)}) | ${clip(summary)} |`);
+    rows.push(`| [§${rule}](#${anchorFor(rule, spec)}) | ${summary} |`);
   }
 
   return ['| Rule | What it says |', '| ---- | ------------ |', ...rows].join('\n');
+}
+
+/** The specification with any previously generated index removed. */
+function withoutIndex(spec: string): string {
+  const start = spec.indexOf(START);
+  const end = spec.indexOf(END);
+  if (start < 0 || end < 0) return spec;
+  return spec.slice(0, start + START.length) + spec.slice(end);
 }
 
 /** The heading a rule lives under, so the index links somewhere. */
@@ -65,31 +87,6 @@ function anchorFor(rule: string, spec: string): string {
     .replace(/[^\w\s-]/g, '')
     .trim()
     .replace(/\s+/g, '-')}`;
-}
-
-/** The sentence with the strongest normative keyword, or the first. */
-function strongest(sentences: string[]): string {
-  const rank = (sentence: string): number => {
-    if (/\bMUST NOT\b/.test(sentence)) return 4;
-    if (/\bMUST\b/.test(sentence)) return 3;
-    if (/\bSHOULD( NOT)?\b/.test(sentence)) return 2;
-    if (/\bMAY\b/.test(sentence)) return 1;
-    return 0;
-  };
-
-  let best = sentences[0] ?? '';
-  let bestRank = rank(best);
-  for (const sentence of sentences.slice(1)) {
-    if (rank(sentence) > bestRank) {
-      best = sentence;
-      bestRank = rank(sentence);
-    }
-  }
-  return best.replace(/[.;:]$/, '').trim();
-}
-
-function clip(text: string): string {
-  return text.length <= 120 ? text : `${text.slice(0, 117).trimEnd()}…`;
 }
 
 const spec = await readFile(SPEC, 'utf8');

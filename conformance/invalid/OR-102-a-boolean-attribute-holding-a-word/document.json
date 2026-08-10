@@ -1,0 +1,56 @@
+{
+  "openresult": "1.0",
+  "title": "A boolean attribute holding \"yes\"",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas",
+      "attributes": {
+        "licensed": "yes"
+      }
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "attributeDefinitions": [
+    {
+      "id": "licensed",
+      "label": "Licensed",
+      "type": "boolean"
+    }
+  ],
+  "description": "An attribute value matches its declared type; \"yes\" is a string (§5.3.4)."
+}

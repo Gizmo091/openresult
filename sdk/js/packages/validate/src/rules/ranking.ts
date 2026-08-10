@@ -216,9 +216,17 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
     return cached;
   };
 
+  // The identifier rule §5.4.1 is the schema's business, and it reports OR-104
+  // on a key that breaks it. A key that is not an identifier cannot name a
+  // ranking either, so following it with "not a declared ranking" would report
+  // one mistake twice and leave the producer guessing which sentence to act on.
+  const isIdentifier = (id: string): boolean => /^[A-Za-z0-9_-]+$/.test(id);
+
   document.results.forEach((result, index) => {
     for (const [rankingId, supplied] of Object.entries(result.ranks ?? {})) {
       const ranking = declared.get(rankingId);
+
+      if (ranking === undefined && !isIdentifier(rankingId)) continue;
 
       if (ranking === undefined) {
         found.push(

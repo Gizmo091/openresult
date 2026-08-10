@@ -7,6 +7,7 @@ import { diagnostic, type Diagnostic, type DiagnosticCode } from './diagnostics.
 // and that is the policy any site rendering documents from strangers should
 // have. Precompiling also keeps Ajv itself out of every browser bundle.
 import validateSchema from './schema.validator.generated.js';
+import { SUPPORTED_VERSION } from '@openresult/core';
 
 interface CompiledValidator {
   (document: unknown): boolean;
@@ -18,7 +19,33 @@ const validator = validateSchema as unknown as CompiledValidator;
 /** Structural validation against the published schema. */
 export function checkSchema(document: unknown): Diagnostic[] {
   if (validator(document)) return [];
-  return (validator.errors ?? []).flatMap(translate);
+  const later = declaresLaterMinor(document);
+  return (validator.errors ?? []).flatMap((error) => translate(error, later));
+}
+
+/**
+ * Whether the document declares a MINOR later than the one this schema fixes.
+ *
+ * §11.2.2 lets a MINOR add enumeration values; §11.4.2 obliges a consumer that
+ * meets a higher MINOR to process the document normally, ignoring what it does
+ * not recognise; §11.3.1 says every unknown value folds onto a documented
+ * fallback. So a 1.1 status in a 1.1 document is not a mistake, and rejecting it
+ * refuses the future the specification promises — which is what this validator
+ * did for six of the seven enumerations the format has, because the schema fixes
+ * the 1.0 domains and nothing consulted the version the document declares.
+ *
+ * Nothing caught it because no conformance case declared a version other than
+ * 1.0: the whole compatibility chapter was tested against documents that could
+ * not exercise it.
+ */
+function declaresLaterMinor(document: unknown): boolean {
+  if (typeof document !== 'object' || document === null) return false;
+  const declared = (document as Record<string, unknown>)['openresult'];
+  if (typeof declared !== 'string') return false;
+  const [major, minor] = declared.split('.');
+  return (
+    Number(major) === SUPPORTED_VERSION.major && Number(minor) > SUPPORTED_VERSION.minor
+  );
 }
 
 /**
@@ -28,7 +55,7 @@ export function checkSchema(document: unknown): Diagnostic[] {
  * producer should never have to learn that vocabulary to fix a typo, so each
  * keyword is mapped onto the rule it actually enforces.
  */
-function translate(error: ErrorObject): Diagnostic[] {
+function translate(error: ErrorObject, laterMinor: boolean): Diagnostic[] {
   const path = error.instancePath;
 
   switch (error.keyword) {
@@ -100,6 +127,22 @@ function translate(error: ErrorObject): Diagnostic[] {
 
     case 'enum': {
       const allowed = (error.params['allowedValues'] as unknown[]).map((v) => `"${String(v)}"`);
+      // In a document declaring a later MINOR, a value this version does not
+      // know is the ordinary way a MINOR grows (§11.2.2). This validator cannot
+      // tell it from a typo, which is exactly what a warning is for.
+      if (laterMinor) {
+        return [
+          make(
+            'OR-914',
+            path,
+            `${describe(error.data)} is not a value this version defines. The document declares ` +
+              `a later minor version, so this is read as the fallback its domain fixes ` +
+              `(spec §11.3.1) rather than rejected.`,
+            `Nothing to fix if the value belongs to that later version. If it is a typo, use one ` +
+              `of: ${allowed.join(', ')}.`,
+          ),
+        ];
+      }
       return [
         make(
           'OR-103',

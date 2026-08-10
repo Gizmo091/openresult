@@ -3,6 +3,38 @@
   "formatVersion": "1.0",
   "cases": [
     {
+      "id": "OR-101-a-measure-without-a-label",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.1.5",
+      "description": "A measure carries a label a consumer can title a column with.",
+      "path": "invalid/OR-101-a-measure-without-a-label"
+    },
+    {
+      "id": "OR-101-a-result-without-a-participant",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.1",
+      "description": "Every result names the competitor it belongs to.",
+      "path": "invalid/OR-101-a-result-without-a-participant"
+    },
+    {
+      "id": "OR-101-an-attribute-without-a-label",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.1.5",
+      "description": "An attribute carries a label.",
+      "path": "invalid/OR-101-an-attribute-without-a-label"
+    },
+    {
+      "id": "OR-101-an-event-without-a-name",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.2.3",
+      "description": "An event carries a name.",
+      "path": "invalid/OR-101-an-event-without-a-name"
+    },
+    {
       "id": "OR-101-category-without-a-label",
       "kind": "invalid",
       "level": "reading",
@@ -49,6 +81,46 @@
       "rule": "spec §9.2.1",
       "description": "source names the organisation answerable for the results.",
       "path": "invalid/OR-101-source-without-a-name"
+    },
+    {
+      "id": "OR-102-a-boolean-attribute-holding-a-word",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.4",
+      "description": "A boolean attribute holds a boolean.",
+      "path": "invalid/OR-102-a-boolean-attribute-holding-a-word"
+    },
+    {
+      "id": "OR-102-a-country-attribute-holding-three-letters",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.3",
+      "description": "A country attribute holds the two-letter code.",
+      "path": "invalid/OR-102-a-country-attribute-holding-three-letters"
+    },
+    {
+      "id": "OR-102-a-malformed-language-tag",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.5.1",
+      "description": "lang is a language tag, not free text.",
+      "path": "invalid/OR-102-a-malformed-language-tag"
+    },
+    {
+      "id": "OR-102-a-text-attribute-holding-a-number",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.3.4",
+      "description": "A text attribute holds a string.",
+      "path": "invalid/OR-102-a-text-attribute-holding-a-number"
+    },
+    {
+      "id": "OR-102-an-empty-title",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §4.1.1",
+      "description": "A required member present and blank is not present.",
+      "path": "invalid/OR-102-an-empty-title"
     },
     {
       "id": "OR-102-attribute-type-mismatch",
@@ -119,7 +191,9 @@
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §5.1.6",
-      "alsoExercises": ["spec §11.2.1"],
+      "alsoExercises": [
+        "spec §11.2.1"
+      ],
       "description": "An unknown kind folds for display and implies no value type, so the standing survives.",
       "path": "invalid/OR-103-an-unknown-kind-still-ranks"
     },
@@ -196,6 +270,30 @@
       "path": "invalid/OR-103-value-outside-domain"
     },
     {
+      "id": "OR-104-a-measure-id-that-is-not-an-identifier",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.1",
+      "description": "A measure id follows the identifier rule.",
+      "path": "invalid/OR-104-a-measure-id-that-is-not-an-identifier"
+    },
+    {
+      "id": "OR-104-a-ranks-key-that-is-not-an-identifier",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.1",
+      "description": "A ranks key names a ranking, so it is an identifier.",
+      "path": "invalid/OR-104-a-ranks-key-that-is-not-an-identifier"
+    },
+    {
+      "id": "OR-104-an-attribute-id-that-is-not-an-identifier",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.1",
+      "description": "An attribute id follows the identifier rule.",
+      "path": "invalid/OR-104-an-attribute-id-that-is-not-an-identifier"
+    },
+    {
       "id": "OR-104-document-id-is-an-identifier",
       "kind": "invalid",
       "level": "reading",
@@ -268,6 +366,54 @@
       "path": "invalid/OR-111-count-unit-that-names-nothing"
     },
     {
+      "id": "OR-201-a-category-naming-an-undeclared-participant",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §9.1.1",
+      "description": "A category lists declared participants.",
+      "path": "invalid/OR-201-a-category-naming-an-undeclared-participant"
+    },
+    {
+      "id": "OR-201-a-category-parent-that-is-not-declared",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §9.1.2",
+      "description": "A category parent references another declared category.",
+      "path": "invalid/OR-201-a-category-parent-that-is-not-declared"
+    },
+    {
+      "id": "OR-201-a-result-in-an-event-nobody-declared",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.2",
+      "description": "A result's event references a declared event.",
+      "path": "invalid/OR-201-a-result-in-an-event-nobody-declared"
+    },
+    {
+      "id": "OR-201-a-scope-naming-an-undeclared-category",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §8.1.2",
+      "description": "scope.category references declared categories.",
+      "path": "invalid/OR-201-a-scope-naming-an-undeclared-category"
+    },
+    {
+      "id": "OR-201-a-scope-naming-an-undeclared-event",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §8.1.1",
+      "description": "scope.event references declared events.",
+      "path": "invalid/OR-201-a-scope-naming-an-undeclared-event"
+    },
+    {
+      "id": "OR-201-an-event-parent-that-is-not-declared",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §6.2.2",
+      "description": "An event parent references a declared event.",
+      "path": "invalid/OR-201-an-event-parent-that-is-not-declared"
+    },
+    {
       "id": "OR-201-rank-in-an-undeclared-ranking",
       "kind": "invalid",
       "level": "reading",
@@ -282,6 +428,14 @@
       "rule": "spec §7.1.2",
       "description": "Where a document declares events, every result names one.",
       "path": "invalid/OR-201-result-without-an-event"
+    },
+    {
+      "id": "OR-201-sorting-on-a-measure-nobody-declared",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §8.2.1",
+      "description": "Every sortBy entry names a declared measure.",
+      "path": "invalid/OR-201-sorting-on-a-measure-nobody-declared"
     },
     {
       "id": "OR-201-team-member-not-declared",
@@ -308,6 +462,14 @@
       "path": "invalid/OR-202-duplicate-identifier"
     },
     {
+      "id": "OR-202-two-events-share-an-id",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.2",
+      "description": "Event identifiers are unique.",
+      "path": "invalid/OR-202-two-events-share-an-id"
+    },
+    {
       "id": "OR-202-two-measures-share-an-id",
       "kind": "invalid",
       "level": "reading",
@@ -316,12 +478,28 @@
       "path": "invalid/OR-202-two-measures-share-an-id"
     },
     {
+      "id": "OR-202-two-rankings-share-an-id",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §5.4.2",
+      "description": "Ranking identifiers are unique.",
+      "path": "invalid/OR-202-two-rankings-share-an-id"
+    },
+    {
       "id": "OR-203-duplicate-participant-event",
       "kind": "invalid",
       "level": "reading",
       "rule": "spec §7.1.3",
       "description": "A participant has two results for the same event.",
       "path": "invalid/OR-203-duplicate-participant-event"
+    },
+    {
+      "id": "OR-203-one-competitor-twice-in-one-event",
+      "kind": "invalid",
+      "level": "reading",
+      "rule": "spec §7.1.3",
+      "description": "The pair (participant, event) is unique across results.",
+      "path": "invalid/OR-203-one-competitor-twice-in-one-event"
     },
     {
       "id": "OR-204-category-parent-cycle",
@@ -459,7 +637,9 @@
       "kind": "invalid",
       "level": "reading",
       "rule": "spec §4.2.2",
-      "alsoExercises": ["spec §11.1.1"],
+      "alsoExercises": [
+        "spec §11.1.1"
+      ],
       "description": "The version is MAJOR.MINOR; a patch level is not part of it.",
       "path": "invalid/OR-401-version-carries-a-patch-level"
     },
@@ -616,6 +796,51 @@
       "path": "valid/a-document-states-facts-about-itself"
     },
     {
+      "id": "a-later-minor-attribute-type-carries-any-value",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §5.3.4",
+      "alsoExercises": [
+        "spec §5.3.1"
+      ],
+      "description": "The same erratum on the attribute side: an unrecognised type implies no value type, so a number under a type 1.0 reads as text is not OR-102.",
+      "path": "valid/a-later-minor-attribute-type-carries-any-value"
+    },
+    {
+      "id": "a-later-minor-kind-still-ranks",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §11.2.1",
+      "alsoExercises": [
+        "spec §5.1.6",
+        "spec §8.5.2"
+      ],
+      "description": "The erratum's case, one minor version on: an unrecognised kind implies no value type, so the numbers rank. Folding it onto text and then type-checking would empty the standing.",
+      "path": "valid/a-later-minor-kind-still-ranks"
+    },
+    {
+      "id": "a-later-minor-status-folds-onto-finished",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §11.4.2",
+      "alsoExercises": [
+        "spec §11.3.1"
+      ],
+      "description": "§11.3.1 folds an unknown status onto finished, so the result stays in the standing. A validator that judged the value against 1.0's domain would reject the document outright, which §11.4.2 forbids.",
+      "path": "valid/a-later-minor-status-folds-onto-finished"
+    },
+    {
+      "id": "a-later-minor-ties-policy-folds-onto-standard",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §11.3.1",
+      "alsoExercises": [
+        "spec §8.3.1"
+      ],
+      "description": "An unknown ties policy folds onto standard, so two equal results share rank 1.",
+      "path": "valid/a-later-minor-ties-policy-folds-onto-standard"
+    },
+    {
       "id": "a-plain-1-0-document",
       "kind": "valid",
       "level": "ranking",
@@ -728,6 +953,18 @@
       "path": "valid/exclude-statuses-empty-ranks-everyone"
     },
     {
+      "id": "exclude-statuses-is-not-folded",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.4.1",
+      "description": "A status value 1.0 does not define, sitting in a 1.1 document's excludeStatuses. §11.4.2 has the 1.0 consumer process the document normally, and §8.4.1 has it read the list as written: a reader that folded the entry onto finished would exclude every finisher and return an empty standing.",
+      "path": "valid/exclude-statuses-is-not-folded",
+      "alsoExercises": [
+        "spec §11.4.2",
+        "spec §11.3.1"
+      ]
+    },
+    {
       "id": "exclude-statuses-replaces-default",
       "kind": "valid",
       "level": "ranking",
@@ -774,7 +1011,9 @@
       "rule": "spec §5.4.3",
       "description": "Identifiers that read like positions do not decide the order; the values do.",
       "path": "valid/identifiers-carry-no-meaning",
-      "alsoExercises": ["spec §11.3.2"]
+      "alsoExercises": [
+        "spec §11.3.2"
+      ]
     },
     {
       "id": "implicit-ranking-skips-what-sortby-forbids",
@@ -855,7 +1094,11 @@
       "rule": "spec §10.1.1",
       "description": "Every member of presentation is optional and changes no derived ranking.",
       "path": "valid/presentation-carries-every-hint-and-decides-nothing",
-      "alsoExercises": ["spec §3.1.2", "spec §10.1.2", "spec §11.3.3"]
+      "alsoExercises": [
+        "spec §3.1.2",
+        "spec §10.1.2",
+        "spec §11.3.3"
+      ]
     },
     {
       "id": "presentation-ignored",
@@ -1074,6 +1317,14 @@
       "rule": "spec §8.5.3",
       "description": "A field tied on the only sorting measure keeps its declaration order.",
       "path": "valid/stability-across-a-large-tied-field"
+    },
+    {
+      "id": "stability-across-interleaved-tied-groups",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.3",
+      "description": "Two tied groups, interleaved, each keeping its declaration order. The other stability cases tie the whole field, and an unstable sort can preserve order on a field where everything compares equal — Go's pdqsort does, at any size. This one interleaves, so it separates a stable sort from a lucky one.",
+      "path": "valid/stability-across-interleaved-tied-groups"
     },
     {
       "id": "status-bye-ranks",

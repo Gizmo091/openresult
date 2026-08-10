@@ -1,0 +1,63 @@
+{
+  "valid": true,
+  "rankings": {
+    "general": [
+      {
+        "participant": "p00",
+        "rank": 1
+      },
+      {
+        "participant": "p02",
+        "rank": 1
+      },
+      {
+        "participant": "p04",
+        "rank": 1
+      },
+      {
+        "participant": "p06",
+        "rank": 1
+      },
+      {
+        "participant": "p08",
+        "rank": 1
+      },
+      {
+        "participant": "p10",
+        "rank": 1
+      },
+      {
+        "participant": "p12",
+        "rank": 1
+      },
+      {
+        "participant": "p01",
+        "rank": 8
+      },
+      {
+        "participant": "p03",
+        "rank": 8
+      },
+      {
+        "participant": "p05",
+        "rank": 8
+      },
+      {
+        "participant": "p07",
+        "rank": 8
+      },
+      {
+        "participant": "p09",
+        "rank": 8
+      },
+      {
+        "participant": "p11",
+        "rank": 8
+      },
+      {
+        "participant": "p13",
+        "rank": 8
+      }
+    ]
+  }
+}

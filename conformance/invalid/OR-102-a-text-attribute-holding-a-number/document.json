@@ -1,0 +1,38 @@
+{
+  "openresult": "1.0",
+  "title": "Club championship",
+  "lang": "en",
+  "attributeDefinitions": [
+    {
+      "id": "club",
+      "label": "Club",
+      "type": "text"
+    }
+  ],
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "betterWhen": "higher",
+      "unit": "pt"
+    }
+  ],
+  "participants": [
+    {
+      "id": "a",
+      "name": "Ines Marchetti"
+    }
+  ],
+  "results": [
+    {
+      "participant": "a",
+      "values": {
+        "points": 18
+      },
+      "attributes": {
+        "club": 7
+      }
+    }
+  ]
+}

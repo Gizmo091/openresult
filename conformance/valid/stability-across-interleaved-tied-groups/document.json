@@ -1,0 +1,167 @@
+{
+  "openresult": "1.0",
+  "title": "Two tied groups, interleaved, in a field large enough to be sorted",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "p00",
+      "name": "Competitor 00"
+    },
+    {
+      "id": "p01",
+      "name": "Competitor 01"
+    },
+    {
+      "id": "p02",
+      "name": "Competitor 02"
+    },
+    {
+      "id": "p03",
+      "name": "Competitor 03"
+    },
+    {
+      "id": "p04",
+      "name": "Competitor 04"
+    },
+    {
+      "id": "p05",
+      "name": "Competitor 05"
+    },
+    {
+      "id": "p06",
+      "name": "Competitor 06"
+    },
+    {
+      "id": "p07",
+      "name": "Competitor 07"
+    },
+    {
+      "id": "p08",
+      "name": "Competitor 08"
+    },
+    {
+      "id": "p09",
+      "name": "Competitor 09"
+    },
+    {
+      "id": "p10",
+      "name": "Competitor 10"
+    },
+    {
+      "id": "p11",
+      "name": "Competitor 11"
+    },
+    {
+      "id": "p12",
+      "name": "Competitor 12"
+    },
+    {
+      "id": "p13",
+      "name": "Competitor 13"
+    }
+  ],
+  "results": [
+    {
+      "participant": "p00",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p01",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p02",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p03",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p04",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p05",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p06",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p07",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p08",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p09",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p10",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p11",
+      "values": {
+        "time": 200.0
+      }
+    },
+    {
+      "participant": "p12",
+      "values": {
+        "time": 100.0
+      }
+    },
+    {
+      "participant": "p13",
+      "values": {
+        "time": 200.0
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "time"
+      ]
+    }
+  ]
+}

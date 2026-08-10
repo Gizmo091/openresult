@@ -78,6 +78,7 @@ export const CATALOGUE = {
   'OR-910': { severity: 'warning', rule: 'spec §6.1.7' },
   'OR-911': { severity: 'warning', rule: 'spec §8.3.5' },
   'OR-912': { severity: 'warning', rule: 'spec §9.2.2' },
+  'OR-914': { severity: 'warning', rule: 'spec §11.4.2' },
   'OR-913': { severity: 'warning', rule: 'spec §8.1.1' },
 } as const satisfies Record<string, CatalogueEntry>;
 

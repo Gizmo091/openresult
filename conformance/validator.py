@@ -51,15 +51,28 @@ ASSET_TYPES = {"image", "video", "audio", "document", "other"}
 TIE_RULES = {"standard", "dense", "strict", "resolved"}
 NAMES_NOTHING = {"n", "#", "no"}
 SUPPORTED_MAJOR = 1
+SUPPORTED_MINOR = 0
 
 
 class Report:
-    def __init__(self):
+    def __init__(self, later_minor=False):
         self.errors = []
         self.warnings = []
+        # §11.4.2 — a consumer meeting a higher MINOR processes the document,
+        # ignoring what it does not recognise. So an enumeration value this
+        # version does not define is not an error there: §11.2.2 is how a MINOR
+        # grows, and this validator cannot tell such a value from a typo.
+        self.later_minor = later_minor
 
     def error(self, code, path):
         self.errors.append({"code": code, "path": path})
+
+    def out_of_domain(self, path):
+        """A value outside its enumeration (§5.1.2, §7.2.1, §11.4.2)."""
+        if self.later_minor:
+            self.warn("OR-914", path)
+        else:
+            self.error("OR-103", path)
 
     def warn(self, code, path):
         self.warnings.append({"code": code, "path": path})
@@ -87,6 +100,7 @@ def validate(document):
     if int(declared.split(".")[0]) != SUPPORTED_MAJOR:
         report.error("OR-402", "/openresult")
         return report
+    report.later_minor = int(declared.split(".")[1]) > SUPPORTED_MINOR
 
     _structure(document, report)
     _measures(document, report)
@@ -112,7 +126,7 @@ def _structure(document, report):
     if "id" in document and not IDENTIFIER.match(str(document["id"])):   # §4.3.1
         report.error("OR-104", "/id")
     if "status" in document and document["status"] not in DOCUMENT_STATUSES:  # §4.4.1
-        report.error("OR-103", "/status")
+        report.out_of_domain("/status")
     version = document.get("version")
     if version is not None and (not isinstance(version, int) or version < 0):  # §4.4.2
         report.error("OR-102", "/version")
@@ -144,9 +158,9 @@ def _measures(document, report):
             report.error("OR-202", f"{at}/id")
         seen.add(measure["id"])
         if measure["kind"] not in KNOWN_KINDS:                                       # §5.1.2
-            report.error("OR-103", f"{at}/kind")
+            report.out_of_domain(f"{at}/kind")
         if measure.get("betterWhen") not in (None, "lower", "higher", "none"):       # §5.1.4
-            report.error("OR-103", f"{at}/betterWhen")
+            report.out_of_domain(f"{at}/betterWhen")
         if measure["kind"] not in ("text", "boolean") and "unit" not in measure:     # §5.1.3
             report.error("OR-107", at)
         precision = measure.get("precision")
@@ -168,7 +182,7 @@ def _attributes(document, report):
         if not IDENTIFIER.match(str(attribute["id"])):
             report.error("OR-104", f"{at}/id")
         if attribute.get("type") not in ATTRIBUTE_TYPES:                             # §5.3.1
-            report.error("OR-103", f"{at}/type")
+            report.out_of_domain(f"{at}/type")
         elif "unit" in attribute and attribute["type"] != "number":                  # §5.3.7
             report.error("OR-110", f"{at}/type")
 
@@ -187,7 +201,7 @@ def _participants(document, report):
             report.error("OR-202", f"{at}/id")
         seen.add(participant["id"])
         if "type" in participant and participant["type"] not in PARTICIPANT_TYPES:   # §6.1.1
-            report.error("OR-103", f"{at}/type")
+            report.out_of_domain(f"{at}/type")
         for m, member in enumerate(participant.get("members") or []):                # §6.1.2
             if member not in ids:
                 report.error("OR-201", f"{at}/members/{m}")
@@ -206,7 +220,7 @@ def _events(document, report):
             report.error("OR-202", f"{at}/id")
         seen.add(event["id"])
         if "type" in event and event["type"] not in EVENT_TYPES:                     # §6.2.1
-            report.error("OR-103", f"{at}/type")
+            report.out_of_domain(f"{at}/type")
         parent = event.get("parent")
         if parent is not None:                                                       # §6.2.2
             if parent not in ids:
@@ -242,13 +256,13 @@ def _results(document, report):
         if events and result.get("event") is None:                                   # §7.1.2
             report.error("OR-201", at)
         elif result.get("event") is not None and result["event"] not in events:
-            report.error("OR-203", at)
+            report.error("OR-201", f"{at}/event")                                    # §7.1.2
         pair = (result["participant"], result.get("event"))
         if pair in pairs:                                                            # §7.1.3
             report.error("OR-203", at)
         pairs.add(pair)
         if "status" in result and result["status"] not in RESULT_STATUSES:           # §7.2.1
-            report.error("OR-103", f"{at}/status")
+            report.out_of_domain(f"{at}/status")
 
         for key, value in (result.get("values") or {}).items():
             if key not in measures:                                                  # §7.3.1
@@ -264,7 +278,7 @@ def _results(document, report):
         _attribute_values(result.get("attributes"), attributes, document, at, report)
         for a, asset in enumerate(result.get("assets") or []):                       # §9.3.5
             if asset.get("type") not in ASSET_TYPES:
-                report.error("OR-103", f"{at}/assets/{a}/type")
+                report.out_of_domain(f"{at}/assets/{a}/type")
 
         for key in (result.get("ranks") or {}):
             if not IDENTIFIER.match(str(key)):
@@ -325,7 +339,7 @@ def _rankings(document, report):
             report.error("OR-202", f"{at}/id")
         seen.add(ranking["id"])
         if ranking.get("ties") is not None and ranking["ties"] not in TIE_RULES:      # §8.3.2
-            report.error("OR-103", f"{at}/ties")
+            report.out_of_domain(f"{at}/ties")
 
         resolved = ties_of(ranking) == "resolved"
         if not ranking["sortBy"] and not (resolved and ranking.get("ties") == "resolved"):
@@ -400,7 +414,7 @@ def _resources(document, report):
             if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:", str(entry["href"])):        # §9.3.2
                 report.error("OR-102", f"{at}/href")
             if kinds is not None and entry.get("type") not in kinds:                  # §9.3.5
-                report.error("OR-103", f"{at}/type")
+                report.out_of_domain(f"{at}/type")
 
 
 def _quality(document, report):
@@ -439,7 +453,6 @@ def _quality(document, report):
 
     _ranking_quality(document, report)
     _participant_quality(document, report)
-    _event_quality(document, report)
     _announced_field(document, report)
     _category_quality(document, report)
 
@@ -477,16 +490,6 @@ def _category_quality(document, report):
         members = set(category.get("participants") or [])
         if not (members & holders):
             report.warn("OR-907", f"/categories/{index}")
-
-
-def _event_quality(document, report):
-    with_results = {r.get("event") for r in document.get("results") or []}
-    for index, event in enumerate(document.get("events") or []):
-        if event.get("id") in with_results:
-            continue
-        children = [e for e in document.get("events") or [] if e.get("parent") == event.get("id")]
-        if children:                                                                  # §6.2.4
-            report.warn("OR-906", f"/events/{index}")
 
 
 def _ranking_quality(document, report):

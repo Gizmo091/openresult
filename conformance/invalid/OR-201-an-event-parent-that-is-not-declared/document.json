@@ -1,0 +1,56 @@
+{
+  "openresult": "1.0",
+  "title": "A parent event nobody declared",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "event": "heat-1"
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "event": "heat-1"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "events": [
+    {
+      "id": "heat-1",
+      "name": "Heat 1",
+      "type": "heat",
+      "parent": "overall"
+    }
+  ],
+  "description": "A parent references a declared event (§6.2.2)."
+}

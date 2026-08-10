@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "errors": [
+    {
+      "code": "OR-201",
+      "path": "/categories/0/parent"
+    }
+  ]
+}

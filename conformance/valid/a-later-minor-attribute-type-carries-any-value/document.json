@@ -1,0 +1,60 @@
+{
+  "openresult": "1.1",
+  "title": "An attribute type 1.0 does not define, carrying numbers",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "points": 31
+      },
+      "attributes": {
+        "split": 90.5
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "points": 27
+      },
+      "attributes": {
+        "split": 92.1
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "points"
+      ]
+    }
+  ],
+  "attributeDefinitions": [
+    {
+      "id": "split",
+      "label": "Best split",
+      "type": "duration"
+    }
+  ]
+}

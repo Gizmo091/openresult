@@ -1,0 +1,54 @@
+{
+  "openresult": "1.0",
+  "title": "An event declared with no name",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 604.2
+      },
+      "event": "morning"
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 598.7
+      },
+      "event": "morning"
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["time"]
+    }
+  ],
+  "events": [
+    {
+      "id": "morning",
+      "type": "session"
+    }
+  ],
+  "description": "An event carries id and name (§6.2)."
+}
