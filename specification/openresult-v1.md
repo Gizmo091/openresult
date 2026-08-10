@@ -1233,9 +1233,12 @@ competitor holding a result in two of them appears twice — which
 [§7.1.3](#71-participant-and-event) permits, and this list does not merge.
 
 _Non-normative: the shape was never stated._ §8.5 said it "computes the ordered result list" and
-§8.5.5 put the unranked in it, and nothing said what an element is. The suite's answer —
-a participant and a rank — is a suite convention, and an insufficient one: it cannot say which of
-a competitor's two results a row stands for.
+§8.5.5 put the unranked in it, and nothing said what an element is. The suite's answer — a
+participant and a rank — is a suite convention that identifies a row only while a competitor holds
+one result in the ranking. Where two of a competitor's rows are unranked, the pair repeats and the
+expectation stops being able to tell a correct implementation from one emitting the same result
+twice; two implementers reported it independently. Those cases now carry the result's index as
+well, and a repository check requires it wherever the pair would otherwise repeat.
 
 ### 8.6 Implicit ranking
 

@@ -193,9 +193,13 @@ function compareRanking(
   wanted: ExpectedPlacement[],
   label: string,
 ): string[] {
+  // `result` is carried only where the participant alone does not identify the
+  // row (§8.5.7), so it is compared only where the expectation states it.
+  const identifies = wanted.some((placement) => placement.result !== undefined);
   const derived = rank(document, rankingId).map((entry) => ({
     participant: entry.participant.id,
     rank: entry.rank,
+    ...(identifies ? { result: document.results.indexOf(entry.result) } : {}),
   }));
 
   // Sequence comparison, not set: the order is what verifies sort stability.

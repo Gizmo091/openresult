@@ -5,27 +5,33 @@
     "m83": [
       {
         "participant": "ana",
-        "rank": 1
+        "rank": 1,
+        "result": 0
       },
       {
         "participant": "bo",
-        "rank": 2
+        "rank": 2,
+        "result": 1
       },
       {
         "participant": "ana",
-        "rank": null
+        "rank": null,
+        "result": 2
       },
       {
         "participant": "bo",
-        "rank": null
+        "rank": null,
+        "result": 3
       },
       {
         "participant": "ana",
-        "rank": null
+        "rank": null,
+        "result": 4
       },
       {
         "participant": "bo",
-        "rank": null
+        "rank": null,
+        "result": 5
       }
     ]
   }

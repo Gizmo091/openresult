@@ -61,6 +61,13 @@ ordering is the whole point.
 The array order is significant: it is what verifies the stability of the sort, the last remaining
 source of disagreement between two implementations.
 
+Where a competitor holds more than one result in a ranking, `{ participant, rank }` stops naming
+one row — a standing gathering an overall event and its sub-events has three rows per competitor,
+and two of them unranked makes the pair repeat. Those rows carry `"result"`, the index into
+`results`, and `pnpm check expected-rows-are-identifiable` requires it exactly where the pair
+would otherwise repeat. §8.5.7 says an element of the ordered list is a *selected result*; this is
+how the suite says which one.
+
 A case may also state what a consumer **prints**:
 
 ```json

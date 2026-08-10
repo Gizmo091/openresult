@@ -340,8 +340,14 @@ foreach ($manifest['cases'] as $case) {
         }
     }
     foreach ($expected['rankings'] as $rankingId => $wanted) {
+        // `result` is carried only where the participant alone does not identify
+        // the row (§8.5.7), so it is compared only where the case states it.
+        $identifies = (bool) array_filter($wanted, fn($row) => array_key_exists('result', $row));
         $derived = array_map(
-            fn($entry) => ['participant' => $entry[0]['participant'], 'rank' => $entry[1]],
+            fn($entry) => $identifies
+                ? ['participant' => $entry[0]['participant'], 'rank' => $entry[1],
+                   'result' => array_search($entry[0], $document['results'], true)]
+                : ['participant' => $entry[0]['participant'], 'rank' => $entry[1]],
             rank($document, (string) $rankingId),
         );
         $comparisons++;

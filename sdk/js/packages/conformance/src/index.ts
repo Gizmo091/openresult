@@ -72,6 +72,22 @@ export interface ExpectedValid {
 export interface ExpectedPlacement {
   participant: string;
   rank: number | null;
+  /**
+   * Index into `results`, where the participant alone does not say which row
+   * this is.
+   *
+   * §8.5.7 says an element of the ordered list is a *selected result*, and this
+   * file says `{ participant, rank }` — which identifies a row only while a
+   * competitor holds at most one result in the ranking. A standing gathering an
+   * overall event and its sub-events has three rows per competitor, and where
+   * two of them are unranked the pair repeats: the expectation could then no
+   * longer tell a correct implementation from one emitting the same result
+   * twice and dropping another. Two implementers reported it independently.
+   *
+   * Optional, because it is noise on the cases that do not need it —
+   * `expected-rows-are-identifiable` requires it exactly where the pair repeats.
+   */
+  result?: number;
 }
 
 export interface ExpectedRendering {

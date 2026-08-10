@@ -113,8 +113,12 @@ def run_case(case):
                            failures=[*failures, f"could not read the document: {error}"])
 
     for ranking_id, wanted in (expected.get("rankings") or {}).items():
+        # `result` is carried only where the participant alone does not identify
+        # the row (§8.5.7), so it is compared only where the case states it.
+        identifies = any("result" in row for row in wanted)
         derived = [
-            {"participant": result["participant"], "rank": position}
+            {"participant": result["participant"], "rank": position,
+             **({"result": raw["results"].index(result)} if identifies else {})}
             for result, position in rank(document, ranking_id)
         ]
         # Sequence comparison, not set: the order is what verifies sort stability.

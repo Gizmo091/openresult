@@ -26,6 +26,7 @@ import { schemaModule } from './schema-module.ts';
 import { specCoherence } from './spec-coherence.ts';
 import { suiteRunsElsewhere } from './suite-runs-elsewhere.ts';
 import { suiteVersionMoves } from './suite-version-moves.ts';
+import { expectedRowsAreIdentifiable } from './expected-rows-are-identifiable.ts';
 import { specRequiredSync } from './spec-required-sync.ts';
 import { specSchemaSync } from './spec-schema-sync.ts';
 import { typesMatchSchema } from './types-match-schema.ts';
@@ -72,6 +73,7 @@ const CHECKS: Check[] = [
   crossImplementation,
   suiteRunsElsewhere,
   suiteVersionMoves,
+  expectedRowsAreIdentifiable,
 ];
 
 function report(results: CheckResult[]): boolean {
