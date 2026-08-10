@@ -141,12 +141,17 @@ manifest and drive readers of their own, and both pass every case a ranking-leve
 can judge — 84 cases, 98 rankings, the PHP one on its first run. The suite reads cleanly from both,
 which is what "language-agnostic" was worth.
 
-Two things it measured that were not visible before. **The ranking half of the suite travels; the
-diagnostic half does not** — 47 of the 137 cases state only diagnostics, which a reader cannot
-judge at all, so a port that validates rather than only reads is the larger half of the work and
-nobody has costed it. And **three languages by one author is not what this criterion asks for**: it
+**Both halves travel now.** `conformance/validator.py` produces the diagnostics — every code and
+every JSON pointer — from the specification's text, and `runner.py` judges all 140 live cases with
+it: validity, errors, warnings and rankings. It was the larger half and nobody had costed it; it
+came to about four hundred lines and thirteen disagreements with the suite, each of which was the
+validator being wrong.
+
+What remains is **three languages by one author, which is not what this criterion asks for**. It
 tests whether the specification is precise enough to reimplement, not whether it is clear enough
-for a stranger. The reader tests answered the second question for documents; nothing has yet asked
+for a stranger. One outside implementer has now answered the second question — 87 of 87 on a first
+run, and a defect in §5.1.6 that broke forward compatibility — which is the evidence this criterion
+actually wants, and there is one of it. The reader tests answered the second question for documents; nothing has yet asked
 it for code.
 
 **More views.** Charts, timeline and statistics. The v1 viewer ships the extension mechanism and

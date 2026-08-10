@@ -21,14 +21,13 @@ const RUNNERS = [
  * declares itself implementable by others; a suite only readable by its author
  * proves nothing about that.
  *
- * Two runners answer it now, in Python and in PHP. Each claims the ranking
- * level and judges every case that level can judge — the ones stating a derived
- * ranking, valid and invalid alike, since §11.3.1 requires a consumer to read a
- * non-conforming document rather than refuse it.
- *
- * Neither can judge a case that states only diagnostics, and both say so
- * instead of reporting a pass. That is the same failure this project has
- * already had once, where a skip was counted as a pass and two cases were never
+ * Two runners answer it now, in Python and in PHP. The Python one carries a
+ * validator of its own, so it judges every expectation a case states —
+ * validity, error codes and their locations, warnings, derived rankings — and
+ * the diagnostic half of the suite is checked twice rather than once. The PHP
+ * one implements the ranking level only and says so per case, rather than
+ * reporting a pass it did not earn: that is the failure this project has
+ * already had, where a skip was counted as a pass and two cases were never
  * run.
  *
  * What this does not prove is independent authorship, which is what v2's exit
@@ -63,7 +62,8 @@ export const suiteRunsElsewhere: Check = {
         stdout: `${error.stdout ?? ''}${error.stderr ?? ''}`,
       }));
 
-      const summary = /(\d+)\/(\d+) cases passed, (\d+) rankings compared/.exec(stdout);
+      const summary =
+        /(\d+)\/(\d+) cases passed, (\d+) (?:rankings compared|expectations checked)/.exec(stdout);
       if (summary === null) {
         problems.push(
           `${runner.language} said nothing this check understands:\n${stdout.slice(0, 300)}`,
@@ -83,7 +83,7 @@ export const suiteRunsElsewhere: Check = {
         );
         continue;
       }
-      summaries.push(`${runner.language} ${passed}/${total}, ${rankings} rankings`);
+      summaries.push(`${runner.language} ${passed}/${total}, ${rankings} expectations`);
     }
 
     if (absent.length > 0 && process.env['CI'] !== undefined) {

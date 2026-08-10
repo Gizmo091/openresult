@@ -13,7 +13,8 @@ means.
 ```
 manifest.json          index of cases, with the normative rule each exercises
 runner.py              a second runner, in a language the suite was not written in
-runner.php             a third, in the language results are actually published in
+validator.py           and a second validator, so the diagnostics are judged twice
+runner.php             a third runner, in the language results are actually published in
 coverage.json          which rules are covered — a ratchet, checked in CI
 rules-not-by-case.json rules no document can demonstrate, and what holds them instead
 published-codes.json   every diagnostic code published — permanent, a ratchet
@@ -106,23 +107,25 @@ forbids is changing an expectation because the implementation changed; what it p
 the format when the format was changed on purpose. `attributeDefinitions` moved two pointers under
 ADR 0028, and nothing else about those two cases changed.
 
-## Two halves, and only one of them travels
+## Both halves travel
 
 A case states some mixture of three things: whether the document is conforming,
 which diagnostics it raises, and what rankings it derives. The third is what a
 consumer produces; the first two are what a validator produces, and they are
 different programs.
 
-`runner.py` and `runner.php` each drive a reader of their own from this
-manifest. Both judge every case that states a ranking — 84 of them, comparing 98
-rankings — and both skip the 47 that state only diagnostics, saying so rather
-than reporting a pass they did not earn. So the ranking half of this suite is
-verified in three languages and the diagnostic half in one.
+`runner.py` judges all three. It drives `docs/examples/minimal_reader.py` for
+the rankings and `validator.py` for the diagnostics, and both were written from
+the specification rather than from the reference implementation — so every
+expectation in this suite is checked twice, by code that has never read the
+first. `runner.php` implements the ranking level only, and says per case what it
+cannot judge rather than reporting a pass it did not earn.
 
-That is worth knowing before reading "language-agnostic" as a finished claim.
-Until `runner.py` existed the whole suite had been read by exactly one program,
-written by the same people as the cases, in the same language as the reference
-implementation. `pnpm check suite-runs-elsewhere` keeps it that way.
+That matters more than it sounds. Until `runner.py` existed the whole suite had
+been read by exactly one program, written by the same people as the cases, in
+the same language as the reference implementation, so "language-agnostic" was a
+design intention and not a fact. It is a fact now, and
+`pnpm check suite-runs-elsewhere` keeps it one.
 
 ### What the third implementation cost
 

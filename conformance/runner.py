@@ -10,18 +10,12 @@ manifest, driving the minimal reader in `docs/examples/`.
     python3 conformance/runner.py            # every case it can judge
     python3 conformance/runner.py --verbose  # and why it skipped the others
 
-**What this can judge, and what it cannot.** The minimal reader implements the
-*ranking* level (spec §11.5.3): it reads a document and derives standings. It is
-not a validator, so it cannot answer whether a document is conforming, and it
-says so rather than guessing — a runner that reported "no errors found" from an
-implementation that looks for none would turn every invalid case into a pass,
-which is the failure mode `conformance-manifest` exists to prevent.
-
-So each case is judged on the expectations this implementation can actually
-check: derived rankings, wherever the case states them. That covers both valid
-and invalid cases, because §11.3.1 requires a consumer to read a non-conforming
-document rather than refuse it, and a case that states rankings alongside its
-errors is stating exactly that.
+**What this judges.** Two implementations written from the specification rather
+than from the reference: `minimal_reader.py` derives the standings and
+`validator.py` produces the diagnostics. So every expectation a case states —
+validity, error codes and their locations, warnings, derived rankings — is
+judged a second time, in a second language, by code that has never read the
+first.
 """
 
 import json
@@ -32,6 +26,7 @@ SUITE = Path(__file__).resolve().parent
 sys.path.insert(0, str(SUITE.parent / "docs" / "examples"))
 
 from minimal_reader import rank, read  # noqa: E402
+from validator import validate  # noqa: E402
 
 
 class Outcome:
@@ -53,19 +48,46 @@ def run_case(case):
     directory = SUITE / case["path"]
     expected = json.loads((directory / "expected.json").read_text(encoding="utf-8"))
 
-    rankings = expected.get("rankings")
-    if rankings is None:
-        # Validity and diagnostics only. A reader has nothing to say about
-        # those, and saying nothing is the honest answer.
-        return Outcome(case, skipped="states no ranking; this implementation does not validate")
-
-    try:
-        document = read(str(directory / "document.json"))
-    except Exception as error:  # noqa: BLE001 — the case may be deliberately unreadable
-        return Outcome(case, failures=[f"could not read the document: {error}"])
-
     failures = []
-    for ranking_id, wanted in rankings.items():
+    checked = 0
+
+    # The diagnostics first, on the raw JSON: a document whose version cannot be
+    # read is one the reader refuses and the validator must still report on.
+    raw = json.loads((directory / "document.json").read_text(encoding="utf-8"))
+    report = validate(raw)
+    if expected.get("valid") is True and not report.valid:
+        failures.append(
+            "expected the document to validate; got "
+            + ", ".join(f"{e['code']} {e['path']}" for e in report.errors)
+        )
+    if expected.get("valid") is False and report.valid:
+        failures.append("expected the document to be rejected, but it validated")
+
+    reported = {(e["code"], e["path"]) for e in report.errors}
+    for wanted in expected.get("errors") or []:
+        checked += 1
+        if (wanted["code"], wanted["path"]) not in reported:
+            failures.append(
+                f"expected error {wanted['code']} {wanted['path']}; got "
+                + (", ".join(f"{c} {p}" for c, p in sorted(reported)) or "none")
+            )
+
+    warned = {w["code"] for w in report.warnings}
+    for code in expected.get("warnings") or []:
+        checked += 1
+        if code not in warned:
+            failures.append(
+                f"expected warning {code}; got " + (", ".join(sorted(warned)) or "none")
+            )
+
+    if expected.get("rankings"):
+        try:
+            document = read(str(directory / "document.json"))
+        except Exception as error:  # noqa: BLE001 — deliberately unreadable
+            return Outcome(case, checked=checked,
+                           failures=[*failures, f"could not read the document: {error}"])
+
+    for ranking_id, wanted in (expected.get("rankings") or {}).items():
         derived = [
             {"participant": result["participant"], "rank": position}
             for result, position in rank(document, ranking_id)
@@ -76,7 +98,8 @@ def run_case(case):
                 f'ranking "{ranking_id}": expected {json.dumps(wanted)}, got {json.dumps(derived)}'
             )
 
-    return Outcome(case, checked=len(rankings), failures=failures)
+    return Outcome(case, checked=checked + len(expected.get("rankings") or {}),
+                   failures=failures)
 
 
 def main():
@@ -110,7 +133,7 @@ def main():
 
     print(
         f"\n{len(passed)}/{len(passed) + len(failed)} cases passed, "
-        f"{rankings} rankings compared, {len(skipped)} skipped"
+        f"{rankings} expectations checked, {len(skipped)} skipped"
         + (f", {len(failed)} FAILED" if failed else "")
     )
     return 1 if failed else 0
