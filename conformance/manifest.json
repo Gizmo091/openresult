@@ -385,7 +385,7 @@
       "level": "ranking",
       "rule": "spec §8.2.2",
       "description": "A ranking sorts on a measure declaring betterWhen: none.",
-      "path": "invalid/OR-301-sort-on-directionless-measure",
+      "path": "retired/OR-301-sort-on-directionless-measure",
       "deprecated": "Superseded by OR-301-sort-on-a-descriptive-measure. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
     },
     {
@@ -394,7 +394,7 @@
       "level": "ranking",
       "rule": "spec §8.2.2",
       "description": "Text and boolean measures may not decide an order.",
-      "path": "invalid/OR-301-sort-on-text-measure",
+      "path": "retired/OR-301-sort-on-text-measure",
       "deprecated": "Superseded by OR-305-sort-on-text-measure: §8.2.2 carried two prohibitions under one code, and the text/boolean rule now has its own."
     },
     {
@@ -427,7 +427,7 @@
       "level": "ranking",
       "rule": "spec §7.2.3",
       "description": "A non-rankable result carries a rank.",
-      "path": "invalid/OR-303-rank-on-non-rankable-status",
+      "path": "retired/OR-303-rank-on-non-rankable-status",
       "deprecated": "Superseded by OR-303-rank-in-excluding-ranking. The scalar `rank` member it exercises was replaced by `ranks`, keyed by ranking id, because a single number could not express a position in more than one ranking (spec §7.5)."
     },
     {
@@ -833,6 +833,14 @@
       "path": "valid/notes-never-drive-behaviour"
     },
     {
+      "id": "one-competitor-twice-under-a-multi-event-scope",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.7",
+      "description": "The derived list holds one result per selection, and merges none.",
+      "path": "valid/one-competitor-twice-under-a-multi-event-scope"
+    },
+    {
       "id": "positions-only-for-the-placed",
       "kind": "valid",
       "level": "ranking",
@@ -895,7 +903,7 @@
       "level": "ranking",
       "rule": "spec §8.6.1",
       "description": "With no ranking declared, the first directional measure is used.",
-      "path": "valid/rank-implicit",
+      "path": "retired/rank-implicit",
       "deprecated": "Superseded by rank-implicit-skips-a-descriptive-measure. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
     },
     {
@@ -912,7 +920,7 @@
       "level": "ranking",
       "rule": "spec §8.5.2",
       "description": "A result missing a sorting measure is unranked, not sorted as zero.",
-      "path": "valid/rank-missing-measure",
+      "path": "retired/rank-missing-measure",
       "deprecated": "Superseded by unranked-when-a-sorting-measure-is-missing. Its directionless measure was a bib — a number the organisation allocates, which §5.3.5 says is an attribute and never a measure. The rule was written after this case, and the check enforcing it only ever swept examples/."
     },
     {

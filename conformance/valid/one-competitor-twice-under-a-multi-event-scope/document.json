@@ -1,0 +1,70 @@
+{
+  "openresult": "1.0",
+  "title": "A swimmer who raced both heats",
+  "lang": "en",
+  "description": "The ranking scopes both heats, and one swimmer has a result in each — which §7.1.3 permits, since it only forbids a duplicate (participant, event) pair. §8.5.7's list holds both, in the order the derivation gives them, and merges nothing.",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "events": [
+    {
+      "id": "heat-1",
+      "name": "Heat 1",
+      "type": "heat"
+    },
+    {
+      "id": "heat-2",
+      "name": "Heat 2",
+      "type": "heat"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "event": "heat-1",
+      "values": {
+        "time": 58.42
+      }
+    },
+    {
+      "participant": "bo",
+      "event": "heat-1",
+      "values": {
+        "time": 57.19
+      }
+    },
+    {
+      "participant": "ana",
+      "event": "heat-2",
+      "values": {
+        "time": 57.86
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "combined",
+      "label": "Both heats",
+      "scope": {
+        "event": ["heat-1", "heat-2"]
+      },
+      "sortBy": ["time"]
+    }
+  ]
+}

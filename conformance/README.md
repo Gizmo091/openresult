@@ -19,6 +19,7 @@ rules-not-by-case.json rules no document can demonstrate, and what holds them in
 published-codes.json   every diagnostic code published — permanent, a ratchet
 valid/<case>/          document.json + expected.json
 invalid/<case>/        document.json + expected.json
+retired/<case>/        cases the suite no longer asserts, kept as a record
 ```
 
 ## Running it
@@ -92,6 +93,11 @@ full: that is how backward compatibility stops being a promise and starts being 
 
 **A published case is never rewritten.** It can be marked `deprecated` with a reason, never
 edited in place — otherwise a suite could be quietly bent to match a regression.
+
+A retired case moves to `retired/`. It kept its old directory for a while, and two of them ended
+up asserting `"valid": true` for a document a later rule made invalid — so a runner that did not
+honour `deprecated` read them as live cases and was told three times that a count unit of `n` is
+fine. The directory name says what the manifest says now.
 
 The one exception is a deliberate change to the format itself, recorded in a decision record.
 Renaming a member moves the pointers a case expects, and deprecating a case whose only change is a

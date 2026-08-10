@@ -1047,7 +1047,12 @@ no result at all.
 ### 8.4 `excludeStatuses`
 
 **§8.4.1** `excludeStatuses`, when present, **MUST** be an array of status values excluded from
-this ranking. It **replaces** the default set in full; it is not added to it. A ranking declaring
+this ranking. The values are read as written: [§11.3.1](#113-obligations-on-consumers)'s fold
+applies to a status a **result** carries, never to the list naming which are excluded.
+
+_Non-normative: folding the list would be worse than useless._ `excludeStatuses: ["someLaterValue"]`
+folded onto `finished` excludes every finisher and empties the standing; read as written it matches
+nothing, which is what a producer naming a status this version does not have plainly meant. It **replaces** the default set in full; it is not added to it. A ranking declaring
 `excludeStatuses: ["dns"]` therefore ranks retired and disqualified competitors.
 
 **§8.4.2** When absent, the default set applies: every status marked _excluded by default_ in
@@ -1142,6 +1147,17 @@ rank.
 
 **§8.5.6 — Determinism.** The result depends only on the document. Two conforming consumers
 processing the same document **MUST** produce identical output, ties included.
+
+**§8.5.7 — Output.** Derivation produces an **ordered list of every selected result**, each with
+the position it holds or none: the ranked in the order these steps give them, then the unranked.
+A result appears once for each time it was selected, so where a ranking scopes several events a
+competitor holding a result in two of them appears twice — which
+[§7.1.3](#71-participant-and-event) permits, and this list does not merge.
+
+_Non-normative: the shape was never stated._ §8.5 said it "computes the ordered result list" and
+§8.5.5 put the unranked in it, and nothing said what an element is. The suite's answer —
+a participant and a rank — is a suite convention, and an insufficient one: it cannot say which of
+a competitor's two results a row stands for.
 
 ### 8.6 Implicit ranking
 
@@ -1619,6 +1635,7 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§8.5.4](#85-derivation-algorithm)                 | **Assign** — Assign ranks according to ties                                                                            |
 | [§8.5.5](#85-derivation-algorithm)                 | **Unranked** — Unranked results follow the ranked ones, in declaration order, with no rank                             |
 | [§8.5.6](#85-derivation-algorithm)                 | **Determinism** — The result depends only on the document                                                              |
+| [§8.5.7](#85-derivation-algorithm)                 | **Output** — Derivation produces an ordered list of every selected result, each with the position it holds or none     |
 | [§8.6.1](#86-implicit-ranking)                     | A document declaring no rankings — the member absent, or present and empty — remains rankable                          |
 | [§8.6.2](#86-implicit-ranking)                     | If no measure qualifies, the document has no ranking, and results are presented in declaration order                   |
 | [§9.1.1](#91-categories)                           | A category MUST carry id and label                                                                                     |
