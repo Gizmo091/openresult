@@ -78,7 +78,10 @@ The format is bound by four constraints, and every rule in this document follows
 
 ### 1.3 Audience
 
-Implementers of producers and consumers. Reading §2 through §8 is enough to build either.
+Implementers of producers and consumers. §2 through §8 carry the model and the derivation;
+[§11.3](#113-obligations-on-consumers) and [§11.5](#115-conformance-levels) carry what a consumer
+owes a document it does not fully understand, and are needed to build one that survives a later
+minor version.
 
 ---
 
@@ -943,7 +946,16 @@ thing it exists to avoid: "a measure whose only purpose is to encode an answer a
 Determinism is untouched — the order is read from the document, and §8.5.6 holds._
 
 **§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`, nor one whose
-`kind` is `text` or `boolean`. Only numeric kinds may decide an order.
+`kind` is `text` or `boolean`. Only numeric kinds may decide an order. A consumer meeting one
+anyway **MUST** drop it from the ranking's sorting measures before
+[§8.5.2](#85-derivation-algorithm) runs, and rank on those that remain; where none remains, every
+selected result compares equal.
+
+_Non-normative: dropping, rather than ignoring during the comparison._ The two differ, and the
+difference decides whole standings: §8.5.2 asks whether a result carries a value for **every**
+measure in `sortBy`, so a measure merely ignored while comparing would still leave every result
+unranked for want of a value the ranking never uses. A consumer will meet this — §5.1.6 folds an
+unknown `betterWhen` onto `none`, so any direction added in a later 1.x arrives here.
 
 _Non-normative: "ascending" over text has no single answer — code points, locale collation and
 case folding all disagree, and the choice would vary with where the consumer runs. Rather than
@@ -1125,9 +1137,22 @@ processing the same document **MUST** produce identical output, ties included.
 
 ### 8.6 Implicit ranking
 
-**§8.6.1** A document declaring no `rankings` remains rankable. A consumer **MUST** apply an
-implicit ranking: `sortBy` is the first declared measure whose `betterWhen` is not `none`, `ties`
-is `standard`, and `excludeStatuses` is the default of [§8.4.2](#84-excludestatuses).
+**§8.6.1** A document declaring no `rankings` — the member absent, or present and empty — remains
+rankable. A consumer **MUST** apply an implicit ranking: `sortBy` is the first declared measure
+that [§8.2.2](#82-sortby) permits in one, `ties` is `standard`, `excludeStatuses` is the default of
+[§8.4.2](#84-excludestatuses), its `id` and `label` are that measure's, and it is **not** written
+into the document.
+
+_Non-normative: the identifier is part of the rule because a ranking is a keyed thing everywhere
+else._ `ranks` is keyed by ranking id ([§7.5.1](#75-ranks)), so a consumer offering the implicit
+ranking has to call it something, and two consumers calling it different things cannot read each
+other's positions. The first implementer to write code from this document had to recover the answer
+from a conformance case's expected output, which is the one thing a specification exists to make
+unnecessary.
+
+_The measure §8.2.2 permits, not merely the first with a direction._ A `text` measure declaring
+`betterWhen: "higher"` is legal to declare and forbidden in a `sortBy`, so an implicit ranking
+built on it would be one this specification refuses to allow anybody to write.
 
 **§8.6.2** If no measure qualifies, the document has no ranking, and results are presented in
 declaration order.

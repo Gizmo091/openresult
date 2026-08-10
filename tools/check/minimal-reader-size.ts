@@ -26,7 +26,7 @@ const ROADMAP = join(repoRoot, 'docs/ROADMAP.md');
  */
 
 /** Code lines the reader may carry, excluding its command-line front end. */
-const CEILING = 220;
+const CEILING = 240;
 
 export const minimalReaderSize: Check = {
   name: 'minimal-reader-size',

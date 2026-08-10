@@ -58,9 +58,11 @@ export function listRankings(document: ResultDocument): RankingSummary[] {
  * simply has no ranking, and results keep their declaration order.
  */
 function implicitRanking(document: ResultDocument): Ranking | undefined {
-  const rankable = (document.measures ?? []).find(
-    (candidate) => normalizeBetterWhen(candidate.betterWhen) !== 'none',
-  );
+  // The first measure §8.2.2 *permits* in a sortBy, not merely the first with a
+  // direction: a text measure declaring `betterWhen: "higher"` is legal to
+  // declare and forbidden to sort on, so an implicit ranking built on it would
+  // be one nobody is allowed to write down.
+  const rankable = (document.measures ?? []).find((candidate) => sortable(document, candidate.id));
   if (rankable === undefined) return undefined;
 
   return {
@@ -146,6 +148,20 @@ const KNOWN_KINDS = new Set([
 ]);
 
 /**
+ * Whether a measure may decide an order (spec §8.2.2).
+ *
+ * A consumer meets a forbidden one whether or not producers obey: §5.1.6 folds
+ * an unknown `betterWhen` onto `none`, so every direction a later 1.x adds
+ * arrives here.
+ */
+function sortable(document: ResultDocument, measureId: string): boolean {
+  const definition = measure(document, measureId);
+  if (definition === undefined) return false;
+  if (normalizeBetterWhen(definition.betterWhen) === 'none') return false;
+  return definition.kind !== 'text' && definition.kind !== 'boolean';
+}
+
+/**
  * The JSON type a kind implies, or `undefined` where this version does not know
  * the kind (spec §5.1.6, §8.5.2).
  *
@@ -210,11 +226,9 @@ function compareValues(a: MeasureValue, b: MeasureValue, betterWhen: BetterWhen)
   return betterWhen === 'higher' ? -ascending : ascending;
 }
 
-function compareResults(document: ResultDocument, ranking: Ranking, a: Result, b: Result): number {
-  for (const measureId of ranking.sortBy) {
-    const definition = measure(document, measureId);
-    const betterWhen = normalizeBetterWhen(definition?.betterWhen);
-    if (betterWhen === 'none') continue;
+function compareResults(document: ResultDocument, sortBy: string[], a: Result, b: Result): number {
+  for (const measureId of sortBy) {
+    const betterWhen = normalizeBetterWhen(measure(document, measureId)?.betterWhen);
 
     const left = a.values?.[measureId];
     const right = b.values?.[measureId];
@@ -268,6 +282,13 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
   const excluded = ranking.excludeStatuses ?? DEFAULT_EXCLUDED_STATUSES;
   const selected = selectResults(document, ranking);
 
+  // A measure §8.2.2 forbids is dropped here, before the partition, and not
+  // merely skipped while comparing. The two differ and the difference decides
+  // whole standings: §8.5.2 asks for a value for *every* measure in sortBy, so
+  // one merely ignored during comparison would still leave every result
+  // unranked for want of a figure the ranking never uses.
+  const sortBy = ranking.sortBy.filter((measureId) => sortable(document, measureId));
+
   // Step 2 — partition (spec §8.5.2). A result missing any sorting measure —
   // or carrying something its kind does not admit — cannot be placed, so it is
   // unranked rather than sorted as if it were zero.
@@ -275,7 +296,7 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
   const unranked: Result[] = [];
   for (const result of selected) {
     const statusAllows = !excluded.includes(normalizeStatus(result.status));
-    const hasEveryMeasure = ranking.sortBy.every((measureId) =>
+    const hasEveryMeasure = sortBy.every((measureId) =>
       carriesUsableValue(document, result, measureId),
     );
     (statusAllows && hasEveryMeasure ? rankable : unranked).push(result);
@@ -284,7 +305,7 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
   // Step 3 — sort (spec §8.5.3). Array.prototype.sort is stable, which is what
   // preserves declaration order among results comparing equal.
   const ties = normalizeTies(ranking.ties);
-  const sorted = [...rankable].sort((a, b) => compareResults(document, ranking, a, b));
+  const sorted = [...rankable].sort((a, b) => compareResults(document, sortBy, a, b));
 
   // Step 4 — assign (spec §8.5.4).
   const entries: RankedEntry[] = [];
@@ -299,7 +320,7 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
     let groupEnd = groupStart + 1;
     while (groupEnd < sorted.length) {
       const next = sorted[groupEnd];
-      if (next === undefined || compareResults(document, ranking, first, next) !== 0) break;
+      if (next === undefined || compareResults(document, sortBy, first, next) !== 0) break;
       groupEnd += 1;
     }
 

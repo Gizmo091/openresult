@@ -1,0 +1,50 @@
+{
+  "openresult": "1.0",
+  "title": "rankings declared and empty",
+  "lang": "en",
+  "description": "The member is present and holds nothing, which declares no ranking. §8.6.1 applies the implicit one just as it does when the member is absent.",
+  "measures": [
+    {
+      "id": "points",
+      "label": "Points",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "points": 12
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "points": 19
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "points": 15
+      }
+    }
+  ],
+  "rankings": []
+}

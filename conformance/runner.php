@@ -61,10 +61,25 @@ function asList(mixed $value): array {
 // Derivation — spec §8.5, step by step.
 // ---------------------------------------------------------------------------
 
-/** With no ranking declared, the first measure that has a direction (§8.6.1). */
+/** Whether a measure may decide an order (§8.2.2). */
+function sortable(?array $measure): bool {
+    if ($measure === null || directionOf($measure) === 'none') return false;
+    return !in_array($measure['kind'] ?? null, ['text', 'boolean'], true);
+}
+
+/** The sortBy entries that may actually decide an order — dropped before the
+ *  partition, not merely skipped while comparing (§8.2.2, §8.5.2). */
+function sortingMeasures(array $document, array $ranking): array {
+    return array_values(array_filter(
+        $ranking['sortBy'],
+        fn($id) => sortable(measureById($document, $id)),
+    ));
+}
+
+/** With no ranking declared, the first measure §8.2.2 permits in one (§8.6.1). */
 function implicitRanking(array $document): ?array {
     foreach ($document['measures'] ?? [] as $measure) {
-        if (directionOf($measure) !== 'none') {
+        if (sortable($measure)) {
             return ['id' => $measure['id'], 'label' => $measure['label'],
                     'sortBy' => [$measure['id']], 'ties' => 'standard'];
         }
@@ -129,10 +144,8 @@ function carriesUsableValue(array $document, array $result, string $measureId): 
 /** The comparison key. Direction comes from the measure, never the ranking (§8.2.3). */
 function sortKey(array $document, array $ranking, array $result): array {
     $parts = [];
-    foreach ($ranking['sortBy'] as $measureId) {
-        $measure = measureById($document, $measureId);
-        $direction = directionOf($measure);
-        if ($direction === 'none') continue;
+    foreach (sortingMeasures($document, $ranking) as $measureId) {
+        $direction = directionOf(measureById($document, $measureId));
         $value = $result['values'][$measureId] ?? null;
         $parts[] = $direction === 'higher' ? -$value : $value;
     }
@@ -185,7 +198,7 @@ function rank(array $document, ?string $rankingId = null): array {
     $unranked = [];
     foreach ($selected as $result) {
         $hasValues = true;
-        foreach ($ranking['sortBy'] as $measureId) {
+        foreach (sortingMeasures($document, $ranking) as $measureId) {
             if (!carriesUsableValue($document, $result, $measureId)) { $hasValues = false; break; }
         }
         if (!in_array(statusOf($result), $excluded, true) && $hasValues) $rankable[] = $result;

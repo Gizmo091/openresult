@@ -356,6 +356,14 @@
       "path": "invalid/OR-206-undeclared-attribute"
     },
     {
+      "id": "OR-301-a-forbidden-sort-entry-is-dropped",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §8.2.2",
+      "description": "A sortBy entry the rule forbids is dropped before the partition, not ignored while comparing.",
+      "path": "invalid/OR-301-a-forbidden-sort-entry-is-dropped"
+    },
+    {
       "id": "OR-301-sort-by-a-measure-with-no-direction",
       "kind": "invalid",
       "level": "reading",
@@ -632,6 +640,14 @@
       "path": "valid/an-absent-attribute-is-not-recorded"
     },
     {
+      "id": "an-empty-rankings-array-still-ranks",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.6.1",
+      "description": "An empty rankings array declares no ranking, so the implicit one applies.",
+      "path": "valid/an-empty-rankings-array-still-ranks"
+    },
+    {
       "id": "assign-gives-tied-results-the-same-rank",
       "kind": "valid",
       "level": "ranking",
@@ -759,6 +775,14 @@
       "description": "Identifiers that read like positions do not decide the order; the values do.",
       "path": "valid/identifiers-carry-no-meaning",
       "alsoExercises": ["spec §11.3.2"]
+    },
+    {
+      "id": "implicit-ranking-skips-what-sortby-forbids",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.6.1",
+      "description": "The implicit ranking is the first measure §8.2.2 permits, and carries that measure’s id.",
+      "path": "valid/implicit-ranking-skips-what-sortby-forbids"
     },
     {
       "id": "kind-mass",

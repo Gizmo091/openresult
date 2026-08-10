@@ -1,0 +1,19 @@
+{
+  "valid": true,
+  "rankings": {
+    "points": [
+      {
+        "participant": "bo",
+        "rank": 1
+      },
+      {
+        "participant": "cai",
+        "rank": 2
+      },
+      {
+        "participant": "ana",
+        "rank": 3
+      }
+    ]
+  }
+}

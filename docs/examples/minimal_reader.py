@@ -74,10 +74,19 @@ def measures_by_id(document):
     return {m["id"]: m for m in document.get("measures", [])}
 
 
+def sortable(measure):
+    """Whether a measure may decide an order (§8.2.2). A consumer meets a
+    forbidden one whether or not producers obey: §5.1.6 folds an unknown
+    direction onto `none`, so every direction a later 1.x adds arrives here."""
+    if measure is None or direction_of(measure) == "none":
+        return False
+    return measure.get("kind") not in ("text", "boolean")
+
+
 def implicit_ranking(document):
-    """With no ranking declared, use the first measure that has a direction (§8.6.1)."""
+    """With no ranking declared, the first measure §8.2.2 permits in one (§8.6.1)."""
     for measure in document.get("measures", []):
-        if direction_of(measure) != "none":
+        if sortable(measure):
             return {
                 "id": measure["id"],
                 "label": measure["label"],
@@ -157,6 +166,17 @@ def carries_usable_value(document, result, measure_id):
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
+def sorting_measures(document, ranking):
+    """The sortBy entries that may actually decide an order (§8.2.2).
+
+    Dropped here, before the partition, and not merely skipped while comparing:
+    §8.5.2 asks for a value for *every* measure in sortBy, so one only ignored
+    during comparison would still leave every result unranked for want of a
+    figure the ranking never uses."""
+    catalogue = measures_by_id(document)
+    return [m for m in ranking["sortBy"] if sortable(catalogue.get(m))]
+
+
 def sort_key(document, ranking):
     """Build the comparison key. Direction comes from the measure, never the
     ranking (§8.2.3): one source of truth means no contradiction to arbitrate."""
@@ -164,11 +184,8 @@ def sort_key(document, ranking):
 
     def key(result):
         parts = []
-        for measure_id in ranking["sortBy"]:
-            measure = catalogue.get(measure_id)
-            direction = direction_of(measure) if measure else "none"
-            if direction == "none":
-                continue
+        for measure_id in sorting_measures(document, ranking):
+            direction = direction_of(catalogue.get(measure_id))
             value = result.get("values", {}).get(measure_id)
             parts.append(-value if direction == "higher" else value)
         return parts
@@ -208,7 +225,8 @@ def rank(document, ranking_id=None):
     rankable, unranked = [], []
     for result in selected:
         has_values = all(
-            carries_usable_value(document, result, m) for m in ranking["sortBy"]
+            carries_usable_value(document, result, m)
+            for m in sorting_measures(document, ranking)
         )
         (rankable if status_of(result) not in excluded and has_values else unranked).append(result)
 

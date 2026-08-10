@@ -1,0 +1,58 @@
+{
+  "openresult": "1.0",
+  "title": "A text measure with a direction, and no rankings",
+  "lang": "en",
+  "description": "The first measure declares a direction and is text, which §8.2.2 forbids in a sortBy. An implicit ranking built on it would be one nobody is allowed to write down, so §8.6.1 takes the first measure §8.2.2 permits — here the time — and names the ranking after it.",
+  "measures": [
+    {
+      "id": "grade",
+      "label": "Grade",
+      "kind": "text",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    },
+    {
+      "id": "cai",
+      "name": "Cai Ferreira"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "grade": "B",
+        "time": 604.2
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "grade": "A",
+        "time": 598.7
+      }
+    },
+    {
+      "participant": "cai",
+      "values": {
+        "grade": "C",
+        "time": 611.9
+      }
+    }
+  ]
+}

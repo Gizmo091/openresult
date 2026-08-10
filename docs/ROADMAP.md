@@ -37,7 +37,7 @@ views, ports beyond the reference implementation.
 - Every example renders correctly in the viewer with no per-example configuration.
   _`viewer/test/examples.test.ts`._
 - The conformance suite covers every normative rule. _`pnpm check rule-coverage`._
-- A minimal reader fits in under 220 lines with no dependency, excluding its command-line front
+- A minimal reader fits in under 240 lines with no dependency, excluding its command-line front
   end. _`pnpm check minimal-reader-size`._
 
 Four of the five hold by machine, and go on holding. The first cannot: it asks whether a stranger
@@ -46,6 +46,11 @@ specification and the examples — nothing else, no code, no decision records �
 a document for a domain the corpus does not cover, and reading what they could not express. Every
 normative change in §5.1.8, §5.3.7, §7.2.8, §8.1.2 and §8.3.5 came from one of those, and so did
 finding that a published rank could not settle a tie.
+
+_Raised from 220 to 240 on 2026-08-10, for §8.2.2: the rule forbade a measure in `sortBy` and never
+said what a consumer does when one is there anyway — which §5.1.6 guarantees will happen, since it
+folds every unknown direction onto `none`. Saying it costs about eighteen lines, and every
+implementer now pays them because the alternative was each of them guessing._
 
 _The reader's ceiling was two hundred when it was written, and nothing counted the lines. It
 reached two hundred and sixty-seven while every addition was justified on its own: `scope`
