@@ -133,7 +133,7 @@ function selectResults(document: ResultDocument, ranking: Ranking): Result[] {
  *
  * Everything is a number except `text`, which is a string, and `boolean`.
  */
-const KNOWN_KINDS = new Set([
+export const KNOWN_KINDS = new Set([
   'duration',
   'distance',
   'mass',
@@ -162,16 +162,22 @@ function sortable(document: ResultDocument, measureId: string): boolean {
 }
 
 /**
- * The JSON type a kind implies, or `undefined` where this version does not know
- * the kind (spec §5.1.6, §8.5.2).
+ * The JSON type a kind implies, for deciding what a result carries (spec §8.5.2).
  *
- * `undefined` is the whole point. §5.1.6 folds an unknown kind onto `text` and
- * §11.2.2 lets a 1.1 add `temperature`; a 1.0 consumer that inferred `string`
- * from the fold would reject every number the document carries and publish an
- * empty standing, which is the opposite of what §11.2.1 promises.
+ * §5.1.6 folds an unknown kind onto `text` and §11.2.2 lets a 1.1 add
+ * `temperature`; a consumer that inferred `string` from the fold would reject
+ * every number the document carries and publish an empty standing, which is the
+ * opposite of what §11.2.1 promises. So an unrecognised kind does not imply
+ * `string` — it requires a number, which is what every kind but `text` and
+ * `boolean` is (§5.2.1).
+ *
+ * It used to return `undefined` here, meaning "any type will do". That admitted
+ * results §8.5.3 has no rule for ordering, and two implementations written from
+ * that text produced different standings for the same document — one inventing
+ * an order across JSON types, the other calling every non-numeric pair equal.
  */
-function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' | undefined {
-  if (kind === undefined || !KNOWN_KINDS.has(kind)) return undefined;
+function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' {
+  if (kind === undefined || !KNOWN_KINDS.has(kind)) return 'number';
   if (kind === 'text') return 'string';
   if (kind === 'boolean') return 'boolean';
   return 'number';
@@ -194,9 +200,10 @@ function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean'
  */
 function carriesUsableValue(document: ResultDocument, result: Result, measureId: string): boolean {
   const value = result.values?.[measureId];
-  if (value === undefined) return false;
-  const wanted = expectedType(measure(document, measureId)?.kind);
-  return wanted === undefined || typeof value === wanted;
+  // §7.3.2 forbids `null` and §11.3.1 obliges reading the document anyway; a
+  // null is read as the absence the rule tells producers to write instead.
+  if (value === undefined || value === null) return false;
+  return typeof value === expectedType(measure(document, measureId)?.kind);
 }
 
 /**
@@ -249,7 +256,13 @@ function compareResults(document: ResultDocument, sortBy: string[], a: Result, b
  * undefined when the group cannot be settled, and the tie stands.
  */
 function settleByPublishedRanks(group: Result[], rankingId: string): Result[] | undefined {
-  const positions = group.map((result) => result.ranks?.[rankingId]);
+  // §7.5.1 requires a positive integer, and §11.3.1 obliges reading a document
+  // that carries something else. Anything else is no published position, so the
+  // group stays tied rather than being ordered on a number that means nothing.
+  const positions = group.map((result) => {
+    const published = result.ranks?.[rankingId];
+    return Number.isInteger(published) && (published as number) > 0 ? published : undefined;
+  });
   if (positions.some((position) => position === undefined)) return undefined;
   if (new Set(positions).size !== positions.length) return undefined;
 

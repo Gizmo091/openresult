@@ -5,5 +5,17 @@
       "code": "OR-304",
       "path": "/rankings/0/sortBy"
     }
-  ]
+  ],
+  "rankings": {
+    "main": [
+      {
+        "participant": "a",
+        "rank": 1
+      },
+      {
+        "participant": "b",
+        "rank": 1
+      }
+    ]
+  }
 }

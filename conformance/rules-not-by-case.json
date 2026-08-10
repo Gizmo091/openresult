@@ -33,10 +33,6 @@
       "evidence": "test:viewer/test/examples.test.ts",
       "why": "A display obligation, and the runner compares validity, diagnostics and derived rankings — never what is drawn. The viewer renders the admission document whose positions are its whole result, and the test checks the order shown is the published one rather than the declaration order."
     },
-    "8.5.6": {
-      "evidence": "check:cross-implementation",
-      "why": "Determinism is a claim about two consumers, and one case exercises one. The check derives every ranking in the corpus and the suite with both the TypeScript reference and the Python minimal reader, and fails on any disagreement."
-    },
     "10.2.3": {
       "evidence": "test:sdk/js/packages/conformance/test/rewriting.test.ts",
       "why": "Preservation is a property of a read-write cycle. The runner reads and never writes, so the round-trip tests are what hold it: unknown members, nested unknown members, x- extensions at every level, and unknown enumeration values kept verbatim despite being read as fallbacks."

@@ -2,18 +2,22 @@
   "valid": false,
   "errors": [
     {
-      "code": "OR-305",
+      "code": "OR-101",
+      "path": "/measures/0"
+    },
+    {
+      "code": "OR-301",
       "path": "/rankings/0/sortBy/0"
     }
   ],
   "rankings": {
-    "main": [
+    "general": [
       {
-        "participant": "a",
+        "participant": "ana",
         "rank": 1
       },
       {
-        "participant": "b",
+        "participant": "bo",
         "rank": 1
       }
     ]

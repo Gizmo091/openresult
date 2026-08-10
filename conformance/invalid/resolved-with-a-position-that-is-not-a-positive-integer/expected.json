@@ -2,9 +2,12 @@
   "valid": false,
   "errors": [
     {
-      "code": "OR-201",
-      "path": "/rankings/0/sortBy/0"
+      "code": "OR-102",
+      "path": "/results/0/ranks/general"
     }
+  ],
+  "warnings": [
+    "OR-902"
   ],
   "rankings": {
     "general": [

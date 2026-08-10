@@ -807,6 +807,18 @@
       "path": "valid/a-later-minor-attribute-type-carries-any-value"
     },
     {
+      "id": "a-later-minor-kind-carrying-strings-does-not-rank",
+      "kind": "valid",
+      "level": "ranking",
+      "rule": "spec §8.5.2",
+      "alsoExercises": [
+        "spec §8.5.3",
+        "spec §8.5.6"
+      ],
+      "description": "A kind 1.0 does not define, carrying strings. A 1.0 consumer cannot know that 8b beats 7a, so the results are unranked rather than ordered on a guess. This is the case two implementations disagreed on — one invented an order across JSON types, the other called every non-numeric pair equal.",
+      "path": "valid/a-later-minor-kind-carrying-strings-does-not-rank"
+    },
+    {
       "id": "a-later-minor-kind-still-ranks",
       "kind": "valid",
       "level": "ranking",
@@ -841,6 +853,18 @@
       "path": "valid/a-later-minor-ties-policy-folds-onto-standard"
     },
     {
+      "id": "a-null-value-reads-as-absent",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.3.2",
+      "alsoExercises": [
+        "spec §8.5.2",
+        "spec §11.3.1"
+      ],
+      "description": "§7.3.2 forbids null and §11.3.1 obliges reading the document anyway. It is read as the absence the rule tells producers to write instead, so the result is unranked rather than ranked on a value of some type.",
+      "path": "invalid/a-null-value-reads-as-absent"
+    },
+    {
       "id": "a-plain-1-0-document",
       "kind": "valid",
       "level": "ranking",
@@ -863,6 +887,18 @@
       "rule": "spec §5.3.8",
       "description": "An entity may omit an attribute; the omission means not recorded, not empty.",
       "path": "valid/an-absent-attribute-is-not-recorded"
+    },
+    {
+      "id": "an-absent-better-when-reads-as-none",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §11.3.1",
+      "alsoExercises": [
+        "spec §5.1.4",
+        "spec §8.2.2"
+      ],
+      "description": "betterWhen is REQUIRED and §11.3.1 said only what an unknown value does. An absent one leaves a consumer in the same position — no declared direction — so it reads as none, the measure is dropped from sortBy, and every selected result compares equal.",
+      "path": "invalid/an-absent-better-when-reads-as-none"
     },
     {
       "id": "an-empty-rankings-array-still-ranks",
@@ -1277,6 +1313,17 @@
       "rule": "spec §8.3.4",
       "description": "A settled group takes the consecutive positions it lands on, not the ones published.",
       "path": "valid/resolved-positions-are-relative-not-absolute"
+    },
+    {
+      "id": "resolved-with-a-position-that-is-not-a-positive-integer",
+      "kind": "invalid",
+      "level": "ranking",
+      "rule": "spec §7.5.1",
+      "alsoExercises": [
+        "spec §8.3.4"
+      ],
+      "description": "Under resolved, a published position that is not a positive integer is no position at all, so the group stays tied rather than being ordered on a number that means nothing.",
+      "path": "invalid/resolved-with-a-position-that-is-not-a-positive-integer"
     },
     {
       "id": "resolved-with-two-equal-positions-stays-tied",

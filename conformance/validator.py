@@ -149,7 +149,8 @@ def _measures(document, report):
     seen = set()
     for index, measure in enumerate(document.get("measures") or []):
         at = f"/measures/{index}"
-        if "id" not in measure or "label" not in measure or "kind" not in measure:   # §4.1.1
+        if ("id" not in measure or "label" not in measure or "kind" not in measure
+                or "betterWhen" not in measure):                                     # §5.1.4
             report.error("OR-101", at)
             continue
         if not IDENTIFIER.match(str(measure["id"])):                                 # §5.4.1
@@ -159,7 +160,7 @@ def _measures(document, report):
         seen.add(measure["id"])
         if measure["kind"] not in KNOWN_KINDS:                                       # §5.1.2
             report.out_of_domain(f"{at}/kind")
-        if measure.get("betterWhen") not in (None, "lower", "higher", "none"):       # §5.1.4
+        if measure["betterWhen"] not in ("lower", "higher", "none"):                  # §5.1.4
             report.out_of_domain(f"{at}/betterWhen")
         if measure["kind"] not in ("text", "boolean") and "unit" not in measure:     # §5.1.3
             report.error("OR-107", at)
@@ -283,6 +284,10 @@ def _results(document, report):
         for key in (result.get("ranks") or {}):
             if not IDENTIFIER.match(str(key)):
                 report.error("OR-104", f"{at}/ranks")
+            elif not (isinstance(result["ranks"][key], int)
+                      and not isinstance(result["ranks"][key], bool)
+                      and result["ranks"][key] > 0):                                  # §7.5.1
+                report.error("OR-102", f"{at}/ranks/{key}")
             elif key not in rankings:                                                # §7.5.4
                 report.error("OR-201", f"{at}/ranks/{key}")
 
@@ -518,13 +523,19 @@ def _ranking_quality(document, report):
             if len(positions) != len(set(positions)):
                 report.error("OR-302", f"{at}/ties")
 
-        # A published rank that disagrees with the derived one (§3.3.2).
+        # A published rank that disagrees with the derived one (§3.3.2). This
+        # used to stay silent under `resolved`, on the reasoning that there the
+        # published positions *are* the order — but where they are, the two
+        # agree by construction and the warning never fires anyway. The only
+        # time it has something to say is when the settlement failed, which is
+        # exactly the case the silence hid.
         for result, position in entries:
             published = (result.get("ranks") or {}).get(ranking["id"])
-            if published is not None and position is not None and published != position:
-                if ties_of(ranking) != "resolved":
-                    report.warn("OR-902", f"/results/{document['results'].index(result)}"
-                                          f"/ranks/{ranking['id']}")
+            if not isinstance(published, int) or isinstance(published, bool) or published < 1:
+                continue                                                              # §7.5.1
+            if position is not None and published != position:
+                report.warn("OR-902", f"/results/{document['results'].index(result)}"
+                                      f"/ranks/{ranking['id']}")
 
         partial = [e for e, p in entries
                    if p is None and status_of(e) not in excluded

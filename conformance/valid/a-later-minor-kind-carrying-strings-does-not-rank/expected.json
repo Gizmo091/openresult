@@ -1,20 +1,17 @@
 {
-  "valid": false,
-  "errors": [
-    {
-      "code": "OR-201",
-      "path": "/rankings/0/sortBy/0"
-    }
+  "valid": true,
+  "warnings": [
+    "OR-914"
   ],
   "rankings": {
     "general": [
       {
         "participant": "ana",
-        "rank": 1
+        "rank": null
       },
       {
         "participant": "bo",
-        "rank": 1
+        "rank": null
       }
     ]
   }

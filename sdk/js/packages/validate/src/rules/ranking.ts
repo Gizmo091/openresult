@@ -240,6 +240,11 @@ export function checkRanking(document: ResultDocument): Diagnostic[] {
         continue;
       }
 
+      // A position that is not a positive integer is already OR-102's business
+      // (§7.5.1), and the derivation reads it as no position at all. Adding
+      // "this disagrees with the derived rank" on top reports one mistake twice.
+      if (!Number.isInteger(supplied) || (supplied as number) < 1) continue;
+
       const derived = derivedFor(rankingId).get(result);
 
       if (derived === undefined || derived === null) {

@@ -9,7 +9,7 @@
 export { parse, isOpenResult, formatVersion, SUPPORTED_VERSION } from './parse.js';
 export type { FormatVersion } from './parse.js';
 
-export { rank, listRankings } from './rank.js';
+export { rank, listRankings, KNOWN_KINDS } from './rank.js';
 
 export {
   measure,

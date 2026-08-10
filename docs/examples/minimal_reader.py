@@ -152,11 +152,13 @@ def carries_usable_value(document, result, measure_id):
     if value is None:
         return False
     kind = measures_by_id(document).get(measure_id, {}).get("kind")
-    # A kind this version does not know implies no type (§5.1.6, §8.5.2). §5.1.6
-    # folds it onto `text` for display, and inferring a string from that fold
-    # would make every value of a kind a later 1.x adds unrankable.
+    # A kind this version does not know needs a number (§8.5.2). §5.1.6 folds it
+    # onto `text` for display, and inferring a string from that fold would make
+    # every value of a kind a later 1.x adds unrankable — but accepting *any*
+    # type instead admits values §8.5.3 cannot order, and two consumers that
+    # invented an order disagreed. Every kind but text and boolean is a number.
     if kind not in KNOWN_KINDS:
-        return True
+        return isinstance(value, (int, float)) and not isinstance(value, bool)
     if kind == "text":
         return isinstance(value, str)
     if kind == "boolean":
@@ -201,7 +203,11 @@ def settle_by_published_ranks(group, ranking_id):
     the sorting algorithm — the divergence §8.5.6 forbids."""
     if len(group) < 2:
         return None
+    # Anything that is not a positive integer is no published position (§7.5.1),
+    # so the group stays tied rather than being ordered on a meaningless number.
     positions = [result.get("ranks", {}).get(ranking_id) for result in group]
+    positions = [p if isinstance(p, int) and not isinstance(p, bool) and p > 0 else None
+                 for p in positions]
     if any(position is None for position in positions):
         return None
     if len(set(positions)) != len(positions):

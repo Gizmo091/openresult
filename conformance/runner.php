@@ -132,8 +132,11 @@ function carriesUsableValue(array $document, array $result, string $measureId): 
     $value = $result['values'][$measureId] ?? null;
     if ($value === null) return false;
     $kind = measureById($document, $measureId)['kind'] ?? null;
-    // A kind this version does not know implies no type (§5.1.6, §8.5.2).
-    if (!in_array($kind, KNOWN_KINDS, true)) return true;
+    // A kind this version does not know needs a number (§8.5.2): accepting any
+    // type admits values §8.5.3 has no rule for ordering.
+    if (!in_array($kind, KNOWN_KINDS, true)) {
+        return (is_int($value) || is_float($value)) && !is_bool($value);
+    }
     if ($kind === 'text') return is_string($value);
     if ($kind === 'boolean') return is_bool($value);
     // Everything else is a number (§5.2.1). `is_numeric` would accept "12", and
@@ -171,8 +174,9 @@ function settleByPublishedRanks(array $group, string $rankingId): ?array {
     if (count($group) < 2) return null;
     $positions = [];
     foreach ($group as $result) {
+        // Anything that is not a positive integer is no published position (§7.5.1).
         $position = $result['ranks'][$rankingId] ?? null;
-        if ($position === null) return null;
+        if (!is_int($position) || $position < 1) return null;
         $positions[] = $position;
     }
     if (count(array_unique($positions)) !== count($positions)) return null;

@@ -2,8 +2,8 @@
   "valid": false,
   "errors": [
     {
-      "code": "OR-201",
-      "path": "/rankings/0/sortBy/0"
+      "code": "OR-108",
+      "path": "/results/1/values/time"
     }
   ],
   "rankings": {
@@ -14,7 +14,7 @@
       },
       {
         "participant": "bo",
-        "rank": 1
+        "rank": null
       }
     ]
   }

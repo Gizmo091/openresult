@@ -1,0 +1,54 @@
+{
+  "openresult": "1.0",
+  "title": "A published position of zero",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 20
+      },
+      "ranks": {
+        "general": 0
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": 20
+      },
+      "ranks": {
+        "general": 2
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "time"
+      ],
+      "ties": "resolved"
+    }
+  ]
+}

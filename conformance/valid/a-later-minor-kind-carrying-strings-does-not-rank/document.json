@@ -1,0 +1,47 @@
+{
+  "openresult": "1.1",
+  "title": "A later kind whose values are not numbers",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "grade",
+      "label": "Grade",
+      "kind": "ordinalGrade",
+      "unit": "fr",
+      "betterWhen": "higher"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "grade": "7a"
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "grade": "8b"
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": [
+        "grade"
+      ]
+    }
+  ]
+}

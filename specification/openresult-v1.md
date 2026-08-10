@@ -44,6 +44,25 @@ typo and refusing the document is the one response §11.4.2 forbids. Nothing cau
 because no conformance case declared a version other than 1.0 — the whole compatibility chapter
 was tested against documents unable to exercise it.
 
+The same two implementers found that the first erratum had closed one hole by opening another.
+It made a result rankable under an unrecognised `kind` whatever type its value had, and
+[§8.5.3](#85-derivation-algorithm) has no rule for ordering anything but numbers — so two
+conforming consumers handed the same document produced different standings, one inventing an order
+across JSON types and the other calling every non-numeric pair equal, which
+[§8.5.6](#85-derivation-algorithm) forbids. §8.5.2 now requires a **number** there, and §8.5.3 says
+that every comparison is numeric.
+
+Six further readings the document left to be guessed at, each of which changes a standing:
+[§8.2.2](#82-sortby)'s prohibition sees the `kind` as written rather than as §5.1.6 folds it, drops
+an entry naming no declared measure, and covers an empty `sortBy`;
+[§7.3.2](#73-values) has a `null` read as the absence it tells producers to write;
+[§7.5.1](#75-ranks) has a position that is not a positive integer read as no position;
+[§11.3.1](#113-obligations-on-consumers) reads an absent required enumeration member as an
+unrecognised value of its domain. And the rule deciding whether a disqualified competitor appears
+in a standing — that `excludeStatuses` replaces the default set rather than adding to it — was
+filed in a non-normative paragraph, which [§2.1](#21-requirement-levels) says imposes no requirement. It
+is in [§8.4.1](#84-excludestatuses) now.
+
 Found by two implementers working independently, in Go and in Rust, from this document alone.
 
 _Non-normative: what settled it._ Six people were given this specification and the example corpus,
@@ -843,7 +862,8 @@ property of a ranking and not of a status, and §7.2.3 is the one to follow._
 **§7.3.1** Every key in `values` **MUST** reference a declared measure `id`.
 
 **§7.3.2** A measure absent from `values` means **not available**. `null` **MUST NOT** be used,
-and `0` means zero.
+and `0` means zero. A consumer meeting a `null` anyway **MUST** read it as absent — the meaning
+this rule tells a producer to express by omission.
 
 **§7.3.3** The type of each value **MUST** match its measure's `kind`, per
 [§5.2.1](#52-values-and-units).
@@ -856,7 +876,9 @@ derive machine behaviour.
 ### 7.5 `ranks`
 
 **§7.5.1** `ranks`, when present, **MUST** be an object whose keys are declared ranking
-identifiers and whose values are positive integers.
+identifiers and whose values are positive integers. A consumer **MUST** read a value that is not a
+positive integer as no published position, so that [§8.3.4](#83-ties) leaves the group tied rather
+than ordering it on a number that means nothing.
 
 **§7.5.2** A supplied rank is **informative**: it records the position the producer published. It
 is never required, and a consumer **MUST** be able to derive the same ordering without it
@@ -975,10 +997,16 @@ thing it exists to avoid: "a measure whose only purpose is to encode an answer a
 Determinism is untouched — the order is read from the document, and §8.5.6 holds._
 
 **§8.2.2** `sortBy` **MUST NOT** contain a measure whose `betterWhen` is `none`, nor one whose
-`kind` is `text` or `boolean`. Only numeric kinds may decide an order. A consumer meeting one
-anyway **MUST** drop it from the ranking's sorting measures before
-[§8.5.2](#85-derivation-algorithm) runs, and rank on those that remain; where none remains, every
-selected result compares equal.
+`kind` **this version defines as** `text` or `boolean`. Only numeric kinds may decide an order. A
+consumer meeting one anyway — or an entry naming no declared measure — **MUST** drop it from the
+ranking's sorting measures before [§8.5.2](#85-derivation-algorithm) runs, and rank on those that
+remain; where none remains, or where `sortBy` was empty, every selected result compares equal.
+
+_Non-normative: "this version defines as", not "folds onto"._ [§5.1.6](#51-measures) folds an
+unknown `kind` onto `text` for display. Reading that fold into this rule would drop every measure
+of a kind a later 1.x adds from every `sortBy`, collapse the standing to an all-tied field, and
+break [§11.2.1](#112-guarantees-to-producers) one section away from where the same mistake was
+already corrected. The prohibition sees the kind as written.
 
 _Non-normative: dropping, rather than ignoring during the comparison._ The two differ, and the
 difference decides whole standings: §8.5.2 asks whether a result carries a value for **every**
@@ -1069,12 +1097,14 @@ no result at all.
 
 **§8.4.1** `excludeStatuses`, when present, **MUST** be an array of status values excluded from
 this ranking. The values are read as written: [§11.3.1](#113-obligations-on-consumers)'s fold
-applies to a status a **result** carries, never to the list naming which are excluded.
+applies to a status a **result** carries, never to the list naming which are excluded. Where
+present, the list **replaces** the default set of [§8.4.2](#84-excludestatuses) in full; it is
+never added to it, so a ranking declaring `excludeStatuses: ["dns"]` ranks retired and disqualified
+competitors.
 
 _Non-normative: folding the list would be worse than useless._ `excludeStatuses: ["someLaterValue"]`
 folded onto `finished` excludes every finisher and empties the standing; read as written it matches
-nothing, which is what a producer naming a status this version does not have plainly meant. It **replaces** the default set in full; it is not added to it. A ranking declaring
-`excludeStatuses: ["dns"]` therefore ranks retired and disqualified competitors.
+nothing, which is what a producer naming a status this version does not have plainly meant.
 
 **§8.4.2** When absent, the default set applies: every status marked _excluded by default_ in
 [§7.2.1](#72-status) — `notClassified`, `inProgress`, `dnf`, `dns`, `dsq`, `outOfTime`,
@@ -1102,8 +1132,8 @@ list as follows.
 
 - its `status` is not in `excludeStatuses`; and
 - for every measure listed in `sortBy`, its `values` carries a value of the JSON type that
-  measure's `kind` implies ([§5.2.1](#52-values-and-units)) — or a value of any type, where the
-  consumer does not recognise the `kind`.
+  measure's `kind` implies ([§5.2.1](#52-values-and-units)) — or a **number**, where the consumer
+  does not recognise the `kind`.
 
 All others are **unranked**.
 
@@ -1121,6 +1151,18 @@ reads identically under every later 1.x. Without the exception those three canno
 1.1 measure of kind `temperature` carrying numbers, read by a 1.0 consumer, folds to `text`, fails
 the type test on every value, and the standings vanish. Demonstrated, not reasoned about — two
 results, one document, nought of two rankable.
+
+_Non-normative: a number, rather than a value of any type._ The erratum that opened this
+exception first wrote "a value of any type", which made a result rankable that
+[§8.5.3](#85-derivation-algorithm) has no rule for ordering: two consumers handed `"7a"` and `"8b"`
+under a kind neither knows produced different standings, one inventing a total order over JSON
+types and the other calling every non-numeric pair equal. Both were conforming and
+[§8.5.6](#85-derivation-algorithm) forbids the disagreement. Every kind but `text` and `boolean` is
+a number ([§5.2.1](#52-values-and-units)), so a numeric measure added in a later 1.x still ranks —
+which is what the exception exists for. A string-valued kind added later leaves the result unranked
+for a 1.0 consumer, which is the honest answer: it cannot know that `8b` beats `7a`, and a
+consumer that guesses publishes a wrong result confidently. Found by two implementers
+independently, in Go and in Rust.
 
 _Non-normative: the type is checked against the measure, not against the other result._ A document
 recording a duration as `"10:04.200"` is not conforming ([§7.3.3](#73-values)), and a consumer must
@@ -1152,10 +1194,12 @@ the copies can drift apart. Here the figure is deliberately carried into a diffe
 it is a **different** fact — the value this competitor brings forward — and where the alternative
 is a standing that silently omits half its field.
 
-**§8.5.3 — Sort.** Order the rankable results by successive comparison over `sortBy`. For each
-measure, `betterWhen: "lower"` orders ascending and `betterWhen: "higher"` orders descending. The
-sort **MUST** be **stable**: results comparing equal on every criterion retain their declaration
-order in `results`.
+**§8.5.3 — Sort.** Order the rankable results by successive comparison over `sortBy`. Every
+comparison is numeric: [§8.2.2](#82-sortby) keeps `text` and `boolean` measures out of `sortBy`,
+and [§8.5.2](#85-derivation-algorithm) admits a result under an unrecognised `kind` only where its
+value is a number, so no other type reaches this step. For each measure, `betterWhen: "lower"`
+orders ascending and `betterWhen: "higher"` orders descending. The sort **MUST** be **stable**:
+results comparing equal on every criterion retain their declaration order in `results`.
 
 **§8.5.4 — Assign.** Assign ranks according to `ties`. Two results are tied when they compare
 equal on every measure in `sortBy`. Under `resolved`, a tied group is first ordered by the
@@ -1356,7 +1400,15 @@ the derivation algorithm.
 **§11.3.1** A consumer **MUST** ignore unknown members prefixed `x-`, and **MUST** treat unknown
 enumeration values as the fallback defined for that domain: `other` for `type`, `finished` for
 `status`, `none` for `betterWhen`, `text` for attribute `type`, `standard` for `ties`,
-`provisional` for document `status`.
+`provisional` for document `status`. A required member of one of those domains that is **absent**
+is read as an unrecognised value of it.
+
+_Non-normative: absent, not merely unknown._ §11.3.1 says what an unrecognised value does and
+several members are REQUIRED, which left no reading for a document that omits one — and
+[§11.3.1](#113-obligations-on-consumers) obliges a consumer to read a document it has not
+validated. A `betterWhen` that is not there and a `betterWhen` this version does not know leave a
+consumer in the same position: no declared direction. Reading them the same way is the only answer
+that keeps [§8.5.6](#85-derivation-algorithm) true.
 
 **§11.3.2** A consumer **MUST NOT** derive meaning from identifiers ([§5.4.3](#54-identifiers)).
 
@@ -1640,7 +1692,7 @@ This table is generated from the rules themselves by `pnpm generate:rule-index`,
 | [§8.1.4](#81-scope) | A standing whose figures are computed from several events — a points total, a sum of legs, a best-of — MUST be published as results attached to the event the ranking is scoped to |
 | [§8.1.5](#81-scope) | Where nothing is computed and the results are directly comparable, the events SHOULD be listed in scope.event instead, and the results left where they were recorded |
 | [§8.2.1](#82-sortby) | sortBy MUST be a non-empty array of declared measure identifiers, in decreasing order of priority — unless the ranking declares ties |
-| [§8.2.2](#82-sortby) | sortBy MUST NOT contain a measure whose betterWhen is none, nor one whose kind is text or boolean |
+| [§8.2.2](#82-sortby) | sortBy MUST NOT contain a measure whose betterWhen is none, nor one whose kind this version defines as text or boolean |
 | [§8.2.3](#82-sortby) | Sort direction MUST NOT be declared in the ranking |
 | [§8.3.1](#83-ties) | ties MUST be one of |
 | [§8.3.2](#83-ties) | An unknown ties value MUST be treated as standard |
