@@ -544,6 +544,45 @@ describe('implicit ranking', () => {
     ]);
     expect(listRankings(doc)).toEqual([]);
   });
+
+  // A mutation sweep found this: every test and every conformance case here
+  // declares either no ranking or two, so "does the document declare any" and
+  // "does it declare more than one" were indistinguishable. A consumer opening
+  // a document with exactly one ranking — the ordinary shape — would have been
+  // offered the implicit one in its place.
+  // The same sweep: `resolveRanking` computed the implicit ranking for every
+  // document and discarded it wherever one was declared, so the guard could be
+  // mutated in any direction without changing an answer. Computing it only
+  // where it is used makes the guard load-bearing, and this is what holds it.
+  it('has no implicit ranking to offer once the document declares one', () => {
+    const doc = document({
+      results: [
+        { participant: 'a', values: { bib: 1, time: 30 } },
+        { participant: 'b', values: { bib: 2, time: 10 } },
+      ],
+      rankings: [{ id: 'general', label: 'General', sortBy: ['time'] }],
+    });
+
+    // "time" would be the implicit ranking's id if there were one. There is not.
+    expect(order(rank(doc, 'time'))).toEqual([
+      ['a', null],
+      ['b', null],
+    ]);
+  });
+
+  it('offers the declared ranking, not an implicit one, when exactly one is declared', () => {
+    const doc = document({
+      results: [
+        { participant: 'a', values: { bib: 1, time: 30 } },
+        { participant: 'b', values: { bib: 2, time: 10 } },
+      ],
+      rankings: [{ id: 'general', label: 'General', sortBy: ['time'] }],
+    });
+
+    expect(listRankings(doc)).toEqual([
+      { id: 'general', label: 'General', implicit: false, sortBy: ['time'], ties: 'standard' },
+    ]);
+  });
 });
 
 describe('the presentation layer never affects the ranking', () => {

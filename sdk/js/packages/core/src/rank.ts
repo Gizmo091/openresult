@@ -75,18 +75,21 @@ function implicitRanking(document: ResultDocument): Ranking | undefined {
 
 function resolveRanking(document: ResultDocument, rankingId?: string): Ranking | undefined {
   const declared = document.rankings ?? [];
-  const implicit = declared.length > 0 ? undefined : implicitRanking(document);
 
   if (rankingId !== undefined) {
+    const found = declared.find((candidate) => candidate.id === rankingId);
+    if (found !== undefined) return found;
+    // A document that declares rankings has no implicit one (§8.6.1), so an id
+    // matching none of them matches nothing.
+    if (declared.length > 0) return undefined;
     // The implicit ranking is addressable by id too: `listRankings` offers it,
     // so asking for it back must work. Without this, a caller that names the
     // ranking it was just handed gets nothing ranked.
-    const found = declared.find((candidate) => candidate.id === rankingId);
-    if (found !== undefined) return found;
+    const implicit = implicitRanking(document);
     return implicit?.id === rankingId ? implicit : undefined;
   }
 
-  return declared[0] ?? implicit;
+  return declared[0] ?? implicitRanking(document);
 }
 
 /** Step 1 — selection (spec §8.5.1). */
@@ -177,9 +180,11 @@ function sortable(document: ResultDocument, measureId: string): boolean {
  * an order across JSON types, the other calling every non-numeric pair equal.
  */
 function expectedType(kind: string | undefined): 'number' | 'string' | 'boolean' {
-  if (kind === undefined || !KNOWN_KINDS.has(kind)) return 'number';
   if (kind === 'text') return 'string';
   if (kind === 'boolean') return 'boolean';
+  // Every other kind is a number (§5.2.1), and so is one this version does not
+  // define: §8.5.2 admits a result under an unrecognised kind only where its
+  // value is a number, because §8.5.3 has no rule for ordering anything else.
   return 'number';
 }
 
@@ -210,25 +215,22 @@ function carriesUsableValue(document: ResultDocument, result: Result, measureId:
  * Compare two values of one measure. Returns a negative number when `a` ranks
  * ahead of `b`.
  *
- * Both are known to match the measure's kind by the time this runs, so the
- * remaining mismatch — a document declaring a kind this version does not know —
- * compares equal and leaves declaration order to the stable sort.
+ * Every comparison here is numeric, and spec §8.5.3 now says so: §8.2.2 keeps
+ * `text` and `boolean` measures out of `sortBy`, and §8.5.2 admits a result
+ * under a kind this version does not recognise only where its value is a
+ * number. Nothing else reaches this function.
+ *
+ * It used to carry a code-unit branch for strings and a numeric one for
+ * booleans. A mutation sweep found both unreachable — reversing the string
+ * comparison changed no case, in either direction — and they were unreachable
+ * for the reason that matters: ordering values whose order this version cannot
+ * know is exactly what two implementations guessed differently about, one
+ * inventing a total order across JSON types and the other calling every such
+ * pair equal. Dead code answering that question reads as an answer.
  */
 function compareValues(a: MeasureValue, b: MeasureValue, betterWhen: BetterWhen): number {
-  let ascending = 0;
-
-  if (typeof a === 'number' && typeof b === 'number') {
-    ascending = a - b;
-  } else if (typeof a === 'string' && typeof b === 'string') {
-    // Code-unit comparison, not locale-aware: the result must not depend on
-    // where the consumer runs.
-    ascending = a < b ? -1 : a > b ? 1 : 0;
-  } else if (typeof a === 'boolean' && typeof b === 'boolean') {
-    ascending = Number(a) - Number(b);
-  } else {
-    return 0;
-  }
-
+  if (typeof a !== 'number' || typeof b !== 'number') return 0;
+  const ascending = a - b;
   if (ascending === 0) return 0;
   return betterWhen === 'higher' ? -ascending : ascending;
 }
@@ -350,7 +352,6 @@ export function rank(document: ResultDocument, rankingId?: string): RankedEntry[
       settled.forEach((result, offset) => {
         entries.push(toEntry(result, groupStart + offset + 1, []));
       });
-      groupNumber += settled.length - 1;
       groupStart = groupEnd;
       continue;
     }

@@ -149,10 +149,28 @@ validator being wrong.
 
 What remains is **three languages by one author, which is not what this criterion asks for**. It
 tests whether the specification is precise enough to reimplement, not whether it is clear enough
-for a stranger. One outside implementer has now answered the second question — 87 of 87 on a first
-run, and a defect in §5.1.6 that broke forward compatibility — which is the evidence this criterion
-actually wants, and there is one of it. The reader tests answered the second question for documents; nothing has yet asked
-it for code.
+for a stranger.
+
+Three outside implementers have now answered the second question, in Ruby, Go and Rust, each given
+the specification and the conformance suite and nothing else. All three passed on a first run, and
+all three found defects the suite could not:
+
+- **Ruby** found the §5.1.6 defect that broke forward compatibility outright — an unknown `kind`
+  folded onto `text`, then failing the type test on every number.
+- **Go** found that the suite's stability cases tie the whole field, which an unstable sort can
+  survive: Go's `sort.Slice` passes every one of them. It also found that §3.1's twice-run
+  presentation check could not fail on this corpus, and that §8.4.1's no-folding rule had no case.
+- **Rust** found that the first erratum's fix opened a second hole — a result rankable under an
+  unrecognised kind whose value §8.5.3 has no rule for ordering — and that §14's generated index
+  printed false statements by splicing two sentences together.
+
+Between them they also found six readings the document left to be guessed at, each of which
+changes a standing, and that the reference implementation rejected six of the seven ways §11.2.2
+allows a MINOR to grow. Every one of those is closed, and every one is now a case.
+
+The lesson is not that the specification was bad. It is that **the suite tests what its author
+thought to test**, and only someone who has not read it finds the rest — including, three times
+over, a check that had quietly stopped being able to fail.
 
 **More views.** Charts, timeline and statistics. The v1 viewer ships the extension mechanism and
 four views that prove it works; the catalogue grows here.
