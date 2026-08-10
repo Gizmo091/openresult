@@ -48,9 +48,7 @@
     {
       "id": "general",
       "label": "General",
-      "sortBy": [
-        "grade"
-      ]
+      "sortBy": ["grade"]
     }
   ]
 }

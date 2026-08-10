@@ -1,8 +1,6 @@
 {
   "valid": true,
-  "warnings": [
-    "OR-914"
-  ],
+  "warnings": ["OR-914"],
   "rankings": {
     "general": [
       {

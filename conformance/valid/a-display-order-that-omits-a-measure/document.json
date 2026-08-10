@@ -58,14 +58,10 @@
     {
       "id": "general",
       "label": "General",
-      "sortBy": [
-        "time"
-      ]
+      "sortBy": ["time"]
     }
   ],
   "presentation": {
-    "measureOrder": [
-      "speed"
-    ]
+    "measureOrder": ["speed"]
   }
 }

@@ -25,6 +25,7 @@ import { schemaKeywordsTranslated } from './schema-keywords-translated.ts';
 import { schemaModule } from './schema-module.ts';
 import { specCoherence } from './spec-coherence.ts';
 import { suiteRunsElsewhere } from './suite-runs-elsewhere.ts';
+import { suiteVersionMoves } from './suite-version-moves.ts';
 import { specRequiredSync } from './spec-required-sync.ts';
 import { specSchemaSync } from './spec-schema-sync.ts';
 import { typesMatchSchema } from './types-match-schema.ts';
@@ -70,6 +71,7 @@ const CHECKS: Check[] = [
   presentationOptional,
   crossImplementation,
   suiteRunsElsewhere,
+  suiteVersionMoves,
 ];
 
 function report(results: CheckResult[]): boolean {

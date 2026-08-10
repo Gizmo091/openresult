@@ -128,7 +128,7 @@ of dependency-free Python.
 
 ## How the promises are kept
 
-Thirty repository checks run on every change. They exist because a principle nobody can
+Thirty-one repository checks run on every change. They exist because a principle nobody can
 violate by accident is a property, while a principle enforced by good will is a wish.
 
 ```

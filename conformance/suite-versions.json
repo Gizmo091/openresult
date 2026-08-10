@@ -1,0 +1,5 @@
+{
+  "note": "One fingerprint per published suiteVersion, over each case's id, kind and level. A case appearing, vanishing or changing what it judges makes the current version's fingerprint stop matching, which is what forces the version to move. Checked by `pnpm check suite-version-moves`. Published versions are never removed.",
+  "1.0": "0000000000000000",
+  "1.1": "9d981f641f8b30cb"
+}

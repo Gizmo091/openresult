@@ -23,7 +23,10 @@ const SITE = join(repoRoot, 'site/index.html');
  * figure to write rather than asking anyone to go and find it.
  */
 
-const WORDS = [
+/** Spelled-out figures the README uses. Beyond this, `word()` says so rather
+ *  than answering "?" — a check that has quietly stopped counting reads exactly
+ *  like one that counted and found nothing wrong. */
+const WORDS: string[] = [
   'Zero',
   'One',
   'Two',
@@ -55,7 +58,22 @@ const WORDS = [
   'Twenty-eight',
   'Twenty-nine',
   'Thirty',
+  'Thirty-one',
+  'Thirty-two',
+  'Thirty-three',
+  'Thirty-four',
+  'Thirty-five',
+  'Thirty-six',
+  'Thirty-seven',
+  'Thirty-eight',
+  'Thirty-nine',
+  'Forty',
 ];
+
+/** The word for a figure, or a sentence saying the list ran out. */
+function word(count: number): string {
+  return WORDS[count] ?? `(no word for ${count} — extend WORDS in this file)`;
+}
 
 export const readmeFigures: Check = {
   name: 'readme-figures',
@@ -112,11 +130,11 @@ export const readmeFigures: Check = {
     }
 
     expect(/conformance suite, ([\d]+) cases/, String(cases), 'conformance cases');
-    expect(/^([\w-]+) repository checks run on every change/m, WORDS[checks] ?? '?', 'checks');
+    expect(/^([\w-]+) repository checks run on every change/m, word(checks), 'checks');
     expect(/\| ([\d]+) realistic documents/, String(documents), 'example documents');
     expect(
       /realistic documents across ([\w-]+) unlike domains/,
-      (WORDS[domains.size] ?? '?').toLowerCase(),
+      word(domains.size).toLowerCase(),
       'domains',
     );
 

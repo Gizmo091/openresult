@@ -50,13 +50,8 @@
     {
       "id": "general",
       "label": "General",
-      "sortBy": [
-        "points"
-      ],
-      "excludeStatuses": [
-        "dnf",
-        "provisionallyExcluded"
-      ]
+      "sortBy": ["points"],
+      "excludeStatuses": ["dnf", "provisionallyExcluded"]
     }
   ]
 }

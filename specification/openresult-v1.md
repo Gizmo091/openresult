@@ -422,8 +422,9 @@ would hide the standings in order to report a typo.
 The bounds belong to the measure and therefore to **every** value of it in the document. A measure
 carried both by a single round and by an aggregate of rounds has two scales, not one — where the
 aggregate is a **sum**. An aggregate that averages is on the scale of what it averages: a vault
-final scoring the mean of two vaults out of the same ten is one measure and one scale. And
-**SHOULD** either omit the bounds or be declared as two measures.
+final scoring the mean of two vaults out of the same ten is one measure and one scale. A measure
+carried by both a round and a summing aggregate of rounds **SHOULD** therefore either omit the
+bounds or be declared as two measures.
 
 _Non-normative: a jury score means nothing without its scale. 27 is excellent out of 30 and poor
 out of 100, and a document declaring four criteria marked out of 10, 30, 40 and 20 cannot be
@@ -442,7 +443,17 @@ declares — except for measures of kind `text` (JSON string) and `boolean` (JSO
 representations such as `PT21M24.532S` or `21:24.532` **MUST NOT** be used.
 
 **§5.2.3** `unit` is never interpreted by a consumer, only displayed. This format performs no
-unit conversion.
+unit conversion: a distance declared in `km` is never rendered in `mi`, and two measures in
+different units are never brought onto one scale. Decomposing a single duration into hours,
+minutes and seconds ([§5.2.5](#52-values-and-units)) is not such a conversion — the figure and its
+unit are unchanged, and only the way the same magnitude is written differs.
+
+_Non-normative: the two read as a contradiction and an implementer stopped at `s` because of it._
+Rendering `90000` `ms` as `1:30` is arithmetic on the value, which is what this rule appeared to
+forbid — so that implementation left `ms`, `min` and `h` as bare numbers, and two consumers
+displayed the same document differently. The distinction is what the reader is being told: `km` to
+`mi` changes what the number means, and `1:30` says the same thing as `90000 ms` in the form
+everyone reads a time in.
 
 **§5.2.4** A unit **SHOULD** be drawn from the vocabulary its kind implies:
 
@@ -459,8 +470,10 @@ unit conversion.
 
 **§5.2.5** A consumer displaying a `duration` in a time unit — `s`, `ms`, `min`, `h` — **SHOULD**
 render it in hours, minutes and seconds, dropping leading zero components and keeping the declared
-`precision` on the seconds: `1:28:18.7`, `28:18.70`, `18.712`. Ordering is unaffected; comparison
-always uses the stored number ([§5.1.5](#51-measures)).
+`precision` on the seconds: `1:28:18.7`, `28:18.70`, `18.712`. The value is read as a count of the
+unit it declares — seconds for `s`, milliseconds for `ms`, minutes for `min`, hours for `h` — and
+that count is what is decomposed, so `90000` in `ms` and `90` in `s` both render `1:30`. Ordering
+is unaffected; comparison always uses the stored number ([§5.1.5](#51-measures)).
 
 _Non-normative: this is display, so it is a **SHOULD** — but it belongs here rather than in the
 presentation layer, which a consumer may discard entirely (§3.1.1). Everything needed is already
@@ -1521,7 +1534,17 @@ plain language, and at least one concrete correction.
 ### 12.3 Conformance suite
 
 **§12.3.1** The conformance suite is the operational definition of conformance. Every normative
-rule in this specification **MUST** be exercised by at least one case.
+rule in this specification **MUST** either be exercised by at least one case, or be listed in
+`conformance/rules-not-by-case.json` with the evidence that stands in for one. No rule may be
+neither.
+
+_Non-normative: the rule used to say "at least one case", full stop, and twenty-two rules were not._
+Some cannot be: [§4.4.3](#44-content-lifecycle-status-and-version) orders two documents and the suite runs one at a time;
+[§12.3.1](#123-conformance-suite) is about the suite itself. Claiming a coverage the suite did not
+have made the claim worthless — an implementer counted the shortfall and reported it. The list
+names each rule, what covers it instead, and `gap` where nothing does; `pnpm check rule-coverage`
+fails on a rule that is in neither place, and on one that leaves the list without a case taking
+over.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "suiteVersion": "1.0",
+  "suiteVersion": "1.1",
   "formatVersion": "1.0",
   "cases": [
     {
@@ -191,9 +191,7 @@
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §5.1.6",
-      "alsoExercises": [
-        "spec §11.2.1"
-      ],
+      "alsoExercises": ["spec §11.2.1"],
       "description": "An unknown kind folds for display and implies no value type, so the standing survives.",
       "path": "invalid/OR-103-an-unknown-kind-still-ranks"
     },
@@ -637,9 +635,7 @@
       "kind": "invalid",
       "level": "reading",
       "rule": "spec §4.2.2",
-      "alsoExercises": [
-        "spec §11.1.1"
-      ],
+      "alsoExercises": ["spec §11.1.1"],
       "description": "The version is MAJOR.MINOR; a patch level is not part of it.",
       "path": "invalid/OR-401-version-carries-a-patch-level"
     },
@@ -661,11 +657,11 @@
     },
     {
       "id": "OR-902-rank-disagrees-with-derivation",
-      "kind": "invalid",
+      "kind": "valid",
       "level": "ranking",
       "rule": "spec §3.3.2",
-      "description": "A published position contradicting the measures is a warning, never an error.",
-      "path": "invalid/OR-902-rank-disagrees-with-derivation"
+      "description": "A published position contradicting the measures is a warning, never an error — so the document is valid, and this case belongs with the valid ones. It sat under invalid/ as the only file there whose own expected output says the document validates.",
+      "path": "valid/OR-902-rank-disagrees-with-derivation"
     },
     {
       "id": "OR-904-result-outside-the-announced-field",
@@ -800,9 +796,7 @@
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §5.3.4",
-      "alsoExercises": [
-        "spec §5.3.1"
-      ],
+      "alsoExercises": ["spec §5.3.1"],
       "description": "The same erratum on the attribute side: an unrecognised type implies no value type, so a number under a type 1.0 reads as text is not OR-102.",
       "path": "valid/a-later-minor-attribute-type-carries-any-value"
     },
@@ -811,10 +805,7 @@
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §8.5.2",
-      "alsoExercises": [
-        "spec §8.5.3",
-        "spec §8.5.6"
-      ],
+      "alsoExercises": ["spec §8.5.3", "spec §8.5.6"],
       "description": "A kind 1.0 does not define, carrying strings. A 1.0 consumer cannot know that 8b beats 7a, so the results are unranked rather than ordered on a guess. This is the case two implementations disagreed on — one invented an order across JSON types, the other called every non-numeric pair equal.",
       "path": "valid/a-later-minor-kind-carrying-strings-does-not-rank"
     },
@@ -823,10 +814,7 @@
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §11.2.1",
-      "alsoExercises": [
-        "spec §5.1.6",
-        "spec §8.5.2"
-      ],
+      "alsoExercises": ["spec §5.1.6", "spec §8.5.2"],
       "description": "The erratum's case, one minor version on: an unrecognised kind implies no value type, so the numbers rank. Folding it onto text and then type-checking would empty the standing.",
       "path": "valid/a-later-minor-kind-still-ranks"
     },
@@ -835,9 +823,7 @@
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §11.4.2",
-      "alsoExercises": [
-        "spec §11.3.1"
-      ],
+      "alsoExercises": ["spec §11.3.1"],
       "description": "§11.3.1 folds an unknown status onto finished, so the result stays in the standing. A validator that judged the value against 1.0's domain would reject the document outright, which §11.4.2 forbids.",
       "path": "valid/a-later-minor-status-folds-onto-finished"
     },
@@ -846,9 +832,7 @@
       "kind": "valid",
       "level": "ranking",
       "rule": "spec §11.3.1",
-      "alsoExercises": [
-        "spec §8.3.1"
-      ],
+      "alsoExercises": ["spec §8.3.1"],
       "description": "An unknown ties policy folds onto standard, so two equal results share rank 1.",
       "path": "valid/a-later-minor-ties-policy-folds-onto-standard"
     },
@@ -857,10 +841,7 @@
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §7.3.2",
-      "alsoExercises": [
-        "spec §8.5.2",
-        "spec §11.3.1"
-      ],
+      "alsoExercises": ["spec §8.5.2", "spec §11.3.1"],
       "description": "§7.3.2 forbids null and §11.3.1 obliges reading the document anyway. It is read as the absence the rule tells producers to write instead, so the result is unranked rather than ranked on a value of some type.",
       "path": "invalid/a-null-value-reads-as-absent"
     },
@@ -893,10 +874,7 @@
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §11.3.1",
-      "alsoExercises": [
-        "spec §5.1.4",
-        "spec §8.2.2"
-      ],
+      "alsoExercises": ["spec §5.1.4", "spec §8.2.2"],
       "description": "betterWhen is REQUIRED and §11.3.1 said only what an unknown value does. An absent one leaves a consumer in the same position — no declared direction — so it reads as none, the measure is dropped from sortBy, and every selected result compares equal.",
       "path": "invalid/an-absent-better-when-reads-as-none"
     },
@@ -995,10 +973,7 @@
       "rule": "spec §8.4.1",
       "description": "A status value 1.0 does not define, sitting in a 1.1 document's excludeStatuses. §11.4.2 has the 1.0 consumer process the document normally, and §8.4.1 has it read the list as written: a reader that folded the entry onto finished would exclude every finisher and return an empty standing.",
       "path": "valid/exclude-statuses-is-not-folded",
-      "alsoExercises": [
-        "spec §11.4.2",
-        "spec §11.3.1"
-      ]
+      "alsoExercises": ["spec §11.4.2", "spec §11.3.1"]
     },
     {
       "id": "exclude-statuses-replaces-default",
@@ -1047,9 +1022,7 @@
       "rule": "spec §5.4.3",
       "description": "Identifiers that read like positions do not decide the order; the values do.",
       "path": "valid/identifiers-carry-no-meaning",
-      "alsoExercises": [
-        "spec §11.3.2"
-      ]
+      "alsoExercises": ["spec §11.3.2"]
     },
     {
       "id": "implicit-ranking-skips-what-sortby-forbids",
@@ -1130,11 +1103,7 @@
       "rule": "spec §10.1.1",
       "description": "Every member of presentation is optional and changes no derived ranking.",
       "path": "valid/presentation-carries-every-hint-and-decides-nothing",
-      "alsoExercises": [
-        "spec §3.1.2",
-        "spec §10.1.2",
-        "spec §11.3.3"
-      ]
+      "alsoExercises": ["spec §3.1.2", "spec §10.1.2", "spec §11.3.3"]
     },
     {
       "id": "presentation-ignored",
@@ -1319,9 +1288,7 @@
       "kind": "invalid",
       "level": "ranking",
       "rule": "spec §7.5.1",
-      "alsoExercises": [
-        "spec §8.3.4"
-      ],
+      "alsoExercises": ["spec §8.3.4"],
       "description": "Under resolved, a published position that is not a positive integer is no position at all, so the group stays tied rather than being ordered on a number that means nothing.",
       "path": "invalid/resolved-with-a-position-that-is-not-a-positive-integer"
     },

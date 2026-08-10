@@ -159,9 +159,7 @@
     {
       "id": "general",
       "label": "General",
-      "sortBy": [
-        "time"
-      ]
+      "sortBy": ["time"]
     }
   ]
 }

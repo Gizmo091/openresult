@@ -6,9 +6,7 @@
       "path": "/results/0/ranks/general"
     }
   ],
-  "warnings": [
-    "OR-902"
-  ],
+  "warnings": ["OR-902"],
   "rankings": {
     "general": [
       {

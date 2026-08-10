@@ -38,9 +38,7 @@
     {
       "id": "general",
       "label": "General",
-      "sortBy": [
-        "points"
-      ]
+      "sortBy": ["points"]
     }
   ]
 }
