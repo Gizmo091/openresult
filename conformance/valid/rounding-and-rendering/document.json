@@ -1,0 +1,75 @@
+{
+  "openresult": "1.0",
+  "title": "Rounding, at the three places it decides an answer",
+  "lang": "en",
+  "measures": [
+    {
+      "id": "time",
+      "label": "Time",
+      "kind": "duration",
+      "unit": "s",
+      "precision": 0,
+      "betterWhen": "lower"
+    },
+    {
+      "id": "score",
+      "label": "Score",
+      "kind": "score",
+      "unit": "pt",
+      "precision": 2,
+      "betterWhen": "higher"
+    },
+    {
+      "id": "margin",
+      "label": "Margin",
+      "kind": "points",
+      "unit": "pt",
+      "betterWhen": "higher"
+    },
+    {
+      "id": "elapsed",
+      "label": "Elapsed",
+      "kind": "duration",
+      "unit": "ms",
+      "precision": 1,
+      "betterWhen": "lower"
+    }
+  ],
+  "participants": [
+    {
+      "id": "ana",
+      "name": "Ana Rivas"
+    },
+    {
+      "id": "bo",
+      "name": "Bo Lindqvist"
+    }
+  ],
+  "results": [
+    {
+      "participant": "ana",
+      "values": {
+        "time": 8.5,
+        "score": 2.675,
+        "margin": 12,
+        "elapsed": 5308700
+      }
+    },
+    {
+      "participant": "bo",
+      "values": {
+        "time": -8.5,
+        "score": 1.005,
+        "margin": 14.8,
+        "elapsed": 90000
+      }
+    }
+  ],
+  "rankings": [
+    {
+      "id": "general",
+      "label": "General",
+      "sortBy": ["score"]
+    }
+  ]
+}

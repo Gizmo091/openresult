@@ -252,6 +252,49 @@ function rank(array $document, ?string $rankingId = null): array {
 }
 
 // ---------------------------------------------------------------------------
+// Display — spec §5.1.5 and §5.2.5. The figure a consumer prints, and only the
+// figure: no unit, no scale, a `.` for the decimal separator wherever it runs.
+//
+// PHP is the one of the three languages here where the obvious call is already
+// right. `number_format` rounds half away from zero, and PHP's pre-rounding
+// gives 2.675 → 2.68 rather than the 2.67 the stored double would justify —
+// which is §5.1.5's hardest sentence, and the one JavaScript's `toFixed` and
+// Rust's `{:.2}` both get wrong by default.
+// ---------------------------------------------------------------------------
+
+const TIME_UNITS = ['s' => 1, 'ms' => 0.001, 'min' => 60, 'h' => 3600];
+
+function formatDuration(float $seconds, int $precision): string {
+    $negative = $seconds < 0;
+    $seconds = abs($seconds);
+    $hours = (int) floor($seconds / 3600);
+    $minutes = (int) floor(fmod($seconds, 3600) / 60);
+    $body = number_format(fmod($seconds, 60), $precision, '.', '');
+
+    $width = $precision > 0 ? $precision + 3 : 2;
+    if ($hours >= 1) {
+        $text = sprintf('%d:%02d:%s', $hours, $minutes, str_pad($body, $width, '0', STR_PAD_LEFT));
+    } elseif ($minutes >= 1) {
+        $text = sprintf('%d:%s', $minutes, str_pad($body, $width, '0', STR_PAD_LEFT));
+    } else {
+        $text = $body;
+    }
+    return $negative ? "-$text" : $text;
+}
+
+function formatNumber(int|float $value, array $measure): string {
+    $unit = $measure['unit'] ?? null;
+    $precision = $measure['precision'] ?? null;
+    if (($measure['kind'] ?? null) === 'duration' && isset(TIME_UNITS[$unit])) {
+        return formatDuration($value * TIME_UNITS[$unit], $precision ?? 0);
+    }
+    // No declared precision says nothing about decimals, so the number is shown
+    // as written — and PHP prints a whole float as "12", which is what a JSON
+    // consumer with one number type shows.
+    return $precision === null ? (string) $value : number_format($value, $precision, '.', '');
+}
+
+// ---------------------------------------------------------------------------
 // The runner.
 // ---------------------------------------------------------------------------
 
@@ -280,6 +323,22 @@ foreach ($manifest['cases'] as $case) {
 
     $document = json_decode(file_get_contents("$directory/document.json"), true, 512, JSON_THROW_ON_ERROR);
     $failures = [];
+
+    foreach ($expected['display'] ?? [] as $wanted) {
+        $measure = measureById($document, $wanted['measure']);
+        $value = $document['results'][$wanted['result']]['values'][$wanted['measure']] ?? null;
+        $comparisons++;
+        if ($measure === null || !is_int($value) && !is_float($value)) {
+            $failures[] = "display: /results/{$wanted['result']} carries no number for "
+                        . "\"{$wanted['measure']}\"";
+            continue;
+        }
+        $got = formatNumber($value, $measure);
+        if ($got !== $wanted['rendered']) {
+            $failures[] = sprintf('display: %s as "%s" renders "%s", expected "%s"',
+                                  $value, $wanted['measure'], $got, $wanted['rendered']);
+        }
+    }
     foreach ($expected['rankings'] as $rankingId => $wanted) {
         $derived = array_map(
             fn($entry) => ['participant' => $entry[0]['participant'], 'rank' => $entry[1]],

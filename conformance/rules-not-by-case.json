@@ -13,10 +13,6 @@
       "evidence": "check:unit-vocabulary",
       "why": "A SHOULD about the unit vocabulary. No diagnostic reports it, so it is enforced over this repository's own documents, where a unit outside the vocabulary for its kind fails the build."
     },
-    "5.2.5": {
-      "evidence": "test:sdk/js/packages/core/test/format.test.ts",
-      "why": "A rendering rule. The conformance runner compares validity, diagnostics and derived rankings — never display — so the reference formatter's tests are what hold it."
-    },
     "5.2.7": {
       "evidence": "test:sdk/js/packages/core/test/format.test.ts",
       "why": "A rendering rule, on the same terms as §5.2.5."

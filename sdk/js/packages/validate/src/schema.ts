@@ -43,9 +43,7 @@ function declaresLaterMinor(document: unknown): boolean {
   const declared = (document as Record<string, unknown>)['openresult'];
   if (typeof declared !== 'string') return false;
   const [major, minor] = declared.split('.');
-  return (
-    Number(major) === SUPPORTED_VERSION.major && Number(minor) > SUPPORTED_VERSION.minor
-  );
+  return Number(major) === SUPPORTED_VERSION.major && Number(minor) > SUPPORTED_VERSION.minor;
 }
 
 /**

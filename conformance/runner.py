@@ -25,7 +25,7 @@ from pathlib import Path
 SUITE = Path(__file__).resolve().parent
 sys.path.insert(0, str(SUITE.parent / "docs" / "examples"))
 
-from minimal_reader import rank, read  # noqa: E402
+from minimal_reader import format_duration, fixed, rank, read  # noqa: E402
 from validator import validate  # noqa: E402
 
 
@@ -79,6 +79,31 @@ def run_case(case):
             failures.append(
                 f"expected warning {code}; got " + (", ".join(sorted(warned)) or "none")
             )
+
+    # §5.1.5 and §5.2.5 — the figure a consumer prints, and only the figure: no
+    # unit, no scale, a `.` for the decimal separator wherever it runs.
+    TIME_UNITS = {"s": 1, "ms": 0.001, "min": 60, "h": 3600}
+    for wanted in expected.get("display") or []:
+        checked += 1
+        measure = next((m for m in raw.get("measures") or []
+                        if m["id"] == wanted["measure"]), None)
+        value = ((raw["results"][wanted["result"]].get("values") or {})
+                 .get(wanted["measure"]))
+        if measure is None or not isinstance(value, (int, float)) or isinstance(value, bool):
+            failures.append(f"display: /results/{wanted['result']} carries no number "
+                            f"for \"{wanted['measure']}\"")
+            continue
+        unit = measure.get("unit")
+        precision = measure.get("precision")
+        if measure.get("kind") == "duration" and unit in TIME_UNITS:
+            got = format_duration(value * TIME_UNITS[unit], precision or 0)
+        elif precision is None:
+            got = f"{value:g}"
+        else:
+            got = fixed(value, precision)
+        if got != wanted["rendered"]:
+            failures.append(f"display: {value} as \"{wanted['measure']}\" renders "
+                            f"\"{got}\", expected \"{wanted['rendered']}\"")
 
     if expected.get("rankings"):
         try:

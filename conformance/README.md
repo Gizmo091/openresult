@@ -61,6 +61,25 @@ ordering is the whole point.
 The array order is significant: it is what verifies the stability of the sort, the last remaining
 source of disagreement between two implementations.
 
+A case may also state what a consumer **prints**:
+
+```json
+{
+  "display": [
+    { "result": 0, "measure": "score", "rendered": "2.68" },
+    { "result": 0, "measure": "elapsed", "rendered": "1:28:28.7" }
+  ]
+}
+```
+
+`rendered` is the number alone — no unit, no scale, and a `.` for the decimal separator wherever
+the consumer runs. What a consumer wraps around it is its own business and the reader's locale's.
+This exists because §5.1.5 and §5.2.5 are MUSTs at the reading level (§11.5.2) and each one decides
+a published time or score, and the suite could state none of them: §5.1.5 counted as covered by a
+case checking that `precision` is not negative. The hard sentence is that rounding applies to the
+decimal the document writes rather than to the double it decodes to — `2.675` to two places is
+`2.68`, and JavaScript's `toFixed` and Rust's `{:.2}` both answer `2.67`.
+
 **Invalid** cases state the diagnostics expected, by code and path:
 
 ```json

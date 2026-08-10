@@ -1,0 +1,57 @@
+{
+  "valid": true,
+  "rankings": {
+    "general": [
+      {
+        "participant": "ana",
+        "rank": 1
+      },
+      {
+        "participant": "bo",
+        "rank": 2
+      }
+    ]
+  },
+  "display": [
+    {
+      "result": 0,
+      "measure": "time",
+      "rendered": "9"
+    },
+    {
+      "result": 1,
+      "measure": "time",
+      "rendered": "-9"
+    },
+    {
+      "result": 0,
+      "measure": "score",
+      "rendered": "2.68"
+    },
+    {
+      "result": 1,
+      "measure": "score",
+      "rendered": "1.01"
+    },
+    {
+      "result": 0,
+      "measure": "margin",
+      "rendered": "12"
+    },
+    {
+      "result": 1,
+      "measure": "margin",
+      "rendered": "14.8"
+    },
+    {
+      "result": 0,
+      "measure": "elapsed",
+      "rendered": "1:28:28.7"
+    },
+    {
+      "result": 1,
+      "measure": "elapsed",
+      "rendered": "1:30.0"
+    }
+  ]
+}

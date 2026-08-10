@@ -29,7 +29,7 @@ export {
   DEFAULT_EXCLUDED_STATUSES,
 } from './semantics.js';
 
-export { formatValue, formatAttribute } from './format.js';
+export { formatValue, formatAttribute, formatNumber } from './format.js';
 export type { FormatOptions } from './format.js';
 
 export { serialize } from './serialize.js';

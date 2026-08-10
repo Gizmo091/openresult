@@ -54,7 +54,11 @@ export const suiteVersionMoves: Check = {
       .digest('hex')
       .slice(0, 16);
 
-    const published = JSON.parse(await readFile(FINGERPRINTS, 'utf8')) as Record<string, string>;
+    const file = JSON.parse(await readFile(FINGERPRINTS, 'utf8')) as Record<string, string>;
+    // `note` documents the file for whoever opens it; it is not a version.
+    const published = Object.fromEntries(
+      Object.entries(file).filter(([key]) => /^\d+\.\d+$/.test(key)),
+    );
     const recorded = published[version];
 
     if (recorded === undefined) {

@@ -51,11 +51,35 @@ export interface ExpectedValid {
    * verifies the stability of the sort.
    */
   rankings?: Record<string, ExpectedPlacement[]>;
+  /**
+   * Renderings a reading-level consumer must produce (spec §11.5.2).
+   *
+   * §5.1.5 and §5.2.5 are MUSTs about a printed figure — halfway rounds away
+   * from zero, rounding applies to the literal the document writes rather than
+   * the double it decodes to, an absent `precision` adds and removes no digit,
+   * a duration decomposes into hours, minutes and seconds. Every one of them
+   * decides a published time or score, and the suite could state none of them:
+   * §5.1.5 was counted as covered by a case checking that `precision` is not
+   * negative.
+   *
+   * `rendered` is the number alone — no unit, no scale, and a `.` for the
+   * decimal separator wherever the consumer runs. What a consumer wraps around
+   * it is its own business and the reader's locale's.
+   */
+  display?: ExpectedRendering[];
 }
 
 export interface ExpectedPlacement {
   participant: string;
   rank: number | null;
+}
+
+export interface ExpectedRendering {
+  /** Index into `results`. */
+  result: number;
+  /** Measure id, whose value in that result is the one rendered. */
+  measure: string;
+  rendered: string;
 }
 
 /**

@@ -1,5 +1,5 @@
 {
-  "suiteVersion": "1.1",
+  "suiteVersion": "1.2",
   "formatVersion": "1.0",
   "cases": [
     {
@@ -1299,6 +1299,15 @@
       "rule": "spec §8.3.4",
       "description": "Two equal published positions cannot settle a group, so it stays tied.",
       "path": "valid/resolved-with-two-equal-positions-stays-tied"
+    },
+    {
+      "id": "rounding-and-rendering",
+      "kind": "valid",
+      "level": "reading",
+      "rule": "spec §5.1.5",
+      "alsoExercises": ["spec §5.2.5"],
+      "description": "The three sentences of §5.1.5 that decide a printed figure — halfway rounds away from zero, rounding applies to the literal rather than to the binary double, an absent precision adds and removes no digit — and §5.2.5's decomposition of a duration declared in a unit other than seconds. §5.1.5 was counted as covered by a case testing only that precision is not negative.",
+      "path": "valid/rounding-and-rendering"
     },
     {
       "id": "scale-bounds-and-attribute-units",

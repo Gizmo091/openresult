@@ -13,6 +13,29 @@ export interface FormatOptions {
 }
 
 /**
+ * The number a value shows as, and nothing else — no unit, no scale, and a `.`
+ * for the decimal separator wherever the consumer runs.
+ *
+ * This is what §5.1.5 and §5.2.5 fix, and only that: rounding half away from
+ * zero, rounding the literal the document writes rather than the binary double
+ * it decodes to, showing exactly the digits written where no `precision` is
+ * declared, and decomposing a duration into hours, minutes and seconds. Two
+ * conforming consumers must agree here; what they wrap it in — the unit, the
+ * maximum, the reader's locale — is `formatValue`'s business and theirs.
+ *
+ * Exported because the conformance suite states expected renderings and cannot
+ * state them against a string that changes with the machine's locale.
+ */
+export function formatNumber(value: number, measure: Measure): string {
+  if (measure.kind === 'duration' && isTimeUnit(measure.unit)) {
+    return formatDuration(toSeconds(value, measure.unit), measure.precision ?? 0);
+  }
+  return measure.precision === undefined
+    ? String(value)
+    : toDecimalPlaces(value, measure.precision);
+}
+
+/**
  * Render a value for display.
  *
  * This is the only locale-sensitive function in the package, and it never takes

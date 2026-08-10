@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { rank, type ResultDocument } from '@openresult/core';
+import { formatNumber, rank, type ResultDocument } from '@openresult/core';
 import { validate } from '@openresult/validate';
 import type {
   ConformanceCase,
@@ -125,6 +125,29 @@ function checkInvalid(source: string, expected: ExpectedInvalid): string[] {
   return failures;
 }
 
+/** §5.1.5 and §5.2.5: the figure a consumer prints, and only the figure. */
+function compareRenderings(document: ResultDocument, wanted: ExpectedValid['display']): string[] {
+  const failures: string[] = [];
+  for (const expectation of wanted ?? []) {
+    const measure = document.measures?.find((entry) => entry.id === expectation.measure);
+    const value = document.results[expectation.result]?.values?.[expectation.measure];
+    if (measure === undefined || typeof value !== 'number') {
+      failures.push(
+        `display: /results/${expectation.result} carries no number for "${expectation.measure}"`,
+      );
+      continue;
+    }
+    const got = formatNumber(value, measure);
+    if (got !== expectation.rendered) {
+      failures.push(
+        `display: ${value} as "${expectation.measure}" renders "${got}", expected ` +
+          `"${expectation.rendered}"`,
+      );
+    }
+  }
+  return failures;
+}
+
 function checkValid(source: string, expected: ExpectedValid): string[] {
   const failures: string[] = [];
   const report = validate(source);
@@ -145,9 +168,10 @@ function checkValid(source: string, expected: ExpectedValid): string[] {
     }
   }
 
-  if (expected.rankings === undefined) return failures;
-
   const document = JSON.parse(source) as ResultDocument;
+  failures.push(...compareRenderings(document, expected.display));
+
+  if (expected.rankings === undefined) return failures;
 
   // Every case runs twice, with and without the presentation layer. Identical
   // rankings are the operational proof that the layer is ignorable — the
