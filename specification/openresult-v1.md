@@ -124,7 +124,13 @@ results into an ordered list with ranks.
 ### 2.3 Notation
 
 JSON examples use JSONC comments for annotation only; a conforming document is plain JSON and
-**MUST NOT** contain comments.
+**MUST NOT** contain comments. Nothing normative is stated in one: where a comment gives a default,
+a numbered rule gives it too, and the rule is what governs.
+
+_Non-normative: it did not, for a while._ The default of `status`, of a participant's `type` and of
+an event's `type` were each written in a comment and nowhere else, so the only statement of them
+sat in the one place this section says carries no weight. Found by the first person to implement
+from this document, who assumed `finished` from the comment and went looking for the rule to cite.
 
 Paths to document locations use [RFC 6901](https://www.rfc-editor.org/rfc/rfc6901) JSON Pointer
 syntax, e.g. `/results/3/values/time`.
@@ -581,7 +587,8 @@ shape or content.
 ```
 
 **§6.1.1** `type` **MUST** be one of `person`, `team`, `machine`, `product`, `model`,
-`organization`, `other`. An unknown value **MUST** be treated as `other`.
+`organization`, `other`. An absent value means `person`; an unknown one **MUST** be treated as
+`other`.
 
 **§6.1.2** `members`, when present, **MUST** reference declared participant identifiers in the
 same document. A team is a participant composed of participants.
@@ -630,7 +637,7 @@ something it never shows._
 ```
 
 **§6.2.1** `type` **MUST** be one of `heat`, `match`, `round`, `stage`, `session`, `final`,
-`overall`, `other`. An unknown value **MUST** be treated as `other`.
+`overall`, `other`. An absent value means `other`, as does an unknown one.
 
 **§6.2.2** `parent`, when present, **MUST** reference another declared event. The parent graph
 **MUST** be acyclic.
@@ -749,7 +756,8 @@ every competitor whatever their status ([§8.4.3](#84-excludestatuses))._
 | `outOfTime`     | Outside the time limit    | Yes                 |
 | `withdrawn`     | Withdrew or forfeited     | Yes                 |
 
-**§7.2.2** An unknown `status` **MUST** be treated as `finished` when _reading_. Whether it is
+**§7.2.2** An absent `status` means `finished`, and an unknown one **MUST** be treated as
+`finished` when _reading_. Whether it is
 also a validation error depends on the version the document declares, on the same terms as an
 unknown member ([§10.2.4](#102-extensions)): a validator checks against the declared version, a
 consumer reading a higher MINOR version folds what it does not recognise onto the documented
@@ -1504,20 +1512,156 @@ Every rule carries a section identifier of the form §N.M.K, stable across edito
 this document. Diagnostics reference these identifiers, and the conformance suite records, for
 each case, the rule it exercises.
 
-| Area                          | Sections          |
-| ----------------------------- | ----------------- |
-| Layers and derivability       | §3.1.1 – §3.3.2   |
-| Document structure            | §4.1.1 – §4.7.1   |
-| Measures and attributes       | §5.1.1 – §5.4.3   |
-| Participants and events       | §6.1.1 – §6.2.4   |
-| Results                       | §7.1.1 – §7.5.4   |
-| Rankings and derivation       | §8.1.1 – §8.6.2   |
-| Categories, source, resources | §9.1.1 – §9.3.5   |
-| Presentation and extensions   | §10.1.1 – §10.2.4 |
-| Versioning and compatibility  | §11.1.1 – §11.6.3 |
-| Validation                    | §12.1.1 – §12.3.1 |
+This table is generated from the rules themselves by `pnpm generate:rule-index`, and
+`pnpm check spec-coherence` fails when it is stale.
 
----
+<!-- rule-index:start -->
+
+| Rule                                               | What it says                                                                                                           |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [§3.1.1](#31-three-layers)                         | A consumer that discards the presentation layer MUST still produce a correct interpretation and a correct ranking      |
+| [§3.1.2](#31-three-layers)                         | This specification MUST NOT require a conforming consumer to honour any presentation hint                              |
+| [§3.3.1](#33-ranks-are-derived)                    | A document MAY omit ranks entirely                                                                                     |
+| [§3.3.2](#33-ranks-are-derived)                    | When a producer supplies a rank, it is informative and MUST name the ranking it belongs to (§7.5)                      |
+| [§4.1.1](#41-root-object)                          | A document MUST contain openresult, title, participants and results                                                    |
+| [§4.1.2](#41-root-object)                          | All other members are OPTIONAL                                                                                         |
+| [§4.1.3](#41-root-object)                          | results MAY be an empty array                                                                                          |
+| [§4.1.4](#41-root-object)                          | A document MUST be encoded in UTF-8                                                                                    |
+| [§4.2.1](#42-openresult)                           | openresult MUST be a string matching ^\d+\.\d+$, declaring the format version the document conforms to                 |
+| [§4.2.2](#42-openresult)                           | The patch level is not expressed                                                                                       |
+| [§4.3.1](#43-id)                                   | id, when present, MUST be an identifier as defined in §5.4.1, naming the subject of the document across publications   |
+| [§4.4.1](#44-content-lifecycle-status-and-version) | status, when present, MUST be one of                                                                                   |
+| [§4.4.2](#44-content-lifecycle-status-and-version) | version, when present, MUST be a non-negative integer that strictly increases with each republication of the same id   |
+| [§4.4.3](#44-content-lifecycle-status-and-version) | Among documents sharing an id, the one with the highest version supersedes the others                                  |
+| [§4.4.4](#44-content-lifecycle-status-and-version) | A consumer that encounters an unknown status value MUST treat it as provisional                                        |
+| [§4.5.1](#45-lang)                                 | lang, when present, MUST be a BCP 47 language tag describing the language of the human-readable text in the document   |
+| [§4.5.2](#45-lang)                                 | A document carries text in a single language                                                                           |
+| [§4.6.1](#46-dates-and-times)                      | Every timestamp MUST be an RFC 3339 date-time including a UTC offset                                                   |
+| [§4.6.2](#46-dates-and-times)                      | A full-date (2026-05-17) MAY be used in occurredAt.start, occurredAt.end and in attribute values of type date          |
+| [§4.6.3](#46-dates-and-times)                      | generatedAt records when the document was produced                                                                     |
+| [§4.7.1](#47-attributes)                           | The document MAY carry attributes, on the same terms as any other entity (§5.3)                                        |
+| [§5.1.1](#51-measures)                             | id MUST be unique among measures (§5.4)                                                                                |
+| [§5.1.2](#51-measures)                             | kind MUST be one of duration, distance, mass, points, score, percentage, count, money, rate, text, boolean             |
+| [§5.1.3](#51-measures)                             | unit MUST be present when kind is anything other than text or boolean                                                  |
+| [§5.1.4](#51-measures)                             | betterWhen MUST be one of lower, higher, none                                                                          |
+| [§5.1.5](#51-measures)                             | precision, when present, MUST be a non-negative integer giving the number of digits to show after the decimal point —… |
+| [§5.1.6](#51-measures)                             | A consumer encountering an unknown kind MUST treat it as text for display, and MUST NOT infer a value type from it wh… |
+| [§5.1.7](#51-measures)                             | A declared measure that no result carries a value for is reported as OR-901, a warning                                 |
+| [§5.1.8](#51-measures)                             | min and max MAY declare the bounds of the scale the measure is expressed on                                            |
+| [§5.2.1](#52-values-and-units)                     | Every measured quantity MUST be a JSON number, expressed in the unit its measure declares — except for measures of ki… |
+| [§5.2.2](#52-values-and-units)                     | Durations MUST be expressed in the declared unit as a plain number                                                     |
+| [§5.2.3](#52-values-and-units)                     | unit is never interpreted by a consumer, only displayed                                                                |
+| [§5.2.4](#52-values-and-units)                     | A unit SHOULD be drawn from the vocabulary its kind implies                                                            |
+| [§5.2.5](#52-values-and-units)                     | A consumer displaying a duration in a time unit — s, ms, min, h — SHOULD render it in hours, minutes and seconds, dro… |
+| [§5.2.6](#52-values-and-units)                     | A count unit MUST name what is counted                                                                                 |
+| [§5.2.7](#52-values-and-units)                     | A consumer displaying a score or points measure that declares a max (§5.1.8) and declares betterWhen                   |
+| [§5.3.1](#53-attributes)                           | type MUST be one of text, number, date, url, country, boolean                                                          |
+| [§5.3.2](#53-attributes)                           | Every key used in any attributes object on an entity MUST reference a declared attribute id                            |
+| [§5.3.3](#53-attributes)                           | An attribute value MUST match its declared type, on the same terms as a measured value matches its kind (§5.2.1)       |
+| [§5.3.4](#53-attributes)                           | A value contradicting its declared type is reported as OR-102                                                          |
+| [§5.3.5](#53-attributes)                           | An identifier the organisation allocates — a bib, a start number, a car number, a lane — MUST be declared as an attri… |
+| [§5.3.6](#53-attributes)                           | A declared attribute that no entity carries a value for is reported as OR-905, on the same terms and for the same rea… |
+| [§5.3.7](#53-attributes)                           | An attribute of type number MAY declare a unit, naming what the number counts or measures, and displayed the same way… |
+| [§5.3.8](#53-attributes)                           | An attribute absent from an attributes object means not recorded, on the same terms as an absent measure (§7.3.2)      |
+| [§5.4.1](#54-identifiers)                          | Every producer-assigned identifier — the document id, and those of measures, attributes, participants, events, catego… |
+| [§5.4.2](#54-identifiers)                          | Identifiers MUST be unique within their own collection                                                                 |
+| [§5.4.3](#54-identifiers)                          | Identifiers are opaque                                                                                                 |
+| [§6.1.1](#61-participants)                         | type MUST be one of person, team, machine, product, model, organization, other                                         |
+| [§6.1.2](#61-participants)                         | members, when present, MUST reference declared participant identifiers in the same document                            |
+| [§6.1.3](#61-participants)                         | Participant identity is scoped to the document                                                                         |
+| [§6.1.4](#61-participants)                         | name is the participant's full display name and is REQUIRED                                                            |
+| [§6.1.5](#61-participants)                         | label names an entity for display, and is REQUIRED on measures, attributes, rankings and categories — the four that a… |
+| [§6.1.6](#61-participants)                         | description MAY expand on a name or a label in prose, and is OPTIONAL on every entity that carries one                 |
+| [§6.1.7](#61-participants)                         | A declared participant that holds no result and belongs to no team is reported as OR-910, a warning — unless the docu… |
+| [§6.2.1](#62-events)                               | type MUST be one of heat, match, round, stage, session, final, overall, other                                          |
+| [§6.2.2](#62-events)                               | parent, when present, MUST reference another declared event                                                            |
+| [§6.2.3](#62-events)                               | events MAY be absent                                                                                                   |
+| [§6.2.4](#62-events)                               | participants, when present, restricts the field for that event                                                         |
+| [§7.1.1](#71-participant-and-event)                | participant MUST reference a declared participant                                                                      |
+| [§7.1.2](#71-participant-and-event)                | event, when present, MUST reference a declared event                                                                   |
+| [§7.1.3](#71-participant-and-event)                | The pair (participant, event) MUST be unique across results                                                            |
+| [§7.2.1](#72-status)                               | status MUST be one of                                                                                                  |
+| [§7.2.2](#72-status)                               | An absent status means finished, and an unknown one MUST be treated as finished when reading                           |
+| [§7.2.3](#72-status)                               | Exclusion is a property of a ranking, not of a status                                                                  |
+| [§7.2.4](#72-status)                               | A result excluded from a ranking MUST remain available for display                                                     |
+| [§7.2.5](#72-status)                               | bye marks a competitor who scored without a contest — an odd field in a Swiss pairing, a knockout draw with no oppone… |
+| [§7.2.6](#72-status)                               | notClassified marks a competitor who took part, whose performance is recorded, and who does not appear in the classif… |
+| [§7.2.7](#72-status)                               | A status describes the result it sits on, never a later round                                                          |
+| [§7.2.8](#72-status)                               | On an event that aggregates others, the status MUST be the most specific one that is true of the aggregate             |
+| [§7.3.1](#73-values)                               | Every key in values MUST reference a declared measure id                                                               |
+| [§7.3.2](#73-values)                               | A measure absent from values means not available                                                                       |
+| [§7.3.3](#73-values)                               | The type of each value MUST match its measure's kind, per §5.2.1                                                       |
+| [§7.4.1](#74-notes)                                | notes is free text addressed to a human reader                                                                         |
+| [§7.5.1](#75-ranks)                                | ranks, when present, MUST be an object whose keys are declared ranking identifiers and whose values are positive inte… |
+| [§7.5.2](#75-ranks)                                | A supplied rank is informative                                                                                         |
+| [§7.5.3](#75-ranks)                                | A key MUST NOT name a ranking that does not rank this result — whether its scope never selected it (§8.5.1) or the pa… |
+| [§7.5.4](#75-ranks)                                | A key naming an undeclared ranking is a reference error (OR-201)                                                       |
+| [§8.1.1](#81-scope)                                | scope.event, when present, MUST be a declared event identifier or an array of them                                     |
+| [§8.1.2](#81-scope)                                | scope.category, when present, MUST be a declared category identifier or an array of them                               |
+| [§8.1.3](#81-scope)                                | scope absent means all results in the document                                                                         |
+| [§8.1.4](#81-scope)                                | A standing whose figures are computed from several events — a points total, a sum of legs, a best-of — MUST be publis… |
+| [§8.1.5](#81-scope)                                | Where nothing is computed and the results are directly comparable, the events SHOULD be listed in scope.event instead… |
+| [§8.2.1](#82-sortby)                               | sortBy MUST be a non-empty array of declared measure identifiers, in decreasing order of priority — unless the rankin… |
+| [§8.2.2](#82-sortby)                               | sortBy MUST NOT contain a measure whose betterWhen is none, nor one whose kind is text or boolean                      |
+| [§8.2.3](#82-sortby)                               | Sort direction MUST NOT be declared in the ranking                                                                     |
+| [§8.3.1](#83-ties)                                 | ties MUST be one of                                                                                                    |
+| [§8.3.2](#83-ties)                                 | An unknown ties value MUST be treated as standard                                                                      |
+| [§8.3.3](#83-ties)                                 | strict declares an expectation, not a consumer behaviour                                                               |
+| [§8.3.4](#83-ties)                                 | Under resolved, a group of results comparing equal on every sorting measure MUST be ordered by the positions the prod… |
+| [§8.3.5](#83-ties)                                 | A ranking declaring resolved MAY leave sortBy empty                                                                    |
+| [§8.3.6](#83-ties)                                 | A reading-level consumer (§11.5.2) MUST present ranks                                                                  |
+| [§8.4.1](#84-excludestatuses)                      | excludeStatuses, when present, MUST be an array of status values excluded from this ranking                            |
+| [§8.4.2](#84-excludestatuses)                      | When absent, the default set applies                                                                                   |
+| [§8.4.3](#84-excludestatuses)                      | excludeStatuses MAY be an empty array, which excludes nothing and ranks every selected result whatever its status      |
+| [§8.5.1](#85-derivation-algorithm)                 | **Selection** — Retain results matching scope                                                                          |
+| [§8.5.2](#85-derivation-algorithm)                 | **Partition** — A retained result is rankable if both hold                                                             |
+| [§8.5.3](#85-derivation-algorithm)                 | **Sort** — Order the rankable results by successive comparison over sortBy                                             |
+| [§8.5.4](#85-derivation-algorithm)                 | **Assign** — Assign ranks according to ties                                                                            |
+| [§8.5.5](#85-derivation-algorithm)                 | **Unranked** — Unranked results follow the ranked ones, in declaration order, with no rank                             |
+| [§8.5.6](#85-derivation-algorithm)                 | **Determinism** — The result depends only on the document                                                              |
+| [§8.6.1](#86-implicit-ranking)                     | A document declaring no rankings — the member absent, or present and empty — remains rankable                          |
+| [§8.6.2](#86-implicit-ranking)                     | If no measure qualifies, the document has no ranking, and results are presented in declaration order                   |
+| [§9.1.1](#91-categories)                           | A category MUST carry id and label                                                                                     |
+| [§9.1.2](#91-categories)                           | parent, when present, MUST reference another declared category, and the graph MUST be acyclic                          |
+| [§9.1.3](#91-categories)                           | Categories MUST NOT duplicate results                                                                                  |
+| [§9.1.4](#91-categories)                           | A category MAY carry attributes, on the same terms as any other entity (§5.3)                                          |
+| [§9.2.1](#92-source)                               | name identifies the organisation answerable for the results and is REQUIRED whenever source is present                 |
+| [§9.2.2](#92-source)                               | license, when present, SHOULD be an SPDX identifier, and states the terms under which the data may be reused           |
+| [§9.3.1](#93-links-and-assets)                     | Both MAY appear on the document and on any entity                                                                      |
+| [§9.3.2](#93-links-and-assets)                     | href MUST be an absolute URI                                                                                           |
+| [§9.3.3](#93-links-and-assets)                     | Their absence MUST NOT prevent interpretation                                                                          |
+| [§9.3.4](#93-links-and-assets)                     | rel describes what a link points at, as free text                                                                      |
+| [§9.3.5](#93-links-and-assets)                     | An asset's type MUST be one of image, video, audio, document or other                                                  |
+| [§10.1.1](#101-presentation)                       | Every member of presentation is OPTIONAL and non-normative                                                             |
+| [§10.1.2](#101-presentation)                       | A consumer MAY ignore the entire object                                                                                |
+| [§10.1.3](#101-presentation)                       | defaultView is a suggestion                                                                                            |
+| [§10.1.4](#101-presentation)                       | measureOrder and attributeOrder suggest a display order                                                                |
+| [§10.2.1](#102-extensions)                         | Any member whose name begins with x- is an extension                                                                   |
+| [§10.2.2](#102-extensions)                         | A consumer MUST ignore extensions it does not understand, without error                                                |
+| [§10.2.3](#102-extensions)                         | A consumer that rewrites a document MUST preserve extensions unchanged                                                 |
+| [§10.2.4](#102-extensions)                         | Any member that is neither defined by this specification nor prefixed x- is a validation error, for the version the d… |
+| [§11.1.1](#111-version-numbering)                  | The format is versioned MAJOR.MINOR                                                                                    |
+| [§11.2.1](#112-guarantees-to-producers)            | A document valid under 1.0 MUST remain valid and identically interpretable under every later 1.x version               |
+| [§11.2.2](#112-guarantees-to-producers)            | A MINOR version MAY add optional members, enumeration values, and warning-level rules                                  |
+| [§11.3.1](#113-obligations-on-consumers)           | A consumer MUST ignore unknown members prefixed x-, and MUST treat unknown enumeration values as the fallback defined… |
+| [§11.3.2](#113-obligations-on-consumers)           | A consumer MUST NOT derive meaning from identifiers (§5.4.3)                                                           |
+| [§11.3.3](#113-obligations-on-consumers)           | A consumer MUST NOT make interpretation depend on the presentation layer                                               |
+| [§11.4.1](#114-version-negotiation)                | A consumer encountering an unknown MAJOR version MUST NOT attempt to interpret the document, and MUST report the situ… |
+| [§11.4.2](#114-version-negotiation)                | A consumer encountering a known MAJOR version with a higher MINOR version MUST process the document normally, ignorin… |
+| [§11.5.1](#115-conformance-levels)                 | **Producer** — Emits UTF-8 JSON                                                                                        |
+| [§11.5.2](#115-conformance-levels)                 | **Consumer, _reading_ level** — Reads openresult and rejects an unknown MAJOR                                          |
+| [§11.5.3](#115-conformance-levels)                 | **Consumer, _ranking_ level** — Everything above, plus §8.5 implemented exactly, including sort stability and tie han… |
+| [§11.5.4](#115-conformance-levels)                 | **Consumer, _rewriting_ level** — Everything above, plus preservation of every member it does not understand           |
+| [§11.6.1](#116-media-type-and-file-extension)      | The proposed media type is application/vnd.openresult+json, optionally parameterised                                   |
+| [§11.6.2](#116-media-type-and-file-extension)      | Consumers MUST also accept application/json                                                                            |
+| [§11.6.3](#116-media-type-and-file-extension)      | The recommended file extension is .openresult.json                                                                     |
+| [§12.1.1](#121-severity)                           | An error means the document is not conforming                                                                          |
+| [§12.1.2](#121-severity)                           | A validator MUST report both, distinctly                                                                               |
+| [§12.1.3](#121-severity)                           | Every diagnostic MUST carry the location in the document, the rule violated in plain language, and at least one concr… |
+| [§12.2.1](#122-diagnostic-codes)                   | A published code is permanent                                                                                          |
+| [§12.3.1](#123-conformance-suite)                  | The conformance suite is the operational definition of conformance                                                     |
+
+<!-- rule-index:end -->
 
 ## References
 

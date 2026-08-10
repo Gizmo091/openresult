@@ -32,6 +32,7 @@ export const specCoherence: Check = {
     problems.push(...checkRulesSitUnderTheirSection(spec));
     problems.push(...checkProseIsNotOfferedAsAnAnswer(spec));
     problems.push(...checkNotesDoNotPrescribe(spec));
+    problems.push(...checkDefaultsAreRules(spec));
 
     if (problems.length > 0) {
       return fail(this.name, `${problems.length} internal inconsistencies`, problems);
@@ -99,45 +100,44 @@ function checkRulesInOrder(spec: string): string[] {
   return problems;
 }
 
-/** Every rule must fall inside a range the §14 index declares. */
+/**
+ * §14 must list every rule, and list it as it currently reads.
+ *
+ * It used to be a table of section ranges — the table of contents again, in a
+ * document that already has one. Someone implementing from this specification
+ * put it plainly: it cannot be used to find a rule, and the question a reader
+ * arrives with is "how do I place a retirement rather than drop it", whose
+ * answer is §8.4.3.
+ *
+ * It is generated now, so this checks it against what the generator would
+ * produce. A summary that has drifted from its rule is worse than none: it
+ * sends a reader to a rule that no longer says that.
+ */
 function checkIndexCoversEveryRule(spec: string): string[] {
-  const index = spec.slice(spec.indexOf('## 14. Normative rule index'));
-  const ranges = [...index.matchAll(/§(\d+)\.(\d+)\.(\d+)\s*[–-]\s*§(\d+)\.(\d+)\.(\d+)/g)].map(
-    (match) => ({
-      from: [Number(match[1]), Number(match[2]), Number(match[3])] as const,
-      to: [Number(match[4]), Number(match[5]), Number(match[6])] as const,
-    }),
+  const start = spec.indexOf('<!-- rule-index:start -->');
+  const end = spec.indexOf('<!-- rule-index:end -->');
+  if (start < 0 || end < 0) {
+    return ['§14 has no generated index block; run `pnpm generate:rule-index`.'];
+  }
+
+  const listed = new Set(
+    [...spec.slice(start, end).matchAll(/^\| \[§(\d+\.\d+\.\d+)\]/gm)].map((m) => m[1] ?? ''),
   );
+  const declared = new Set([...spec.matchAll(/\*\*§(\d+\.\d+\.\d+)/g)].map((m) => m[1] ?? ''));
 
-  if (ranges.length === 0) return ['§14 declares no rule ranges; the index is empty or malformed.'];
-
-  const within = (key: readonly [number, number, number]) =>
-    ranges.some((range) => compare(key, range.from) >= 0 && compare(key, range.to) <= 0);
-
-  const problems: string[] = [];
-  const uncovered = new Set<string>();
-
-  for (const match of spec.matchAll(/\*\*§(\d+)\.(\d+)\.(\d+)/g)) {
-    const key = [Number(match[1]), Number(match[2]), Number(match[3])] as const;
-    if (!within(key)) uncovered.add(`§${key[0]}.${key[1]}.${key[2]}`);
+  const missing = [...declared].filter((rule) => !listed.has(rule));
+  if (missing.length > 0) {
+    return [
+      `§14 lists ${listed.size} rules and the document declares ${declared.size}; ` +
+        `${missing
+          .slice(0, 6)
+          .map((r) => `§${r}`)
+          .join(', ')}${missing.length > 6 ? ' and more' : ''} ` +
+        `${missing.length === 1 ? 'is' : 'are'} absent. Run \`pnpm generate:rule-index\`.`,
+    ];
   }
 
-  for (const rule of [...uncovered].sort()) {
-    problems.push(
-      `${rule} falls outside every range in the §14 index. The conformance suite is keyed on ` +
-        `that index, so a rule missing from it is a rule nothing has to test.`,
-    );
-  }
-  return problems;
-}
-
-function compare(a: readonly number[], b: readonly number[]): number {
-  for (let index = 0; index < 3; index += 1) {
-    const left = a[index] ?? 0;
-    const right = b[index] ?? 0;
-    if (left !== right) return left - right;
-  }
-  return 0;
+  return [];
 }
 
 /** Internal anchors must match a heading actually present. */
@@ -272,6 +272,43 @@ function checkNotesDoNotPrescribe(spec: string): string[] {
         `A non-normative note prescribes with ${match[1]}: "${flat.slice(0, 90)}…". Either it is a ` +
           `requirement, and belongs in a numbered rule where the conformance suite can reach it, ` +
           `or it is advice and should not borrow the word.`,
+      );
+    }
+  }
+
+  return [...new Set(problems)];
+}
+
+/**
+ * A default announced in a comment must also be a rule.
+ *
+ * §2.3 says JSONC comments are annotation only and a conforming document has
+ * none. Three defaults were stated in one and nowhere else — an absent
+ * `status`, an absent participant `type`, an absent event `type` — so the only
+ * statement of them sat in the one place the specification says carries no
+ * weight. §7.2.2 covered an *unknown* status and not an absent one, and the two
+ * are different questions with different answers.
+ *
+ * Found by the first person to write an implementation from this document, who
+ * assumed the value from the comment and then went looking for the rule to cite.
+ */
+function checkDefaultsAreRules(spec: string): string[] {
+  const rules = spec.split('\n\n').filter((block) => block.trim().startsWith('**§'));
+  const problems: string[] = [];
+
+  for (const match of spec.matchAll(/^\s*"(\w+)":.*\/\/.*default\s+[`"]([^`"]+)[`"]/gm)) {
+    const [, member = '', value = ''] = match;
+    const covered = rules.some(
+      (rule) =>
+        rule.includes(`\`${member}\``) &&
+        rule.includes(value) &&
+        (rule.includes('absent') || rule.includes('means')),
+    );
+    if (!covered) {
+      problems.push(
+        `The skeleton says \`${member}\` defaults to "${value}" and no rule says so. §2.3 makes a ` +
+          `comment annotation only, so that default is stated in the one place this document ` +
+          `declares carries no weight.`,
       );
     }
   }
